@@ -190,8 +190,14 @@ ul {
 }
 
 .menu__item.logo {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
 
     margin: 0 101px 0 15px;
@@ -621,9 +627,8 @@ ul {
 
     width: 100%;
     padding: 200px 0 222px;
-
-    background: -webkit-gradient(linear, left bottom, left top, from(rgba(0, 0, 0, 0.6)), to(rgba(0, 0, 0, 0.6))), url(assets/images/subscribe-bg.jpg);
     background: -o-linear-gradient(bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(assets/images/subscribe-bg.jpg);
+    background: -webkit-gradient(linear, left bottom, left top, from(rgba(0, 0, 0, 0.6)), to(rgba(0, 0, 0, 0.6))), url(assets/images/subscribe-bg.jpg);
     background: linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(assets/images/subscribe-bg.jpg);
     background-position: center bottom;
     background-repeat: no-repeat;
@@ -726,9 +731,8 @@ ul {
     position: relative;
     margin: 0 15px;
     padding: 16px 77px 16px 17px;
-
-    background: -webkit-gradient(linear, left top, right top, from(rgba(0, 175, 219, 1)), color-stop(50%, rgba(0, 175, 219, 1)), color-stop(50%, rgba(0, 156, 194, 1)), to(rgba(0, 156, 194, 1)));
     background: -o-linear-gradient(left, rgba(0, 175, 219, 1) 0%, rgba(0, 175, 219, 1) 50%, rgba(0, 156, 194, 1) 50%, rgba(0, 156, 194, 1) 100%);
+    background: -webkit-gradient(linear, left top, right top, from(rgba(0, 175, 219, 1)), color-stop(50%, rgba(0, 175, 219, 1)), color-stop(50%, rgba(0, 156, 194, 1)), to(rgba(0, 156, 194, 1)));
     background: linear-gradient(to right, rgba(0, 175, 219, 1) 0%, rgba(0, 175, 219, 1) 50%, rgba(0, 156, 194, 1) 50%, rgba(0, 156, 194, 1) 100%);
 
     background-size: 500px 50px;

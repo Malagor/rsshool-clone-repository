@@ -190,6 +190,10 @@ ul {
 }
 
 .menu__item.logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     margin: 0 101px 0 15px;
 }
 
@@ -210,7 +214,7 @@ ul {
 .menu__item a::before {
     content: '';
     position: absolute;
-    bottom: -2px;
+    bottom: -4px;
     right: 0;
     height: 1px;
     width: 0;
@@ -616,7 +620,7 @@ ul {
     align-items: center;
 
     width: 100%;
-    padding: 217px 0 277px;
+    padding: 200px 0 222px;
 
     background: -webkit-gradient(linear, left bottom, left top, from(rgba(0, 0, 0, 0.6)), to(rgba(0, 0, 0, 0.6))), url(assets/images/subscribe-bg.jpg);
     background: -o-linear-gradient(bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(assets/images/subscribe-bg.jpg);
@@ -696,7 +700,7 @@ ul {
     -ms-flex-align: center;
     align-items: center;
 
-    height: 468px;
+    height: 464px;
     padding: 120px 0 180px;
 }
 
@@ -721,7 +725,7 @@ ul {
 .download__buttons .btn {
     position: relative;
     margin: 0 15px;
-    padding: 18px 77px 18px 17px;
+    padding: 16px 77px 16px 17px;
 
     background: -webkit-gradient(linear, left top, right top, from(rgba(0, 175, 219, 1)), color-stop(50%, rgba(0, 175, 219, 1)), color-stop(50%, rgba(0, 156, 194, 1)), to(rgba(0, 156, 194, 1)));
     background: -o-linear-gradient(left, rgba(0, 175, 219, 1) 0%, rgba(0, 175, 219, 1) 50%, rgba(0, 156, 194, 1) 50%, rgba(0, 156, 194, 1) 100%);

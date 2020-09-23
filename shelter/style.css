@@ -80,6 +80,7 @@ a {
 .btn--transparent:hover {
     border-color: var(--base-pink-light);
 }
+
 .section__title {
     font-size: 35px;
     line-height: 130%;
@@ -399,7 +400,7 @@ footer.footer {
     margin-bottom: 30px;
 
     object-fit: contain;
-    
+
 }
 
 .gallery-item__title {
@@ -438,7 +439,7 @@ footer.footer {
 }
 
 .gallery__arrow:hover {
-    background:  #F1CDB3 url(assets/icons/arrow.svg) center no-repeat;
+    background: #F1CDB3 url(assets/icons/arrow.svg) center no-repeat;
 }
 
 .gallery__arrow--right {
@@ -457,3 +458,52 @@ footer.footer {
 }
 
 /* /.============= Our-friends ========== */
+
+
+/* ============== Your Help ============= */
+
+.your-help {
+    padding: 80px 0 calc(100px - 55px);
+}
+.your-help__title {
+    margin-bottom: 60px;
+}
+
+.your-help__list {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.your-help__item {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    margin: 0 60px 55px;
+}
+
+.icon {
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    stroke-width: 0;
+    stroke: currentColor;
+    fill: currentColor;
+}
+
+.your-help__icon {
+    margin-bottom: 30px;
+    color: var(--base-pink);
+}
+
+.your-help__name {
+
+    font-size: 20px;
+    line-height: 23px;
+    letter-spacing: 6%;
+
+    color: var(--main-color);
+}
+
+/* /.============== Your Help ============= */

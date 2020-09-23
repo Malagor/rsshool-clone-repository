@@ -1,0 +1,199 @@
+/* ========== FONTS ========== */
+@font-face {
+    font-family: 'Georgia';
+    src: url('assets/fonts/Georgia/Georgia-Bold.eot');
+    src: local('Georgia Bold'), local('Georgia-Bold'),
+    url('assets/fonts/Georgia/Georgia-Bold.eot?#iefix') format('embedded-opentype'),
+    url('assets/fonts/Georgia/Georgia-Bold.woff2') format('woff2'),
+    url('assets/fonts/Georgia/Georgia-Bold.woff') format('woff'),
+    url('assets/fonts/Georgia/Georgia-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Georgia';
+    src: url('assets/fonts/Georgia/Georgia.eot');
+    src: local('Georgia'),
+    url('assets/fonts/Georgia/Georgia.eot?#iefix') format('embedded-opentype'),
+    url('assets/fonts/Georgia/Georgia.woff2') format('woff2'),
+    url('assets/fonts/Georgia/Georgia.woff') format('woff'),
+    url('assets/fonts/Georgia/Georgia.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* ========== Variables ========== */
+
+:root {
+    --main-color: #545454;
+    --base-pink: #F1CDB3;
+    --base-white: #FFFFFF;
+    --base-gray: #CDCDCD;
+    --base-light-gray: #F6F6F6;
+    --about-subheading-color: #4C4C4C;
+    --pets-card-button-color: #292929;
+
+    --container-padding: 15px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--base-pink);
+
+    font-family: Georgia, serif;
+    font-style: normal;
+    font-weight: normal;
+    
+}
+
+.container {
+    max-width: calc(1200px + var(--container-padding) * 2);
+    width: 100%;
+    padding: 0 var(--container-padding);
+
+    margin: 0 auto;
+}
+
+.wrapper {
+    flex: 1 1 auto;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 100%;
+}
+
+footer.footer {
+    flex: 0 0 354px;
+    width: 100%;
+
+    background: url("assets/images/footer-background.png") center no-repeat;
+    background-size: cover;
+}
+
+/* =========== Header ==========*/
+.header {
+    position: absolute;
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+}
+
+.header__wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo__title {
+    margin-bottom: 10px;
+
+    font-size: 32px;
+    line-height: 36px;
+    letter-spacing: 0.06em;
+
+    color: var(--base-pink);
+}
+
+.logo_subtitle {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 15px;
+    letter-spacing: 0.1em;
+
+    color: var(--base-white);
+}
+
+/* /. =========== Header ==========*/
+
+/* ======== Menu ========== */
+
+.menu {
+    display: flex;
+    justify-content: end;
+}
+
+.menu__item {
+    margin-right: 35px;
+}
+.menu__item:last-child {
+    margin-right: 0;
+}
+
+.menu__link {
+    position: relative;
+    font-family: Arial, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 160%;
+
+    color: var(--base-gray);
+
+    transition: 0.3s;
+}
+
+.active,
+.menu__link:hover
+{
+    color: var(--base-white);
+}
+
+.active::after,
+.menu__link::after {
+    content: '';
+    position: absolute;
+    bottom: -7px;
+    left: 0;
+
+    width: 100%;
+    height: 3px;
+
+    border-radius: 3px;
+
+    background-color: var(--base-pink);
+
+    transform: scaleX(0);
+    transition: 0.3s;
+
+}
+
+.active::after,
+.menu__link:hover::after {
+    transform: scaleX(1);
+}
+
+/* /. ======== Menu ========== */
+
+.hero {
+    width: 100%;
+    height: 925px;
+    background: url("assets/images/start-screen-background.png") center no-repeat;
+    background-size: cover;
+}

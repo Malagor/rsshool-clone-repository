@@ -1,73 +1,22 @@
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  font-family: Gotham Rounded, sans-serif;
-  font-weight: normal; }
+/*
+Errno::ENOENT: No such file or directory @ rb_sysopen - style.scss
 
-body {
-  padding: 0;
-  margin: 0;
-  background: linear-gradient(to right, #00AAFF, #00FF6C); }
-
-.calculator-grid {
-  display: grid;
-  justify-content: center;
-  align-content: center;
-  min-height: 100vh;
-  grid-template-columns: repeat(5, 100px);
-  grid-template-rows: minmax(120px, auto) repeat(6, 100px); }
-
-.calculator-grid > button {
-  cursor: pointer;
-  font-size: 2rem;
-  border: 1px solid white;
-  outline: none;
-  background-color: rgba(255, 255, 255, 0.75);
-  transition: 0.1s; }
-
-.calculator-grid > button:hover {
-  background-color: rgba(255, 255, 255, 0.9); }
-
-.span-two {
-  grid-column: span 2; }
-
-.output {
-  grid-column: 1 / -1;
-  background-color: rgba(0, 0, 0, 0.75);
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-around;
-  flex-direction: column;
-  padding: 10px;
-  word-wrap: break-word;
-  word-break: break-all; }
-
-.output .previous-operand {
-  color: rgba(255, 255, 255, 0.75);
-  font-size: 1.5rem; }
-
-.output .current-operand {
-  color: white;
-  font-size: 2.5rem; }
-
-.calculator-grid > button[data-operation] {
-  background-color: rgba(248, 248, 197, 0.8); }
-
-.calculator-grid > button[data-operation]:hover {
-  background-color: rgba(248, 248, 197, 0.3); }
-
-.calculator-grid > button[data-equals] {
-  background-color: #f8f8c5; }
-
-.calculator-grid > button[data-equals]:hover {
-  background-color: rgba(248, 234, 122, 0.8); }
-
-.calculator-grid > button[data-all-clear] {
-  background-color: #ff7472; }
-
-.click {
-  box-shadow: inset 0 0 5px #000;
-  z-index: 10; }
-
-/*# sourceMappingURL=style.css.map */
+Backtrace:
+C:/Ruby27-x64/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/plugin/compiler.rb:454:in `read'
+C:/Ruby27-x64/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/plugin/compiler.rb:454:in `update_stylesheet'
+C:/Ruby27-x64/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/plugin/compiler.rb:215:in `block in update_stylesheets'
+C:/Ruby27-x64/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/plugin/compiler.rb:209:in `each'
+C:/Ruby27-x64/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/plugin/compiler.rb:209:in `update_stylesheets'
+C:/Ruby27-x64/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/plugin.rb:82:in `update_stylesheets'
+C:/Ruby27-x64/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/exec/sass_scss.rb:338:in `watch_or_update'
+C:/Ruby27-x64/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/exec/sass_scss.rb:51:in `process_result'
+C:/Ruby27-x64/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/exec/base.rb:50:in `parse'
+C:/Ruby27-x64/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/exec/base.rb:18:in `parse!'
+C:/Ruby27-x64/lib/ruby/gems/2.7.0/gems/sass-3.7.4/bin/sass:13:in `<top (required)>'
+C:/Ruby27-x64/bin/sass:23:in `load'
+C:/Ruby27-x64/bin/sass:23:in `<main>'
+*/
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Errno::ENOENT: No such file or directory @ rb_sysopen - style.scss"; }

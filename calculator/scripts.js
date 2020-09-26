@@ -31,13 +31,32 @@ class Calculator {
   }
 
   appendNumber(number) {
-    if (number === '.' && /\./.test(this.curentOperand)) return;
+    if (number === '.' && /\./.test(this.curentOperand) && !this.isNewNumber) return;
 
+    // if (this.isNewNumber) {
+    //
+    //   if (number === '.' && (this.curentOperand === '' || this.curentOperand === 0)) {
+    //     this.curentOperand = '0.'
+    //   } else {
+    //     this.curentOperand = number;
+    //   }
+    //
+    //   this.isNewNumber = false;
+    //
+    // } else {
+    //
+    //   if (number === '.')
+    //     this.curentOperand = '0.';
+    //   else
+    //     this.curentOperand += number;
+    // }
     if (this.isNewNumber) {
       this.curentOperand = number;
       this.isNewNumber = false;
-    } else
+
+    } else {
       this.curentOperand += number;
+    }
   }
 
   negativeNumber() {
@@ -87,12 +106,11 @@ class Calculator {
 
     const isUnaryOperation = this.operation === '√' || this.operation === '⅟ₓ';
 
-    function roundComp (number) {
+    function roundComp(number) {
       const accuracy = 100000000000000;
-      if(/\./.test(number.toString())) {
+      if (/\./.test(number.toString())) {
         return Math.round(number * accuracy) / accuracy;
-      }
-      else {
+      } else {
         return number;
       }
     }
@@ -165,12 +183,6 @@ class Calculator {
 
 }
 
-const numberBtns = document.querySelectorAll('[data-number]');
-const operationBtns = document.querySelectorAll('[data-operation]');
-const delBtn = document.querySelector('[data-delete]');
-const equalBtn = document.querySelector('[data-equals]');
-const logBtn = document.querySelector('[data-log]');
-const clearBtn = document.querySelector('[data-all-clear]');
 const previousOperandTextElement = document.querySelector('[data-previous-operand]');
 const currentOperandTextElement = document.querySelector('[data-current-operand]');
 const calculatorGrid = document.getElementById('js-calculator-grid');

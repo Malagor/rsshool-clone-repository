@@ -117,9 +117,9 @@ body {
     p:first-child {
       margin-top: 0;
     }
-
   }
 }
+
 .instruction {
   grid-row-start: 1;
   grid-row-end: 7;
@@ -130,9 +130,13 @@ body {
   background: rgba(0, 0, 0, 0.5);
   color: #ffffff;
 
-  .instruction-text {
-  color: rgba(255,255,255,0.8);
-    font-size: 13px;
+  .p {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 16px;
+  }
+  strong {
+    //font-weight: bold;
+    color: #c2ff3d;
   }
 }
 

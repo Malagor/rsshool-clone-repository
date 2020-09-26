@@ -31,7 +31,7 @@ class Calculator {
   }
 
   appendNumber(number) {
-    if (number === '.' && /\./.test(this.curentOperand))return;
+    if (number === '.' && /\./.test(this.curentOperand) && !this.isNewNumber) return;
 
     if (this.isNewNumber) {
       this.curentOperand = number;
@@ -41,7 +41,6 @@ class Calculator {
   }
 
   negativeNumber() {
-    // if (isNaN(this.curentOperand)) return;
 
     if (this.curentOperand === 0 || this.isNewNumber) {
       this.curentOperand = '-'
@@ -68,7 +67,6 @@ class Calculator {
     }
 
     if (this.previousOperand !== '' || isUnaryOperation) {
-      console.log('операция');
       this.compute();
     }
 
@@ -80,8 +78,6 @@ class Calculator {
       this.previousOperand = this.curentOperand;
       this.curentOperand = '';
     }
-
-
   }
 
   compute() {
@@ -91,21 +87,28 @@ class Calculator {
 
     const isUnaryOperation = this.operation === '√' || this.operation === '⅟ₓ';
 
+    function roundComp(number) {
+      const accuracy = 100000000000000;
+      if (/\./.test(number.toString())) {
+        return Math.round(number * accuracy) / accuracy;
+      } else {
+        return number;
+      }
+    }
+
     if (!isNaN(current) && isUnaryOperation) {
 
       /* Унарные операции */
       switch (this.operation) {
         case "√":
-          computation = current ** (1 / 2);
+          computation = roundComp(current ** (1 / 2));
           this.addLog(`√${current} = <span>${computation}</span>`);
           break;
-
         case "⅟ₓ":
-          computation = 1 / current;
+          computation = roundComp(1 / current);
           this.addLog(`⅟<sub>${current}</sub> = <span>${computation}</span>`);
           break;
         default:
-        // return;
       }
     } else {
       /* Бинарные операции */
@@ -113,26 +116,25 @@ class Calculator {
 
       switch (this.operation) {
         case "×":
-          computation = prev * current;
+          computation = roundComp(prev * current);
           this.addLog(`${prev} ${this.operation} ${current} = <span>${computation}</span>`);
           break;
         case "+":
-          computation = prev + current;
+          computation = roundComp(prev + current);
           this.addLog(`${prev} ${this.operation} ${current} = <span>${computation}</span>`);
           break;
         case "-":
-          computation = prev - current;
+          computation = roundComp(prev - current);
           this.addLog(`${prev} ${this.operation} ${current} = <span>${computation}</span>`);
           break;
         case "÷":
-          computation = prev / current;
+          computation = roundComp(prev / current);
           this.addLog(`${prev} ${this.operation} ${current} = <span>${computation}</span>`);
           break;
         case "xⁿ":
-          computation = prev ** current;
+          computation = roundComp(prev ** current);
           this.addLog(`${prev}<sup>${current}</sup> = <span>${computation}</span>`);
           break;
-
         default:
           return;
       }
@@ -162,12 +164,6 @@ class Calculator {
 
 }
 
-const numberBtns = document.querySelectorAll('[data-number]');
-const operationBtns = document.querySelectorAll('[data-operation]');
-const delBtn = document.querySelector('[data-delete]');
-const equalBtn = document.querySelector('[data-equals]');
-const logBtn = document.querySelector('[data-log]');
-const clearBtn = document.querySelector('[data-all-clear]');
 const previousOperandTextElement = document.querySelector('[data-previous-operand]');
 const currentOperandTextElement = document.querySelector('[data-current-operand]');
 const calculatorGrid = document.getElementById('js-calculator-grid');
@@ -192,7 +188,6 @@ calculatorGrid.addEventListener('click', (event) => {
   }
 
   if (target.closest('[data-delete]')) {
-    console.log('del');
     calculator.delete();
     calculator.updateDisplay();
 

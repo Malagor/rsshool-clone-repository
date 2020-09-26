@@ -100,8 +100,10 @@ body {
   padding: 30px;
   background: rgba(0, 0, 0, 0.5);
   color: #ffffff; }
-  .instruction .instruction-text {
+  .instruction .p {
     color: rgba(255, 255, 255, 0.8);
-    font-size: 13px; }
+    font-size: 16px; }
+  .instruction strong {
+    color: #c2ff3d; }
 
 /*# sourceMappingURL=style.css.map */

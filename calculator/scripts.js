@@ -31,7 +31,7 @@ class Calculator {
   }
 
   appendNumber(number) {
-    if (number === '.' && this.curentOperand.includes('.')) return;
+    if (number === '.' && /\./.test(this.curentOperand))return;
 
     if (this.isNewNumber) {
       this.curentOperand = number;
@@ -40,8 +40,25 @@ class Calculator {
       this.curentOperand += number;
   }
 
+  negativeNumber() {
+    // if (isNaN(this.curentOperand)) return;
+
+    if (this.curentOperand === 0 || this.isNewNumber) {
+      this.curentOperand = '-'
+    } else {
+      if (/-/.test(this.curentOperand)) {
+        this.curentOperand = this.curentOperand.replace('-', '');
+      } else {
+        this.curentOperand = '-' + this.curentOperand;
+      }
+    }
+    this.isNewNumber = false;
+  }
+
   chooseOperation(operation) {
-    if (this.curentOperand === '') return;
+    if (this.curentOperand === '' || isNaN(this.curentOperand)) return;
+
+
     this.isNewNumber = true;
 
     const isUnaryOperation = operation === '√' || operation === '⅟ₓ';
@@ -192,6 +209,11 @@ calculatorGrid.addEventListener('click', (event) => {
 
   if (target.closest('[data-all-clear]')) {
     calculator.clear();
+  }
+
+  if (target.closest('[data-plus-minus]')) {
+    calculator.negativeNumber();
+    calculator.updateDisplay();
   }
 
 });

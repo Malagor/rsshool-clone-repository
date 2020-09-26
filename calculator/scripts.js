@@ -4,6 +4,7 @@ class Calculator {
     this.previousOperandTextElement = previousOperandTextElement;
     this.currentOperandTextElement = currentOperandTextElement;
     this.logElement = logElement;
+    this.isNewNumber = true;
     this.clear();
   }
 
@@ -16,6 +17,7 @@ class Calculator {
   }
 
   delete() {
+    if (this.isNewNumber) return;
     this.curentOperand = this.curentOperand.toString().slice(0, -1);
   }
 
@@ -31,25 +33,38 @@ class Calculator {
   appendNumber(number) {
     if (number === '.' && this.curentOperand.includes('.')) return;
 
-    this.curentOperand += number;
-    console.log(this.curentOperand);
+    if (this.isNewNumber) {
+      this.curentOperand = number;
+      this.isNewNumber = false;
+    } else
+      this.curentOperand += number;
   }
 
   chooseOperation(operation) {
     if (this.curentOperand === '') return;
+    this.isNewNumber = true;
 
-    if(operation === 'x²' || operation === '√' || operation === '⅟ₓ') {
+    const isUnaryOperation = operation === '√' || operation === '⅟ₓ';
+
+    if (isUnaryOperation) {
       this.operation = operation;
     }
 
-    if (this.previousOperand !== '' || operation === 'x²' || operation === '√' || operation === '⅟ₓ') {
+    if (this.previousOperand !== '' || isUnaryOperation) {
       console.log('операция');
       this.compute();
     }
 
-    this.operation = operation;
-    this.previousOperand = this.curentOperand;
-    this.curentOperand = '';
+    if (isUnaryOperation) {
+      this.operation = undefined;
+
+    } else {
+      this.operation = operation;
+      this.previousOperand = this.curentOperand;
+      this.curentOperand = '';
+    }
+
+
   }
 
   compute() {
@@ -57,9 +72,9 @@ class Calculator {
     const prev = parseFloat(this.previousOperand);
     const current = parseFloat(this.curentOperand);
 
+    const isUnaryOperation = this.operation === '√' || this.operation === '⅟ₓ';
 
-
-    if (!isNaN(current) && (this.operation === 'x²' || this.operation === '√' || this.operation === '⅟ₓ')) {
+    if (!isNaN(current) && isUnaryOperation) {
 
       /* Унарные операции */
       switch (this.operation) {
@@ -67,44 +82,45 @@ class Calculator {
           computation = current ** (1 / 2);
           this.addLog(`√${current} = <span>${computation}</span>`);
           break;
-        case "x²":
-          computation = current * current;
-          this.addLog(`${current}² = <span>${computation}</span>`);
-          break;
+
         case "⅟ₓ":
           computation = 1 / current;
           this.addLog(`⅟<sub>${current}</sub> = <span>${computation}</span>`);
           break;
         default:
-          // return;
+        // return;
+      }
+    } else {
+      /* Бинарные операции */
+      if (isNaN(prev) || isNaN(current)) return;
+
+      switch (this.operation) {
+        case "×":
+          computation = prev * current;
+          this.addLog(`${prev} ${this.operation} ${current} = <span>${computation}</span>`);
+          break;
+        case "+":
+          computation = prev + current;
+          this.addLog(`${prev} ${this.operation} ${current} = <span>${computation}</span>`);
+          break;
+        case "-":
+          computation = prev - current;
+          this.addLog(`${prev} ${this.operation} ${current} = <span>${computation}</span>`);
+          break;
+        case "÷":
+          computation = prev / current;
+          this.addLog(`${prev} ${this.operation} ${current} = <span>${computation}</span>`);
+          break;
+        case "xⁿ":
+          computation = prev ** current;
+          this.addLog(`${prev}<sup>${current}</sup> = <span>${computation}</span>`);
+          break;
+
+        default:
+          return;
       }
     }
-
-    /* Бинарные операции */
-    if (isNaN(prev) || isNaN(current)) return;
-
-    switch (this.operation) {
-      case "×":
-        computation = prev * current;
-        this.addLog(`${prev} ${this.operation} ${current} = <span>${computation}</span>`);
-        break;
-      case "+":
-        computation = prev + current;
-        this.addLog(`${prev} ${this.operation} ${current} = <span>${computation}</span>`);
-        break;
-      case "-":
-        computation = prev - current;
-        this.addLog(`${prev} ${this.operation} ${current} = <span>${computation}</span>`);
-        break;
-      case "÷":
-        computation = prev / current;
-        this.addLog(`${prev} ${this.operation} ${current} = <span>${computation}</span>`);
-        break;
-
-      default:
-        // return;
-    }
-
+    this.isNewNumber = true;
     this.curentOperand = computation;
     this.operation = undefined;
     this.previousOperand = '';
@@ -115,9 +131,12 @@ class Calculator {
     this.currentOperandTextElement.innerText = this.curentOperand;
 
     switch (this.operation) {
-      case 'x²':
       case '√':
       case '⅟ₓ':
+        this.currentOperandTextElement.innerText = this.previousOperand;
+        break;
+      case 'xⁿ':
+        this.previousOperandTextElement.innerText = this.previousOperand + '^';
         break;
       default:
         this.previousOperandTextElement.innerText = this.previousOperand + (this.operation === undefined ? '' : this.operation);

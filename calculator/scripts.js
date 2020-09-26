@@ -91,17 +91,26 @@ class Calculator {
 
     const isUnaryOperation = this.operation === '√' || this.operation === '⅟ₓ';
 
+    function roundComp (number) {
+      if(/\./.test(number.toString())) {
+        return Math.trunc(number * 1000000000000000) / 1000000000000000;
+      }
+      else {
+        return number;
+      }
+    }
+
     if (!isNaN(current) && isUnaryOperation) {
 
       /* Унарные операции */
       switch (this.operation) {
         case "√":
-          computation = current ** (1 / 2);
+          computation = roundComp(current ** (1 / 2));
           this.addLog(`√${current} = <span>${computation}</span>`);
           break;
 
         case "⅟ₓ":
-          computation = 1 / current;
+          computation = roundComp(1 / current);
           this.addLog(`⅟<sub>${current}</sub> = <span>${computation}</span>`);
           break;
         default:
@@ -113,23 +122,24 @@ class Calculator {
 
       switch (this.operation) {
         case "×":
-          computation = prev * current;
+          computation = roundComp(prev * current);
           this.addLog(`${prev} ${this.operation} ${current} = <span>${computation}</span>`);
           break;
         case "+":
-          computation = prev + current;
+          computation = roundComp(prev + current);
+
           this.addLog(`${prev} ${this.operation} ${current} = <span>${computation}</span>`);
           break;
         case "-":
-          computation = prev - current;
+          computation = roundComp(prev - current);
           this.addLog(`${prev} ${this.operation} ${current} = <span>${computation}</span>`);
           break;
         case "÷":
-          computation = prev / current;
+          computation = roundComp(prev / current);
           this.addLog(`${prev} ${this.operation} ${current} = <span>${computation}</span>`);
           break;
         case "xⁿ":
-          computation = prev ** current;
+          computation = roundComp(prev ** current);
           this.addLog(`${prev}<sup>${current}</sup> = <span>${computation}</span>`);
           break;
 

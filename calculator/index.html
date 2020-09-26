@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Calculator</title>
+  <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+<div class="calculator-grid" id="js-calculator-grid">
+  <div class="log" id="js-log">
+    <h2>Лог операций:</h2>
+    <div class="log-text"></div>
+  </div>
+  <div class="output">
+    <div data-previous-operand class="previous-operand"></div>
+    <div data-current-operand class="current-operand"></div>
+  </div>
+  <button data-all-clear class="span-two">C</button>
+  <button class="style1" data-delete>DEL</button>
+  <button data-log>C-log</button>
+  <button data-operation>×</button>
+  <button data-operation>xⁿ</button>
+  <button data-number>7</button>
+  <button data-number>8</button>
+  <button data-number>9</button>
+  <button data-operation>÷</button>
+  <button data-operation>√</button>
+  <button data-number>4</button>
+  <button data-number>5</button>
+  <button data-number>6</button>
+  <button data-operation>-</button>
+  <button data-operation>⅟ₓ</button>
+  <button data-number>1</button>
+  <button data-number>2</button>
+  <button data-number>3</button>
+  <button data-operation>+</button>
+  <button data-plus-minus>±</button>
+  <button data-number>.</button>
+  <button data-number>0</button>
+  <button data-equals class="span-two">=</button>
+  <div class="instruction">
+    <h2>Инструкция:</h2>
+    <div class="instruction-text">
+      <p>"C" - сбрасывает калькулятор</p>
+      <p>"DEL" - удаляет последнюю введенную цифру. ТАк же позволяет удалять последжнюю уифру из результата вычислений. то есть его можно "откорректировать"</p>
+      <p>"C-log" - очищает лог вычислений. На сам калькулятор не действует</p>
+      <p>"x²" - вычисляет после введенного числа. То есть вводим число, потом кнопку возведения встепень и получаем ответ.</p>
+        <p>"√" - аналогично возведению в степень. Сперва вводим число, потом нажимаем кнопку вычисления корня</p>
+        <p>"⅟ₓ" - аналогично возведению в степень. Сперва вводим число, потом нажимаем кнопку деления единицы на число</p>
+
+    </div>
+  </div>
+</div>
+
+<script src="scripts.js"></script>
+</body>
+</html>

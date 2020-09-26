@@ -1,0 +1,28 @@
+{
+  "name": "calculator",
+  "version": "1.0.0",
+  "description": "Task rolling-scopes-school",
+  "main": "index.js",
+  "dependencies": {
+    "normalize.css": "^8.0.1"
+  },
+  "devDependencies": {
+    "node-sass": "^4.14.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rolling-scopes-school/malagor-JS2020Q3.git"
+  },
+  "keywords": [
+    "calculator"
+  ],
+  "author": "Alex Malagor (seo.dnja@gmail.com)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rolling-scopes-school/malagor-JS2020Q3/issues"
+  },
+  "homepage": "https://github.com/rolling-scopes-school/malagor-JS2020Q3#readme"
+}

@@ -33,30 +33,11 @@ class Calculator {
   appendNumber(number) {
     if (number === '.' && /\./.test(this.curentOperand) && !this.isNewNumber) return;
 
-    // if (this.isNewNumber) {
-    //
-    //   if (number === '.' && (this.curentOperand === '' || this.curentOperand === 0)) {
-    //     this.curentOperand = '0.'
-    //   } else {
-    //     this.curentOperand = number;
-    //   }
-    //
-    //   this.isNewNumber = false;
-    //
-    // } else {
-    //
-    //   if (number === '.')
-    //     this.curentOperand = '0.';
-    //   else
-    //     this.curentOperand += number;
-    // }
     if (this.isNewNumber) {
       this.curentOperand = number;
       this.isNewNumber = false;
-
-    } else {
+    } else
       this.curentOperand += number;
-    }
   }
 
   negativeNumber() {

@@ -85,7 +85,7 @@ a {
     font-size: 35px;
     line-height: 130%;
     font-weight: 400;
-    letter-spacing: 6%;
+    letter-spacing: 0.06em;
     text-align: left;
 
     color: var(--main-color);
@@ -391,7 +391,7 @@ footer.footer {
 }
 
 .gallery-item:hover {
-    box-shadow: 0px 2px 35px 14px rgba(13, 13, 13, 0.04);
+    box-shadow: 0 2px 35px 14px rgba(13, 13, 13, 0.04);
 }
 
 .gallery-item__image {
@@ -407,7 +407,6 @@ footer.footer {
     margin-bottom: 30px;
     font-size: 20px;
     line-height: 23px;
-    letter-spacing: 6%;
 }
 
 .gallery__controls {
@@ -449,7 +448,7 @@ footer.footer {
 .gallery__arrow--disabled {
     cursor: inherit;
     border-color: var(--base-gray);
-    background-color: transparent;
+    /*background-color: transparent;*/
     background: transparent url(assets/icons/arrow-grey.svg) center no-repeat;
 }
 
@@ -498,12 +497,92 @@ footer.footer {
 }
 
 .your-help__name {
-
     font-size: 20px;
     line-height: 23px;
-    letter-spacing: 6%;
-
     color: var(--main-color);
 }
 
 /* /.============== Your Help ============= */
+
+
+/* ============== In addition ============= */
+
+.in-addition {
+    width: 100%;
+    background: var(--base-light-gray);
+}
+
+.in-addition__wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 80px 0 100px;
+}
+
+.in-addition__left,
+.in-addition__right {
+    margin: 0 15px;
+}
+
+.in-addition__left {
+    width: 505px;
+    height: 261px;
+    background: url("assets/images/donation-dog.png");
+    background-size: cover;
+}
+.in-addition__right {
+    width: 380px;
+    height: 282px;
+}
+
+.in-addition__title {
+    margin-bottom: 20px;
+}
+
+.in-addition__subtitle {
+    margin-bottom: 20px;
+    font-size: 15px;
+    line-height: 110%;
+    color: var(--main-color);
+}
+
+.credit-cart {
+    display: flex;
+    align-items: center;
+
+    width: 349px;
+    height: 43px;
+    padding: 10px 15px;
+    background: var(--base-pink);
+    border-radius: 9px;
+}
+
+.credit-cart__icon-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 15px;
+    color: var(--pets-card-button-color);
+}
+
+.icon.icon-credit-card {
+    width: 30px;
+    height: 23px;
+}
+
+.credit-cart__link {
+    font-size: 20px;
+    line-height: 115%;
+    color: var(--main-color);
+}
+
+.in-addition__legal-info p{
+    font-family: Arial, sans-serif;
+    font-style: italic;
+    font-size: 12px;
+    line-height: 18px;
+
+    color: #B2B2B2;
+}
+/* /.============== In addition ============= */

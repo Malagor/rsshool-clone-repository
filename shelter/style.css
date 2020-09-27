@@ -95,6 +95,10 @@ a {
     text-align: center;
 }
 
+.section__title--white {
+    color: var(--base-white);
+}
+
 html,
 body {
     width: 100%;
@@ -131,14 +135,6 @@ body {
     align-items: center;
 
     width: 100%;
-}
-
-footer.footer {
-    flex: 0 0 354px;
-    width: 100%;
-
-    background: url("assets/images/footer-background.png") center no-repeat;
-    background-size: cover;
 }
 
 /* =========== Header ==========*/
@@ -586,3 +582,77 @@ footer.footer {
     color: #B2B2B2;
 }
 /* /.============== In addition ============= */
+
+
+/* ============== Footer ============= */
+
+footer.footer {
+    flex: 0 0 354px;
+    width: 100%;
+
+
+    background: url("assets/images/footer-background.png") center no-repeat;
+    background-size: cover;
+}
+
+.footer__wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+}
+
+.footer__left {
+    width: 278px;
+    height: 234px;
+}
+
+.footer__center {
+    width: 302px;
+    height: 234px;
+}
+
+.footer__right {
+    align-self: flex-end;
+    width: 300px;
+    height: 315px;
+    background: url("assets/images/footer-puppy.png");
+    background-size: cover;
+}
+
+.footer__title {
+    margin: 0 0 40px;
+    letter-spacing: 0;
+
+}
+.footer__contacts {
+    padding: 0;
+}
+
+.footer__item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.footer__icon-wrapper {
+    height: 32px;
+    color: var(--base-pink);
+}
+
+.footer__icon-wrapper .icon {
+    height: 32px;
+}
+
+.footer__icon-wrapper .icon-mail,
+.footer__icon-wrapper .icon-telephone {
+    height: 40px;
+}
+
+.footer__item a {
+    font-size: 20px;
+    line-height: 115%;
+    color: var(--base-pink);
+}
+
+/* /.============== Footer ============= */

@@ -53,8 +53,10 @@ a {
 }
 
 .btn {
-    padding: 16px 44px;
+    padding: 16px 45px;
 
+    font-size: 17px;
+    letter-spacing: 0.06em;
     color: var(--pets-card-button-color);
     background-color: var(--base-pink);
 
@@ -82,10 +84,11 @@ a {
 }
 
 .section__title {
+    margin: 0;
     font-size: 35px;
     line-height: 130%;
     font-weight: 400;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.05em;
     text-align: left;
 
     color: var(--main-color);
@@ -238,7 +241,7 @@ body {
 
 .hero {
     width: 100%;
-    height: 925px;
+    height: 909px;
     background: url("assets/images/start-screen-background.png") center no-repeat;
     background-size: cover;
 }
@@ -249,7 +252,7 @@ body {
 
 .hero__left {
     width: 460px;
-    margin-top: 360px;
+    margin-top: 343px;
     margin-right: 42px;
 }
 
@@ -257,7 +260,7 @@ body {
     width: 310px;
 
     padding: 0;
-    margin: 0 0 30px;
+    margin: 0 0 42px;
 
     font-size: 44px;
     line-height: 130%;
@@ -268,7 +271,7 @@ body {
 
 .hero__subtitle {
     width: 100%;
-    margin-bottom: 40px;
+    margin-bottom: 42px;
 
     font-family: Arial, sans-serif;
 
@@ -281,7 +284,7 @@ body {
 .hero__right {
     width: 698px;
     height: 728px;
-    margin-top: 197px;
+    margin-top: 181px;
     background: url(assets/images/start-screen-puppy.png);
 }
 
@@ -307,8 +310,8 @@ body {
 }
 
 .about__left {
-    height: 408px;
-    background: url(assets/images/about-pets.png) center no-repeat;
+    height: 427px;
+    background: url(assets/images/about-pets.png) 176px 0 no-repeat;
 }
 
 .about__text {
@@ -317,10 +320,11 @@ body {
 
 .about__title {
     width: 300px;
-    margin-bottom: 30px;
+    margin-bottom: 23px;
 }
 
 .about__desc p {
+    margin: 0 0 26px;
     font-family: Arial, sans-serif;
     font-size: 15px;
     line-height: 24px;
@@ -328,14 +332,17 @@ body {
     color: var(--about-subheading-color);
 }
 
-/* /.=========== About ============ */
+.about__desc p:last-child {
+    margin-bottom: 22px;
+}
+    /* /.=========== About ============ */
 
 
 /* ============= Our-friends ========== */
 
 .our-friends {
     width: 100%;
-    padding: 80px 0;
+    padding: 80px 0 100px;
     background-color: var(--base-light-gray);
 }
 
@@ -347,7 +354,8 @@ body {
 
 .our-friends__title {
     width: 400px;
-    margin-bottom: 70px;
+    margin-bottom: 43px;
+    letter-spacing: 0.06em;
 }
 
 .gallery {
@@ -355,7 +363,7 @@ body {
 
     width: 1200px;
     height: 100%;
-    margin-bottom: 66px;
+    margin-bottom: 45px;
 }
 
 
@@ -371,7 +379,7 @@ body {
     align-items: center;
     width: 270px;
     min-width: 270px;
-    height: 424px;
+    height: 434px;
 
     margin-right: 90px;
     padding: 30px 0 20px;
@@ -400,9 +408,10 @@ body {
 }
 
 .gallery-item__title {
-    margin-bottom: 30px;
+    margin-bottom: 29px;
     font-size: 20px;
     line-height: 23px;
+    letter-spacing: 0.06em;
 }
 
 .gallery__controls {
@@ -458,16 +467,19 @@ body {
 /* ============== Your Help ============= */
 
 .your-help {
-    padding: 80px 0 calc(100px - 55px);
+    padding: 80px 0 28px;
 }
 .your-help__title {
     margin-bottom: 60px;
+    letter-spacing: 0.06em;
 }
 
 .your-help__list {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+
+    padding: 0;
 }
 
 .your-help__item {
@@ -488,13 +500,14 @@ body {
 }
 
 .your-help__icon {
-    margin-bottom: 30px;
+    margin-bottom: 26px;
     color: var(--base-pink);
 }
 
 .your-help__name {
     font-size: 20px;
     line-height: 23px;
+    letter-spacing: 0.06em;
     color: var(--main-color);
 }
 
@@ -513,7 +526,7 @@ body {
     justify-content: center;
     align-items: center;
 
-    padding: 80px 0 100px;
+    padding: 82px 0 101px;
 }
 
 .in-addition__left,
@@ -534,11 +547,13 @@ body {
 
 .in-addition__title {
     margin-bottom: 20px;
+    letter-spacing: 0.06em;
 }
 
 .in-addition__subtitle {
     margin-bottom: 20px;
     font-size: 15px;
+    letter-spacing: 0.06em;
     line-height: 110%;
     color: var(--main-color);
 }
@@ -549,7 +564,9 @@ body {
 
     width: 349px;
     height: 43px;
-    padding: 10px 15px;
+    padding: 10px 14px;
+    margin-bottom: 21px;
+
     background: var(--base-pink);
     border-radius: 9px;
 }
@@ -558,26 +575,30 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-right: 15px;
+    margin-right: 12px;
     color: var(--pets-card-button-color);
 }
 
 .icon.icon-credit-card {
-    width: 30px;
-    height: 23px;
+    width: 34px;
+    height: 31px;
 }
 
 .credit-cart__link {
     font-size: 20px;
     line-height: 115%;
+    letter-spacing: 0.06em;
     color: var(--main-color);
 }
-
+.in-addition__legal-info {
+    width: 374px;
+}
 .in-addition__legal-info p{
     font-family: Arial, sans-serif;
     font-style: italic;
     font-size: 12px;
     line-height: 18px;
+    letter-spacing: 0.01em;
 
     color: #B2B2B2;
 }
@@ -603,7 +624,7 @@ footer.footer {
 }
 
 .footer__left {
-    width: 278px;
+    width: 279px;
     height: 234px;
 }
 
@@ -622,9 +643,13 @@ footer.footer {
 
 .footer__title {
     margin: 0 0 40px;
-    letter-spacing: 0;
-
+    letter-spacing: 0.06em;
 }
+
+.footer__center .footer__title {
+    margin-bottom: 33px;
+}
+
 .footer__contacts {
     padding: 0;
 }
@@ -632,12 +657,22 @@ footer.footer {
 .footer__item {
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
+}
+
+.footer__center .footer__item {
+    margin-bottom: 35px;
 }
 
 .footer__icon-wrapper {
+    position: relative;
     height: 32px;
+    width: 60px;
     color: var(--base-pink);
+}
+
+.footer__center .footer__icon-wrapper {
+    width: 43px;
 }
 
 .footer__icon-wrapper .icon {
@@ -649,9 +684,28 @@ footer.footer {
     height: 40px;
 }
 
+.icon.icon-mail {
+    position: absolute;
+    top: -4px;
+    left: -9px;
+}
+
+.icon.icon-telephone {
+    position: absolute;
+    top: -2px;
+    left: -9px;
+}
+
+.icon.icon-pin {
+    position: absolute;
+    top: 0;
+    left: -18px;
+}
+
 .footer__item a {
     font-size: 20px;
     line-height: 115%;
+    letter-spacing: 0.06em;
     color: var(--base-pink);
 }
 

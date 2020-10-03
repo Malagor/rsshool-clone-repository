@@ -1,0 +1,47 @@
+/* ============== Your Help ============= */
+
+.your-help {
+  padding: 80px 0 28px;
+}
+
+.your-help__title {
+  margin-bottom: 60px;
+  letter-spacing: 0.06em;
+}
+
+.your-help__list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 0;
+}
+
+.your-help__item {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: 0 60px 55px;
+}
+
+.icon {
+  display: inline-block;
+  width: 60px;
+  height: 60px;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+}
+
+.your-help__icon {
+  margin-bottom: 26px;
+  color: $base-pink;
+}
+
+.your-help__name {
+  font-size: 20px;
+  line-height: 23px;
+  letter-spacing: 0.06em;
+  color: $main-color;
+}
+
+/* /.============== Your Help ============= */

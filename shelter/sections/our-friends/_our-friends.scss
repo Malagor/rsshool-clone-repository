@@ -1,0 +1,123 @@
+/* ============= Our-friends ========== */
+
+.our-friends {
+  width: 100%;
+  padding: 80px 0 100px;
+  background-color: $base-light-gray;
+}
+
+.our-friends__wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.our-friends__title {
+  width: 400px;
+  margin-bottom: 43px;
+  letter-spacing: 0.06em;
+}
+
+.gallery {
+  position: relative;
+
+  width: 1200px;
+  height: 100%;
+  margin-bottom: 45px;
+}
+
+
+.gallery__list {
+  display: flex;
+  justify-content: center;
+  padding: 0;
+}
+
+.gallery-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 270px;
+  min-width: 270px;
+  height: 434px;
+
+  margin-right: 90px;
+  padding: 30px 0 20px;
+
+  background: #FAFAFA;
+  border-radius: 9px;
+
+  transition: 0.3s;
+}
+
+.gallery-item:last-child {
+  margin-right: 0;
+}
+
+.gallery-item:hover {
+  box-shadow: 0 2px 35px 14px rgba(13, 13, 13, 0.04);
+}
+
+.gallery-item__image {
+  width: 100%;
+  height: 240px;
+  margin-bottom: 30px;
+
+  object-fit: contain;
+
+}
+
+.gallery-item__title {
+  margin-bottom: 29px;
+  font-size: 20px;
+  line-height: 23px;
+  letter-spacing: 0.06em;
+}
+
+.gallery__controls {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+
+  display: flex;
+  justify-content: space-between;
+
+
+  width: 100%;
+  min-width: 100%;
+  height: 50px;
+}
+
+.gallery__arrow {
+  width: 50px;
+  height: 50px;
+
+  border: 2px solid #F1CDB3;
+  border-radius: 50%;
+
+  background: url(../assets/icons/arrow.svg) center no-repeat;
+
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.gallery__arrow:hover {
+  background: #F1CDB3 url(../assets/icons/arrow.svg) center no-repeat;
+}
+
+.gallery__arrow--right {
+  transform: rotateY(180deg);
+}
+
+.gallery__arrow--disabled {
+  cursor: inherit;
+  border-color: $base-gray;
+  background: transparent url(assets/icons/arrow-grey.svg) center no-repeat;
+}
+
+.gallery__arrow--disabled:hover {
+  background: transparent url(assets/icons/arrow-grey.svg) center no-repeat;
+}
+
+/* /.============= Our-friends ========== */

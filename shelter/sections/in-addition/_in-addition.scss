@@ -1,0 +1,100 @@
+/* ============== In addition ============= */
+
+.in-addition {
+  width: 100%;
+  background: $base-light-gray;
+}
+
+.in-addition__wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 82px 0 101px;
+}
+
+.in-addition__left,
+.in-addition__right {
+  margin: 0 15px;
+}
+
+.in-addition__left {
+  width: 505px;
+  height: 261px;
+  background: url("../assets/images/donation-dog.png");
+  background-size: cover;
+}
+
+.in-addition__right {
+  width: 380px;
+  height: 282px;
+}
+
+.in-addition__title {
+  margin-bottom: 20px;
+  letter-spacing: 0.06em;
+}
+
+.in-addition__subtitle {
+  margin-bottom: 20px;
+  font-size: 15px;
+  letter-spacing: 0.06em;
+  line-height: 110%;
+  color: $main-color;
+}
+
+.credit-cart {
+  display: flex;
+  align-items: center;
+
+  width: 349px;
+  height: 43px;
+  padding: 10px 14px;
+  margin-bottom: 21px;
+
+  background: $base-pink;
+  border-radius: 9px;
+
+  transition: 0.3s;
+}
+
+.credit-cart:hover {
+  box-shadow: 0 2px 35px 14px rgba(13, 13, 13, 0.04);
+}
+
+.credit-cart__icon-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 12px;
+  color: $pets-card-button-color;
+}
+
+.icon.icon-credit-card {
+  width: 34px;
+  height: 31px;
+}
+
+.credit-cart__link {
+  font-size: 20px;
+  line-height: 115%;
+  letter-spacing: 0.06em;
+  color: $main-color;
+
+}
+
+.in-addition__legal-info {
+  width: 374px;
+}
+
+.in-addition__legal-info p {
+  font-family: Arial, sans-serif;
+  font-style: italic;
+  font-size: 12px;
+  line-height: 18px;
+  letter-spacing: 0.01em;
+
+  color: #B2B2B2;
+}
+
+/* /.============== In addition ============= */

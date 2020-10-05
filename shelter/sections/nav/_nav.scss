@@ -24,14 +24,22 @@
 
   color: $base-gray;
   transition: 0.3s;
+
+  .inner-page & {
+    color: $main-color;
+  }
 }
 
-.active,
+.menu__link.active,
 .menu__link:hover {
   color: $base-white;
+
+  .inner-page & {
+    color: $pets-card-button-color;
+  }
 }
 
-.active::after {
+.menu__link.active::after {
   content: '';
   position: absolute;
   bottom: -7px;
@@ -49,7 +57,7 @@
 
 }
 
-.active::after,
+.menu__link.active::after,
 .menu__link:hover::after {
   transform: scaleX(1);
 }

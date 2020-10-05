@@ -100,24 +100,27 @@
 
   cursor: pointer;
   transition: 0.3s;
+
+  &:hover {
+    background: #F1CDB3 url(../assets/icons/arrow.svg) center no-repeat;
+  }
+
+  &--right {
+    transform: rotateY(180deg);
+  }
+
+  &--disabled {
+    cursor: inherit;
+    border-color: $base-gray;
+    background: transparent url(assets/icons/arrow-grey.svg) center no-repeat;
+
+    &:hover {
+      background: transparent url(assets/icons/arrow-grey.svg) center no-repeat;
+    }
+  }
+
+
 }
 
-.gallery__arrow:hover {
-  background: #F1CDB3 url(../assets/icons/arrow.svg) center no-repeat;
-}
-
-.gallery__arrow--right {
-  transform: rotateY(180deg);
-}
-
-.gallery__arrow--disabled {
-  cursor: inherit;
-  border-color: $base-gray;
-  background: transparent url(assets/icons/arrow-grey.svg) center no-repeat;
-}
-
-.gallery__arrow--disabled:hover {
-  background: transparent url(assets/icons/arrow-grey.svg) center no-repeat;
-}
 
 /* /.============= Our-friends ========== */

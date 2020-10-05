@@ -1,0 +1,93 @@
+.our-friends-pets {
+  padding: 80px 0 100px;
+  background: $base-light-gray;
+}
+
+.our-friends-pets .our-friends__title {
+  margin-bottom: 44px;
+}
+
+.gallery-table {
+  width: 100%;
+  margin-bottom: 18px;
+}
+
+.gallery-table .gallery__list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  width: 100%;
+  padding: 15px 0;
+
+  @include lg-block {
+    justify-content: center;
+  }
+
+  //@include md-block {
+  //  justify-content: center;
+  //}
+}
+
+.gallery-table .gallery-item {
+  overflow: hidden;
+  margin: 0 0 30px;
+  padding-top: 0
+;
+
+  @include lg-block {
+    margin: 0 20px 30px;
+  }
+
+  @include md-block {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+}
+
+.gallery-table .gallery-item__image {
+  height: 270px;
+  object-fit: cover;
+}
+
+.pagination__list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pagination__item {
+  margin-right: 22px;
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.pagination .gallery__arrow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 20px;
+  background: none;
+
+  &:hover,
+  &.active {
+    background: $base-pink;
+  }
+
+  &--disabled {
+    cursor: inherit;
+    border-color: $base-gray;
+    color: $base-gray;
+    background: none;
+
+    &:hover {
+      color: $base-gray;
+      background: none;
+    }
+  }
+
+
+}

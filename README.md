@@ -5,8 +5,8 @@ Private repository for @malagor
 1. Task: https://github.com/rolling-scopes-school/tasks/blob/master/tasks/markups/level-2/shelter/shelter-main-page-ru.md
 2. Screenshot:
    ![](https://webpolygon.by/wp-content/uploads/2020/09/shelter.png)
-3. Deploy: https://rolling-scopes-school.github.io/malagor-JS2020Q3/shelter/
-4. Done 28.09.2020 / deadline XXXXXXXXXXXXX
+3. Deploy: https://rolling-scopes-school.github.io/malagor-JS2020Q3/shelter/pages/
+4. Done 28.09.2020 / deadline 28.09.2020
 5. Score: 100 / 100
 - Header - содержит только логотип и панель навигации
   - [x] Интерактивная панель навигации. Подсвечен первый элемент About the shelter.
@@ -32,3 +32,12 @@ Private repository for @malagor
   - [x] При нажатии на локацию открыться страница с google maps в отдельном окне, с локацией соответствующей адресу.
   - [x] Картинка собаки и текст - разные блоки, не накладываются друг на друга.
   - [x] Бекграунд блоков выполнен градиентом.
+
+
+## Shelter: Pets page
+1. Task: https://github.com/rolling-scopes-school/tasks/blob/master/tasks/markups/level-2/shelter/shelter-pets-page-ru.md
+2. Screenshot:
+![](https://webpolygon.by/wp-content/uploads/2020/10/shelter-pets.png)
+3. Deploy: https://rolling-scopes-school.github.io/malagor-JS2020Q3/shelter/pages/pets.html
+4. Done ХХХХХХХХХХ / deadline XXXXXXXXXXXXX
+5. Score: 100 / 100

@@ -79,12 +79,15 @@ a {
 .btn--transparent:hover {
   border-color: #fddcc4
 }
+.gallery-item .btn {
+  padding: 13px 45px
+}
 .section__title {
   margin: 0;
   font-size: 35px;
   line-height: 130%;
   font-weight: 400;
-  letter-spacing: .05em;
+  letter-spacing: .06em;
   text-align: left;
   color: #545454
 }
@@ -387,6 +390,7 @@ template {
   font-size: 13px;
   line-height: 15px;
   letter-spacing: .1em;
+  text-align: center;
   color: #fff
 }
 .menu {
@@ -395,10 +399,11 @@ template {
   display: flex;
   -webkit-box-pack: end;
   -ms-flex-pack: end;
-  justify-content: flex-end
+  justify-content: flex-end;
+  margin-top: -7px
 }
 .menu__item {
-  margin-right: 35px
+  margin-right: 36px
 }
 .menu__item:last-child {
   margin-right: 0
@@ -530,6 +535,9 @@ template {
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
   height: 100%
 }
 .about__left,
@@ -541,10 +549,12 @@ template {
   background: url(/assets/images/about-pets.png) 176px 0 no-repeat
 }
 .about__text {
+  position: relative;
+  left: -5px;
   width: 430px
 }
 .about__title {
-  width: 300px;
+  width: 302px;
   margin-bottom: 23px
 }
 .about__desc p {
@@ -576,14 +586,14 @@ template {
 }
 .our-friends__title {
   width: 400px;
-  margin-bottom: 43px;
+  margin-bottom: 58px;
   letter-spacing: .06em
 }
 .gallery {
   position: relative;
   width: 1200px;
   height: 100%;
-  margin-bottom: 45px
+  margin-bottom: 61px
 }
 .gallery__list {
   display: -webkit-box;
@@ -680,7 +690,7 @@ template {
   background: transparent url(assets/icons/arrow-grey.svg) center no-repeat
 }
 .your-help {
-  padding: 80px 0 28px
+  padding: 80px 0 47px
 }
 .your-help__title {
   margin-bottom: 60px;
@@ -719,7 +729,7 @@ template {
   fill: currentColor
 }
 .your-help__icon {
-  margin-bottom: 26px;
+  margin-bottom: 29px;
   color: #f1cdb3
 }
 .your-help__name {
@@ -742,7 +752,7 @@ template {
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  padding: 82px 0 101px
+  padding: 82px 0 100px
 }
 .in-addition__left,
 .in-addition__right {
@@ -777,7 +787,7 @@ template {
   -ms-flex-align: center;
   align-items: center;
   width: 349px;
-  height: 43px;
+  height: 40px;
   padding: 10px 14px;
   margin-bottom: 21px;
   background: #f1cdb3;

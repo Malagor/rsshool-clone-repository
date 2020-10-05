@@ -8,6 +8,7 @@
 .about__wrapper {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   height: 100%;
 }
 
@@ -22,11 +23,13 @@
 }
 
 .about__text {
+  position: relative;
+  left: -5px;
   width: 430px;
 }
 
 .about__title {
-  width: 300px;
+  width: 302px;
   margin-bottom: 23px;
 }
 

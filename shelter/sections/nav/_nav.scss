@@ -3,10 +3,11 @@
 .menu {
   display: flex;
   justify-content: flex-end;
+  margin-top: -7px;
 }
 
 .menu__item {
-  margin-right: 35px;
+  margin-right: 36px;
 }
 
 .menu__item:last-child {

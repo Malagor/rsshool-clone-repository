@@ -2,11 +2,21 @@
 
 .your-help {
   padding: 80px 0 47px;
+
+  @include sm-block() {
+    padding: 42px 10px 13px;
+  }
 }
 
 .your-help__title {
   margin-bottom: 60px;
   letter-spacing: 0.06em;
+
+  @include sm-block() {
+    margin-bottom: 42px;
+    letter-spacing: 1px;
+
+  }
 }
 
 .your-help__list {
@@ -14,6 +24,15 @@
   justify-content: center;
   flex-wrap: wrap;
   padding: 0;
+
+  @include md-block() {
+    max-width: 630px;
+    justify-content: space-between;
+    margin: 0 auto;
+  }
+  //@include sm-block() {
+  //  justify-content: space-around;
+  //}
 }
 
 .your-help__item {
@@ -21,6 +40,16 @@
   align-items: center;
   flex-direction: column;
   margin: 0 60px 55px;
+
+  @include lg-block() {
+    width: 170px;
+    margin: 0 0 55px;
+  }
+
+  @include sm-block() {
+    width: 140px;
+    margin-bottom: 31px;
+  }
 }
 
 .icon {
@@ -30,11 +59,20 @@
   stroke-width: 0;
   stroke: currentColor;
   fill: currentColor;
+
+  @include sm-block() {
+    width: 50px;
+    height: 50px;
+  }
 }
 
 .your-help__icon {
   margin-bottom: 29px;
   color: $base-pink;
+
+  @include sm-block() {
+    margin-bottom: 20px;
+  }
 }
 
 .your-help__name {
@@ -42,6 +80,11 @@
   line-height: 23px;
   letter-spacing: 0.06em;
   color: $main-color;
+
+  @include sm-block() {
+    font-size: 15px;
+    line-height: 16px;
+  }
 }
 
 /* /.============== Your Help ============= */

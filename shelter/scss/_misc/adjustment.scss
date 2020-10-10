@@ -61,13 +61,30 @@ a {
     }
   }
 
-    .gallery-item & {
-        padding: 13px 45px;
-    }
+  .gallery-item & {
+    padding: 13px 45px;
+  }
 
+  .hero__left & {
+    @include md-block() {
+      align-self: center;
+    }
+  }
 
 }
 
+section,
+header,
+footer {
+  @include xl-block() {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+  @include sm-block() {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
 
 .section__title {
   margin: 0;
@@ -78,6 +95,16 @@ a {
   text-align: left;
 
   color: $main-color;
+
+  @include sm-block() {
+    width: 100%;
+    font-size: 25px;
+    line-height: 32px;
+    letter-spacing: 1px;
+    word-spacing: 3px;
+    text-align: center;
+
+  }
 }
 
 .section__title--center {

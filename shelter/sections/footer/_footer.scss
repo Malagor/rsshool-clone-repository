@@ -15,41 +15,89 @@ footer.footer {
   justify-content: space-between;
   align-items: center;
   height: 100%;
+
+  @include lg-block() {
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: flex-start;
+    padding-top: 30px;
+  }
+
+  @include sm-block() {
+    padding-top: 30px;
+  }
 }
 
 .footer__left {
   width: 279px;
   height: 234px;
+
+  @include  lg-block() {
+    margin-bottom: 60px;
+  }
+
+  @include sm-block() {
+    width: 100%;
+    margin-bottom: 40px;
+  }
+
 }
 
 .footer__center {
   width: 302px;
   height: 234px;
+
+  @include  lg-block() {
+    margin-bottom: 60px;
+  }
+  @include sm-block() {
+    width: 100%;
+    height: auto;
+  }
 }
 
 .footer__right {
   align-self: flex-end;
   width: 300px;
   height: 315px;
-  background: url("../assets/images/footer-puppy.png");
+  background: url("../assets/images/footer-puppy.png") center no-repeat;
   background-size: cover;
 
   .inner-page & {
     height: 310px;
+  }
+
+  @include  lg-block() {
+    flex-basis: 100%;
+    background-size: contain;
   }
 }
 
 .footer__title {
   margin: 0 0 40px;
   letter-spacing: 0.06em;
+  font-size: 35px;
 
   .inner-page & {
     margin-bottom: 39px;
+  }
+
+  @include sm-block() {
+    line-height: 45px;
   }
 }
 
 .footer__center .footer__title {
   margin-bottom: 33px;
+
+  @include lg-block() {
+    margin-bottom: 31px;
+  }
+
+  @include sm-block() {
+    letter-spacing: 2px;
+    word-spacing: 2px;
+  }
 
   .inner-page & {
     margin-bottom: 31px;
@@ -58,6 +106,19 @@ footer.footer {
 
 .footer__contacts {
   padding: 0;
+
+  .footer__left & {
+    @include sm-block() {
+      margin: 0 11px;
+    }
+  }
+
+  .footer__center & {
+    @include lg-block() {
+      position: relative;
+      left: -3px;
+    }
+  }
 }
 
 .footer__item {
@@ -98,18 +159,30 @@ footer.footer {
   position: absolute;
   top: -4px;
   left: -9px;
+
+  @include sm-block() {
+    left: -5px;
+  }
 }
 
 .icon.icon-telephone {
   position: absolute;
   top: -4px;
   left: -9px;
+
+  @include sm-block() {
+    left: -5px;
+  }
 }
 
 .icon.icon-pin {
   position: absolute;
   top: 0;
   left: -18px;
+
+  @include sm-block(){
+    left: -10px;
+  }
 
   .inner-page & {
     left: -20px;

@@ -11,6 +11,15 @@
   align-items: center;
 
   padding: 82px 0 100px;
+
+  @include lg-block() {
+    flex-direction: column;
+    padding: 82px 30px 100px;
+  }
+
+  @include  sm-block() {
+    padding: 40px 10px 42px;
+  }
 }
 
 .in-addition__left,
@@ -21,18 +30,44 @@
 .in-addition__left {
   width: 505px;
   height: 261px;
-  background: url("../assets/images/donation-dog.png");
+  background: url("../assets/images/donation-dog.png") no-repeat;
   background-size: cover;
+
+  @include lg-block() {
+    order: 2;
+  }
+  
+  @include sm-block() {
+    width: 100%;
+    height: 135px;
+    background-size: contain;
+    background-position: center;
+  }
 }
 
 .in-addition__right {
   width: 380px;
   height: 282px;
+
+  @include lg-block() {
+    margin-bottom: 60px;
+  }
+
+  @include sm-block() {
+    width: 100%;
+    margin-bottom: 40px;
+  }
 }
 
 .in-addition__title {
   margin-bottom: 20px;
   letter-spacing: 0.06em;
+  
+  @include sm-block() {
+    text-align: center;
+    letter-spacing: 1px;
+    margin-bottom: 22px;
+  }
 }
 
 .in-addition__subtitle {
@@ -41,6 +76,13 @@
   letter-spacing: 0.06em;
   line-height: 110%;
   color: $main-color;
+
+  @include sm-block() {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    letter-spacing: 0;
+    margin-bottom: 25px;
+  }
 }
 
 .credit-cart {
@@ -56,6 +98,12 @@
   border-radius: 9px;
 
   transition: 0.3s;
+
+  @include sm-block() {
+    max-width: 282px;
+    margin: 0 auto 23px;
+    padding: 10px 13px;
+  }
 }
 
 .credit-cart:hover {
@@ -81,10 +129,19 @@
   letter-spacing: 0.06em;
   color: $main-color;
 
+  @include sm-block() {
+    font-size: 15px;
+  }
+
 }
 
 .in-addition__legal-info {
   width: 374px;
+
+  @include sm-block() {
+    width: 100%;
+    padding: 0 10px;
+  }
 }
 
 .in-addition__legal-info p {
@@ -95,6 +152,10 @@
   letter-spacing: 0.01em;
 
   color: #B2B2B2;
+  
+  @include sm-block() {
+    text-align: justify;
+  }
 }
 
 /* /.============== In addition ============= */

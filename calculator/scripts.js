@@ -140,7 +140,7 @@ class Calculator {
       }
     }
     this.isNewNumber = true;
-    this.curentOperand = computation;
+    this.curentOperand = (isNaN(computation) || computation === Infinity)  ? 'Ошибка' : computation;
     this.operation = undefined;
     this.previousOperand = '';
 

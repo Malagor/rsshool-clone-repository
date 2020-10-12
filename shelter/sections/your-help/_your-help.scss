@@ -4,7 +4,7 @@
   padding: 79px 0 47px;
 
   @include sm-block() {
-    padding: 42px 10px 13px;
+    padding: 40px 10px 13px;
   }
 }
 
@@ -71,7 +71,7 @@
   color: $base-pink;
 
   @include sm-block() {
-    margin-bottom: 20px;
+    margin-bottom: 13px;
   }
 }
 

@@ -32,7 +32,7 @@ footer.footer {
   }
 
   @include sm-block() {
-    padding-top: 30px;
+    padding-top: 32px;
   }
 }
 
@@ -44,12 +44,14 @@ footer.footer {
     margin-bottom: 60px;
   }
   @include md-block() {
+    position: relative;
+    left: 3px;
     margin-bottom: 20px;
   }
 
   @include sm-block() {
     width: 100%;
-    margin-bottom: 40px;
+    margin-bottom: 8px;
   }
 
 }
@@ -69,6 +71,7 @@ footer.footer {
   @include sm-block() {
     width: 100%;
     height: auto;
+    margin-bottom: 40px;
   }
 }
 
@@ -93,6 +96,11 @@ footer.footer {
     height: 315px;
     background-position: center;
   }
+
+  @include sm-block() {
+    height: 270px;
+  }
+
 }
 
 .footer__title {
@@ -100,12 +108,19 @@ footer.footer {
   letter-spacing: 0.06em;
   font-size: 35px;
 
-  .inner-page & {
+  @include md-block() {
     margin-bottom: 39px;
   }
 
   @include sm-block() {
-    line-height: 45px;
+    margin-bottom: 40px;
+    line-height: 31px;
+    font-size: 25px;
+    word-spacing: 0;
+  }
+
+  .inner-page & {
+    margin-bottom: 39px;
   }
 }
 
@@ -117,8 +132,10 @@ footer.footer {
   }
 
   @include sm-block() {
+    margin-bottom: 40px;
     letter-spacing: 2px;
-    word-spacing: 2px;
+    word-spacing: -1px;
+
   }
 
   .inner-page & {
@@ -138,6 +155,10 @@ footer.footer {
   .footer__center & {
     @include lg-block() {
       position: relative;
+      left: -1px;
+    }
+
+    @include md-block() {
       left: -3px;
     }
   }
@@ -147,10 +168,34 @@ footer.footer {
   display: flex;
   align-items: center;
   margin-bottom: 40px;
+
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  @include sm-block() {
+    position: relative;
+    left: -3px;
+    justify-content: center;
+  }
 }
 
 .footer__center .footer__item {
-  margin-bottom: 33px;
+  margin-bottom: 32px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+  @include md-block() {
+    margin-bottom: 34px;
+  }
+
+  @include xs-block() {
+    left: 2px;
+    justify-content: flex-start;
+    margin-bottom: 40px;
+  }
 }
 
 .footer__icon-wrapper {
@@ -203,7 +248,7 @@ footer.footer {
   left: -18px;
 
   @include sm-block(){
-    left: -10px;
+    left: -13px;
   }
 
   .inner-page & {

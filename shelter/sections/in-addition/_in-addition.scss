@@ -10,11 +10,15 @@
   justify-content: center;
   align-items: center;
 
-  padding: 82px 0 100px;
+  padding: 78px 0 100px;
 
   @include lg-block() {
     flex-direction: column;
     padding: 82px 30px 100px;
+  }
+
+  @include md-block() {
+    padding-top: 80px;
   }
 
   @include  sm-block() {
@@ -71,7 +75,7 @@
 }
 
 .in-addition__subtitle {
-  margin-bottom: 20px;
+  margin-bottom: 21px;
   font-size: 15px;
   letter-spacing: 0.06em;
   line-height: 110%;

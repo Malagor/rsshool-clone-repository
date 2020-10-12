@@ -1,7 +1,7 @@
 /* ============== Your Help ============= */
 
 .your-help {
-  padding: 80px 0 47px;
+  padding: 79px 0 47px;
 
   @include sm-block() {
     padding: 42px 10px 13px;
@@ -9,7 +9,7 @@
 }
 
 .your-help__title {
-  margin-bottom: 60px;
+  margin-bottom: 58px;
   letter-spacing: 0.06em;
 
   @include sm-block() {
@@ -67,7 +67,7 @@
 }
 
 .your-help__icon {
-  margin-bottom: 29px;
+  margin-bottom: 23px;
   color: $base-pink;
 
   @include sm-block() {

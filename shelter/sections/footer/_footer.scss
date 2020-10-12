@@ -1,9 +1,13 @@
 /* ============== Footer ============= */
 
 footer.footer {
-  flex: 0 0 354px;
+  flex: 0 0 350px;
   width: 100%;
   background: url(../assets/images/bg-pattern@2x.png), radial-gradient(100% 215.42% at 0% 0%, #5B483A 0%, #262425 100%), #211F20;
+
+  @include md-block() {
+    height: 639px;
+  }
 
  .inner-page & {
    flex-basis: 349px;
@@ -23,6 +27,10 @@ footer.footer {
     padding-top: 30px;
   }
 
+  @include md-block() {
+    padding-top: 29px;
+  }
+
   @include sm-block() {
     padding-top: 30px;
   }
@@ -30,10 +38,13 @@ footer.footer {
 
 .footer__left {
   width: 279px;
-  height: 234px;
+  height: 240px;
 
   @include  lg-block() {
     margin-bottom: 60px;
+  }
+  @include md-block() {
+    margin-bottom: 20px;
   }
 
   @include sm-block() {
@@ -44,12 +55,17 @@ footer.footer {
 }
 
 .footer__center {
-  width: 302px;
-  height: 234px;
+  width: 303px;
+  height: 240px;
 
   @include  lg-block() {
     margin-bottom: 60px;
   }
+
+  @include md-block() {
+    margin-bottom: 55px;
+  }
+
   @include sm-block() {
     width: 100%;
     height: auto;
@@ -59,9 +75,10 @@ footer.footer {
 .footer__right {
   align-self: flex-end;
   width: 300px;
-  height: 315px;
-  background: url("../assets/images/footer-puppy.png") center no-repeat;
-  background-size: cover;
+  height: 350px;
+  background: url("../assets/images/footer-puppy.png") no-repeat;
+  background-position-y: 37px;
+  background-size: contain;
 
   .inner-page & {
     height: 310px;
@@ -70,6 +87,11 @@ footer.footer {
   @include  lg-block() {
     flex-basis: 100%;
     background-size: contain;
+  }
+
+  @include md-block() {
+    height: 315px;
+    background-position: center;
   }
 }
 
@@ -128,7 +150,7 @@ footer.footer {
 }
 
 .footer__center .footer__item {
-  margin-bottom: 35px;
+  margin-bottom: 33px;
 }
 
 .footer__icon-wrapper {

@@ -10,6 +10,10 @@
     padding-left: 30px;
   }
 
+  @include md-block() {
+    padding-top: 82px;
+  }
+
   @include sm-block() {
     padding: 42px 10px;
   }
@@ -51,6 +55,10 @@
 
   margin-bottom: 33px;
 
+  @include md-block() {
+    margin-bottom: 31px;
+  }
+
   @include sm-block() {
     flex-direction: column;
     justify-content: flex-start;
@@ -76,7 +84,7 @@
 
   @include md-block() {
     justify-content: space-around;
-    margin-bottom: 45px;
+    //margin-bottom: 45px;
   }
 }
 
@@ -140,6 +148,11 @@
   font-size: 20px;
   line-height: 23px;
   letter-spacing: 0.06em;
+
+  @include md-block() {
+    margin-bottom: 28px;
+
+  }
 }
 
 .gallery__controls {
@@ -155,6 +168,10 @@
   width: 100%;
   min-width: 100%;
   height: 50px;
+
+  @include md-block() {
+    transform: translateY(-80%);
+  }
 
   @include  sm-block() {
     display: flex;

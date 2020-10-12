@@ -26,6 +26,10 @@
   height: 22px;
   //overflow: hidden;
 
+  @include sm-block-ex() {
+    display: block;
+  }
+
   span {
     position: absolute;
     left: 0;
@@ -138,11 +142,6 @@
       }
     }
   }
-
-  @include md-block() {
-    display: block;
-  }
-
 }
 
 .menu {
@@ -151,7 +150,7 @@
   margin-top: -7px;
   transition: opacity 0.3s 1s;
 
-  @include md-block() {
+  @include sm-block-ex() {
     display: none;
     opacity: 0;
   }

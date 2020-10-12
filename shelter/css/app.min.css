@@ -488,6 +488,11 @@ template {
   width: 30px;
   height: 22px
 }
+@media screen and (max-width:700px) {
+  .nav__mobile-toggle {
+    display: block
+  }
+}
 .nav__mobile-toggle span {
   position: absolute;
   left: 0;
@@ -584,11 +589,6 @@ template {
   -ms-transform: rotate(45deg);
   transform: rotate(45deg)
 }
-@media screen and (max-width:768px) {
-  .nav__mobile-toggle {
-    display: block
-  }
-}
 .menu {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -601,7 +601,7 @@ template {
   -o-transition: opacity .3s 1s;
   transition: opacity .3s 1s
 }
-@media screen and (max-width:768px) {
+@media screen and (max-width:700px) {
   .menu {
     display: none;
     opacity: 0
@@ -761,6 +761,11 @@ template {
     background-size: contain
   }
 }
+@media screen and (max-width:700px) {
+  .hero__right {
+    width: 100%
+  }
+}
 @media screen and (max-width:480px) {
   .hero__right {
     width: 260px;
@@ -876,6 +881,11 @@ template {
     background-size: contain
   }
 }
+@media screen and (max-width:700px) {
+  .hero__right {
+    width: 100%
+  }
+}
 @media screen and (max-width:480px) {
   .hero__right {
     width: 260px;
@@ -933,7 +943,8 @@ template {
   -webkit-box-pack: justify;
   -ms-flex-pack: justify;
   justify-content: space-between;
-  height: 100%
+  height: 100%;
+  padding: 80px 0 100px
 }
 @media screen and (max-width:992px) {
   .about__wrapper {
@@ -999,12 +1010,12 @@ template {
 .about__text {
   position: relative;
   left: -5px;
-  width: 430px
+  width: 436px
 }
 @media screen and (max-width:992px) {
   .about__text {
     left: 0;
-    width: 436px
+    width: 430px
   }
 }
 @media screen and (max-width:480px) {
@@ -1046,6 +1057,11 @@ template {
   .our-friends {
     padding-right: 30px;
     padding-left: 30px
+  }
+}
+@media screen and (max-width:768px) {
+  .our-friends {
+    padding-top: 82px
   }
 }
 @media screen and (max-width:480px) {
@@ -1103,6 +1119,11 @@ template {
   height: 100%;
   margin-bottom: 33px
 }
+@media screen and (max-width:768px) {
+  .gallery {
+    margin-bottom: 31px
+  }
+}
 @media screen and (max-width:480px) {
   .gallery {
     -webkit-box-orient: vertical;
@@ -1141,8 +1162,7 @@ template {
 @media screen and (max-width:768px) {
   .gallery__list {
     -ms-flex-pack: distribute;
-    justify-content: space-around;
-    margin-bottom: 45px
+    justify-content: space-around
   }
 }
 .gallery-item {
@@ -1206,6 +1226,11 @@ template {
   line-height: 23px;
   letter-spacing: .06em
 }
+@media screen and (max-width:768px) {
+  .gallery-item__title {
+    margin-bottom: 28px
+  }
+}
 .gallery__controls {
   position: absolute;
   top: 50%;
@@ -1222,6 +1247,13 @@ template {
   width: 100%;
   min-width: 100%;
   height: 50px
+}
+@media screen and (max-width:768px) {
+  .gallery__controls {
+    -webkit-transform: translateY(-80%);
+    -ms-transform: translateY(-80%);
+    transform: translateY(-80%)
+  }
 }
 @media screen and (max-width:480px) {
   .gallery__controls {
@@ -1373,7 +1405,7 @@ template {
   background: 0 0
 }
 .your-help {
-  padding: 80px 0 47px
+  padding: 79px 0 47px
 }
 @media screen and (max-width:480px) {
   .your-help {
@@ -1381,7 +1413,7 @@ template {
   }
 }
 .your-help__title {
-  margin-bottom: 60px;
+  margin-bottom: 58px;
   letter-spacing: .06em
 }
 @media screen and (max-width:480px) {
@@ -1450,7 +1482,7 @@ template {
   }
 }
 .your-help__icon {
-  margin-bottom: 29px;
+  margin-bottom: 23px;
   color: #f1cdb3
 }
 @media screen and (max-width:480px) {
@@ -1484,7 +1516,7 @@ template {
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  padding: 82px 0 100px
+  padding: 78px 0 100px
 }
 @media screen and (max-width:992px) {
   .in-addition__wrapper {
@@ -1493,6 +1525,11 @@ template {
     -ms-flex-direction: column;
     flex-direction: column;
     padding: 82px 30px 100px
+  }
+}
+@media screen and (max-width:768px) {
+  .in-addition__wrapper {
+    padding-top: 80px
   }
 }
 @media screen and (max-width:480px) {
@@ -1552,7 +1589,7 @@ template {
   }
 }
 .in-addition__subtitle {
-  margin-bottom: 20px;
+  margin-bottom: 21px;
   font-size: 15px;
   letter-spacing: .06em;
   line-height: 110%;
@@ -1646,11 +1683,16 @@ template {
 }
 footer.footer {
   -webkit-box-flex: 0;
-  -ms-flex: 0 0 354px;
-  flex: 0 0 354px;
+  -ms-flex: 0 0 350px;
+  flex: 0 0 350px;
   width: 100%;
   background: url(../assets/images/bg-pattern@2x.png),-o-radial-gradient(0 0,100% 215.42%,#5b483a 0,#262425 100%),#211f20;
   background: url(../assets/images/bg-pattern@2x.png),radial-gradient(100% 215.42% at 0 0,#5b483a 0,#262425 100%),#211f20
+}
+@media screen and (max-width:768px) {
+  footer.footer {
+    height: 639px
+  }
 }
 .inner-page footer.footer {
   -ms-flex-preferred-size: 349px;
@@ -1680,6 +1722,11 @@ footer.footer {
     padding-top: 30px
   }
 }
+@media screen and (max-width:768px) {
+  .footer__wrapper {
+    padding-top: 29px
+  }
+}
 @media screen and (max-width:480px) {
   .footer__wrapper {
     padding-top: 30px
@@ -1687,11 +1734,16 @@ footer.footer {
 }
 .footer__left {
   width: 279px;
-  height: 234px
+  height: 240px
 }
 @media screen and (max-width:992px) {
   .footer__left {
     margin-bottom: 60px
+  }
+}
+@media screen and (max-width:768px) {
+  .footer__left {
+    margin-bottom: 20px
   }
 }
 @media screen and (max-width:480px) {
@@ -1701,12 +1753,17 @@ footer.footer {
   }
 }
 .footer__center {
-  width: 302px;
-  height: 234px
+  width: 303px;
+  height: 240px
 }
 @media screen and (max-width:992px) {
   .footer__center {
     margin-bottom: 60px
+  }
+}
+@media screen and (max-width:768px) {
+  .footer__center {
+    margin-bottom: 55px
   }
 }
 @media screen and (max-width:480px) {
@@ -1719,9 +1776,10 @@ footer.footer {
   -ms-flex-item-align: end;
   align-self: flex-end;
   width: 300px;
-  height: 315px;
-  background: url(../assets/images/footer-puppy.png) center no-repeat;
-  background-size: cover
+  height: 350px;
+  background: url(../assets/images/footer-puppy.png) no-repeat;
+  background-position-y: 37px;
+  background-size: contain
 }
 .inner-page .footer__right {
   height: 310px
@@ -1731,6 +1789,12 @@ footer.footer {
     -ms-flex-preferred-size: 100%;
     flex-basis: 100%;
     background-size: contain
+  }
+}
+@media screen and (max-width:768px) {
+  .footer__right {
+    height: 315px;
+    background-position: center
   }
 }
 .footer__title {
@@ -1787,7 +1851,7 @@ footer.footer {
   margin-bottom: 40px
 }
 .footer__center .footer__item {
-  margin-bottom: 35px
+  margin-bottom: 33px
 }
 .footer__icon-wrapper {
   position: relative;

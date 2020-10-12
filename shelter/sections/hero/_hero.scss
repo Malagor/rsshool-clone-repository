@@ -60,6 +60,10 @@
     margin-right: 0;
     background-size: contain;
   }
+
+  @include sm-block-ex() {
+    width: 100%;
+  }
   @include sm-block() {
     width: 260px;
     height: 271px;

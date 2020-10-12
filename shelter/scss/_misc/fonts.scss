@@ -25,6 +25,20 @@
     font-display: swap;
 }
 
+@font-face {
+    font-family: 'Arial';
+    src: url('assets/fonts/Arial/subset-ArialMT.eot');
+    src: local('Arial'), local('ArialMT'),
+    url('assets/fonts/Arial/subset-ArialMT.eot?#iefix') format('embedded-opentype'),
+    url('assets/fonts/Arial/subset-ArialMT.woff2') format('woff2'),
+    url('assets/fonts/Arial/subset-ArialMT.woff') format('woff'),
+    url('assets/fonts/Arial/subset-ArialMT.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+
 @mixin Georgia($style: normal) {
 
 	font-family: Georgia, "Times New Roman", serif;

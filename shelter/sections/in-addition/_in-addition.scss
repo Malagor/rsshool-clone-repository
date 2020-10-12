@@ -10,7 +10,7 @@
   justify-content: center;
   align-items: center;
 
-  padding: 78px 0 100px;
+  padding: 80px 0 100px;
 
   @include lg-block() {
     flex-direction: column;
@@ -70,12 +70,12 @@
   @include sm-block() {
     text-align: center;
     letter-spacing: 1px;
-    margin-bottom: 22px;
+    margin-bottom: 24px;
   }
 }
 
 .in-addition__subtitle {
-  margin-bottom: 21px;
+  margin-bottom: 20px;
   font-size: 15px;
   letter-spacing: 0.06em;
   line-height: 110%;
@@ -94,7 +94,7 @@
   align-items: center;
 
   width: 349px;
-  height: 40px;
+  height: 43px;
   padding: 10px 14px;
   margin-bottom: 21px;
 
@@ -103,10 +103,17 @@
 
   transition: 0.3s;
 
+  font-size: 20px;
+  line-height: 115%;
+  letter-spacing: 0.06em;
+  color: $main-color;
+
   @include sm-block() {
     max-width: 282px;
     margin: 0 auto 23px;
     padding: 10px 13px;
+
+    font-size: 15px;
   }
 }
 
@@ -127,24 +134,12 @@
   height: 31px;
 }
 
-.credit-cart__link {
-  font-size: 20px;
-  line-height: 115%;
-  letter-spacing: 0.06em;
-  color: $main-color;
-
-  @include sm-block() {
-    font-size: 15px;
-  }
-
-}
-
 .in-addition__legal-info {
   width: 374px;
 
   @include sm-block() {
     width: 100%;
-    padding: 0 10px;
+    //padding: 0 10px;
   }
 }
 

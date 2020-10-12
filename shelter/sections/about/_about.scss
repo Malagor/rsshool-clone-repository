@@ -18,12 +18,12 @@
 
   @include lg-block() {
     flex-direction: column;
-    padding: 80px 0 100px;
+    padding: 68px 0 100px;
     height: auto;
   }
 
   @include sm-block() {
-    padding: 42px 0;
+    padding: 28px 0 42px;
   }
 }
 
@@ -39,7 +39,7 @@
 }
 
 .about__left {
-  height: 427px;
+  height: 433px;
   background: url(/assets/images/about-pets.png) 176px 0 no-repeat;
 
   @include lg-block() {
@@ -57,19 +57,21 @@
 }
 
 .about__right {
+  padding: 14px 0;
+
   @include lg-block() {
-    margin-bottom: 57px;
+    margin-bottom: 40px;
   }
 
   @include sm-block() {
-    margin-bottom: 22px;
+    margin-bottom: 5px;
   }
 }
 
 .about__text {
   position: relative;
   left: -5px;
-  width: 436px;
+  width: 432px;
 
   @include lg-block() {
     left: 0;
@@ -81,8 +83,8 @@
 }
 
 .about__title {
-  width: 302px;
-  margin-bottom: 23px;
+  //width: 302px;
+  margin-bottom: 25px;
 
   @include sm-block() {
     width: 100%;
@@ -90,21 +92,21 @@
 }
 
 .about__desc p {
-  margin: 0 0 26px;
+  margin: 0 0 25px;
   font-family: Arial, sans-serif;
   font-size: 15px;
   line-height: 24px;
 
   color: $about-subheading-color;
 
+  //&:last-child {
+  //  margin-bottom: 0;
+  //}
+
   @include sm-block() {
     text-align: justify;
     margin-bottom: 22px;
   }
-}
-
-.about__desc p:last-child {
-  margin-bottom: 22px;
 }
 
 /* /.=========== About ============ */

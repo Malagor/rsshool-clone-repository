@@ -12,7 +12,7 @@ let paths = {
   scripts: {
     src: [
       // 'node_modules/jquery/dist/jquery.min.js', // npm vendor example (npm i --save-dev jquery)
-      baseDir + 'sections/*.js',
+      // baseDir + 'sections/*.js',
       baseDir + 'js/app.js' // app.js. Always at the end
     ],
     dest: baseDir + 'js',
@@ -94,7 +94,8 @@ function browsersync() {
   browserSync.init({
     server: {baseDir: "./"},
     notify: false,
-    online: online
+    online: online,
+    index: baseDir + "/pages/index.html"
   })
 }
 

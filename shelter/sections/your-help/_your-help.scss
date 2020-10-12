@@ -1,21 +1,20 @@
 /* ============== Your Help ============= */
 
 .your-help {
-  padding: 79px 0 47px;
+  padding: 80px 0 47px;
 
   @include sm-block() {
-    padding: 42px 10px 13px;
+    padding: 40px 0 13px;
   }
 }
 
 .your-help__title {
-  margin-bottom: 58px;
+  margin-bottom: 60px;
   letter-spacing: 0.06em;
 
   @include sm-block() {
-    margin-bottom: 42px;
+    margin-bottom: 44px;
     letter-spacing: 1px;
-
   }
 }
 
@@ -26,13 +25,10 @@
   padding: 0;
 
   @include md-block() {
-    max-width: 630px;
+    max-width: 657px;
     justify-content: space-between;
     margin: 0 auto;
   }
-  //@include sm-block() {
-  //  justify-content: space-around;
-  //}
 }
 
 .your-help__item {
@@ -42,12 +38,12 @@
   margin: 0 60px 55px;
 
   @include lg-block() {
-    width: 170px;
+    width: 30%;
     margin: 0 0 55px;
   }
 
   @include sm-block() {
-    width: 140px;
+    width: 50%;
     margin-bottom: 31px;
   }
 }
@@ -71,7 +67,7 @@
   color: $base-pink;
 
   @include sm-block() {
-    margin-bottom: 20px;
+    margin-bottom: 13px;
   }
 }
 

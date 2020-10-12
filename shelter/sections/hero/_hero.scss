@@ -53,7 +53,7 @@
   background: url(../assets/images/start-screen-puppy.png) no-repeat;
 
   @include md-block() {
-    align-self: end;
+    align-self: flex-end;
     height: 593px;
     width: 569px;
     margin-top: 0;

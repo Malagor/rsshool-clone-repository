@@ -986,7 +986,7 @@ template {
 }
 .about__left {
   height: 433px;
-  background: url(/assets/images/about-pets.png) 176px 0 no-repeat
+  background: url(../assets/images/about-pets.png) 176px 0 no-repeat
 }
 @media screen and (max-width:992px) {
   .about__left {
@@ -1315,10 +1315,10 @@ template {
 .gallery__arrow--disabled {
   cursor: inherit;
   border-color: #cdcdcd;
-  background: transparent url(assets/icons/arrow-grey.svg) center no-repeat
+  background: transparent url(../assets/icons/arrow-grey.svg) center no-repeat
 }
 .gallery__arrow--disabled:hover {
-  background: transparent url(assets/icons/arrow-grey.svg) center no-repeat
+  background: transparent url(../assets/icons/arrow-grey.svg) center no-repeat
 }
 .our-friends-pets {
   padding: 80px 0 100px;

@@ -213,10 +213,10 @@
   &--disabled {
     cursor: inherit;
     border-color: $base-gray;
-    background: transparent url(assets/icons/arrow-grey.svg) center no-repeat;
+    background: transparent url(../assets/icons/arrow-grey.svg) center no-repeat;
 
     &:hover {
-      background: transparent url(assets/icons/arrow-grey.svg) center no-repeat;
+      background: transparent url(../assets/icons/arrow-grey.svg) center no-repeat;
     }
   }
 

@@ -40,7 +40,7 @@
 
 .about__left {
   height: 433px;
-  background: url(/assets/images/about-pets.png) 176px 0 no-repeat;
+  background: url(../assets/images/about-pets.png) 176px 0 no-repeat;
 
   @include lg-block() {
     width: 300px;

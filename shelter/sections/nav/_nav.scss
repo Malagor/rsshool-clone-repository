@@ -84,6 +84,10 @@
     top: 46px;
     right: 73px;
 
+    .header--scroll &.open {
+      top: 23px;
+    }
+
     @include sm-block() {
       top: 46px;
       right: 53px;
@@ -199,6 +203,11 @@
   .inner-page & {
     color: $main-color;
   }
+
+  .inner-page .mobile-open &{
+    color: #cdcdcd;
+  }
+
 }
 
 .menu__link.active,
@@ -207,6 +216,10 @@
 
   .inner-page & {
     color: $pets-card-button-color;
+  }
+
+  .inner-page .mobile-open & {
+    color: $base-white;
   }
 }
 

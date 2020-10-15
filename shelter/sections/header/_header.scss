@@ -13,14 +13,24 @@
   }
 
   .inner-page & {
-    position: relative;
+    position: sticky;
     top: 0;
     left: 0;
     transform: none;
 
     height: 120px;
+
+    background: $base-white;
+
+    transition: all 0.3s;
+
+    &.header--scroll {
+      height: 77px;
+      box-shadow: 0 0 11px #ddd;
+    }
   }
 }
+
 
 .header__wrapper {
   display: flex;

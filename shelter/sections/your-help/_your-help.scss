@@ -1,0 +1,86 @@
+/* ============== Your Help ============= */
+
+.your-help {
+  padding: 80px 0 47px;
+
+  @include sm-block() {
+    padding: 40px 0 13px;
+  }
+}
+
+.your-help__title {
+  margin-bottom: 60px;
+  letter-spacing: 0.06em;
+
+  @include sm-block() {
+    margin-bottom: 44px;
+    letter-spacing: 1px;
+  }
+}
+
+.your-help__list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 0;
+
+  @include md-block() {
+    max-width: 657px;
+    justify-content: space-between;
+    margin: 0 auto;
+  }
+}
+
+.your-help__item {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: 0 60px 55px;
+
+  @include lg-block() {
+    width: 30%;
+    margin: 0 0 55px;
+  }
+
+  @include sm-block() {
+    width: 50%;
+    margin-bottom: 31px;
+  }
+}
+
+.icon {
+  display: inline-block;
+  width: 60px;
+  height: 60px;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+
+  @include sm-block() {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+.your-help__icon {
+  margin-bottom: 23px;
+  color: $base-pink;
+
+  @include sm-block() {
+    margin-bottom: 13px;
+  }
+}
+
+.your-help__name {
+  font-size: 20px;
+  line-height: 23px;
+  letter-spacing: 0.06em;
+  color: $main-color;
+
+  @include sm-block() {
+    font-size: 15px;
+    line-height: 16px;
+  }
+}
+
+/* /.============== Your Help ============= */

@@ -96,6 +96,7 @@ body {
 }
 .container {
   max-width: 1200px;
+  height: 100%;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   margin: 0 auto
@@ -423,13 +424,23 @@ template {
   }
 }
 .inner-page .header {
-  position: relative;
+  position: -webkit-sticky;
+  position: sticky;
   top: 0;
   left: 0;
   -webkit-transform: none;
   -ms-transform: none;
   transform: none;
-  height: 120px
+  height: 120px;
+  background: #fff;
+  -webkit-transition: all .3s;
+  -o-transition: all .3s;
+  transition: all .3s
+}
+.inner-page .header.header--scroll {
+  height: 77px;
+  -webkit-box-shadow: 0 0 11px #ddd;
+  box-shadow: 0 0 11px #ddd
 }
 .header__wrapper {
   display: -webkit-box;
@@ -545,6 +556,9 @@ template {
   position: absolute;
   top: 46px;
   right: 73px
+}
+.header--scroll .nav.mobile-open .nav__mobile-toggle.open.open {
+  top: 23px
 }
 @media screen and (max-width:480px) {
   .nav.mobile-open .nav__mobile-toggle.open {
@@ -663,6 +677,9 @@ template {
 .inner-page .menu__link {
   color: #545454
 }
+.inner-page .mobile-open .menu__link {
+  color: #cdcdcd
+}
 .menu__link.active,
 .menu__link:hover {
   color: #fff
@@ -670,6 +687,10 @@ template {
 .inner-page .menu__link.active,
 .inner-page .menu__link:hover {
   color: #292929
+}
+.inner-page .mobile-open .menu__link.active,
+.inner-page .mobile-open .menu__link:hover {
+  color: #fff
 }
 .menu__link.active::after {
   content: '';
@@ -1204,6 +1225,11 @@ template {
   }
 }
 @media screen and (max-width:992px) {
+  .gallery-item:nth-last-child(2) {
+    display: none
+  }
+}
+@media screen and (max-width:992px) {
   .gallery-item:last-child {
     display: none
   }
@@ -1364,6 +1390,21 @@ template {
   .gallery-table .gallery-item {
     margin-left: 20px;
     margin-right: 20px
+  }
+}
+.gallery-table .gallery-item:nth-child(2) {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex
+}
+@media screen and (max-width:992px) {
+  .gallery-table .gallery-item:nth-last-child(-n+2) {
+    display: none
+  }
+}
+@media screen and (max-width:480px) {
+  .gallery-table .gallery-item:nth-last-child(-n+5) {
+    display: none
   }
 }
 .gallery-table .gallery-item__image {

@@ -116,6 +116,12 @@
   }
 }
 
+.gallery-item:nth-last-child(2) {
+  @include lg-block() {
+    display: none;
+  }
+}
+
 .gallery-item:last-child {
   @include lg-block() {
   display: none;

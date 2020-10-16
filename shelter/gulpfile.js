@@ -124,7 +124,7 @@ function styles() {
     .pipe(eval(preprocessor)())
     .pipe(concat(paths.cssOutputName))
     .pipe(autoprefixer({overrideBrowserslist: ['last 4 versions'], grid: true}))
-    .pipe(csscomb('zen'))
+    .pipe(csscomb())
     // .pipe(gcmq()) // Компануем медиазапросы
     .pipe(cleancss({
       level: {1: {specialComments: 1}},

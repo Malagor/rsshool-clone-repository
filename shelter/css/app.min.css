@@ -179,6 +179,7 @@ img {
   clip-path: polygon(0 0,0 0,0 0,0 0)
 }
 .btn {
+  height: 52px;
   padding: 16px 45px;
   font-size: 17px;
   letter-spacing: .06em;
@@ -213,6 +214,23 @@ img {
     -ms-grid-row-align: center;
     align-self: center
   }
+}
+#overlay {
+  height: 100vh;
+  width: 100%;
+  position: absolute;
+  top: -30px;
+  right: -100%;
+  background: rgba(41,41,41,.6);
+  -webkit-transition: .3s;
+  -o-transition: .3s;
+  transition: .3s
+}
+.inner-page #overlay {
+  top: 0
+}
+.nav__mobile-toggle.open + #overlay {
+  right: 0
 }
 /*! normalize.css v7.0.0 | MIT License | github.com/necolas/normalize.css */
 html {
@@ -481,7 +499,7 @@ template {
 .header__logo--mobile-menu-open {
   top: 0;
   z-index: 2;
-  left: calc(100% - 300px)
+  left: calc(100% - 310px)
 }
 .logo__title {
   margin-bottom: 10px;
@@ -810,7 +828,9 @@ template {
 }
 @media screen and (max-width:700px) {
   .hero__right {
-    width: 100%
+    width: 100%;
+    height: 59vh;
+    background-position: center
   }
 }
 @media screen and (max-width:480px) {
@@ -929,7 +949,9 @@ template {
 }
 @media screen and (max-width:700px) {
   .hero__right {
-    width: 100%
+    width: 100%;
+    height: 59vh;
+    background-position: center
   }
 }
 @media screen and (max-width:480px) {
@@ -1106,7 +1128,7 @@ template {
 }
 @media screen and (max-width:768px) {
   .our-friends {
-    padding-top: 82px
+    padding-top: 80px
   }
 }
 @media screen and (max-width:480px) {
@@ -1242,7 +1264,7 @@ template {
     display: none
   }
 }
-@media screen and (max-width:992px) {
+@media screen and (max-width:700px) {
   .gallery-item:nth-last-child(2) {
     display: none
   }
@@ -1604,7 +1626,7 @@ template {
 }
 @media screen and (max-width:480px) {
   .in-addition__wrapper {
-    padding: 40px 10px 42px
+    padding: 38px 10px 42px
   }
 }
 .in-addition__left,
@@ -1644,7 +1666,7 @@ template {
 @media screen and (max-width:480px) {
   .in-addition__right {
     width: 100%;
-    margin-bottom: 40px
+    margin-bottom: 41px
   }
 }
 .in-addition__title {
@@ -1697,7 +1719,7 @@ template {
 @media screen and (max-width:480px) {
   .credit-cart {
     max-width: 282px;
-    margin: 0 auto 23px;
+    margin: 0 auto 19px;
     padding: 10px 13px;
     font-size: 15px
   }

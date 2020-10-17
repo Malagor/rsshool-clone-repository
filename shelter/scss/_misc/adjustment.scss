@@ -154,6 +154,7 @@ footer {
 }
 
 .btn {
+  height: 52px;
   padding: 16px 45px;
 
   font-size: 17px;
@@ -193,4 +194,22 @@ footer {
     }
   }
 
+}
+
+#overlay {
+  height: 100vh;
+  width: 100%;
+  position: absolute;
+  top: -30px;
+  right: -100%;
+  background: rgba(41,41,41,0.6);
+  transition: 0.3s;
+
+  .inner-page & {
+    top: 0;
+  }
+
+  .nav__mobile-toggle.open + & {
+    right: 0;
+  }
 }

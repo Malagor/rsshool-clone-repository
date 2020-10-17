@@ -11,7 +11,7 @@
   }
 
   @include md-block() {
-    padding-top: 82px;
+    padding-top: 80px;
   }
 
   @include sm-block() {
@@ -110,6 +110,7 @@
   overflow: hidden;
 
 }
+
 .gallery-item:nth-child(2) {
   @include sm-block() {
     display: none;
@@ -117,14 +118,14 @@
 }
 
 .gallery-item:nth-last-child(2) {
-  @include lg-block() {
+  @include sm-block-ex() {
     display: none;
   }
 }
 
 .gallery-item:last-child {
   @include lg-block() {
-  display: none;
+    display: none;
   }
 }
 
@@ -178,7 +179,7 @@
     transform: translateY(-80%);
   }
 
-  @include  sm-block() {
+  @include sm-block() {
     position: static;
     display: flex;
     justify-content: space-around;

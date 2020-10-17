@@ -63,7 +63,10 @@
 
   @include sm-block-ex() {
     width: 100%;
+    height: 59vh;
+    background-position: center;
   }
+
   @include sm-block() {
     width: 260px;
     height: 271px;
@@ -110,7 +113,6 @@
     text-align: center;
   }
 }
-
 
 
 /* /. =========== Hero ============ */

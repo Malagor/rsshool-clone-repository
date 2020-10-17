@@ -12,6 +12,13 @@ const mobileMenu = () => {
   // $nav.classList.toggle('mobile-open');
   $headerLogo.classList.toggle('header__logo--mobile-menu-open');
 
+  if ($menu.classList.contains('menu-mobile')) {
+    console.log('Добалвяем оверлей');
+    $menu.insertAdjacentHTML('beforebegin', '<div id="overlay"></div>');
+  } else {
+    $nav.removeChild(document.querySelector('#overlay'));
+  }
+
   const headerPosition = getComputedStyle($header).position;
 
   if (headerPosition === 'absolute') {
@@ -20,30 +27,30 @@ const mobileMenu = () => {
     $header.style.position = '';
   }
 };
-// $toggleMenuBtn.addEventListener('click', mobileMenu);
+
+// Обрабатываем клики для закрытия мобильного меню
 
 document.body.addEventListener('click', event => {
   const target = event.target;
 
+  // закрытие меню по нажатию на кнопку
   if (target.closest('.nav__mobile-toggle')) {
     mobileMenu();
   }
 
+  // Закрытие меню на нажатие мимо поля меню, и не в самом меню
   if (!target.closest('.menu.menu-mobile')
     && !target.closest('.nav__mobile-toggle')
     && $menu.classList.contains('menu-mobile')) {
     mobileMenu();
   }
 
+  // Закрытие мобильного меню при переходе по ссылке в модильном меню
+  if (target.closest('.menu__link') && $menu.classList.contains('menu-mobile')) {
+    mobileMenu();
+  }
+
 });
-
-
-// Закрытие мобильного меню при переходе по ссылке
-
-// $menu.addEventListener('click', event => {
-//   const target = event.target.closest('.menu__link');
-//   if (target) mobileMenu();
-// });
 
 
 // Обработка скролла страницы

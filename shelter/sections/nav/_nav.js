@@ -9,11 +9,9 @@ const $headerLogo = document.querySelector('.header__logo');
 const mobileMenu = () => {
   $toggleMenuBtn.classList.toggle('open');
   $menu.classList.toggle('menu-mobile');
-  // $nav.classList.toggle('mobile-open');
   $headerLogo.classList.toggle('header__logo--mobile-menu-open');
 
   if ($menu.classList.contains('menu-mobile')) {
-    // console.log('Добалвяем оверлей');
     $menu.insertAdjacentHTML('beforebegin', '<div id="overlay"></div>');
   } else {
     $nav.removeChild(document.querySelector('#overlay'));
@@ -51,18 +49,4 @@ document.body.addEventListener('click', event => {
   }
 
 });
-
-
-// Обработка скролла страницы
-
-document.body.addEventListener('scroll', function () {
-  let scrollTop = document.body.scrollTop;
-
-  if (scrollTop >= 150) {
-    $header.classList.add('header--scroll');
-  } else {
-    $header.classList.remove('header--scroll');
-  }
-});
-
 

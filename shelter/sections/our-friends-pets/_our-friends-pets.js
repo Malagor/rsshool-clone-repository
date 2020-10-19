@@ -1,6 +1,12 @@
 class PetsGalery {
   constructor(el, petsData) {
-    this.$el = document.querySelector(el);
+
+    if (typeof el === "string") {
+      this.$el = document.querySelector(el);
+    } else {
+      this.$el = el;
+    }
+
     this.data = petsData;
   }
 
@@ -84,82 +90,84 @@ class PetsGaleryTable extends PetsGalery {
   }
 }
 
-const petsTable = new PetsGaleryTable('.inner-page .gallery__list', petsArray);
+const tablePets = document.querySelector('.gallery-table .gallery__list');
+if (tablePets) {
+  const petsTable = new PetsGaleryTable('.gallery-table .gallery__list', petsArray);
 
-// Пагинация и вывод карточек животных на страницу
-const $pagination = document.querySelector('#pagination');
+  // Пагинация и вывод карточек животных на страницу
+  const $pagination = document.querySelector('#pagination');
 
-const $firstPageBtn = document.querySelector('#firstPage .gallery__arrow');
-const $prevPageBtn = document.querySelector('#prevPage .gallery__arrow');
-const $nextPageBtn = document.querySelector('#nextPage .gallery__arrow');
-const $lastPageBtn = document.querySelector('#lastPage .gallery__arrow');
-const $currentPageBlock = document.querySelector('#currentPage .gallery__arrow.active');
-const disabled = 'gallery__arrow--disabled';
+  const $firstPageBtn = document.querySelector('#firstPage .gallery__arrow');
+  const $prevPageBtn = document.querySelector('#prevPage .gallery__arrow');
+  const $nextPageBtn = document.querySelector('#nextPage .gallery__arrow');
+  const $lastPageBtn = document.querySelector('#lastPage .gallery__arrow');
+  const $currentPageBlock = document.querySelector('#currentPage .gallery__arrow.active');
+  const disabled = 'gallery__arrow--disabled';
 
-const controlsButtons = [
-  $firstPageBtn,
-  $prevPageBtn,
-  $nextPageBtn,
-  $lastPageBtn
-];
+  const controlsButtons = [
+    $firstPageBtn,
+    $prevPageBtn,
+    $nextPageBtn,
+    $lastPageBtn
+  ];
 
-function disabledBtn(arr) {
-  controlsButtons.forEach(el => {
-    el.classList.remove(disabled);
-  });
+  function disabledBtn(arr) {
+    controlsButtons.forEach(el => {
+      el.classList.remove(disabled);
+    });
 
-  if (arr) {
-    arr.forEach(el => {
-      el.classList.add(disabled);
-    })
-  }
-}
-
-disabledBtn([$firstPageBtn, $prevPageBtn]);
-
-$pagination.addEventListener('click', event => {
-  const target = event.target;
-
-  if (target.closest('#firstPage')) {
-    petsTable.firstPage();
-    petsTable.render();
-    disabledBtn([$firstPageBtn, $prevPageBtn]);
+    if (arr) {
+      arr.forEach(el => {
+        el.classList.add(disabled);
+      })
+    }
   }
 
-  if (target.closest('#prevPage')) {
-    if ((petsTable.currentPage - 1) < 1) return;
+  disabledBtn([$firstPageBtn, $prevPageBtn]);
 
-    if ((petsTable.currentPage - 1) === 1) {
+  $pagination.addEventListener('click', event => {
+    const target = event.target;
+
+    if (target.closest('#firstPage')) {
+      petsTable.firstPage();
+      petsTable.render();
       disabledBtn([$firstPageBtn, $prevPageBtn]);
-    } else {
-      disabledBtn([]);
     }
 
-    petsTable.prevPage();
-    petsTable.render();
-  }
+    if (target.closest('#prevPage')) {
+      if ((petsTable.currentPage - 1) < 1) return;
 
-  if (target.closest('#nextPage')) {
-    if ((petsTable.currentPage + 1) > petsTable.lastPageNumber) return;
+      if ((petsTable.currentPage - 1) === 1) {
+        disabledBtn([$firstPageBtn, $prevPageBtn]);
+      } else {
+        disabledBtn([]);
+      }
 
-    if ((petsTable.currentPage + 1) === petsTable.lastPageNumber) {
+      petsTable.prevPage();
+      petsTable.render();
+    }
+
+    if (target.closest('#nextPage')) {
+      if ((petsTable.currentPage + 1) > petsTable.lastPageNumber) return;
+
+      if ((petsTable.currentPage + 1) === petsTable.lastPageNumber) {
+        disabledBtn([$lastPageBtn, $nextPageBtn]);
+      } else {
+        disabledBtn([]);
+      }
+
+      petsTable.nextPage();
+      petsTable.render();
+    }
+
+    if (target.closest('#lastPage')) {
+      petsTable.lastPage();
+      petsTable.render();
       disabledBtn([$lastPageBtn, $nextPageBtn]);
-    } else {
-      disabledBtn([]);
     }
 
-    petsTable.nextPage();
-    petsTable.render();
-  }
+    $currentPageBlock.innerText = petsTable.currentPage;
 
-  if (target.closest('#lastPage')) {
-    petsTable.lastPage();
-    petsTable.render();
-    disabledBtn([$lastPageBtn, $nextPageBtn]);
-  }
-
-  $currentPageBlock.innerText = petsTable.currentPage;
-
-});
-
+  });
+}
 // /. Пагинация

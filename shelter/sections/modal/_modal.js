@@ -42,7 +42,7 @@ class Modal{
   }
 
   openModal(){
-    this.$el.insertAdjacentHTML('beforebegin', '<div id="overlay"></div>');
+    this.$el.insertAdjacentHTML('beforebegin', '<div id="overlay" style="top: 0;"></div>');
 
     this.$el.innerHTML = '';
     this.$el.insertAdjacentHTML('beforeend', this.toHTML(this.data));

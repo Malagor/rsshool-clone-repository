@@ -58,6 +58,10 @@
     background: $base-pink;
     transition: all 0.3s;
     opacity: 1;
+
+    .inner-page & {
+      background: #000;
+    }
   }
 
   span:nth-child(1) {
@@ -108,6 +112,10 @@
 
     .inner-page & {
       top: 50px;
+
+      span {
+        background: $base-pink;
+      }
     }
 
     //.header--scroll &.open {

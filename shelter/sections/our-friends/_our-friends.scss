@@ -74,6 +74,8 @@
   width: 990px;
   padding: 0;
   margin-bottom: 30px;
+  opacity: 1;
+  transition: 0.3s;
 
   @include xl-block() {
     width: 89%;

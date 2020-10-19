@@ -92,7 +92,7 @@ class PetsGaleryTable extends PetsGalery {
 
 const tablePets = document.querySelector('.gallery-table .gallery__list');
 if (tablePets) {
-  const petsTable = new PetsGaleryTable('.gallery-table .gallery__list', petsArray);
+  const petsTable = new PetsGaleryTable(tablePets, petsArray);
 
   // Пагинация и вывод карточек животных на страницу
   const $pagination = document.querySelector('#pagination');

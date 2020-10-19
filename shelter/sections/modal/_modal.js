@@ -1,20 +1,21 @@
-class PetsModal{
-  constructor(el, data) {
-    this.$el = document.querySelector(el);
+class Modal{
+  constructor() {
+    this.init();
+  }
+
+  init() {
+    document.body.insertAdjacentHTML('beforeend','<div id="modal" class="modal"></div>');
+    this.$el = document.querySelector('#modal');
+    return this;
+  }
+
+  setContent(data) {
     this.data = data;
+    return this;
   }
 
-  getData(index){
-    return this.data[index];
-  }
-
-  render(index) {
-    this.$el.innerHTML = '';
-    this.$el.insertAdjacentHTML('beforeend', this.toHTML(index));
-  }
-
-  toHTML(index) {
-    const {name, img, type, breed, description, age, inoculations, diseases, parasites } = this.data[index];
+  toHTML(data) {
+    const {name, img, type, breed, description, age, inoculations, diseases, parasites } = data;
     return `
     <div class="modal__wrapper">
     <button id="modalClose" class="btn btn--transparent modal__close">
@@ -30,10 +31,10 @@ class PetsModal{
       <div class="modal__breed">${type}- ${breed}</div>
       <div class="modal__description">${description}</div>
       <ul class="modal__list">
-        <li class="modal__item"><span class="modal__item-label">Age:</span>${age}</li>
-        <li class="modal__item"><span class="modal__item-label">Inoculations:</span>${inoculations}</li>
-        <li class="modal__item"><span class="modal__item-label">Diseases:</span>${diseases}</li>
-        <li class="modal__item"><span class="modal__item-label">Parasites:</span>${parasites}</li>
+        <li class="modal__item"><span><span class="modal__item-label">Age:</span>${age}</span></li>
+        <li class="modal__item"><span><span class="modal__item-label">Inoculations:</span>${inoculations}</span></li>
+        <li class="modal__item"><span><span class="modal__item-label">Diseases:</span>${diseases}</></li>
+        <li class="modal__item"><span><span class="modal__item-label">Parasites:</span>${parasites}</></li>
       </ul>
     </div>
   </div>
@@ -42,6 +43,10 @@ class PetsModal{
 
   openModal(){
     this.$el.insertAdjacentHTML('beforebegin', '<div id="overlay"></div>');
+
+    this.$el.innerHTML = '';
+    this.$el.insertAdjacentHTML('beforeend', this.toHTML(this.data));
+
     this.$el.classList.add('open');
   }
 
@@ -49,22 +54,19 @@ class PetsModal{
     if (this.$el.classList.contains('open')) {
       this.$el.classList.remove('open');
     }
-    document.querySelector('.wrapper').removeChild(document.querySelector('#overlay'));
+    document.body.removeChild(document.querySelector('#overlay'));
   }
 }
 
-const petsModal = new PetsModal('#modal', petsArray);
+const petsModal = new Modal();
 
 document.body.addEventListener('click', event => {
 
   const target = event.target;
 
-  console.log(target);
-
   if (target.closest('.pet-details')) {
     const index = target.closest('.gallery-item').dataset.index;
-    petsModal.render(index);
-    petsModal.openModal();
+    petsModal.setContent(petsArray[index]).openModal();
   }
 
   if (target.closest('#modalClose') || target.closest('#overlay') ) {

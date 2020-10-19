@@ -1,11 +1,24 @@
 .modal {
   position: fixed;
-  width: 100%;
+  //width: 100%;
+  width: 82%;
+  max-width: 900px;
   top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  left: 100%;
+  transform: translate(100%, -50%);
+
+  opacity: 0;
+  transition: 0.3s;
   z-index: 1;
+
+  &.open {
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
 }
+
+
 .modal__close {
   position: absolute;
   top: -52px;
@@ -13,6 +26,8 @@
   padding: 0;
   width: 52px;
   height: 52px;
+
+  outline: inherit;
 
   @include sm-block() {
     right: -30px;
@@ -28,8 +43,9 @@
   position: relative;
   display: flex;
 
-  width: 82%;
-  max-width: 900px;
+  //width: 82%;
+  //max-width: 900px;
+  width: 100%;
   height: 500px;
   margin: 0 auto;
 

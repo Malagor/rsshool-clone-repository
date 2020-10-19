@@ -1,13 +1,50 @@
 class PetsGalerySlider extends PetsGalery{
   constructor(el, data) {
     super(el, data);
+
+    this.init();
   }
 
+  init() {
+    this.countItemPerPage();
+  }
+
+  countItemPerPage() {
+    const width = screen.width;
+    if (width < 700) {
+      this.itemsPerPage = 1;
+    } else if (width < 990) {
+      this.itemsPerPage = 2;
+    } else {
+      this.itemsPerPage = 3;
+    }
+  }
+
+  getRandomItems() {
+    const result =[];
+    while (result.length < this.itemsPerPage) {
+      const curNum = Math.floor(Math.random() * Math.floor(this.data.length));
+      if (result.indexOf(curNum) === -1) {
+        result.push(curNum)
+      }
+    }
+    return result;
+  }
+
+
   render() {
+    const indexesItem = this.getRandomItems();
+
+    const getItemFronData = (val, index) => {
+      return indexesItem.indexOf(index) !== -1;
+    };
+
+    const curArr = this.data.filter(getItemFronData);
+
     this.$el.innerHTML = '';
-    this.data.forEach((pet, index) => {
-      this.$el.insertAdjacentHTML('beforeend', this.toHTML(pet, index))
-    })
+    curArr.forEach((pet, index) => {
+      this.$el.insertAdjacentHTML('beforeend', this.toHTML(pet, indexesItem[index]));
+    });
   }
 
 }
@@ -20,7 +57,13 @@ if (slider) {
 
   petsSlider.render();
 
-}
+  document.querySelector('.gallery').addEventListener('click', event =>{
+    const {target} = event;
 
+    if (target.closest('.gallery__arrow--left') || target.closest('.gallery__arrow--right')){
+      petsSlider.render();
+    }
+  })
+}
 
 

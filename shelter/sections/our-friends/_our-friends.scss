@@ -71,11 +71,13 @@
 .gallery__list {
   display: flex;
   justify-content: space-between;
+  overflow: hidden;
   width: 990px;
   padding: 0;
   margin-bottom: 30px;
   opacity: 1;
   transition: 0.3s;
+  //gap: 90px;
 
   @include xl-block() {
     width: 89%;
@@ -88,6 +90,7 @@
   @include md-block() {
     justify-content: space-around;
     //margin-bottom: 45px;
+    gap: 40px;
   }
 
   @include sm-block() {

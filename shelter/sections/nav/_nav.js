@@ -13,7 +13,7 @@ const mobileMenu = () => {
   $headerLogo.classList.toggle('header__logo--mobile-menu-open');
 
   if ($menu.classList.contains('menu-mobile')) {
-    console.log('Добалвяем оверлей');
+    // console.log('Добалвяем оверлей');
     $menu.insertAdjacentHTML('beforebegin', '<div id="overlay"></div>');
   } else {
     $nav.removeChild(document.querySelector('#overlay'));

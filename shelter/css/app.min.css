@@ -1753,13 +1753,25 @@ template {
 }
 .modal {
   position: fixed;
-  width: 100%;
+  width: 82%;
+  max-width: 900px;
   top: 50%;
+  left: 100%;
+  -webkit-transform: translate(100%,-50%);
+  -ms-transform: translate(100%,-50%);
+  transform: translate(100%,-50%);
+  opacity: 0;
+  -webkit-transition: .3s;
+  -o-transition: .3s;
+  transition: .3s;
+  z-index: 1
+}
+.modal.open {
   left: 50%;
   -webkit-transform: translate(-50%,-50%);
   -ms-transform: translate(-50%,-50%);
   transform: translate(-50%,-50%);
-  z-index: 1
+  opacity: 1
 }
 .modal__close {
   position: absolute;
@@ -1767,7 +1779,8 @@ template {
   right: -42px;
   padding: 0;
   width: 52px;
-  height: 52px
+  height: 52px;
+  outline: inherit
 }
 @media screen and (max-width:480px) {
   .modal__close {
@@ -1783,8 +1796,7 @@ template {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  width: 82%;
-  max-width: 900px;
+  width: 100%;
   height: 500px;
   margin: 0 auto;
   border-radius: 9px;

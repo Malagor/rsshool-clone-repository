@@ -1,7 +1,6 @@
 class PetsGalerySlider extends PetsGalery{
   constructor(el, data) {
     super(el, data);
-
     this.init();
   }
 
@@ -33,18 +32,16 @@ class PetsGalerySlider extends PetsGalery{
 
 
   render() {
-    const indexesItem = this.getRandomItems();
-
-    const getItemFronData = (val, index) => {
-      return indexesItem.indexOf(index) !== -1;
-    };
-
-    const curArr = this.data.filter(getItemFronData);
-
+    this.$el.classList.remove('show');
     this.$el.innerHTML = '';
-    curArr.forEach((pet, index) => {
-      this.$el.insertAdjacentHTML('beforeend', this.toHTML(pet, indexesItem[index]));
+    this.getRandomItems().forEach(index => {
+      this.$el.insertAdjacentHTML('beforeend', this.toHTML(this.data[index], index));
     });
+    setTimeout(() => {
+      this.$el.classList.add('show');
+    }, 200);
+
+
   }
 
 }
@@ -53,8 +50,6 @@ const slider = document.querySelector('.gallery .gallery__list');
 
 if (slider) {
   const petsSlider = new PetsGalerySlider(slider, petsArray);
-  console.log(petsSlider);
-
   petsSlider.render();
 
   document.querySelector('.gallery').addEventListener('click', event =>{

@@ -75,9 +75,14 @@
   width: 990px;
   padding: 0;
   margin-bottom: 30px;
-  opacity: 1;
-  transition: 0.3s;
+  opacity: 0;
+  //transition: 0.3s;
   //gap: 90px;
+
+  &.show {
+    opacity: 1;
+    transition: 0.5s;
+  }
 
   @include xl-block() {
     width: 89%;

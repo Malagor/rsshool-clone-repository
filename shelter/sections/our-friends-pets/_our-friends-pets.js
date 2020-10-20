@@ -62,11 +62,15 @@ class PetsGaleryTable extends PetsGalery {
       return start <= index && index < finish;
     });
 
+    this.$el.classList.remove('show');
     this.$el.innerHTML = '';
 
     curArr.forEach((pet, index) => {
       this.$el.insertAdjacentHTML('beforeend', this.toHTML(pet, ((this.currentPage - 1)  * this.itemsPerPage) + index))
     });
+    setTimeout(() => {
+      this.$el.classList.add('show');
+    }, 200);
   }
 
   nextPage() {

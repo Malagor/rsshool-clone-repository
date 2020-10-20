@@ -447,8 +447,7 @@ template {
   }
 }
 .inner-page .header {
-  position: -webkit-sticky;
-  position: sticky;
+  position: fixed;
   top: 0;
   left: 0;
   -webkit-transform: none;
@@ -591,6 +590,9 @@ template {
   transition: all .3s;
   opacity: 1
 }
+.inner-page .nav__mobile-toggle span {
+  background: #000
+}
 .nav__mobile-toggle span:nth-child(1) {
   top: 0
 }
@@ -628,6 +630,9 @@ template {
 }
 .inner-page .nav__mobile-toggle.open {
   top: 50px
+}
+.inner-page .nav__mobile-toggle.open span {
+  background: #f1cdb3
 }
 .menu {
   display: -webkit-box;
@@ -860,11 +865,16 @@ template {
 }
 .hero__subtitle {
   width: 100%;
-  margin-bottom: 42px;
+  margin-bottom: 56px;
   font-family: Arial,sans-serif;
   font-size: 15px;
   line-height: 160%;
   color: #cdcdcd
+}
+@media screen and (max-width:768px) {
+  .hero__subtitle {
+    margin-bottom: 42px
+  }
 }
 @media screen and (max-width:480px) {
   .hero__subtitle {
@@ -981,11 +991,16 @@ template {
 }
 .hero__subtitle {
   width: 100%;
-  margin-bottom: 42px;
+  margin-bottom: 56px;
   font-family: Arial,sans-serif;
   font-size: 15px;
   line-height: 160%;
   color: #cdcdcd
+}
+@media screen and (max-width:768px) {
+  .hero__subtitle {
+    margin-bottom: 42px
+  }
 }
 @media screen and (max-width:480px) {
   .hero__subtitle {
@@ -1012,7 +1027,7 @@ template {
   -ms-flex-pack: justify;
   justify-content: space-between;
   height: 100%;
-  padding: 80px 0 100px
+  padding: 102px 0 100px
 }
 @media screen and (max-width:992px) {
   .about__wrapper {
@@ -1211,13 +1226,17 @@ template {
   -webkit-box-pack: justify;
   -ms-flex-pack: justify;
   justify-content: space-between;
+  overflow: hidden;
   width: 990px;
   padding: 0;
   margin-bottom: 30px;
+  opacity: 0
+}
+.gallery__list.show {
   opacity: 1;
-  -webkit-transition: .3s;
-  -o-transition: .3s;
-  transition: .3s
+  -webkit-transition: .5s;
+  -o-transition: .5s;
+  transition: .5s
 }
 @media screen and (max-width:1200px) {
   .gallery__list {
@@ -1281,7 +1300,7 @@ template {
   }
 }
 .gallery-item__title {
-  margin-bottom: 29px;
+  margin-bottom: 32px;
   font-size: 20px;
   line-height: 23px;
   letter-spacing: .06em
@@ -1377,14 +1396,41 @@ template {
 }
 .our-friends-pets {
   padding: 80px 0 100px;
-  background: #f6f6f6
+  background: #f6f6f6;
+  margin-top: 120px
+}
+@media screen and (max-width:768px) {
+  .our-friends-pets {
+    padding-bottom: 76px
+  }
+}
+@media screen and (max-width:480px) {
+  .our-friends-pets {
+    margin-top: 82px;
+    padding-bottom: 43px
+  }
 }
 .our-friends-pets .our-friends__title {
   margin-bottom: 44px
 }
+@media screen and (max-width:768px) {
+  .our-friends-pets .our-friends__title {
+    margin-bottom: 15px
+  }
+}
+@media screen and (max-width:480px) {
+  .our-friends-pets .our-friends__title {
+    margin-bottom: 28px
+  }
+}
 .gallery-table {
   width: 100%;
   margin-bottom: 18px
+}
+@media screen and (max-width:768px) {
+  .gallery-table {
+    margin-bottom: 0
+  }
 }
 .gallery-table .gallery__list {
   display: -webkit-box;
@@ -1396,7 +1442,8 @@ template {
   -ms-flex-pack: justify;
   justify-content: space-between;
   width: 100%;
-  padding: 15px 0
+  padding: 15px 0;
+  margin-bottom: 0
 }
 @media screen and (max-width:992px) {
   .gallery-table .gallery__list {
@@ -1432,24 +1479,46 @@ template {
     margin-right: 20px
   }
 }
+@media screen and (max-width:768px) {
+  .gallery-table .gallery-item__title {
+    margin-bottom: 30px
+  }
+}
+@media screen and (max-width:480px) {
+  .gallery-table .gallery-item__title {
+    margin-bottom: 33px
+  }
+}
 .gallery-table .gallery-item__image {
   height: 270px;
   -o-object-fit: cover;
   object-fit: cover
 }
+.pagination {
+  width: 338px
+}
+@media screen and (max-width:480px) {
+  .pagination {
+    width: 100%
+  }
+}
 .pagination__list {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center
 }
-.pagination__item {
-  margin-right: 22px
+@media screen and (max-width:480px) {
+  .pagination__list {
+    -ms-flex-pack: distribute;
+    justify-content: space-around;
+    padding: 0 5px
+  }
 }
 .pagination__item:last-child {
   margin-right: 0
@@ -1465,7 +1534,10 @@ template {
   -ms-flex-align: center;
   align-items: center;
   font-size: 20px;
-  background: 0 0
+  background: 0 0;
+  -webkit-transform: none;
+  -ms-transform: none;
+  transform: none
 }
 .pagination .gallery__arrow.active,
 .pagination .gallery__arrow:hover {
@@ -1787,6 +1859,9 @@ template {
     right: -30px
   }
 }
+#overlay:hover + .modal .modal__close {
+  background: #f1cdb3
+}
 .icon-close {
   width: 12px;
   height: 12px
@@ -1836,6 +1911,8 @@ template {
   max-width: 100%;
   width: 100%;
   height: 100%;
+  border-bottom-left-radius: 9px;
+  border-top-left-radius: 9px;
   -o-object-fit: cover;
   object-fit: cover
 }
@@ -1907,12 +1984,13 @@ template {
   }
 }
 .modal__item {
+  position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  -webkit-box-align: baseline;
+  -ms-flex-align: baseline;
+  align-items: baseline;
   margin-bottom: 3px;
   letter-spacing: 0
 }
@@ -1924,14 +2002,17 @@ template {
 }
 .modal__item:before {
   content: '';
+  position: absolute;
+  top: 11px;
   background: #f1cdb3;
   width: 4px;
   height: 4px;
   border-radius: 50%;
   margin-right: 10px
 }
-.modal__item span {
+.modal__item .modal__item-label {
   margin-right: 6px;
+  margin-left: 14px;
   font-weight: 700
 }
 #overlay {
@@ -1957,8 +2038,14 @@ footer.footer {
   }
 }
 .inner-page footer.footer {
+  padding-top: 40px;
   -ms-flex-preferred-size: 349px;
   flex-basis: 349px
+}
+@media screen and (max-width:768px) {
+  .inner-page footer.footer {
+    padding-top: 0
+  }
 }
 .footer__wrapper {
   display: -webkit-box;
@@ -1967,10 +2054,15 @@ footer.footer {
   -webkit-box-pack: justify;
   -ms-flex-pack: justify;
   justify-content: space-between;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  align-items: flex-start;
   height: 100%
+}
+@media screen and (max-width:768px) {
+  .inner-page .footer__wrapper {
+    padding-top: 13px
+  }
 }
 @media screen and (max-width:992px) {
   .footer__wrapper {
@@ -2017,6 +2109,9 @@ footer.footer {
     left: 0
   }
 }
+.inner-page .footer__left {
+  margin-top: 19px
+}
 .footer__center {
   width: 303px;
   height: 240px
@@ -2038,6 +2133,15 @@ footer.footer {
     margin-bottom: 40px
   }
 }
+.inner-page .footer__center {
+  margin-top: 19px
+}
+@media screen and (max-width:480px) {
+  .inner-page .footer__center {
+    margin-top: 0;
+    margin-bottom: 0
+  }
+}
 .footer__right {
   -ms-flex-item-align: end;
   align-self: flex-end;
@@ -2048,7 +2152,20 @@ footer.footer {
   background-size: contain
 }
 .inner-page .footer__right {
-  height: 310px
+  height: 310px;
+  background-size: cover;
+  background-position: 0 0
+}
+@media screen and (max-width:768px) {
+  .inner-page .footer__right {
+    background-position: center;
+    background-size: contain
+  }
+}
+@media screen and (max-width:480px) {
+  .inner-page .footer__right {
+    height: 270px
+  }
 }
 @media screen and (max-width:992px) {
   .footer__right {
@@ -2089,6 +2206,11 @@ footer.footer {
 .inner-page .footer__title {
   margin-bottom: 39px
 }
+@media screen and (max-width:480px) {
+  .inner-page .footer__title {
+    margin-bottom: 42px
+  }
+}
 .footer__center .footer__title {
   margin-bottom: 33px
 }
@@ -2106,6 +2228,11 @@ footer.footer {
 }
 .inner-page .footer__center .footer__title {
   margin-bottom: 31px
+}
+@media screen and (max-width:480px) {
+  .inner-page .footer__center .footer__title {
+    margin-bottom: 42px
+  }
 }
 .footer__contacts {
   padding: 0
@@ -2161,6 +2288,14 @@ footer.footer {
     margin-bottom: 40px
   }
 }
+.inner-page .footer__center .footer__item {
+  margin-bottom: 35px
+}
+@media screen and (max-width:480px) {
+  .inner-page .footer__center .footer__item {
+    margin-bottom: 40px
+  }
+}
 .footer__icon-wrapper {
   position: relative;
   height: 32px;
@@ -2212,6 +2347,11 @@ footer.footer {
 }
 .inner-page .icon.icon-pin {
   left: -20px
+}
+@media screen and (max-width:480px) {
+  .inner-page .icon.icon-pin {
+    left: -12px
+  }
 }
 .footer__item a {
   display: -webkit-box;

@@ -94,8 +94,6 @@
 
   @include md-block() {
     justify-content: space-around;
-    //margin-bottom: 45px;
-    gap: 40px;
   }
 
   @include sm-block() {
@@ -158,7 +156,7 @@
 }
 
 .gallery-item__title {
-  margin-bottom: 29px;
+  margin-bottom: 32px;
   font-size: 20px;
   line-height: 23px;
   letter-spacing: 0.06em;

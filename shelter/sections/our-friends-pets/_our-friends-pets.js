@@ -127,18 +127,28 @@ if (tablePets) {
     }
   }
 
-  disabledBtn([$firstPageBtn, $prevPageBtn]);
+  function isBtnDisabled(el) {
+    return el.classList.contains('gallery__arrow--disabled');
+  }
+
+  if (petsTable.currentPage === petsTable.totalPages) {
+    disabledBtn([$firstPageBtn, $prevPageBtn, $lastPageBtn, $nextPageBtn]);
+  }
+  else {
+    disabledBtn([$firstPageBtn, $prevPageBtn]);
+  }
 
   $pagination.addEventListener('click', event => {
     const target = event.target;
 
-    if (target.closest('#firstPage')) {
+    // проверяем, если по нужной кнопке и кнопка активна
+    if (target.closest('#firstPage') && !isBtnDisabled(target)) {
       petsTable.firstPage();
       petsTable.render();
       disabledBtn([$firstPageBtn, $prevPageBtn]);
     }
 
-    if (target.closest('#prevPage')) {
+    if (target.closest('#prevPage') && !isBtnDisabled(target)) {
       if ((petsTable.currentPage - 1) < 1) return;
 
       if ((petsTable.currentPage - 1) === 1) {
@@ -151,7 +161,7 @@ if (tablePets) {
       petsTable.render();
     }
 
-    if (target.closest('#nextPage')) {
+    if (target.closest('#nextPage') && !isBtnDisabled(target)) {
       if ((petsTable.currentPage + 1) > petsTable.lastPageNumber) return;
 
       if ((petsTable.currentPage + 1) === petsTable.lastPageNumber) {
@@ -164,7 +174,7 @@ if (tablePets) {
       petsTable.render();
     }
 
-    if (target.closest('#lastPage')) {
+    if (target.closest('#lastPage') && !isBtnDisabled(target)) {
       petsTable.lastPage();
       petsTable.render();
       disabledBtn([$lastPageBtn, $nextPageBtn]);

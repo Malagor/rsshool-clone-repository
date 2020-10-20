@@ -19,31 +19,16 @@ class PetsGalerySlider extends PetsGalery{
     }
   }
 
-  getRandomItems() {
-    const result =[];
-    while (result.length < this.itemsPerPage) {
-      const curNum = Math.floor(Math.random() * Math.floor(this.data.length));
-      if (result.indexOf(curNum) === -1) {
-        result.push(curNum)
-      }
-    }
-    return result;
-  }
-
-
   render() {
     this.$el.classList.remove('show');
     this.$el.innerHTML = '';
-    this.getRandomItems().forEach(index => {
+    this.getRandomItems(this.itemsPerPage, this.data.length).forEach(index => {
       this.$el.insertAdjacentHTML('beforeend', this.toHTML(this.data[index], index));
     });
     setTimeout(() => {
       this.$el.classList.add('show');
     }, 200);
-
-
   }
-
 }
 
 const slider = document.querySelector('.gallery .gallery__list');

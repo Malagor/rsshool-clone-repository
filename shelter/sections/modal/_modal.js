@@ -1,10 +1,10 @@
-class Modal{
+class Modal {
   constructor() {
     this.init();
   }
 
   init() {
-    document.body.insertAdjacentHTML('beforeend','<div id="modal" class="modal"></div>');
+    document.body.insertAdjacentHTML('beforeend', '<div id="modal" class="modal"></div>');
     this.$el = document.querySelector('#modal');
     return this;
   }
@@ -15,7 +15,7 @@ class Modal{
   }
 
   toHTML(data) {
-    const {name, img, type, breed, description, age, inoculations, diseases, parasites } = data;
+    const {name, img, type, breed, description, age, inoculations, diseases, parasites} = data;
     return `
     <div class="modal__wrapper">
     <button id="modalClose" class="btn btn--transparent modal__close">
@@ -41,7 +41,7 @@ class Modal{
     `
   }
 
-  openModal(){
+  openModal() {
     this.$el.insertAdjacentHTML('beforebegin', '<div id="overlay" style="top: 0;"></div>');
 
     this.$el.innerHTML = '';
@@ -50,7 +50,7 @@ class Modal{
     this.$el.classList.add('open');
   }
 
-  closeModal(){
+  closeModal() {
     if (this.$el.classList.contains('open')) {
       this.$el.classList.remove('open');
     }
@@ -66,15 +66,12 @@ document.body.addEventListener('click', event => {
 
   if (target.closest('.pet-details')) {
     const index = target.closest('.gallery-item').dataset.index;
+    // const data = petsTable.data[index];
+    // console.log(data);
     petsModal.setContent(petsArray[index]).openModal();
   }
 
-  if (target.closest('#modalClose') || target.closest('#overlay') ) {
+  if (target.closest('#modalClose') || target.closest('#overlay')) {
     petsModal.closeModal();
   }
 });
-
-
-
-
-

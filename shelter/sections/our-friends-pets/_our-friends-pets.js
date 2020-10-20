@@ -14,6 +14,17 @@ class PetsGalery {
     throw new Error('Этот метод нужно переопределить');
   }
 
+  getRandomItems(count, max) {
+    const result = [];
+    while (result.length < count) {
+      const curNum = Math.floor(Math.random() * Math.floor(max));
+      if (result.indexOf(curNum) === -1) {
+        result.push(curNum)
+      }
+    }
+    return result;
+  }
+
   toHTML = (pet, index) => {
     const {name, img} = pet;
     return `
@@ -66,7 +77,7 @@ class PetsGaleryTable extends PetsGalery {
     this.$el.innerHTML = '';
 
     curArr.forEach((pet, index) => {
-      this.$el.insertAdjacentHTML('beforeend', this.toHTML(pet, ((this.currentPage - 1)  * this.itemsPerPage) + index))
+      this.$el.insertAdjacentHTML('beforeend', this.toHTML(pet, ((this.currentPage - 1) * this.itemsPerPage) + index))
     });
     setTimeout(() => {
       this.$el.classList.add('show');
@@ -95,8 +106,12 @@ class PetsGaleryTable extends PetsGalery {
 }
 
 const tablePets = document.querySelector('.gallery-table .gallery__list');
+
+let petsTable;
 if (tablePets) {
-  const petsTable = new PetsGaleryTable(tablePets, petsArray);
+  petsTable = new PetsGaleryTable(tablePets, petsArray);
+
+  // console.log('createBigTable', petsTable.createBigTable(petsTable.data, 48));
 
   // Пагинация и вывод карточек животных на страницу
   const $pagination = document.querySelector('#pagination');
@@ -133,8 +148,7 @@ if (tablePets) {
 
   if (petsTable.currentPage === petsTable.totalPages) {
     disabledBtn([$firstPageBtn, $prevPageBtn, $lastPageBtn, $nextPageBtn]);
-  }
-  else {
+  } else {
     disabledBtn([$firstPageBtn, $prevPageBtn]);
   }
 

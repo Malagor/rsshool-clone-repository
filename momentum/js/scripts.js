@@ -1,6 +1,7 @@
 // DOM Elements
 
 const $time = document.querySelector('#time');
+const $date = document.querySelector('#date');
 const $greeting = document.querySelector('#greeting');
 const $name = document.querySelector('#name');
 const $focus = document.querySelector('#focus');
@@ -12,6 +13,10 @@ const dayTime = {
   morning: "Доброе утро",
   day: "Добрый день",
   evening: "Добрый вечер"
+};
+
+const daysOfWeek = {
+  0: 'Понедельник'
 };
 
 function addPrevZerros(num) {
@@ -76,17 +81,30 @@ function setFocus(event) {
   } else {
     localStorage.setItem('focus', $focus.textContent);
     $focus.blur();
+    getFocus();
   }
 }
 
 function showTime() {
+
   let today = new Date();
+  // let today = new Date(2020, 4, 10, 5,13,22);
   let hour = today.getHours();
-  // hour = 100;
   let min = addPrevZerros(today.getMinutes());
   let sec = addPrevZerros(today.getSeconds());
+  let day = today.getDate();
+  let year = today.getFullYear();
+  let month = today.toLocaleString('ru', {month: 'long'});
+  let weekday = today.toLocaleString('ru', {weekday: 'long'});
+
+  if (month === 'март' || month === 'август') {
+    month += 'а';
+  } else {
+    month = month.slice(0, -1) + 'я';
+  }
 
   $time.innerHTML = `${hour}:${min}:${sec}`;
+  $date.innerHTML = `${weekday},  ${day} ${month} ${year} года`;
 
   setGreetAndBackground(hour);
 

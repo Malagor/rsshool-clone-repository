@@ -15,10 +15,6 @@ const dayTime = {
   evening: "Добрый вечер"
 };
 
-const daysOfWeek = {
-  0: 'Понедельник'
-};
-
 function addPrevZerros(num) {
   return (parseInt(num, 10) < 10 ? '0' : '') + num;
 }
@@ -28,15 +24,19 @@ function setGreetAndBackground(hour) {
   if (0 <= hour && hour < 6) {
     greet = dayTime.night;
     $body.style.backgroundImage = 'url(img/night.jpg)';
+    $body.classList.add('night');
   } else if (hour < 12) {
     greet = dayTime.morning;
     $body.style.backgroundImage = 'url(img/morning.jpg)';
+    $body.classList.remove('night');
   } else if (hour < 18) {
     greet = dayTime.day;
     $body.style.backgroundImage = 'url(img/day.jpg)';
+    $body.classList.remove('night');
   } else {
     greet = dayTime.evening;
     $body.style.backgroundImage = 'url(img/evening.jpg)';
+    $body.classList.add('night');
   }
 
   $greeting.innerHTML = `${greet},`;

@@ -18,6 +18,8 @@ body {
   background-image: url(../img/day.jpg);
   background-position: center;
   background-size: cover; }
+  body.night {
+    color: #ffffff; }
 
 #time {
   font-size: 8rem; }

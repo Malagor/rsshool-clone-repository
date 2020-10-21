@@ -68,30 +68,44 @@ class Momentum {
   getName = () => {
     const name = localStorage.getItem("name");
     if (name === null || name === '') {
-      this.$name.textContent = '[ Введите имя ]';
+      if (localStorage.getItem("oldName")) {
+        this.$name.textContent = localStorage.getItem("oldName");
+      } else {
+        this.$name.textContent = '[ Введите имя ]';
+      }
     } else {
+      if (localStorage.getItem("oldName")) {
+        this.$name.textContent = localStorage.getItem("oldName");
+        localStorage.removeItem("oldName");
+      } else {
       this.$name.textContent = localStorage.getItem('name');
+      }
     }
   };
 
   getFocus = () => {
     const focus = localStorage.getItem("focus");
     if (focus === null || focus === '') {
+      if (localStorage.getItem("oldFocus")) {
+        this.$focus.textContent = localStorage.getItem("oldFocus");
+      } else {
       this.$focus.textContent = '[ Введите задачу ]';
+      }
     } else {
+      if (localStorage.getItem("oldFocus")) {
+        this.$focus.textContent = localStorage.getItem("oldFocus");
+        localStorage.removeItem("oldFocus");
+      } else {
       this.$focus.textContent = localStorage.getItem('focus');
+      }
     }
   };
 
   setName = (event) =>{
-    // console.log(event);
     if (event.type === 'keypress' && event.key !== 'Enter') {
-
       return false;
     } else {
-      console.log(this.$name);
       localStorage.setItem('name', this.$name.textContent);
-
       this.$name.blur();
       this.getName();
     }
@@ -143,11 +157,13 @@ class Momentum {
       const target = event.target;
 
       if (target.closest('#name')) {
-        this.$name.textContent = '';
+        localStorage.setItem('oldName', this.$name.textContent);
+        // this.$name.textContent = '';
       }
 
       if (target.closest('#focus')) {
-        this.$focus.textContent = '';
+        localStorage.setItem('oldFocus', this.$focus.textContent);
+        // this.$focus.textContent = '';
       }
     })
   }

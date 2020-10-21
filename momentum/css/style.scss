@@ -55,7 +55,8 @@ h2 {
   }
 }
 
-#name:focus {
+#name:focus,
+#focus:focus {
   border: 3px solid white;
   padding: 0 10px;
 }

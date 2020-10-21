@@ -42,26 +42,16 @@ class Momentum {
   }
 
   setGreetAndBackground(hour) {
-    const $body = document.body;
     let greet;
     if (0 <= hour && hour < 6) {
       greet = this.dayTime.night;
-      $body.style.backgroundImage = 'url(img/night.jpg)';
-      $body.classList.add('night');
     } else if (hour < 12) {
       greet = this.dayTime.morning;
-      $body.style.backgroundImage = 'url(img/morning.jpg)';
-      $body.classList.remove('night');
     } else if (hour < 18) {
       greet = this.dayTime.day;
-      $body.style.backgroundImage = 'url(img/day.jpg)';
-      $body.classList.remove('night');
     } else {
       greet = this.dayTime.evening;
-      $body.style.backgroundImage = 'url(img/evening.jpg)';
-      $body.classList.add('night');
     }
-
     this.$greeting.innerHTML = `${greet},`;
   }
 
@@ -78,7 +68,7 @@ class Momentum {
         this.$name.textContent = localStorage.getItem("oldName");
         localStorage.removeItem("oldName");
       } else {
-      this.$name.textContent = localStorage.getItem('name');
+        this.$name.textContent = localStorage.getItem('name');
       }
     }
   };
@@ -89,19 +79,19 @@ class Momentum {
       if (localStorage.getItem("oldFocus")) {
         this.$focus.textContent = localStorage.getItem("oldFocus");
       } else {
-      this.$focus.textContent = '[ Введите задачу ]';
+        this.$focus.textContent = '[ Введите задачу ]';
       }
     } else {
       if (localStorage.getItem("oldFocus")) {
         this.$focus.textContent = localStorage.getItem("oldFocus");
         localStorage.removeItem("oldFocus");
       } else {
-      this.$focus.textContent = localStorage.getItem('focus');
+        this.$focus.textContent = localStorage.getItem('focus');
       }
     }
   };
 
-  setName = (event) =>{
+  setName = (event) => {
     if (event.type === 'keypress' && event.key !== 'Enter') {
       return false;
     } else {
@@ -170,3 +160,93 @@ class Momentum {
 }
 
 const momentum = new Momentum('#main-content');
+
+class Images {
+  constructor(arrImages) {
+    this.images = arrImages;
+    this.curImage = 0;
+    this.countAllImages = arrImages.length;
+    this.base = 'img/';
+
+    this.timer();
+  }
+
+  changeImage = (event) => {
+    document.querySelector('#prevImage').disabled = true;
+    document.querySelector('#nextImage').disabled = true;
+
+
+    if (this.timerHendler !== undefined) {
+      this.stopTimer();
+    }
+
+    if (event.target.closest('#nextImage')) {
+      (this.curImage + 1) < this.countAllImages
+        ? ++this.curImage
+        : this.curImage = 0;
+    } else {
+      (this.curImage - 1) > 0
+        ? --this.curImage
+        : this.curImage = this.countAllImages - 1;
+    }
+
+    document.body.style.backgroundImage = `url(${this.base + this.images[this.curImage]})`;
+
+    setTimeout(() => {
+      document.querySelector('#prevImage').disabled = false;
+      document.querySelector('#nextImage').disabled = false;
+    }, 1000);
+
+  };
+
+  stopTimer = () => {
+    clearTimeout(this.timerHendler);
+    this.timerHendler = undefined;
+    setTimeout(this.timer, 60000);
+  };
+
+  timer = () => {
+    const setBackground = (index) => {
+      const $body = document.body;
+
+      $body.style.backgroundImage = `url(${this.base}/${this.images[index]}`;
+
+      if (index === 0 || index === 3) {
+        $body.classList.add('night');
+      } else {
+        $body.classList.remove('night');
+      }
+    };
+
+    const hour = new Date().getHours();
+
+    if (0 <= hour && hour < 6) {
+      setBackground(0);
+    } else if (hour < 12) {
+      setBackground(1);
+    } else if (hour < 18) {
+      setBackground(2);
+    } else {
+      setBackground(3);
+    }
+
+    this.timerHendler = setTimeout(this.timer.bind(this), 1000);
+  }
+}
+
+// Порядок картинок: ночь, утро, день, вечер
+const arrImages = [
+  'night.jpg',
+  'morning.jpg',
+  'day.jpg',
+  'evening.jpg'
+];
+
+const $prev = document.querySelector('#prevImage');
+const $next = document.querySelector('#nextImage');
+
+
+const images = new Images(arrImages);
+
+$prev.addEventListener('click', images.changeImage);
+$next.addEventListener('click', images.changeImage);

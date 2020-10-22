@@ -375,9 +375,11 @@ class Weather {
     const $description = document.querySelector('#description');
     const $icon = document.querySelector('#icon');
 
+    console.log(data);
     const {temp, pressure, humidity, feels_like,} = data['main'];
     const {sunrise, sunset} = data['sys'];
-    const {description, icon} = data['weather'][0];
+    const {description} = data['weather'][0];
+    const {cod} = data;
 
     function textContent(el, data) {
       el.textContent = data;
@@ -402,7 +404,8 @@ class Weather {
     textContent($sunrise, formatDataStr(sunrise));
     textContent($sunset, formatDataStr(sunset));
     textContent($description, description);
-    $icon.className = 'weather-icon owf ' + icon;
+    console.log(icon);
+    $icon.className = 'weather-icon owf owf-' + cod + '-n';
   }
 }
 
@@ -447,10 +450,8 @@ class Quote {
 
   render = (data) => {
     this.$el.classList.remove('show');
-    const {quoteText, quoteAuthor} = data;
-    console.log(quoteAuthor);
-    console.log(quoteText);
 
+    const {quoteText, quoteAuthor} = data;
     this.$blockquote.textContent = quoteText;
     this.$figcaption.textContent = quoteAuthor;
 

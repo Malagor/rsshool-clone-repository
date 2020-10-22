@@ -159,7 +159,7 @@ class Momentum {
   }
 }
 
-const momentum = new Momentum('#main-content');
+new Momentum('#main-content');
 
 
 /*
@@ -257,7 +257,7 @@ const arrImages = [
   'evening.jpg'
 ];
 
-const images = new Images(arrImages);
+new Images(arrImages);
 
 
 /*
@@ -463,10 +463,11 @@ class Quote {
     this.$changeBtn.disabled = true;
     const url = `https://cors-anywhere.herokuapp.com/https://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=ru`;
     const res = await fetch(url).catch(e => console.log('Ошибка при получении цитаты: ', e));
-    const data = await res.json().then(() => {
-      this.$changeBtn.disabled = false;
-    });
-    // console.log(data);
+    const data = await res.json()
+      .then(data => {
+        this.$changeBtn.disabled = false;
+        return data;
+      });
 
     this.render(data);
   };

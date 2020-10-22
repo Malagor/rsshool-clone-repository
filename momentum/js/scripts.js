@@ -299,7 +299,6 @@ class Weather {
     this.$widget = document.querySelector('#weather');
     this.$city = document.querySelector('#city');
 
-
   }
 
   events() {
@@ -362,7 +361,7 @@ class Weather {
       .then(res => res.json())
       .catch(e => console.log('Ошибка в получении погоды: ', e));
 
-    console.log(data);
+    // console.log(data);
     this.render(data);
   };
 
@@ -408,3 +407,69 @@ class Weather {
 }
 
 const weather = new Weather();
+
+
+class Quote {
+  constructor() {
+    this.url = `https://cors-anywhere.herokuapp.com/https://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=ru`;
+
+    this.init();
+    this.getQuote();
+  }
+
+  init() {
+    document.body.insertAdjacentHTML('beforeend', `
+    <div id="blockquote">
+      <div class="blockquote__text">
+        <blockquote></blockquote>
+        <figcaption></figcaption>
+      </div>
+      <button id="blockquote__change">
+        <svg class="icon icon-exchange">
+          <use xlink:href="icons/symbol-defs.svg#icon-exchange"></use>
+        </svg>
+      </button>
+    </div>
+    
+    `);
+
+    this.$el = document.querySelector('#blockquote');
+    this.$blockquote = document.querySelector('blockquote');
+    this.$figcaption = document.querySelector('figcaption');
+    this.$changeBtn = document.querySelector('#blockquote__change');
+
+    this.events();
+  }
+
+  events() {
+    this.$changeBtn.addEventListener('click', this.getQuote);
+  }
+
+  render = (data) => {
+    this.$el.classList.remove('show');
+    const {quoteText, quoteAuthor} = data;
+    console.log(quoteAuthor);
+    console.log(quoteText);
+
+    this.$blockquote.textContent = quoteText;
+    this.$figcaption.textContent = quoteAuthor;
+
+    setTimeout(() => {
+      this.$el.classList.add('show');
+    }, 300);
+  };
+
+  getQuote = async () => {
+    this.$changeBtn.disabled = true;
+    const url = `https://cors-anywhere.herokuapp.com/https://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=ru`;
+    const res = await fetch(url).catch(e => console.log('Ошибка при получении цитаты: ', e));
+    const data = await res.json().then(() => {
+      this.$changeBtn.disabled = false;
+    });
+    // console.log(data);
+
+    this.render(data);
+  };
+}
+
+const quote = new Quote();

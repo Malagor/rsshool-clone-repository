@@ -65,6 +65,12 @@ body {
   body.night {
     color: #ffffff; }
 
+.main-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column; }
+
 #time {
   font-size: 8rem; }
 
@@ -86,12 +92,6 @@ h2 {
 #focus:focus {
   border: 3px solid white;
   padding: 0 10px; }
-
-.main-content {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column; }
 
 #prevImage,
 #nextImage {
@@ -134,5 +134,70 @@ h2 {
 
 .weather-icon {
   font: normal normal normal 14px/1 owfont; }
+
+#blockquote {
+  margin-top: 2rem;
+  max-width: 30rem;
+  width: 100%;
+  height: 10rem;
+  display: flex;
+  color: rgba(255, 255, 255, 0.71);
+  transition: all 1s ease-in-out; }
+
+blockquote {
+  text-align: justify;
+  font-style: italic;
+  opacity: 0; }
+  .show blockquote {
+    transition: all 1s ease-in-out;
+    opacity: 1; }
+
+figcaption {
+  margin-top: 1rem;
+  text-align: right;
+  font-weight: 600;
+  opacity: 0; }
+  .show figcaption {
+    opacity: 1;
+    transition: all 1s ease-in-out; }
+
+.blockquote__text {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-right: 2rem; }
+
+#blockquote__change {
+  flex-basis: 3rem;
+  flex-shrink: 0;
+  width: 3rem;
+  height: 3rem;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.27);
+  cursor: pointer;
+  transition: 0.3s;
+  opacity: 0.5; }
+  #blockquote__change:hover {
+    transform: rotate(180deg);
+    opacity: 1; }
+
+svg {
+  width: 100%;
+  height: 100%;
+  color: white;
+  fill: white; }
+
+.icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor; }
+
+.icon-exchange {
+  font-size: 2rem;
+  color: white; }
 
 /*# sourceMappingURL=style.css.map */

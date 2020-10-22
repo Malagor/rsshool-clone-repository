@@ -107,6 +107,13 @@ body {
   }
 }
 
+.main-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
 #time {
   font-size: 8rem;
 }
@@ -137,13 +144,7 @@ h2 {
   padding: 0 10px;
 }
 
-.main-content {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-
+// Кнопки листания изображений
 #prevImage,
 #nextImage {
   position: absolute;
@@ -156,7 +157,6 @@ h2 {
   align-items: center;
 
   border-radius: 50%;
-
 
   font-size: 1.3rem;
   font-family: Comfortaa, cursive;
@@ -176,7 +176,6 @@ h2 {
 }
 #nextImage {
   left: 120px;
-
 }
 
 
@@ -200,3 +199,89 @@ h2 {
 .weather-icon {
   font: normal normal normal 14px/1 owfont;
 }
+
+// Цитаты
+#blockquote {
+  margin-top: 2rem;
+  max-width: 30rem;
+  width: 100%;
+  height: 10rem;
+
+  display: flex;
+  //flex-direction: column;
+  color: rgba(255, 255, 255, 0.71);
+  transition: all 1s ease-in-out;
+}
+
+blockquote{
+  text-align: justify;
+  font-style: italic;
+
+  opacity: 0;
+
+  .show & {
+    transition: all 1s ease-in-out;
+    opacity: 1;
+  }
+}
+
+figcaption {
+  margin-top: 1rem;
+  text-align: right;
+  font-weight: 600;
+  opacity: 0;
+
+  .show & {
+    opacity: 1;
+    transition: all 1s ease-in-out;
+  }
+}
+
+.blockquote__text {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-right: 2rem;
+}
+
+#blockquote__change {
+  flex-basis: 3rem;
+  flex-shrink: 0;
+  width: 3rem;
+  height: 3rem;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.27);
+
+  cursor: pointer;
+  transition: 0.3s;
+  opacity: 0.5;
+
+  &:hover {
+    transform: rotate(180deg);
+    opacity: 1;
+  }
+}
+
+svg {
+  width: 100%;
+  height: 100%;
+  color: white;
+  fill: white;
+}
+
+.icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+}
+
+
+.icon-exchange {
+  font-size: 2rem;
+  color: white;
+}
+

@@ -148,12 +148,12 @@ class Momentum {
 
       if (target.closest('#name')) {
         localStorage.setItem('oldName', this.$name.textContent);
-        // this.$name.textContent = '';
+        this.$name.textContent = '';
       }
 
       if (target.closest('#focus')) {
         localStorage.setItem('oldFocus', this.$focus.textContent);
-        // this.$focus.textContent = '';
+        this.$focus.textContent = '';
       }
     })
   }
@@ -161,6 +161,10 @@ class Momentum {
 
 const momentum = new Momentum('#main-content');
 
+
+/*
+*   ИЗМЕНЕНИЕ БЕКГРАУНДА
+*/
 class Images {
   constructor(arrImages) {
     this.images = arrImages;
@@ -168,13 +172,24 @@ class Images {
     this.countAllImages = arrImages.length;
     this.base = 'img/';
 
+    this.init();
+    this.events();
     this.timer();
+  }
+
+  init() {
+    this.$prev = document.querySelector('#prevImage');
+    this.$next = document.querySelector('#nextImage');
+  }
+
+  events() {
+    this.$prev.addEventListener('click', this.changeImage);
+    this.$next.addEventListener('click', this.changeImage);
   }
 
   changeImage = (event) => {
     document.querySelector('#prevImage').disabled = true;
     document.querySelector('#nextImage').disabled = true;
-
 
     if (this.timerHendler !== undefined) {
       this.stopTimer();
@@ -242,11 +257,154 @@ const arrImages = [
   'evening.jpg'
 ];
 
-const $prev = document.querySelector('#prevImage');
-const $next = document.querySelector('#nextImage');
-
-
 const images = new Images(arrImages);
 
-$prev.addEventListener('click', images.changeImage);
-$next.addEventListener('click', images.changeImage);
+
+/*
+*     WEATHER - WIDGET
+*/
+
+class Weather {
+  constructor(city = 'Минск') {
+    this.place = city;
+    this.APIKEY = '96d5eb69ebe60b8b01559d76fe7d43c1';
+    this.APIURL = 'api.openweathermap.org/data/2.5/weather?q=';
+
+    this.init();
+    this.events();
+
+    this.getCity();
+    // this.getWeather();
+  }
+
+  init() {
+    document.body.insertAdjacentHTML('beforeend', `
+    <div id="weather">
+      <div id="city" contenteditable="true">[ Введите город ]</div>
+      <div class="weather__info">
+        <div>Темп: <span id="temp"></span> ℃</div>
+        <div>По ощущениям: <span id="feels_like"></span> ℃</div>
+        <div><span id="description"></span></div>
+        <div>Давление: <span id="pressure"></span> мм\р.с</div>
+        <div>Влажность: <span id="humidity"></span> %</div>
+        <div id="sun">
+          <div>Восход: <span id="sunrise"></span></div>
+          <div>Закат: <span id="sunset"></span></div>
+        </div>        
+        <div><i id="icon" class="weather-icon owf"></i></div>       
+      </div>     
+    </div>
+    `);
+
+    this.$widget = document.querySelector('#weather');
+    this.$city = document.querySelector('#city');
+
+
+  }
+
+  events() {
+    this.$city.addEventListener('keypress', this.setCity);
+    this.$city.addEventListener('blur', this.setCity);
+
+
+    // CLICK
+    this.$widget.addEventListener('click', event => {
+      const target = event.target;
+
+      if (target.closest('#city')) {
+        localStorage.setItem('oldCity', this.$city.textContent);
+        this.$city.textContent = '';
+      }
+
+    })
+  }
+
+  getCity = () => {
+    const city = localStorage.getItem("city");
+    if (city === null || city === '') {
+      if (localStorage.getItem("oldCity")) {
+        this.$city.textContent = localStorage.getItem("oldCity");
+        this.place = localStorage.getItem("oldCity");
+      } else {
+        this.$city.textContent = '[ Введите местоположение ]';
+        this.place = '';
+      }
+    } else {
+      if (localStorage.getItem("oldCity")) {
+        this.$city.textContent = localStorage.getItem("oldCity");
+        this.place = localStorage.getItem("oldCity");
+        localStorage.removeItem("oldCity");
+      } else {
+        this.$city.textContent = localStorage.getItem('city');
+        this.place = localStorage.getItem('city');
+      }
+    }
+    this.getWeather();
+  };
+
+  setCity = (event) => {
+    if (event.type === 'keypress' && event.key !== 'Enter') {
+      return false;
+    } else {
+      localStorage.setItem('city', this.$city.textContent);
+      this.$city.blur();
+      this.getCity();
+    }
+  };
+
+
+  getWeather = async () => {
+    if (this.place === '' || !this.place) return;
+
+    const url = `https://${this.APIURL}${this.place}&lang=ru&appid=${this.APIKEY}&units=metric`;
+
+    const data = await fetch(url)
+      .then(res => res.json())
+      .catch(e => console.log('Ошибка в получении погоды: ', e));
+
+    console.log(data);
+    this.render(data);
+  };
+
+  render(data) {
+    const $temp = document.querySelector('#temp');
+    const $pressure = document.querySelector('#pressure');
+    const $humidity = document.querySelector('#humidity');
+    const $feelsLike = document.querySelector('#feels_like');
+    const $sunrise = document.querySelector('#sunrise');
+    const $sunset = document.querySelector('#sunset');
+    const $description = document.querySelector('#description');
+    const $icon = document.querySelector('#icon');
+
+    const {temp, pressure, humidity, feels_like,} = data['main'];
+    const {sunrise, sunset} = data['sys'];
+    const {description, icon} = data['weather'][0];
+
+    function textContent(el, data) {
+      el.textContent = data;
+    }
+
+    function addPrevZerros(num) {
+      return (parseInt(num, 10) < 10 ? '0' : '') + num;
+    }
+
+    function formatDataStr(date) {
+      const newDate = new Date(date);
+      let hour = newDate.getHours();
+      let min = addPrevZerros(newDate.getMinutes());
+      let sec = addPrevZerros(newDate.getSeconds());
+      return `${hour} : ${min} : ${sec}`;
+    }
+
+    textContent($temp, temp);
+    textContent($pressure, pressure);
+    textContent($humidity, humidity);
+    textContent($feelsLike, feels_like);
+    textContent($sunrise, formatDataStr(sunrise));
+    textContent($sunset, formatDataStr(sunset));
+    textContent($description, description);
+    $icon.className = 'weather-icon owf ' + icon;
+  }
+}
+
+const weather = new Weather();

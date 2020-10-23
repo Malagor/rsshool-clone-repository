@@ -48,5 +48,3 @@ const slider = document.querySelector('.gallery .gallery__list');
 if (slider) {
   new PetsGalerySlider(slider, petsArray);
 }
-
-

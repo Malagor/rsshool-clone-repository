@@ -24,7 +24,15 @@ class Momentum {
   </h1>
 
   <h2>Текущая задача:</h2>
-  <h2 id="focus" contenteditable="true"></h2>`);
+  <h2 id="focus" contenteditable="true"></h2>
+  <div class="controls">
+    <button id="prevImage"><svg class="icon icon-arrow">
+          <use xlink:href="icons/symbol-defs.svg#icon-arrow"></use>
+        </svg></button>
+    <button id="nextImage"><svg class="icon icon-arrow">
+          <use xlink:href="icons/symbol-defs.svg#icon-arrow"></use>
+        </svg></button>
+  </div>`);
 
     this.$time = document.querySelector('#time');
     this.$date = document.querySelector('#date');

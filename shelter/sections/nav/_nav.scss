@@ -1,11 +1,12 @@
+@import '../../scss/_misc/variables';
+@import '../../scss/_misc/my-mixins';
 /* ======== Menu ========== */
 
 .nav.mobile-open {
   position: fixed;
-  width: 100%;
+  max-width: 320px;
   height: 100vh;
   top: -30px;
-  left: 0;
   right: 0;
   bottom: 0;
   background: $pets-card-button-color;
@@ -21,24 +22,46 @@
 .nav__mobile-toggle {
   position: relative;
   right: 43px;
-  display: none;
+
   width: 30px;
   height: 22px;
-  //overflow: hidden;
 
-  @include sm-block-ex() {
+  display: none;
+
+  transition: 0.3s;
+
+  .inner-page & {
+    top: 50px;
+  }
+
+  //@include sm-block-ex() {
+  @media screen and (max-width: 767px) {
+
+    //@include md-block() {
+    position: absolute;
+    z-index: 100000;
+    top: 19px;
+    right: 54px;
+
     display: block;
   }
 
   span {
     position: absolute;
     left: 0;
-    display: inline-block;
+
     width: 30px;
     height: 2px;
+
+    display: inline-block;
+
     background: $base-pink;
     transition: all 0.3s;
     opacity: 1;
+
+    .inner-page & {
+      background: #000;
+    }
   }
 
   span:nth-child(1) {
@@ -77,68 +100,21 @@
     }
   }
 
-  .nav.mobile-open &.open {
-    height: 30px;
+  &.open {
+    //height: 30px;
+    height: 22px;
     position: absolute;
     //top: 30px;
-    top: 46px;
-    right: 73px;
+    top: 19px;
+    right: 53px;
 
-    @include sm-block() {
-      top: 46px;
-      right: 53px;
-    }
+    transform: rotate(90deg);
 
+    .inner-page & {
+      top: 50px;
 
-    span:nth-child(1) {
-      top: -5px;
-      opacity: 0;
-    }
-
-    span:nth-child(2) {
-      top: 50%;
-      transform: rotate(45deg);
-    }
-
-    span:nth-child(3) {
-      top: 50%;
-      transform: rotate(-45deg);
-    }
-
-    span:nth-child(4) {
-      bottom: -5px;
-      opacity: 0;
-    }
-
-    &:hover {
-      span:nth-child(1) {
-        top: 0;
-        left: -5px;
-      }
-
-      span:nth-child(2) {
-        top: 50%;
-      }
-
-      span:nth-child(3) {
-        top: 50%;
-      }
-
-      span:nth-child(4) {
-        bottom: 0;
-        left: 5px;
-      }
-    }
-
-    &.open:hover {
-      span:nth-child(2) {
-        top: 50%;
-        transform: rotate(135deg);
-      }
-
-      span:nth-child(3) {
-        top: 50%;
-        transform: rotate(45deg);
+      span {
+        background: $base-pink;
       }
     }
   }
@@ -150,31 +126,54 @@
   margin-top: -7px;
   transition: opacity 0.3s 1s;
 
-  @include sm-block-ex() {
-    display: none;
-    opacity: 0;
+  .inner-page & {
+    top: 0;
+  }
+
+  //@include sm-block-ex() {
+  //@include md-block() {
+  @media screen and (max-width: 767px) {
+    position: absolute;
+    top: -25px;
+    right: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    height: 102vh;
+    width: 320px;
+    padding-top: 117px;
+
+    opacity: 1;
+    background: #292929;
+
+    transform: translateX(320px);
+
+    transition: all 0.3s;
   }
 }
 
 .menu-mobile {
-  display: flex;
-  flex-direction: column;
-  height: auto;
-  align-self: center;
-  justify-content: center;
-
-  margin-top: 0;
   opacity: 1;
+  transform: translateX(0);
 }
 
 .menu__item {
   margin-right: 36px;
 
-  .menu-mobile & {
-    margin-block: 30px;
-    text-align: center;
-    margin: 0 0 30px;
+  //@include sm-block-ex() {
+  //@include md-block() {
+  @media screen and (max-width: 767px) {
+    margin: 0 0 40px;
   }
+
+  //.menu-mobile & {
+  //  margin-block: 30px;
+  //  text-align: center;
+  //  margin: 0 0 30px;
+  //}
 }
 
 .menu__item:last-child {
@@ -192,21 +191,42 @@
   color: $base-gray;
   transition: 0.3s;
 
-  .menu-mobile & {
-    font-size: 25px;
+  //@include sm-block-ex() {
+  //@include md-block() {
+  @media screen and (max-width: 767px) {
+
+    margin: 0;
+    font-size: 32px;
   }
 
-  .inner-page & {
-    color: $main-color;
+  //.menu-mobile & {
+  //  font-size: 25px;
+  //}
+
+  .inner-page .menu-mobile & {
+    color: $base-gray;
   }
+
+  .inner-page .mobile-open & {
+    color: #cdcdcd;
+  }
+
+  &.disabled {
+    cursor: default;
+  }
+
 }
 
 .menu__link.active,
-.menu__link:hover {
+.menu__link:hover:not(.disabled) {
   color: $base-white;
 
   .inner-page & {
     color: $pets-card-button-color;
+  }
+
+  .inner-page .menu-mobile & {
+    color: $base-white;
   }
 }
 
@@ -225,7 +245,6 @@
 
   transform: scaleX(0);
   transition: 0.3s;
-
 }
 
 .menu__link.active::after,

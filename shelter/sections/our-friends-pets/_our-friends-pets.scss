@@ -1,15 +1,37 @@
 .our-friends-pets {
   padding: 80px 0 100px;
   background: $base-light-gray;
+  margin-top: 120px;
+
+  @include md-block() {
+    padding-bottom: 76px;
+  }
+
+  @include sm-block() {
+    margin-top: 82px;
+    padding-bottom: 43px;
+  }
 }
 
 .our-friends-pets .our-friends__title {
   margin-bottom: 44px;
+
+  @include md-block() {
+    margin-bottom: 15px;
+  }
+
+  @include sm-block() {
+    margin-bottom: 28px;
+  }
 }
 
 .gallery-table {
   width: 100%;
   margin-bottom: 18px;
+
+  @include md-block() {
+    margin-bottom: 0;
+  }
 }
 
 .gallery-table .gallery__list {
@@ -19,9 +41,15 @@
 
   width: 100%;
   padding: 15px 0;
+  margin-bottom: 0;
 
-  @include lg-block {
+  @include lg-block() {
     justify-content: center;
+  }
+
+  @include sm-block() {
+    flex-direction: column;
+    align-items: center;
   }
 
   //@include md-block {
@@ -34,13 +62,23 @@
   margin: 0 0 30px;
   padding-top: 0;
 
-  @include lg-block {
+  @include lg-block() {
     margin: 0 20px 30px;
   }
 
-  @include md-block {
+  @include md-block() {
     margin-left: 20px;
     margin-right: 20px;
+  }
+}
+
+.gallery-table .gallery-item__title {
+  @include md-block() {
+    margin-bottom: 30px;
+  }
+
+  @include sm-block() {
+    margin-bottom: 33px;
   }
 }
 
@@ -49,14 +87,28 @@
   object-fit: cover;
 }
 
+.pagination {
+  width: 338px;
+
+  @include sm-block() {
+  width: 100%;
+  }
+}
+
 .pagination__list {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+
+
+  @include sm-block() {
+    justify-content: space-around;
+    padding: 0 5px;
+  }
 }
 
 .pagination__item {
-  margin-right: 22px;
+  //margin-right: 22px;
 
   &:last-child {
     margin-right: 0;
@@ -70,6 +122,8 @@
 
   font-size: 20px;
   background: none;
+
+  transform: none;
 
   &:hover,
   &.active {
@@ -87,6 +141,4 @@
       background: none;
     }
   }
-
-
 }

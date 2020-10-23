@@ -89,6 +89,7 @@ const sourcemaps = require('gulp-sourcemaps');
 const rigger = require('gulp-rigger');
 const gcmq = require('gulp-group-css-media-queries');
 const debug = require('gulp-debug');
+var csscomb = require('gulp-csscomb');
 
 function browsersync() {
   browserSync.init({
@@ -123,6 +124,7 @@ function styles() {
     .pipe(eval(preprocessor)())
     .pipe(concat(paths.cssOutputName))
     .pipe(autoprefixer({overrideBrowserslist: ['last 4 versions'], grid: true}))
+    // .pipe(csscomb())
     // .pipe(gcmq()) // Компануем медиазапросы
     .pipe(cleancss({
       level: {1: {specialComments: 1}},

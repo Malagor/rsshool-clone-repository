@@ -1,26 +1,29 @@
+
+@import "scss/_misc/variables";
+@import "scss/_misc/my-mixins";
 /* ============== Footer ============= */
 
 footer.footer {
   flex: 0 0 350px;
   width: 100%;
   background: url(../assets/images/bg-pattern@2x.png), radial-gradient(100% 215.42% at 0% 0%, #5B483A 0%, #262425 100%), #211F20;
+  padding-top: 40px;
+  flex-basis: 349px;
 
   @include md-block() {
     height: 639px;
+    padding-top: 0;
   }
   @include sm-block() {
     height: auto;
   }
 
- .inner-page & {
-   flex-basis: 349px;
- }
 }
 
 .footer__wrapper {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   height: 100%;
 
   @include lg-block() {
@@ -31,7 +34,7 @@ footer.footer {
   }
 
   @include md-block() {
-    padding-top: 29px;
+    padding-top: 13px;
   }
 
   @include sm-block() {
@@ -39,9 +42,11 @@ footer.footer {
   }
 }
 
-.footer__left {
+.footer__left,
+.footer__center {
   width: 279px;
   height: 240px;
+  margin-top: 19px;
 
   @include  lg-block() {
     margin-bottom: 60px;
@@ -57,39 +62,32 @@ footer.footer {
     margin-bottom: 8px;
     left: 0;
   }
-
 }
 
 .footer__center {
   width: 303px;
-  height: 240px;
-
-  @include  lg-block() {
-    margin-bottom: 60px;
-  }
-
-  @include md-block() {
-    margin-bottom: 55px;
-  }
-
-  @include sm-block() {
-    width: 100%;
-    height: auto;
-    margin-bottom: 40px;
-  }
+//  height: 240px;
+//  margin-top: 19px;
+//
+//  @include md-block() {
+//    margin-top: 0;
+//    margin-bottom: 0;
+//  }
+//
+//  @include sm-block() {
+//    width: 100%;
+//    height: auto;
+//    margin-bottom: 40px;
+//  }
 }
 
 .footer__right {
   align-self: flex-end;
   width: 300px;
-  height: 350px;
-  background: url("../assets/images/footer-puppy.png") no-repeat;
   background-position-y: 37px;
-  background-size: contain;
-
-  .inner-page & {
-    height: 310px;
-  }
+  height: 310px;
+  background-size: cover;
+  background: url("../assets/images/footer-puppy.png") no-repeat 0 0;
 
   @include  lg-block() {
     flex-basis: 100%;
@@ -99,51 +97,43 @@ footer.footer {
   @include md-block() {
     height: 315px;
     background-position: center;
+    background-size: contain;
   }
 
   @include sm-block() {
-    height: 272px;
+    height: 270px;
   }
 
 }
 
 .footer__title {
-  margin: 0 0 40px;
   letter-spacing: 0.06em;
   font-size: 35px;
+  margin: 0 0 39px;
 
   @include md-block() {
     margin-bottom: 39px;
   }
 
   @include sm-block() {
-    margin-bottom: 42px;
     line-height: 31px;
     font-size: 25px;
     word-spacing: 0;
-  }
-
-  .inner-page & {
-    margin-bottom: 39px;
+    margin-bottom: 42px;
   }
 }
 
 .footer__center .footer__title {
-  margin-bottom: 33px;
+  margin-bottom: 31px;
 
   @include lg-block() {
     margin-bottom: 34px;
   }
 
   @include sm-block() {
-    margin-bottom: 40px;
+    margin-bottom: 42px;
     letter-spacing: 2px;
     word-spacing: -1px;
-
-  }
-
-  .inner-page & {
-    margin-bottom: 31px;
   }
 }
 
@@ -185,13 +175,10 @@ footer.footer {
 }
 
 .footer__center .footer__item {
-  margin-bottom: 32px;
+  margin-bottom: 35px;
 
-  &:last-child {
-    margin-bottom: 0;
-  }
   @include md-block() {
-    margin-bottom: 34px;
+    margin-bottom: 40px;
   }
 
   @include xs-block() {
@@ -209,11 +196,7 @@ footer.footer {
 }
 
 .footer__center .footer__icon-wrapper {
-  width: 43px;
-
-  .inner-page & {
-    width: 41px;
-  }
+  width: 41px;
 }
 
 .footer__icon-wrapper .icon {
@@ -256,6 +239,10 @@ footer.footer {
 
   .inner-page & {
     left: -20px;
+
+    @include sm-block() {
+      left: -12px;
+    }
   }
 }
 

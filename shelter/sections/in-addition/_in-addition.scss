@@ -22,7 +22,7 @@
   }
 
   @include  sm-block() {
-    padding: 40px 10px 42px;
+    padding: 38px 10px 42px;
   }
 }
 
@@ -59,7 +59,7 @@
 
   @include sm-block() {
     width: 100%;
-    margin-bottom: 40px;
+    margin-bottom: 41px;
   }
 }
 
@@ -110,7 +110,7 @@
 
   @include sm-block() {
     max-width: 282px;
-    margin: 0 auto 23px;
+    margin: 0 auto 19px;
     padding: 10px 13px;
 
     font-size: 15px;

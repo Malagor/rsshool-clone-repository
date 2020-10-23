@@ -63,7 +63,10 @@
 
   @include sm-block-ex() {
     width: 100%;
+    height: 59vh;
+    background-position: center;
   }
+
   @include sm-block() {
     width: 260px;
     height: 271px;
@@ -97,7 +100,7 @@
 
 .hero__subtitle {
   width: 100%;
-  margin-bottom: 42px;
+  margin-bottom: 56px;
 
   font-family: Arial, sans-serif;
 
@@ -106,11 +109,14 @@
 
   color: $base-gray;
 
+  @include md-block() {
+    margin-bottom: 42px;
+  }
+
   @include sm-block() {
     text-align: center;
   }
 }
-
 
 
 /* /. =========== Hero ============ */

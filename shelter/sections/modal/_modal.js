@@ -64,14 +64,14 @@ document.body.addEventListener('click', event => {
 
   const target = event.target;
 
-  if (target.closest('.pet-details')) {
+  if (target.closest('.gallery-item')) {
+    disableScroll();
     const index = target.closest('.gallery-item').dataset.index;
-    // const data = petsTable.data[index];
-    // console.log(data);
     petsModal.setContent(petsArray[index]).openModal();
   }
 
   if (target.closest('#modalClose') || target.closest('#overlay')) {
+    enableScroll();
     petsModal.closeModal();
   }
 });

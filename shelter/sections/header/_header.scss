@@ -6,15 +6,13 @@
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
-  z-index: 1000;
+  //z-index: 1000;
 
   @include md-block() {
     top: 30px;
-  }
-
-  @include sm-block-ex() {
     padding: 0;
   }
+
 
   .inner-page & {
     position: fixed;
@@ -51,7 +49,7 @@
   right: auto;
   transition: 0.3s;
 
-  @include sm-block-ex() {
+  @include md-block() {
     left: 30px;
   }
 

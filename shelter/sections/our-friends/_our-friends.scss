@@ -116,6 +116,7 @@
   transition: 0.3s;
 
   overflow: hidden;
+  cursor: pointer;
 
 }
 
@@ -147,7 +148,7 @@
   height: 270px;
   margin-bottom: 30px;
 
-  object-fit: contain;
+  object-fit: cover;
 
   @include sm-block() {
     margin-bottom: 27px;

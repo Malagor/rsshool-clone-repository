@@ -6,6 +6,18 @@ class PetsGalerySlider extends PetsGalery{
 
   init() {
     this.countItemPerPage();
+    this.render();
+    this.events();
+  }
+
+  events() {
+    document.querySelector('.gallery').addEventListener('click', event =>{
+      const {target} = event;
+
+      if (target.closest('.gallery__arrow--left') || target.closest('.gallery__arrow--right')){
+        this.render();
+      }
+    })
   }
 
   countItemPerPage() {
@@ -34,16 +46,7 @@ class PetsGalerySlider extends PetsGalery{
 const slider = document.querySelector('.gallery .gallery__list');
 
 if (slider) {
-  const petsSlider = new PetsGalerySlider(slider, petsArray);
-  petsSlider.render();
-
-  document.querySelector('.gallery').addEventListener('click', event =>{
-    const {target} = event;
-
-    if (target.closest('.gallery__arrow--left') || target.closest('.gallery__arrow--right')){
-      petsSlider.render();
-    }
-  })
+  new PetsGalerySlider(slider, petsArray);
 }
 
 

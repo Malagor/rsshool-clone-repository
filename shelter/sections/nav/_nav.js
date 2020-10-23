@@ -7,6 +7,12 @@ const $header = document.querySelector('header.header');
 const $headerLogo = document.querySelector('.header__logo');
 
 const mobileMenu = () => {
+  if (document.body.style.position !== 'fixed') {
+    document.body.style.position = 'fixed';
+  } else {
+    document.body.style.position = '';
+  }
+
   $toggleMenuBtn.classList.toggle('open');
   $menu.classList.toggle('menu-mobile');
   $headerLogo.classList.toggle('header__logo--mobile-menu-open');
@@ -36,6 +42,10 @@ document.body.addEventListener('click', event => {
     mobileMenu();
   }
 
+  if (target.closest('.disabled')) {
+    event.preventDefault();
+  }
+
   // Закрытие меню на нажатие мимо поля меню, и не в самом меню
   if (!target.closest('.menu.menu-mobile')
     && !target.closest('.nav__mobile-toggle')
@@ -47,6 +57,4 @@ document.body.addEventListener('click', event => {
   if (target.closest('.menu__link') && $menu.classList.contains('menu-mobile')) {
     mobileMenu();
   }
-
 });
-

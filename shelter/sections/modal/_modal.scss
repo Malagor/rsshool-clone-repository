@@ -1,14 +1,18 @@
+@import "scss/_misc/variables";
+@import "scss/_misc/my-mixins";
+
 .modal {
   position: fixed;
   width: 82%;
   max-width: 900px;
+  max-height: 75vh;
   top: 50%;
   left: 100%;
   transform: translate(100%, -50%);
 
   opacity: 0;
   transition: 0.3s;
-  z-index: 1;
+  z-index: 9999;
 
   &.open {
     left: 50%;
@@ -84,10 +88,9 @@
     object-fit: cover;
   }
 
-  @include sm-block() {
+  @media screen and (max-width: 767px) {
     display: none;
   }
-
 }
 
 .modal__text {

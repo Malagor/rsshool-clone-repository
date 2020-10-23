@@ -14,11 +14,11 @@ class PetsGalery {
     throw new Error('Этот метод нужно переопределить');
   }
 
-  getRandomItems(count, max) {
+  getRandomItems(count, max, oldIndex = []) {
     const result = [];
     while (result.length < count) {
       const curNum = Math.floor(Math.random() * Math.floor(max));
-      if (result.indexOf(curNum) === -1) {
+      if (result.indexOf(curNum) === -1 && result.indexOf(oldIndex) === -1) {
         result.push(curNum)
       }
     }
@@ -55,13 +55,18 @@ class PetsGaleryTable extends PetsGalery {
     const width = screen.width;
     if (width < 480) {
       this.itemsPerPage = 3;
-    } else if (width < 990) {
+    } else if (width < 992) {
       this.itemsPerPage = 6;
     } else {
       this.itemsPerPage = 8;
     }
 
     this.totalPages = Math.ceil(this.totalItem / this.itemsPerPage);
+  }
+
+  resize() {
+    this.countItemPerPage();
+    this.render();
   }
 
   render() {
@@ -107,15 +112,14 @@ class PetsGaleryTable extends PetsGalery {
 
 const tablePets = document.querySelector('.gallery-table .gallery__list');
 
-let petsTable;
 if (tablePets) {
-  petsTable = new PetsGaleryTable(tablePets, petsArray);
+  const petsTable = new PetsGaleryTable(tablePets, petsArray);
 
-  // console.log('createBigTable', petsTable.createBigTable(petsTable.data, 48));
-
-  // Пагинация и вывод карточек животных на страницу
+  /*
+   * ПАГИНАЦИЯ
+   * и вывод карточек животных на страницу
+   */
   const $pagination = document.querySelector('#pagination');
-
   const $firstPageBtn = document.querySelector('#firstPage .gallery__arrow');
   const $prevPageBtn = document.querySelector('#prevPage .gallery__arrow');
   const $nextPageBtn = document.querySelector('#nextPage .gallery__arrow');
@@ -146,22 +150,33 @@ if (tablePets) {
     return el.classList.contains('gallery__arrow--disabled');
   }
 
+  /*  Отключаем кнопки при нахождении на первой и последней
+   *  странице
+   */
+
   if (petsTable.currentPage === petsTable.totalPages) {
     disabledBtn([$firstPageBtn, $prevPageBtn, $lastPageBtn, $nextPageBtn]);
   } else {
     disabledBtn([$firstPageBtn, $prevPageBtn]);
   }
 
+
+  /*
+   * Обработчик нажатий на пегинацию
+   */
   $pagination.addEventListener('click', event => {
     const target = event.target;
 
     // проверяем, если по нужной кнопке и кнопка активна
+
+    // Первая страница
     if (target.closest('#firstPage') && !isBtnDisabled(target)) {
       petsTable.firstPage();
       petsTable.render();
       disabledBtn([$firstPageBtn, $prevPageBtn]);
     }
 
+    // Предыдущпая страница
     if (target.closest('#prevPage') && !isBtnDisabled(target)) {
       if ((petsTable.currentPage - 1) < 1) return;
 
@@ -175,6 +190,7 @@ if (tablePets) {
       petsTable.render();
     }
 
+    //Следующая страница
     if (target.closest('#nextPage') && !isBtnDisabled(target)) {
       if ((petsTable.currentPage + 1) > petsTable.lastPageNumber) return;
 
@@ -188,6 +204,7 @@ if (tablePets) {
       petsTable.render();
     }
 
+    //Посдедняя странциа
     if (target.closest('#lastPage') && !isBtnDisabled(target)) {
       petsTable.lastPage();
       petsTable.render();

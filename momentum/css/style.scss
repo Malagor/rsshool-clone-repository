@@ -1,13 +1,5 @@
-//@font-face {
-//  font-family: 'owfont';
-//  src: url('../fonts/Owfont/owfont-regular.eot?v=1.0.0');
-//  src: url('../fonts/Owfont/owfont-regular.eot?#iefix&v=1.0.0') format('embedded-opentype'),
-//  url('../fonts/Owfont/owfont-regular.woff') format('woff'),
-//  url('../fonts/Owfont/owfont-regular.ttf') format('truetype'),
-//  url('../fonts/Owfont/owfont-regular.svg#owf-regular') format('svg');
-//  font-weight: normal;
-//  font-style: normal;
-//}
+@import "mixins";
+
 @font-face {
   font-family: 'Comfortaa';
   src: url('../assets/fonts/Comfortaa/Comfortaa-Regular.eot');
@@ -81,17 +73,18 @@
 
 html {
   font-size: 16px;
-}
 
-@media screen and (max-width: 700px) {
-  html {
-    font-size: 14px;
+  @include xl-block() {
+    font-size: 15px;
   }
-}
-
-@media screen and (max-width: 480px) {
-  html {
-    font-size: 12px;
+  @include lg-block() {
+    font-size: 13px;
+  }
+  @include md-block() {
+    font-size: 13px;
+  }
+  @include sm-block() {
+    font-size: 10px;
   }
 }
 
@@ -143,19 +136,42 @@ button {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  //z-index: 1;
 }
 
 #time {
   font-size: 8rem;
   font-family: 'Roboto Mono', monospace;
+
+  @include lg-block() {
+    font-size: 7.5rem;
+  }
+
+  @include md-block() {
+    font-size: 5.5rem;
+  }
+
+  @include xs-block() {
+    margin-top: 3rem;
+    font-size: 5rem;
+  }
 }
 
-#date {
+.date {
   font-size: 2rem;
+
+  @include xl-block() {
+    font-size: 1.5rem;
+  }
+
+  @include xs-block() {
+    font-size: 1.2rem;
+  }
 }
 
 
 h1 {
+  position: relative;
   margin-bottom: 3rem;
   margin-top: 2rem;
 }
@@ -165,15 +181,20 @@ h2 {
   opacity: 0.6;
 }
 
-.focus {
-  width: 100%;
-  padding: 10px 20px;
-  border: 2px solid currentColor;
-  border-radius: 5px;
+.name {
+  //z-index: 1;
 }
 
-#name:focus,
-#focus:focus {
+.focus {
+  width: 100%;
+  padding: 1rem 2rem;
+  border: 2px solid currentColor;
+  border-radius: 5px;
+  //z-index: 1;
+}
+
+.name:focus,
+.focus:focus {
   border: 3px solid white;
   padding: 0 10px;
 }
@@ -182,12 +203,26 @@ h2 {
 .controls {
   position: absolute;
   top: 50%;
+  z-index: 0;
+
   width: calc(100% + (6rem * 2));
   height: 7rem;
 
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  @include xl-block() {
+    width: calc(100% + (5rem * 2));
+  }
+
+  @include md-block() {
+    width: calc(100% + (4rem * 2));
+  }
+  @include sm-block() {
+    width: calc(100% + (3rem * 2));
+  }
+
 }
 
 #prevImage,
@@ -205,7 +240,21 @@ h2 {
   font-family: Comfortaa, cursive;
 
   cursor: pointer;
-  //transition: 0.3s;
+
+  @include xl-block() {
+    height: 5rem;
+    width: 5rem;
+  }
+
+  @include md-block() {
+    height: 4rem;
+    width: 4rem;
+  }
+
+  @include sm-block() {
+    height: 3rem;
+    width: 3rem;
+  }
 }
 
 #nextImage {
@@ -219,30 +268,24 @@ h2 {
   position: absolute;
   top: 10px;
   right: 10px;
-  width: 18rem;
+  width: 15rem;
 
   display: flex;
   flex-direction: column;
   align-items: center;
 
-  padding: 1rem 2rem;
-  //background: rgba(255, 255, 255, 0.3);
   border-radius: 4px;
 
   text-align: left;
 
   transition: 0.3s;
 
-  //.night & {
-  //  color: rgba(0, 0, 0, 0.5);
-  //  text-shadow: 0 0 5px white;
-  //}
 
 }
 
 .weather__info {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
 
   width: 100%;
@@ -253,7 +296,6 @@ h2 {
   }
 }
 
-
 #city {
   width: 100%;
   font-size: 1.5rem;
@@ -262,13 +304,18 @@ h2 {
 
 .temp {
   font-size: 2.5rem;
+  margin-right: 3rem;
+
+  @include sm-block(){
+    font-size: 2rem;
+
+  }
 }
 
 #description {
   width: 100%;
   margin-bottom: 1rem;
 }
-
 
 .humidity {
   width: 100%;
@@ -285,50 +332,38 @@ h2 {
 
   transition: 0.3s;
 
-  //div {
-  //  display: inline-block;
-  //
-  //  &:first-child {
-  //    width: 100%;
-  //  }
-  //}
-
   &__label {
     margin-right: 8px;
 
   }
+
   &__direction {
     padding: 0 5px;
 
   }
+
   &__direction-name {
     margin-right: 10px;
   }
+
   &__speed {
 
   }
 }
 
-//#openWeather {
-//  position: absolute;
-//  top: 0.5rem;
-//  right: 0.5rem;
-//  width: 2rem;
-//  height: 2rem;
-//  transform: rotate(90deg);
-//  background: transparent;
-//  border: none;
-//}
-
-//.icon-weather__wrapper {
-//
-//}
 
 .weather-icon {
   font-size: 5rem;
 
-}
+  @include xl-block() {
+    font-size: 4rem;
+  }
 
+  @include md-block() {
+    font-size: 3.5rem;
+  }
+
+}
 
 #weather__error {
   display: none;
@@ -353,7 +388,15 @@ h2 {
   transition: all 1s ease-in-out;
 
   font-size: 1.2rem;
+  line-height: 1.6;
+  @include xl-block() {
+    font-size: 1.1rem;
+  }
 
+  @include sm-block() {
+    width: calc(100% - 8rem);
+    margin-top: 4rem;
+  }
 }
 
 blockquote {

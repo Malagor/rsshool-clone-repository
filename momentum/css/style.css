@@ -41,13 +41,19 @@
 
 html {
   font-size: 16px; }
+  @media screen and (max-width: 1200px) {
+    html {
+      font-size: 15px; } }
+  @media screen and (max-width: 992px) {
+    html {
+      font-size: 13px; } }
+  @media screen and (max-width: 768px) {
+    html {
+      font-size: 13px; } }
+  @media screen and (max-width: 480px) {
+    html {
+      font-size: 10px; } }
 
-@media screen and (max-width: 700px) {
-  html {
-    font-size: 14px; } }
-@media screen and (max-width: 480px) {
-  html {
-    font-size: 12px; } }
 body {
   position: relative;
   display: flex;
@@ -88,11 +94,28 @@ button {
 #time {
   font-size: 8rem;
   font-family: 'Roboto Mono', monospace; }
+  @media screen and (max-width: 992px) {
+    #time {
+      font-size: 7.5rem; } }
+  @media screen and (max-width: 768px) {
+    #time {
+      font-size: 5.5rem; } }
+  @media screen and (max-width: 320px) {
+    #time {
+      margin-top: 3rem;
+      font-size: 5rem; } }
 
-#date {
+.date {
   font-size: 2rem; }
+  @media screen and (max-width: 1200px) {
+    .date {
+      font-size: 1.5rem; } }
+  @media screen and (max-width: 320px) {
+    .date {
+      font-size: 1.2rem; } }
 
 h1 {
+  position: relative;
   margin-bottom: 3rem;
   margin-top: 2rem; }
 
@@ -102,23 +125,33 @@ h2 {
 
 .focus {
   width: 100%;
-  padding: 10px 20px;
+  padding: 1rem 2rem;
   border: 2px solid currentColor;
   border-radius: 5px; }
 
-#name:focus,
-#focus:focus {
+.name:focus,
+.focus:focus {
   border: 3px solid white;
   padding: 0 10px; }
 
 .controls {
   position: absolute;
   top: 50%;
+  z-index: 0;
   width: calc(100% + (6rem * 2));
   height: 7rem;
   display: flex;
   justify-content: space-between;
   align-items: center; }
+  @media screen and (max-width: 1200px) {
+    .controls {
+      width: calc(100% + (5rem * 2)); } }
+  @media screen and (max-width: 768px) {
+    .controls {
+      width: calc(100% + (4rem * 2)); } }
+  @media screen and (max-width: 480px) {
+    .controls {
+      width: calc(100% + (3rem * 2)); } }
 
 #prevImage,
 #nextImage {
@@ -132,6 +165,21 @@ h2 {
   font-size: 1.3rem;
   font-family: Comfortaa, cursive;
   cursor: pointer; }
+  @media screen and (max-width: 1200px) {
+    #prevImage,
+    #nextImage {
+      height: 5rem;
+      width: 5rem; } }
+  @media screen and (max-width: 768px) {
+    #prevImage,
+    #nextImage {
+      height: 4rem;
+      width: 4rem; } }
+  @media screen and (max-width: 480px) {
+    #prevImage,
+    #nextImage {
+      height: 3rem;
+      width: 3rem; } }
 
 #nextImage {
   left: 120px; }
@@ -143,18 +191,17 @@ h2 {
   position: absolute;
   top: 10px;
   right: 10px;
-  width: 18rem;
+  width: 15rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 1rem 2rem;
   border-radius: 4px;
   text-align: left;
   transition: 0.3s; }
 
 .weather__info {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   width: 100%; }
   .error .weather__info {
@@ -167,7 +214,11 @@ h2 {
   font-weight: 900; }
 
 .temp {
-  font-size: 2.5rem; }
+  font-size: 2.5rem;
+  margin-right: 3rem; }
+  @media screen and (max-width: 480px) {
+    .temp {
+      font-size: 2rem; } }
 
 #description {
   width: 100%;
@@ -193,6 +244,12 @@ h2 {
 
 .weather-icon {
   font-size: 5rem; }
+  @media screen and (max-width: 1200px) {
+    .weather-icon {
+      font-size: 4rem; } }
+  @media screen and (max-width: 768px) {
+    .weather-icon {
+      font-size: 3.5rem; } }
 
 #weather__error {
   display: none; }
@@ -210,7 +267,15 @@ h2 {
   height: 10rem;
   display: flex;
   transition: all 1s ease-in-out;
-  font-size: 1.2rem; }
+  font-size: 1.2rem;
+  line-height: 1.6; }
+  @media screen and (max-width: 1200px) {
+    #blockquote {
+      font-size: 1.1rem; } }
+  @media screen and (max-width: 480px) {
+    #blockquote {
+      width: calc(100% - 8rem);
+      margin-top: 4rem; } }
 
 blockquote {
   text-align: justify;

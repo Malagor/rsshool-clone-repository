@@ -15,24 +15,25 @@ class Momentum {
   init() {
     this.$el.insertAdjacentHTML('beforeend',
       `
+      <div class="controls">
+        <button id="prevImage"><svg class="icon icon-arrow">
+              <use xlink:href="assets/icons/symbol-defs.svg#icon-arrow"></use>
+            </svg></button>
+        <button id="nextImage"><svg class="icon icon-arrow">
+              <use xlink:href="assets/icons/symbol-defs.svg#icon-arrow"></use>
+            </svg></button>
+      </div>
       <time id="time"></time>
-  <time id="date" class="date"></time>
+      <time id="date" class="date"></time>
 
-  <h1>
-    <span id="greeting"></span>
-    <span id="name" contenteditable="true"></span>
-  </h1>
+      <h1>
+        <span id="greeting"></span>
+        <span class="name" id="name" contenteditable="true"></span>
+      </h1>
 
-  <h2>Текущая задача:</h2>
-  <h2 class="focus" id="focus" contenteditable="true"></h2>
-  <div class="controls">
-    <button id="prevImage"><svg class="icon icon-arrow">
-          <use xlink:href="assets/icons/symbol-defs.svg#icon-arrow"></use>
-        </svg></button>
-    <button id="nextImage"><svg class="icon icon-arrow">
-          <use xlink:href="assets/icons/symbol-defs.svg#icon-arrow"></use>
-        </svg></button>
-  </div>`);
+      <h2>Текущая задача:</h2>
+      <h2 class="focus" id="focus" contenteditable="true"></h2>
+  `);
 
     this.$time = document.querySelector('#time');
     this.$date = document.querySelector('#date');

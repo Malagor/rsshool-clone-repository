@@ -5,7 +5,7 @@ Private repository for @malagor
 1. Task: https://github.com/rolling-scopes-school/tasks/blob/master/tasks/ready-projects/momentum.md
 2. Screenshot:
    ![](https://webpolygon.by/wp-content/uploads/2020/10/momentum3.jpg)
-3. Deploy: https://rolling-scopes-school.github.io/malagor-JS2020Q3/calculator/
+3. Deploy: https://rolling-scopes-school.github.io/malagor-JS2020Q3/momentum/
 4. Done xx.xx.xxxx / deadline 25.19.2020
 5. Score: 46 / 50
   

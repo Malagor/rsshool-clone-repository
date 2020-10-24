@@ -24,13 +24,13 @@ class Momentum {
   </h1>
 
   <h2>Текущая задача:</h2>
-  <h2 id="focus" contenteditable="true"></h2>
+  <h2 class="focus" id="focus" contenteditable="true"></h2>
   <div class="controls">
     <button id="prevImage"><svg class="icon icon-arrow">
-          <use xlink:href="icons/symbol-defs.svg#icon-arrow"></use>
+          <use xlink:href="assets/icons/symbol-defs.svg#icon-arrow"></use>
         </svg></button>
     <button id="nextImage"><svg class="icon icon-arrow">
-          <use xlink:href="icons/symbol-defs.svg#icon-arrow"></use>
+          <use xlink:href="assets/icons/symbol-defs.svg#icon-arrow"></use>
         </svg></button>
   </div>`);
 
@@ -45,7 +45,7 @@ class Momentum {
     this.events();
   }
 
-  addPrevZerros(num) {
+  static addPrevZerros(num) {
     return (parseInt(num, 10) < 10 ? '0' : '') + num;
   }
 
@@ -123,8 +123,8 @@ class Momentum {
     let today = new Date();
     // let today = new Date(2020, 4, 10, 5,13,22);
     let hour = today.getHours();
-    let min = this.addPrevZerros(today.getMinutes());
-    let sec = this.addPrevZerros(today.getSeconds());
+    let min = Momentum.addPrevZerros(today.getMinutes());
+    let sec = Momentum.addPrevZerros(today.getSeconds());
     let day = today.getDate();
     let year = today.getFullYear();
     let month = today.toLocaleString('ru', {month: 'long'});
@@ -167,19 +167,12 @@ class Momentum {
   }
 }
 
-new Momentum('#main-content');
-
 
 /*
 *   ИЗМЕНЕНИЕ БЕКГРАУНДА
 */
 class Images {
-  constructor(arrImages) {
-    this.images = arrImages;
-    this.curImage = 0;
-    this.countAllImages = arrImages.length;
-    this.base = 'img/';
-
+  constructor() {
     this.init();
     this.events();
     this.timer();
@@ -188,7 +181,45 @@ class Images {
   init() {
     this.$prev = document.querySelector('#prevImage');
     this.$next = document.querySelector('#nextImage');
+
+    this.getImages();
+
+    this.setImage(new Date().getHours());
   }
+
+
+  getImages = () => {
+    function randomIndex(num = 6, max = 19) {
+      const curArray = [];
+
+      while (curArray.length < num) {
+        const index = 1 + Math.floor(Math.random() * Math.floor(max));
+        if (!curArray.includes(index)) {
+          curArray.push(index);
+        }
+      }
+
+      return curArray;
+    }
+
+    const folders = ['night', 'morning', 'day', 'evening'];
+    const url = 'assets/images';
+    const images = [];
+
+    folders.forEach(folder => {
+      const index = randomIndex();
+      index.forEach(i => {
+        const filename = `${Momentum.addPrevZerros(i)}.jpg`;
+        const urlToImg = `${url}/${folder}/${filename}`;
+        images.push(urlToImg);
+      })
+    });
+
+    this.images = images;
+    this.countAllImages = images.length;
+    // console.log('this.images:\n',this.images)
+  };
+
 
   events() {
     this.$prev.addEventListener('click', this.changeImage);
@@ -213,7 +244,8 @@ class Images {
         : this.curImage = this.countAllImages - 1;
     }
 
-    document.body.style.backgroundImage = `url(${this.base + this.images[this.curImage]})`;
+    const src = this.images[this.curImage];
+    document.body.style.backgroundImage = `url(${src})`;
 
     setTimeout(() => {
       document.querySelector('#prevImage').disabled = false;
@@ -222,51 +254,50 @@ class Images {
 
   };
 
+  setImage = (index) => {
+    const $body = document.body;
+    const src = `${this.images[index]}`;
+    const img = document.createElement('img');
+    this.curImage = index;
+    img.src = src;
+    // console.log('src:', src);
+
+    img.onload = () => {
+      $body.style.backgroundImage = `url(${src})`;
+    };
+
+    $body.style.backgroundImage = `url(${this.images[index]})`;
+
+    if (index < 6 || index > 18) {
+      $body.classList.add('night');
+    } else {
+      $body.classList.remove('night');
+    }
+  };
+
   stopTimer = () => {
     clearTimeout(this.timerHendler);
     this.timerHendler = undefined;
     setTimeout(this.timer, 60000);
   };
 
+
   timer = () => {
-    const setBackground = (index) => {
-      const $body = document.body;
+    const date = new Date();
+    // const date = new Date(2020, 10 ,24, 12,12,12);
+    const hour = date.getHours();
+    const min = date.getMinutes();
+    const sec = date.getSeconds();
 
-      $body.style.backgroundImage = `url(${this.base}/${this.images[index]}`;
-
-      if (index === 0 || index === 3) {
-        $body.classList.add('night');
-      } else {
-        $body.classList.remove('night');
-      }
-    };
-
-    const hour = new Date().getHours();
-
-    if (0 <= hour && hour < 6) {
-      setBackground(0);
-    } else if (hour < 12) {
-      setBackground(1);
-    } else if (hour < 18) {
-      setBackground(2);
-    } else {
-      setBackground(3);
+    if (min === 0 && sec === 0) {
+      // setBackground(sec);
+      this.curImage = hour;
+      this.setImage(hour);
     }
 
     this.timerHendler = setTimeout(this.timer.bind(this), 1000);
   }
 }
-
-// Порядок картинок: ночь, утро, день, вечер
-const arrImages = [
-  'night.jpg',
-  'morning.jpg',
-  'day.jpg',
-  'evening.jpg'
-];
-
-new Images(arrImages);
-
 
 /*
 *     WEATHER - WIDGET
@@ -283,30 +314,50 @@ class Weather {
 
     this.getCity();
     // this.getWeather();
+    this.timer();
   }
 
   init() {
     document.body.insertAdjacentHTML('beforeend', `
     <div id="weather">
+<!--    <button id="openWeather">-->
+<!--      <svg class="icon icon-arrow">-->
+<!--          <use xlink:href="assets/icons/symbol-defs.svg#icon-arrow"></use>-->
+<!--      </svg>-->
+<!--        </button>-->
       <div id="city" contenteditable="true">[ Введите город ]</div>
+      <div id="weather__error"></div>
       <div class="weather__info">
-        <div>Темп: <span id="temp"></span> ℃</div>
-        <div>По ощущениям: <span id="feels_like"></span> ℃</div>
-        <div><span id="description"></span></div>
-        <div>Давление: <span id="pressure"></span> мм\р.с</div>
-        <div>Влажность: <span id="humidity"></span> %</div>
-        <div id="sun">
-          <div>Восход: <span id="sunrise"></span></div>
-          <div>Закат: <span id="sunset"></span></div>
-        </div>        
-        <div><i id="icon" class="weather-icon owf"></i></div>       
+        <div class="temp"><span id="temp"></span> °C</div>
+        <div class="icon-weather__wrapper"><i id="icon" class="weather-icon owf"></i></div>
       </div>     
+        <div id="description"></div>
+        <div class="humidity">Влажность: <span id="humidity"></span> %</div>
+        <div class="wind" id="wind">
+        <div class="wind__label">Ветер:</div>
+          <div class="wind__direction" id="direction">
+            <svg class="icon icon-down-arrow">
+              <use xlink:href="assets/icons/symbol-defs.svg#icon-down-arrow"></use>
+            </svg>
+          </div>
+          <div class="wind__direction-name" id="directionName"></div>
+          <span class="wind__speed" id="speed"></span><span> m/c</span>
+        </div> 
     </div>
     `);
 
     this.$widget = document.querySelector('#weather');
     this.$city = document.querySelector('#city');
 
+    this.$btn = document.querySelector('#openWeather');
+
+    this.$weather__error = document.querySelector('#weather__error');
+
+  }
+
+  timer() {
+    this.getWeather().catch(e => console.log('Ошибка получения погоды:', e));
+    setTimeout(this.timer, 60 * 60 * 1000);
   }
 
   events() {
@@ -322,6 +373,8 @@ class Weather {
         localStorage.setItem('oldCity', this.$city.textContent);
         this.$city.textContent = '';
       }
+
+      if (target.closest('#openWeather')) this.openWidget();
 
     })
   }
@@ -346,8 +399,17 @@ class Weather {
         this.place = localStorage.getItem('city');
       }
     }
-    this.getWeather();
+    this.getWeather().catch(e => console.log('Ошибка получения погоды', e));
   };
+
+  openWidget() {
+    this.$btn.disabled = true;
+    this.$widget.classList.toggle('open');
+
+    setTimeout(() => {
+      this.$btn.disabled = false;
+    }, 500)
+  }
 
   setCity = (event) => {
     if (event.type === 'keypress' && event.key !== 'Enter') {
@@ -365,79 +427,102 @@ class Weather {
 
     const url = `https://${this.APIURL}${this.place}&lang=ru&appid=${this.APIKEY}&units=metric`;
 
-    const data = await fetch(url)
-      .then(res => res.json())
-      .catch(e => console.log('Ошибка в получении погоды: ', e));
+    const res = await fetch(url);
+    const data = await res.json();
 
-    // console.log(data);
-    this.render(data);
+    if (data['cod'] >= 400) {
+      this.$widget.classList.add('error');
+      this.$weather__error.innerHTML = `Ошибка обновления<br> "${data['message']}"`;
+    } else {
+      this.$widget.classList.remove('error');
+      // console.log(data);
+      this.render(data);
+    }
   };
 
   render(data) {
+    // console.log(data)
+    if (data['cod'] > 400) return;
+
     const $temp = document.querySelector('#temp');
-    const $pressure = document.querySelector('#pressure');
     const $humidity = document.querySelector('#humidity');
-    const $feelsLike = document.querySelector('#feels_like');
-    const $sunrise = document.querySelector('#sunrise');
-    const $sunset = document.querySelector('#sunset');
+    const $direction = document.querySelector('#direction .icon-down-arrow');
+    const $directionName = document.querySelector('#directionName');
+    const $speed = document.querySelector('#speed');
     const $description = document.querySelector('#description');
     const $icon = document.querySelector('#icon');
 
-    console.log(data);
-    const {temp, pressure, humidity, feels_like,} = data['main'];
-    const {sunrise, sunset} = data['sys'];
-    const {description} = data['weather'][0];
-    const {cod} = data;
+
+    const {temp, humidity} = data['main'];
+    const {description, id: icon} = data['weather'][0];
+
+    const {deg: direction, speed} = data['wind'];
 
     function textContent(el, data) {
       el.textContent = data;
     }
 
-    function addPrevZerros(num) {
-      return (parseInt(num, 10) < 10 ? '0' : '') + num;
+    function isNight() {
+      const date = new Date();
+      const hour = date.getHours();
+
+      return hour < 6
     }
 
-    function formatDataStr(date) {
-      const newDate = new Date(date);
-      let hour = newDate.getHours();
-      let min = addPrevZerros(newDate.getMinutes());
-      let sec = addPrevZerros(newDate.getSeconds());
-      return `${hour} : ${min} : ${sec}`;
+    function setDirection(deg) {
+      $direction.style.transform = `rotate(${deg}deg)`;
+
+      let dir = '';
+      if (deg < 22.5) {
+        dir = 'С';
+      } else if (deg < 67.5) {
+        dir = 'СВ';
+      } else if (deg < 112.5) {
+        dir = 'С';
+      } else if (deg < 157.5) {
+        dir = 'ЮВ';
+      } else if (deg < 202.5) {
+        dir = 'Ю';
+      } else if (deg < 247.5) {
+        dir = 'ЮЗ';
+      } else if (deg < 292.5) {
+        dir = 'СЗ';
+      } else if (deg < 360) {
+        dir = 'C'
+      }
+
+      return dir;
     }
 
+    $icon.className = 'weather-icon owf owf-' + icon + (isNight() ? '-n' : '-d');
     textContent($temp, temp);
-    textContent($pressure, pressure);
-    textContent($humidity, humidity);
-    textContent($feelsLike, feels_like);
-    textContent($sunrise, formatDataStr(sunrise));
-    textContent($sunset, formatDataStr(sunset));
     textContent($description, description);
-    console.log(icon);
-    $icon.className = 'weather-icon owf owf-' + cod + '-n';
+    textContent($humidity, humidity);
+    textContent($directionName, `${direction}° (${setDirection(direction)}) `);
+    textContent($speed, ' ' + speed);
+
   }
 }
-
-const weather = new Weather();
-
 
 class Quote {
   constructor() {
     this.url = `https://cors-anywhere.herokuapp.com/https://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=ru`;
 
     this.init();
-    this.getQuote();
+    this.getQuote().catch(e => console.log('Ошибка получения цитаты:', e));
   }
 
   init() {
     document.body.insertAdjacentHTML('beforeend', `
     <div id="blockquote">
+    <div class="blockquote__error"></div>
       <div class="blockquote__text">
         <blockquote></blockquote>
         <figcaption></figcaption>
       </div>
       <button id="blockquote__change">
         <svg class="icon icon-exchange">
-          <use xlink:href="icons/symbol-defs.svg#icon-exchange"></use>
+          <use xlink:href="assets/icons/symbol-defs.svg#icon-exchange"></use>
         </svg>
       </button>
     </div>
@@ -448,6 +533,8 @@ class Quote {
     this.$blockquote = document.querySelector('blockquote');
     this.$figcaption = document.querySelector('figcaption');
     this.$changeBtn = document.querySelector('#blockquote__change');
+
+    this.$error = document.querySelector('.blockquote__error');
 
     this.events();
   }
@@ -470,16 +557,25 @@ class Quote {
 
   getQuote = async () => {
     this.$changeBtn.disabled = true;
-    const url = `https://cors-anywhere.herokuapp.com/https://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=ru`;
-    const res = await fetch(url).catch(e => console.log('Ошибка при получении цитаты: ', e));
+    const res = await fetch(this.url).catch(e => console.log('Ошибка при получении цитаты: ', e));
     const data = await res.json()
       .then(data => {
         this.$changeBtn.disabled = false;
         return data;
       });
 
-    this.render(data);
+    if (data['cod'] >= 400) {
+      this.$el.classList.add('error');
+      this.$error.innerHTML = `Ошибка обновления`
+    } else {
+      this.$el.classList.remove('error');
+      this.render(data);
+    }
   };
 }
 
+
+const momentum = new Momentum('#main-content');
+const images = new Images();
+const weather = new Weather();
 const quote = new Quote();

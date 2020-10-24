@@ -10,12 +10,12 @@
 //}
 @font-face {
   font-family: 'Comfortaa';
-  src: url('../fonts/Comfortaa/Comfortaa-Regular.eot');
+  src: url('../assets/fonts/Comfortaa/Comfortaa-Regular.eot');
   src: local('Comfortaa Regular'), local('Comfortaa-Regular'),
-  url('../fonts/Comfortaa/Comfortaa-Regular.eot?#iefix') format('embedded-opentype'),
-  url('../fonts/Comfortaa/Comfortaa-Regular.woff2') format('woff2'),
-  url('../fonts/Comfortaa/Comfortaa-Regular.woff') format('woff'),
-  url('../fonts/Comfortaa/Comfortaa-Regular.ttf') format('truetype');
+  url('../assets/fonts/Comfortaa/Comfortaa-Regular.eot?#iefix') format('embedded-opentype'),
+  url('../assets/fonts/Comfortaa/Comfortaa-Regular.woff2') format('woff2'),
+  url('../assets/fonts/Comfortaa/Comfortaa-Regular.woff') format('woff'),
+  url('../assets/fonts/Comfortaa/Comfortaa-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -23,12 +23,12 @@
 
 @font-face {
   font-family: 'Comfortaa';
-  src: url('../fonts/Comfortaa/Comfortaa-SemiBold.eot');
+  src: url('../assets/fonts/Comfortaa/Comfortaa-SemiBold.eot');
   src: local('Comfortaa SemiBold'), local('Comfortaa-SemiBold'),
-  url('../fonts/Comfortaa/Comfortaa-SemiBold.eot?#iefix') format('embedded-opentype'),
-  url('../fonts/Comfortaa/Comfortaa-SemiBold.woff2') format('woff2'),
-  url('../fonts/Comfortaa/Comfortaa-SemiBold.woff') format('woff'),
-  url('../fonts/Comfortaa/Comfortaa-SemiBold.ttf') format('truetype');
+  url('../assets/fonts/Comfortaa/Comfortaa-SemiBold.eot?#iefix') format('embedded-opentype'),
+  url('../assets/fonts/Comfortaa/Comfortaa-SemiBold.woff2') format('woff2'),
+  url('../assets/fonts/Comfortaa/Comfortaa-SemiBold.woff') format('woff'),
+  url('../assets/fonts/Comfortaa/Comfortaa-SemiBold.ttf') format('truetype');
   font-weight: 600;
   font-style: normal;
   font-display: swap;
@@ -36,12 +36,12 @@
 
 @font-face {
   font-family: 'Comfortaa';
-  src: url('../fonts/Comfortaa/Comfortaa-Medium.eot');
+  src: url('../assets/fonts/Comfortaa/Comfortaa-Medium.eot');
   src: local('Comfortaa Medium'), local('Comfortaa-Medium'),
-  url('../fonts/Comfortaa/Comfortaa-Medium.eot?#iefix') format('embedded-opentype'),
-  url('../fonts/Comfortaa/Comfortaa-Medium.woff2') format('woff2'),
-  url('../fonts/Comfortaa/Comfortaa-Medium.woff') format('woff'),
-  url('../fonts/Comfortaa/Comfortaa-Medium.ttf') format('truetype');
+  url('../assets/fonts/Comfortaa/Comfortaa-Medium.eot?#iefix') format('embedded-opentype'),
+  url('../assets/fonts/Comfortaa/Comfortaa-Medium.woff2') format('woff2'),
+  url('../assets/fonts/Comfortaa/Comfortaa-Medium.woff') format('woff'),
+  url('../assets/fonts/Comfortaa/Comfortaa-Medium.ttf') format('truetype');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -49,12 +49,12 @@
 
 @font-face {
   font-family: 'Comfortaa';
-  src: url('../fonts/Comfortaa/Comfortaa-Bold.eot');
+  src: url('../assets/fonts/Comfortaa/Comfortaa-Bold.eot');
   src: local('Comfortaa Bold'), local('Comfortaa-Bold'),
-  url('../fonts/Comfortaa/Comfortaa-Bold.eot?#iefix') format('embedded-opentype'),
-  url('../fonts/Comfortaa/Comfortaa-Bold.woff2') format('woff2'),
-  url('../fonts/Comfortaa/Comfortaa-Bold.woff') format('woff'),
-  url('../fonts/Comfortaa/Comfortaa-Bold.ttf') format('truetype');
+  url('../assets/fonts/Comfortaa/Comfortaa-Bold.eot?#iefix') format('embedded-opentype'),
+  url('../assets/fonts/Comfortaa/Comfortaa-Bold.woff2') format('woff2'),
+  url('../assets/fonts/Comfortaa/Comfortaa-Bold.woff') format('woff'),
+  url('../assets/fonts/Comfortaa/Comfortaa-Bold.ttf') format('truetype');
   font-weight: bold;
   font-style: normal;
   font-display: swap;
@@ -62,12 +62,12 @@
 
 @font-face {
   font-family: 'Comfortaa';
-  src: url('../fonts/Comfortaa/Comfortaa-Light.eot');
+  src: url('../assets/fonts/Comfortaa/Comfortaa-Light.eot');
   src: local('Comfortaa Light'), local('Comfortaa-Light'),
-  url('../fonts/Comfortaa/Comfortaa-Light.eot?#iefix') format('embedded-opentype'),
-  url('../fonts/Comfortaa/Comfortaa-Light.woff2') format('woff2'),
-  url('../fonts/Comfortaa/Comfortaa-Light.woff') format('woff'),
-  url('../fonts/Comfortaa/Comfortaa-Light.ttf') format('truetype');
+  url('../assets/fonts/Comfortaa/Comfortaa-Light.eot?#iefix') format('embedded-opentype'),
+  url('../assets/fonts/Comfortaa/Comfortaa-Light.woff2') format('woff2'),
+  url('../assets/fonts/Comfortaa/Comfortaa-Light.woff') format('woff'),
+  url('../assets/fonts/Comfortaa/Comfortaa-Light.ttf') format('truetype');
   font-weight: 300;
   font-style: normal;
   font-display: swap;
@@ -82,11 +82,19 @@
 html {
   font-size: 16px;
 }
-@media screen and (max-width: 700px){
+
+@media screen and (max-width: 700px) {
   html {
     font-size: 14px;
   }
 }
+
+@media screen and (max-width: 480px) {
+  html {
+    font-size: 12px;
+  }
+}
+
 body {
   position: relative;
   display: flex;
@@ -100,15 +108,32 @@ body {
   text-align: center;
 
   color: #000;
+  text-shadow: 0 0 5px white;
 
-  //background-image: url(../img/day.jpg);
-  background: #000000;
-  background-position: center;
+  background: #000000 center;
   background-size: cover;
   transition: all 1s ease-in-out;
 
   &.night {
     color: #ffffff;
+    text-shadow: 0 0 5px black;
+  }
+}
+
+button {
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: 0.3s;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  &:disabled {
+    opacity: 0.2;
   }
 }
 
@@ -122,7 +147,9 @@ body {
 
 #time {
   font-size: 8rem;
+  font-family: 'Roboto Mono', monospace;
 }
+
 #date {
   font-size: 2rem;
 }
@@ -136,6 +163,13 @@ h1 {
 h2 {
   margin-bottom: 0.5rem;
   opacity: 0.6;
+}
+
+.focus {
+  width: 100%;
+  padding: 10px 20px;
+  border: 2px solid currentColor;
+  border-radius: 5px;
 }
 
 #name:focus,
@@ -155,6 +189,7 @@ h2 {
   justify-content: space-between;
   align-items: center;
 }
+
 #prevImage,
 #nextImage {
   width: 6rem;
@@ -170,17 +205,7 @@ h2 {
   font-family: Comfortaa, cursive;
 
   cursor: pointer;
-  transition: 0.3s;
-
-  outline: none;
-  background-color: transparent;
-
-  opacity: 0.5;
-
-  &:hover {
-    //background: #666;
-    opacity: 0.8;
-  }
+  //transition: 0.3s;
 }
 
 #nextImage {
@@ -188,50 +213,188 @@ h2 {
 }
 
 /*
-*   Погода
-*/
+ *   ПОГОДА
+ */
 #weather {
   position: absolute;
   top: 10px;
   right: 10px;
-  width: 15rem;
-  //height: 100%;
+  width: 18rem;
 
   display: flex;
   flex-direction: column;
   align-items: center;
 
   padding: 1rem 2rem;
-  background: rgba(255, 255, 255, 0.3);
+  //background: rgba(255, 255, 255, 0.3);
   border-radius: 4px;
+
+  text-align: left;
+
+  transition: 0.3s;
+
+  //.night & {
+  //  color: rgba(0, 0, 0, 0.5);
+  //  text-shadow: 0 0 5px white;
+  //}
+
 }
+
+.weather__info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 100%;
+
+  .error & {
+    display: none;
+    opacity: 0;
+  }
+}
+
+
+#city {
+  width: 100%;
+  font-size: 1.5rem;
+  font-weight: 900;
+}
+
+.temp {
+  font-size: 2.5rem;
+}
+
+#description {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+
+.humidity {
+  width: 100%;
+  display: block;
+  transition: 0.3s;
+}
+
+.wind {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  width: 100%;
+
+  transition: 0.3s;
+
+  //div {
+  //  display: inline-block;
+  //
+  //  &:first-child {
+  //    width: 100%;
+  //  }
+  //}
+
+  &__label {
+    margin-right: 8px;
+
+  }
+  &__direction {
+    padding: 0 5px;
+
+  }
+  &__direction-name {
+    margin-right: 10px;
+  }
+  &__speed {
+
+  }
+}
+
+//#openWeather {
+//  position: absolute;
+//  top: 0.5rem;
+//  right: 0.5rem;
+//  width: 2rem;
+//  height: 2rem;
+//  transform: rotate(90deg);
+//  background: transparent;
+//  border: none;
+//}
+
+//.icon-weather__wrapper {
+//
+//}
 
 .weather-icon {
-  font-size: 160px;
-  color: rgba(0, 0, 0, 0.5);
+  font-size: 5rem;
+
 }
 
-// Цитаты
+
+#weather__error {
+  display: none;
+
+  .error & {
+    display: block;
+  }
+}
+
+/*
+ *    ЦИТАТЫ
+ */
 #blockquote {
+  position: relative;
   margin-top: 2rem;
   max-width: 30rem;
   width: 100%;
   height: 10rem;
 
   display: flex;
-  color: rgba(255, 255, 255, 0.71);
+  //color: rgba(60, 60, 60, 0.71);
   transition: all 1s ease-in-out;
+
+  font-size: 1.2rem;
+
 }
 
-blockquote{
+blockquote {
   text-align: justify;
   font-style: italic;
 
   opacity: 0;
 
+  //&.night {
+  //  color: #ffffff;
+  //  text-shadow: 0 0 5px black;
+  //}
+
   .show & {
     transition: all 1s ease-in-out;
     opacity: 1;
+  }
+}
+
+.blockquote__text {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  //color: rgba(0, 0, 0, 0.70);
+
+  //&.night {
+  //  color: rgba(255, 255, 255, 0.70);
+  //  text-shadow: 0 0 5px black;
+  //}
+
+  .error & {
+    display: none;
+    opacity: 0;
+  }
+}
+
+.blockquote__error {
+  display: none;
+
+  .error & {
+    display: block;
   }
 }
 
@@ -241,36 +404,34 @@ figcaption {
   font-weight: 600;
   opacity: 0;
 
+  //color: rgba(0, 0, 0, 0.70);
+  //
+  //&.night {
+  //  color: rgba(255, 255, 255, 0.70);
+  //  text-shadow: 0 0 5px black;
+  //}
+
   .show & {
     opacity: 1;
     transition: all 1s ease-in-out;
   }
 }
 
-.blockquote__text {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  margin-right: 2rem;
-}
 
 #blockquote__change {
+  position: absolute;
+  top: 0;
+  right: -3rem;
   flex-basis: 2rem;
   flex-shrink: 0;
   width: 2rem;
   height: 2rem;
-  border: none;
   border-radius: 50%;
-  background: transparent;
 
-  cursor: pointer;
-  transition: 0.3s;
-  opacity: 0.5;
-  outline: none;
+  //transition: 0.3s;
 
   &:hover {
     transform: rotate(180deg);
-    opacity: 1;
   }
 }
 
@@ -282,6 +443,7 @@ figcaption {
   stroke-width: 0;
   stroke: currentColor;
   fill: currentColor;
+
 }
 
 .icon-exchange {
@@ -294,6 +456,7 @@ figcaption {
     color: rgba(255, 255, 255, 0.2);
   }
 }
+
 .icon-arrow {
   font-size: 4rem;
   color: white;
@@ -303,7 +466,21 @@ figcaption {
     transform: rotate(180deg);
   }
 
-  button:disabled & {
-    color: rgba(255, 255, 255, 0.2);
+  #openWeather & {
+    font-size: 1rem;
+    color: white;
+    transition: 0.5s;
+
+    .open & {
+      transform: rotate(180deg);
+    }
   }
+}
+
+.icon-down-arrow {
+  height: 1rem;
+  width: 1rem;
+  font-size: 1rem;
+  color: white;
+  transition: 0.5s;
 }

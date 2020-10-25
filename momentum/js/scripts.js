@@ -490,7 +490,8 @@ class Weather {
 
 class Quote {
   constructor() {
-    this.url = `https://cors-anywhere.herokuapp.com/https://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=ru`;
+    // this.url = `https://cors-anywhere.herokuapp.com/https://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=ru`;
+    this.url = `https://favqs.com/api/qotd`;
 
     this.init();
     this.getQuote().catch(e => console.log('Ошибка получения цитаты:', e));
@@ -528,7 +529,7 @@ class Quote {
   render = (data) => {
     this.$el.classList.remove('show');
 
-    const {quoteText, quoteAuthor} = data;
+    const {body: quoteText, author: quoteAuthor} = data['quote'];
     this.$blockquote.textContent = quoteText;
     this.$figcaption.textContent = quoteAuthor;
 

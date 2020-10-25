@@ -244,7 +244,12 @@ class Images {
     }
 
     const src = this.images[this.curImage];
-    document.body.style.backgroundImage = `url(${src})`;
+
+    const img = document.createElement('img');
+    img.src = src;
+    img.onload = () => {
+      document.body.style.backgroundImage = `url(${src})`;
+    };
 
     setTimeout(() => {
       document.querySelector('#prevImage').disabled = false;

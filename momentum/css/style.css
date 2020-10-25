@@ -63,14 +63,22 @@ body {
   height: 100vh;
   font-family: 'Comfortaa', cursive;
   text-align: center;
-  color: #000;
-  text-shadow: 0 0 5px white;
-  background: #000000 center;
+  color: #ffffff;
+  text-shadow: 0 0 5px black;
+  background: #ffffff center;
   background-size: cover;
   transition: all 1s ease-in-out; }
-  body.night {
-    color: #ffffff;
-    text-shadow: 0 0 5px black; }
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("../assets/images/overlay.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%; }
 
 button {
   background: transparent;

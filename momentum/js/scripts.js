@@ -122,7 +122,6 @@ class Momentum {
 
   showTime() {
     let today = new Date();
-    // let today = new Date(2020, 4, 10, 5,13,22);
     let hour = today.getHours();
     let min = Momentum.addPrevZerros(today.getMinutes());
     let sec = Momentum.addPrevZerros(today.getSeconds());
@@ -218,7 +217,6 @@ class Images {
 
     this.images = images;
     this.countAllImages = images.length;
-    // console.log('this.images:\n',this.images)
   };
 
 
@@ -261,7 +259,6 @@ class Images {
     const img = document.createElement('img');
     this.curImage = index;
     img.src = src;
-    // console.log('src:', src);
 
     img.onload = () => {
       $body.style.backgroundImage = `url(${src})`;
@@ -269,11 +266,6 @@ class Images {
 
     $body.style.backgroundImage = `url(${this.images[index]})`;
 
-    if (index < 6 || index > 18) {
-      $body.classList.add('night');
-    } else {
-      $body.classList.remove('night');
-    }
   };
 
   stopTimer = () => {
@@ -285,7 +277,6 @@ class Images {
 
   timer = () => {
     const date = new Date();
-    // const date = new Date(2020, 10 ,24, 12,12,12);
     const hour = date.getHours();
     const min = date.getMinutes();
     const sec = date.getSeconds();
@@ -303,7 +294,6 @@ class Images {
 /*
 *     WEATHER - WIDGET
 */
-
 class Weather {
   constructor(city = 'Минск') {
     this.place = city;
@@ -321,11 +311,6 @@ class Weather {
   init() {
     document.body.insertAdjacentHTML('beforeend', `
     <div id="weather">
-<!--    <button id="openWeather">-->
-<!--      <svg class="icon icon-arrow">-->
-<!--          <use xlink:href="assets/icons/symbol-defs.svg#icon-arrow"></use>-->
-<!--      </svg>-->
-<!--        </button>-->
       <div id="city" contenteditable="true">[ Введите город ]</div>
       <div id="weather__error"></div>
       <div class="weather__info">
@@ -349,11 +334,8 @@ class Weather {
 
     this.$widget = document.querySelector('#weather');
     this.$city = document.querySelector('#city');
-
     this.$btn = document.querySelector('#openWeather');
-
     this.$weather__error = document.querySelector('#weather__error');
-
   }
 
   timer() {
@@ -376,7 +358,6 @@ class Weather {
       }
 
       if (target.closest('#openWeather')) this.openWidget();
-
     })
   }
 
@@ -422,7 +403,6 @@ class Weather {
     }
   };
 
-
   getWeather = async () => {
     if (this.place === '' || !this.place) return;
 
@@ -436,13 +416,11 @@ class Weather {
       this.$weather__error.innerHTML = `Ошибка обновления<br> "${data['message']}"`;
     } else {
       this.$widget.classList.remove('error');
-      // console.log(data);
       this.render(data);
     }
   };
 
   render(data) {
-    // console.log(data)
     if (data['cod'] > 400) return;
 
     const $temp = document.querySelector('#temp');
@@ -526,15 +504,13 @@ class Quote {
           <use xlink:href="assets/icons/symbol-defs.svg#icon-exchange"></use>
         </svg>
       </button>
-    </div>
-    
+    </div>    
     `);
 
     this.$el = document.querySelector('#blockquote');
     this.$blockquote = document.querySelector('blockquote');
     this.$figcaption = document.querySelector('figcaption');
     this.$changeBtn = document.querySelector('#blockquote__change');
-
     this.$error = document.querySelector('.blockquote__error');
 
     this.events();
@@ -576,7 +552,7 @@ class Quote {
 }
 
 
-const momentum = new Momentum('#main-content');
-const images = new Images();
-const weather = new Weather();
-const quote = new Quote();
+new Momentum('#main-content');
+new Images();
+new Weather();
+new Quote();

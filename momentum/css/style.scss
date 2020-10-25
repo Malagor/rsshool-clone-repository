@@ -100,17 +100,25 @@ body {
   font-family: 'Comfortaa', cursive;
   text-align: center;
 
-  color: #000;
-  text-shadow: 0 0 5px white;
+  color: #ffffff;
+  text-shadow: 0 0 5px black;
 
-  background: #000000 center;
+  background: #ffffff center;
   background-size: cover;
   transition: all 1s ease-in-out;
 
-  &.night {
-    color: #ffffff;
-    text-shadow: 0 0 5px black;
-  }
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('../assets/images/overlay.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
 }
 
 button {
@@ -181,16 +189,12 @@ h2 {
   opacity: 0.6;
 }
 
-.name {
-  //z-index: 1;
-}
 
 .focus {
   width: 100%;
   padding: 1rem 2rem;
   border: 2px solid currentColor;
   border-radius: 5px;
-  //z-index: 1;
 }
 
 .name:focus,
@@ -279,8 +283,6 @@ h2 {
   text-align: left;
 
   transition: 0.3s;
-
-
 }
 
 .weather__info {
@@ -308,7 +310,6 @@ h2 {
 
   @include sm-block(){
     font-size: 2rem;
-
   }
 }
 
@@ -327,27 +328,19 @@ h2 {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-
   width: 100%;
-
   transition: 0.3s;
 
   &__label {
     margin-right: 8px;
-
   }
 
   &__direction {
     padding: 0 5px;
-
   }
 
   &__direction-name {
     margin-right: 10px;
-  }
-
-  &__speed {
-
   }
 }
 
@@ -362,7 +355,6 @@ h2 {
   @include md-block() {
     font-size: 3.5rem;
   }
-
 }
 
 #weather__error {
@@ -384,7 +376,6 @@ h2 {
   height: 10rem;
 
   display: flex;
-  //color: rgba(60, 60, 60, 0.71);
   transition: all 1s ease-in-out;
 
   font-size: 1.2rem;
@@ -402,13 +393,7 @@ h2 {
 blockquote {
   text-align: justify;
   font-style: italic;
-
   opacity: 0;
-
-  //&.night {
-  //  color: #ffffff;
-  //  text-shadow: 0 0 5px black;
-  //}
 
   .show & {
     transition: all 1s ease-in-out;
@@ -420,12 +405,6 @@ blockquote {
   width: 100%;
   display: flex;
   flex-direction: column;
-  //color: rgba(0, 0, 0, 0.70);
-
-  //&.night {
-  //  color: rgba(255, 255, 255, 0.70);
-  //  text-shadow: 0 0 5px black;
-  //}
 
   .error & {
     display: none;
@@ -447,13 +426,6 @@ figcaption {
   font-weight: 600;
   opacity: 0;
 
-  //color: rgba(0, 0, 0, 0.70);
-  //
-  //&.night {
-  //  color: rgba(255, 255, 255, 0.70);
-  //  text-shadow: 0 0 5px black;
-  //}
-
   .show & {
     opacity: 1;
     transition: all 1s ease-in-out;
@@ -471,8 +443,6 @@ figcaption {
   height: 2rem;
   border-radius: 50%;
 
-  //transition: 0.3s;
-
   &:hover {
     transform: rotate(180deg);
   }
@@ -486,7 +456,6 @@ figcaption {
   stroke-width: 0;
   stroke: currentColor;
   fill: currentColor;
-
 }
 
 .icon-exchange {

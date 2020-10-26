@@ -26,8 +26,8 @@ class PetsGalerySlider extends PetsGalery{
     const result = [];
     while (result.length < count) {
       const curNum = Math.floor(Math.random() * Math.floor(max));
-      if (!result.includes(curNum) && !result.includes(this.prevIndex)) {
-        result.push(curNum)
+      if (!result.includes(curNum) && !this.prevIndex.includes(curNum)) {
+        result.push(curNum);
       }
     }
 

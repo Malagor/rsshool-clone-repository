@@ -5,6 +5,7 @@ class PetsGalerySlider extends PetsGalery{
   }
 
   init() {
+    this.prevIndex = [];
     this.countItemPerPage();
     this.render();
     this.events();
@@ -21,23 +22,53 @@ class PetsGalerySlider extends PetsGalery{
     })
   }
 
-  countItemPerPage() {
-    // const width = screen.width;
-    // if (width < 700) {
-    //   this.itemsPerPage = 1;
-    // } else if (width < 992) {
-    //   this.itemsPerPage = 2;
-    // } else {
-    //   this.itemsPerPage = 3;
-    // }
+  getRandomItems = (count, max, oldIndex = []) => {
+    const result = [];
+    while (result.length < count) {
+      const curNum = Math.floor(Math.random() * Math.floor(max));
+      if (!result.includes(curNum) && !result.includes(this.prevIndex)) {
+        result.push(curNum)
+      }
+    }
 
-    this.itemsPerPage = 3
+    // const rand = this.prevIndex;
+    // do {
+    //   this.prevIndex = Math.floor(Math.random() * Math.floor(8));
+    // } while (this.prevIndex === rand);
+    //
+    // // this.prevIndex = rand;
+    // console.log('this.prevIndex', this.prevIndex);
+    //
+    // for (let i = rand; i < (rand + count); i++) {
+    //   result.push(i);
+    // }
+    //
+    // console.log('result', result);
+    this.prevIndex.splice(0);
+    result.forEach(v => {
+      this.prevIndex.push(v);
+    });
+
+    return result;
+  };
+
+  countItemPerPage() {
+    const width = screen.width;
+    if (width < 700) {
+      this.itemsPerPage = 1;
+    } else if (width < 992) {
+      this.itemsPerPage = 2;
+    } else {
+      this.itemsPerPage = 3;
+    }
+
+    // this.itemsPerPage = 3
   }
 
   render() {
     this.$el.classList.remove('show');
     this.$el.innerHTML = '';
-    this.getRandomItems(this.itemsPerPage, this.data.length).forEach(index => {
+    this.getRandomItems(this.itemsPerPage, 8).forEach(index => {
       this.$el.insertAdjacentHTML('beforeend', this.toHTML(this.data[index], index));
     });
     setTimeout(() => {

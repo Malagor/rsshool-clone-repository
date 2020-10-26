@@ -12,24 +12,40 @@ const mobileMenu = () => {
   } else {
     document.body.style.position = '';
   }
-
   $toggleMenuBtn.classList.toggle('open');
-  $menu.classList.toggle('menu-mobile');
-  $headerLogo.classList.toggle('header__logo--mobile-menu-open');
 
-  if ($menu.classList.contains('menu-mobile')) {
-    $menu.insertAdjacentHTML('beforebegin', '<div id="overlay"></div>');
+  /*
+   * Для убирания заметного переключения между мобильным и декстопным меню.
+   * Сперва добавляем видимость, потом навешиваем транзишен
+   */
+  if ($menu.style.display === '') {
+    $menu.style.display = 'flex';
+    setTimeout(togleMenu,0);
   } else {
-    $nav.removeChild(document.querySelector('#overlay'));
+    $menu.style.display = '';
+    setTimeout(togleMenu,0);
   }
 
-  const headerPosition = getComputedStyle($header).position;
+  function togleMenu() {
+    $menu.classList.toggle('menu-mobile');
 
-  if (headerPosition === 'absolute') {
-    $header.style.position = 'fixed'
-  } else {
-    $header.style.position = '';
+    $headerLogo.classList.toggle('header__logo--mobile-menu-open');
+
+    if ($menu.classList.contains('menu-mobile')) {
+      $menu.insertAdjacentHTML('beforebegin', '<div id="overlay"></div>');
+    } else {
+      $nav.removeChild(document.querySelector('#overlay'));
+    }
+
+    const headerPosition = getComputedStyle($header).position;
+
+    if (headerPosition === 'absolute') {
+      $header.style.position = 'fixed'
+    } else {
+      $header.style.position = '';
+    }
   }
+
 };
 
 // Обрабатываем клики для закрытия мобильного меню

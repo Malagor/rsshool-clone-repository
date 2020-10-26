@@ -601,20 +601,6 @@ template {
 .nav__mobile-toggle span:nth-child(4) {
   bottom: 0
 }
-.nav__mobile-toggle:hover span:nth-child(1) {
-  top: 0;
-  left: -5px
-}
-.nav__mobile-toggle:hover span:nth-child(2) {
-  top: 50%
-}
-.nav__mobile-toggle:hover span:nth-child(3) {
-  top: 50%
-}
-.nav__mobile-toggle:hover span:nth-child(4) {
-  bottom: 0;
-  left: 5px
-}
 .nav__mobile-toggle.open {
   height: 22px;
   position: absolute;
@@ -650,9 +636,7 @@ template {
     position: absolute;
     top: -25px;
     right: 0;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
+    display: none;
     -webkit-box-pack: center;
     -ms-flex-pack: center;
     justify-content: center;
@@ -677,6 +661,9 @@ template {
   }
 }
 .menu-mobile {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   opacity: 1;
   -webkit-transform: translateX(0);
   -ms-transform: translateX(0);

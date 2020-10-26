@@ -67,11 +67,15 @@ document.body.addEventListener('click', event => {
   if (target.closest('.gallery-item')) {
     disableScroll();
     const index = target.closest('.gallery-item').dataset.index;
+
+    target.closest('.gallery-item').classList.add('active');
+
     petsModal.setContent(petsArray[index]).openModal();
   }
 
   if (target.closest('#modalClose') || target.closest('#overlay')) {
     enableScroll();
+    document.querySelector('.gallery-item.active').classList.remove('active');
     petsModal.closeModal();
   }
 });

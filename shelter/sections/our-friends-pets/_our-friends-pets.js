@@ -70,6 +70,7 @@ class PetsGaleryTable extends PetsGalery {
   }
 
   render() {
+    this.countItemPerPage();
     const start = (this.currentPage - 1) * this.itemsPerPage;
     let finish = (this.currentPage * this.itemsPerPage);
     if (finish > this.totalItem) finish = this.totalItem;
@@ -92,6 +93,7 @@ class PetsGaleryTable extends PetsGalery {
   nextPage() {
     if (!(this.currentPage + 1) < this.lastPageNumber) {
       ++this.currentPage;
+
     }
   }
 

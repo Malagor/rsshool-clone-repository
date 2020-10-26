@@ -15,20 +15,23 @@ class PetsGalerySlider extends PetsGalery{
       const {target} = event;
 
       if (target.closest('.gallery__arrow--left') || target.closest('.gallery__arrow--right')){
+        this.countItemPerPage();
         this.render();
       }
     })
   }
 
   countItemPerPage() {
-    const width = screen.width;
-    if (width < 700) {
-      this.itemsPerPage = 1;
-    } else if (width < 990) {
-      this.itemsPerPage = 2;
-    } else {
-      this.itemsPerPage = 3;
-    }
+    // const width = screen.width;
+    // if (width < 700) {
+    //   this.itemsPerPage = 1;
+    // } else if (width < 992) {
+    //   this.itemsPerPage = 2;
+    // } else {
+    //   this.itemsPerPage = 3;
+    // }
+
+    this.itemsPerPage = 3
   }
 
   render() {

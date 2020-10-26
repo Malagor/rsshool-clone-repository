@@ -89,45 +89,42 @@ let petsArray = [
   }
 ];
 
+function shufleArray(num){
+  let locArr = [];
+  for (let i = 0; i < num; i++) {
+    locArr.push(i);
+  }
+  return locArr.sort((a, b) => Math.random() - 0.5);
+}
+
+
 function createBigTable(arr, count = 48) {
-  const fieldSetObj = {};
-  const keys = Object.keys(arr[0]);
-  const newBigArray = [];
+  let a6 = [], a8 = [], a48 = [];
 
-  function randomIndex(max) {
-    return Math.floor(Math.random() * Math.floor(max));
+  while (a48.length !== count) {
+    let index = 0;
+
+    if (a6.length === 6) a48.push(...a6.splice(0));
+    if (a8.length === 0) a8 = shufleArray(8);
+
+    while (a6.includes(a8[index])) {
+      index++;
+    }
+
+    a6.push(...a8.splice(index, 1));
   }
 
-  arr.forEach(item => {
-    keys.forEach(key => {
-      if (fieldSetObj[key]) {
-        const curArr = fieldSetObj[key];
-        curArr.push(item[key]);
-      } else {
-        fieldSetObj[key] = [];
-        fieldSetObj[key].push(item[key]);
-      }
-    })
-  });
-
-  for (let i = 0; i < count; i++) {
-    const petObg = {};
-    const lengthArrays = fieldSetObj[keys[0]].length;
-
-    keys.forEach(key => {
-      petObg[key] = fieldSetObj[key][randomIndex(lengthArrays)];
-    });
-
-    newBigArray.push(petObg);
-  }
-
-  return newBigArray;
+  const bigArray = [];
+  a48.forEach(i => bigArray.push(arr[i]));
+  return bigArray;
 }
 
 petsArray = createBigTable(petsArray);
 
-// console.log(petsArray);
 
+/*
+ *    Подключаем скрипты со страниц
+ */
 document.addEventListener("DOMContentLoaded", function () {
 
   //= ../sections/nav/_nav.js
@@ -136,7 +133,7 @@ document.addEventListener("DOMContentLoaded", function () {
   //= ../sections/modal/_modal.js
 
 
-  // Обработка скролла страницы
+  // Обработка скролла страницы для стилизации меню
   window.addEventListener('scroll', () => {
     const $headerScroll = document.querySelector('.header');
     if (pageYOffset > 150) {

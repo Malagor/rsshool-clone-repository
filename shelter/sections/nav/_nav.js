@@ -20,10 +20,10 @@ const mobileMenu = () => {
    */
   if ($menu.style.display === '') {
     $menu.style.display = 'flex';
-    setTimeout(togleMenu,0);
+    setTimeout(togleMenu,100);
   } else {
     $menu.style.display = '';
-    setTimeout(togleMenu,0);
+    setTimeout(togleMenu,100);
   }
 
   function togleMenu() {

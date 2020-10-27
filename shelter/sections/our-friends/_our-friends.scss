@@ -129,6 +129,15 @@
 
   overflow: hidden;
   cursor: pointer;
+  transform: translateX(0);
+
+  &.to-right{
+    transform: translateX(-100%);
+  }
+
+  &.to-left {
+    transform: translateX(100%);
+  }
 
 }
 

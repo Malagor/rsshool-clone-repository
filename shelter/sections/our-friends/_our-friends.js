@@ -15,9 +15,19 @@ class PetsGalerySlider extends PetsGalery{
     document.querySelector('.gallery').addEventListener('click', event =>{
       const {target} = event;
 
-      if (target.closest('.gallery__arrow--left') || target.closest('.gallery__arrow--right')){
+      // if (target.closest('.gallery__arrow--left') || target.closest('.gallery__arrow--right')){
+      //   this.countItemPerPage();
+      //   this.render();
+      // }
+
+      if (target.closest('.gallery__arrow--left')){
         this.countItemPerPage();
-        this.render();
+        this.render('to-left');
+      }
+
+      if (target.closest('.gallery__arrow--right')){
+        this.countItemPerPage();
+        this.render('to-right');
       }
     })
   }
@@ -65,15 +75,17 @@ class PetsGalerySlider extends PetsGalery{
     // this.itemsPerPage = 3
   }
 
-  render() {
+  render(diClass) {
     this.$el.classList.remove('show');
     this.$el.innerHTML = '';
     this.getRandomItems(this.itemsPerPage, 8).forEach(index => {
       this.$el.insertAdjacentHTML('beforeend', this.toHTML(this.data[index], index));
     });
+
+
     setTimeout(() => {
       this.$el.classList.add('show');
-    }, 200);
+    }, 10);
   }
 }
 

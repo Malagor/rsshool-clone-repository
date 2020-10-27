@@ -1281,7 +1281,20 @@ template {
   -o-transition: .3s;
   transition: .3s;
   overflow: hidden;
-  cursor: pointer
+  cursor: pointer;
+  -webkit-transform: translateX(0);
+  -ms-transform: translateX(0);
+  transform: translateX(0)
+}
+.gallery-item.to-right {
+  -webkit-transform: translateX(-100%);
+  -ms-transform: translateX(-100%);
+  transform: translateX(-100%)
+}
+.gallery-item.to-left {
+  -webkit-transform: translateX(100%);
+  -ms-transform: translateX(100%);
+  transform: translateX(100%)
 }
 .gallery-item.active,
 .gallery-item:hover {

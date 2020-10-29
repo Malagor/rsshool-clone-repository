@@ -16,7 +16,6 @@ const Keyboard = {
     value: '',
     capsLock: false,
     shift: false,
-    lang: 'eng',
     isLongShift: false,
     isSelection: false,
     caretPosition: null,
@@ -55,10 +54,9 @@ const Keyboard = {
     // Automatically use keyboard for elements with .use-keyboard-input
     this.elements.screen.addEventListener('focus', () => {
       this._getCaret();
-      // this.open(this.elements.screen.value, currentValue => {
-      //   this.elements.screen.value = currentValue;
-      // })
-      this.open();
+      this.open(this.elements.screen.value, currentValue => {
+        this.elements.screen.value = currentValue;
+      })
     });
 
     window.addEventListener('keydown', ev => {
@@ -402,9 +400,9 @@ const Keyboard = {
       },
       {
         eng: 'enter',
-        ru: 'enter',
-        shiftEng: '',
-        shiftRu: ''
+        ru: 'ввод',
+        shiftEng: '?',
+        shiftRu: ','
       },
       {
         eng: 'done',
@@ -433,16 +431,16 @@ const Keyboard = {
       return `<i class="material-icons">${icon_name}</i>`;
     };
 
-    fullKeys.forEach(keyObj => {
+    fullKeys.forEach(key => {
       const keyElement = document.createElement('button');
-      const insertLineBreak = ["backspace", "]", "enter", "\\"].indexOf(keyObj.eng) !== -1;
+      const insertLineBreak = ["backspace", "]", "enter", "\\"].indexOf(key.eng) !== -1;
 
       // Add Attributes/Classes
       keyElement.setAttribute("type", "button");
       keyElement.classList.add("keyboard__key");
 
 
-      switch (keyObj.eng) {
+      switch (key.eng) {
 
         case 'backspace':
           keyElement.classList.add('keyboard__key--wide');
@@ -518,21 +516,6 @@ const Keyboard = {
 
           break;
 
-        case 'eng':
-          keyElement.classList.add('keyboard__key--wide');
-          if (this.properties.lang === 'eng') {
-            keyElement.textContent = keyObj.eng.toLowerCase();
-          } else {
-            keyElement.textContent = keyObj.ru.toLowerCase();
-          }
-
-          keyElement.addEventListener('click', () => {
-            this._toggleLang();
-            this._triggerEvents('oninput');
-          });
-
-          break;
-
         case 'done':
           keyElement.classList.add('keyboard__key--wide', 'keyboard__key--dark');
           keyElement.innerHTML = createIconHTML('check_circle');
@@ -545,14 +528,10 @@ const Keyboard = {
           break;
 
         default:
-          if (this.properties.lang === 'eng') {
-            keyElement.textContent = keyObj.eng.toLowerCase();
-          } else {
-            keyElement.textContent = keyObj.ru.toLowerCase();
-          }
+          keyElement.textContent = key.eng.toLowerCase();
 
           keyElement.addEventListener('click', () => {
-            this._addSymbolToScreen(keyObj.eng);
+            this._addSymbolToScreen(key);
             this._triggerEvents('oninput');
           });
 
@@ -573,7 +552,7 @@ const Keyboard = {
     const print = (startCaret, endCaret) => {
       const startPartStr = this.properties.value.slice(0, startCaret);
       const lastPartStr = this.properties.value.slice(endCaret);
-      const curKey = (this.properties.capsLock || this.properties.shift) ? key.toUpperCase() : key.toLowerCase();
+      const curKey = (this.properties.capsLock || this.properties.shift) ? key.eng.toUpperCase() : key.eng.toLowerCase();
 
       if (this.properties.shift) {
         this.properties.timeoutId = null;
@@ -680,20 +659,14 @@ const Keyboard = {
 
   },
 
-  _toggleLang() {
-    if (this.properties.lang === 'eng') {
-      this.properties.lang = 'ru'
-    } else {
-      this.properties.lang = 'eng'
-    }
+  _removeShift() {
+
   },
 
-  open(initialValue/*, oninput, onclose*/) {
+  open(initialValue, oninput, onclose) {
     this.properties.value = initialValue || '';
-    // this.eventHandlers.oninput = oninput;
-    // this.eventHandlers.onclose = onclose;
-
-    // this.properties.value = this.elements.screen.value;
+    this.eventHandlers.oninput = oninput;
+    this.eventHandlers.onclose = onclose;
 
     this.elements.main.classList.remove('keyboard--hidden');
   },

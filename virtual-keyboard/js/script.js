@@ -399,20 +399,26 @@ const Keyboard = {
         shiftRu: ','
       },
       {
+        eng: 'enter',
+        ru: 'ввод',
+        shiftEng: '?',
+        shiftRu: ','
+      },
+      {
         eng: 'done',
         ru: 'done',
         shiftEng: '',
         shiftRu: ''
       },
       {
-        eng: 'eng',
-        ru: 'ru',
+        eng: 'space',
+        ru: 'пробел',
         shiftEng: '',
         shiftRu: ''
       },
       {
-        eng: 'space',
-        ru: 'пробел',
+        eng: 'eng',
+        ru: 'ru',
         shiftEng: '',
         shiftRu: ''
       }
@@ -425,16 +431,16 @@ const Keyboard = {
       return `<i class="material-icons">${icon_name}</i>`;
     };
 
-    keyLayout.forEach(key => {
+    fullKeys.forEach(key => {
       const keyElement = document.createElement('button');
-      const insertLineBreak = ["backspace", "p", "enter", "?"].indexOf(key) !== -1;
+      const insertLineBreak = ["backspace", "]", "enter", "\\"].indexOf(key.eng) !== -1;
 
       // Add Attributes/Classes
       keyElement.setAttribute("type", "button");
       keyElement.classList.add("keyboard__key");
 
 
-      switch (key) {
+      switch (key.eng) {
 
         case 'backspace':
           keyElement.classList.add('keyboard__key--wide');
@@ -522,7 +528,7 @@ const Keyboard = {
           break;
 
         default:
-          keyElement.textContent = key.toLowerCase();
+          keyElement.textContent = key.eng.toLowerCase();
 
           keyElement.addEventListener('click', () => {
             this._addSymbolToScreen(key);
@@ -546,7 +552,7 @@ const Keyboard = {
     const print = (startCaret, endCaret) => {
       const startPartStr = this.properties.value.slice(0, startCaret);
       const lastPartStr = this.properties.value.slice(endCaret);
-      const curKey = (this.properties.capsLock || this.properties.shift) ? key.toUpperCase() : key.toLowerCase();
+      const curKey = (this.properties.capsLock || this.properties.shift) ? key.eng.toUpperCase() : key.eng.toLowerCase();
 
       if (this.properties.shift) {
         this.properties.timeoutId = null;

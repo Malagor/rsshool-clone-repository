@@ -333,25 +333,89 @@ const Keyboard = {
         shiftRu: '/'
       },
       {
-        eng: '',
-        ru: '',
+        eng: 'shift',
+        ru: 'shift',
         shiftEng: '',
         shiftRu: ''
       },
       {
-        eng: '',
-        ru: '',
+        eng: 'z',
+        ru: 'я',
         shiftEng: '',
         shiftRu: ''
       },
       {
-        eng: '',
-        ru: '',
+        eng: 'x',
+        ru: 'ч',
         shiftEng: '',
         shiftRu: ''
       },
-
-
+      {
+        eng: 'c',
+        ru: 'с',
+        shiftEng: '',
+        shiftRu: ''
+      },
+      {
+        eng: 'v',
+        ru: 'м',
+        shiftEng: '',
+        shiftRu: ''
+      },
+      {
+        eng: 'b',
+        ru: 'и',
+        shiftEng: '',
+        shiftRu: ''
+      },
+      {
+        eng: 'n',
+        ru: 'т',
+        shiftEng: '',
+        shiftRu: ''
+      },
+      {
+        eng: 'm',
+        ru: 'ь',
+        shiftEng: '',
+        shiftRu: ''
+      },
+      {
+        eng: ',',
+        ru: 'б',
+        shiftEng: '<',
+        shiftRu: ''
+      },
+      {
+        eng: '.',
+        ru: 'ю',
+        shiftEng: '>',
+        shiftRu: ''
+      },
+      {
+        eng: '/',
+        ru: '.',
+        shiftEng: '?',
+        shiftRu: ','
+      },
+      {
+        eng: 'done',
+        ru: 'done',
+        shiftEng: '',
+        shiftRu: ''
+      },
+      {
+        eng: 'eng',
+        ru: 'ru',
+        shiftEng: '',
+        shiftRu: ''
+      },
+      {
+        eng: 'space',
+        ru: 'пробел',
+        shiftEng: '',
+        shiftRu: ''
+      }
     ];
 
     // console.log(fullKeys);
@@ -377,7 +441,7 @@ const Keyboard = {
           keyElement.innerHTML = createIconHTML('backspace');
 
           keyElement.addEventListener('click', () => {
-            if (this.elements.screen.selectionStart === this.elements.screen.selectionEnd){
+            if (this.elements.screen.selectionStart === this.elements.screen.selectionEnd) {
               this.properties.value = this.properties.value.substring(0, this.properties.value.length - 1);
               this.properties.caretPosition--;
 

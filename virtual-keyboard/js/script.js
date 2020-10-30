@@ -478,7 +478,7 @@ class Keyboard {
       $el: null,
       $keysContainer: null,
       keys: [],
-      $textarea: null
+      $screen: null
     };
 
     this.property = {
@@ -487,7 +487,9 @@ class Keyboard {
       shift: false,
       lang: 'eng',
       isLongShift: false,
-      caretPosition: 0
+      caretPosition: 0,
+      startSelection: 0,
+      endSelection: 0
 
       // isSelection: false,
       // caretPosition: null,
@@ -513,7 +515,11 @@ class Keyboard {
     this.elements.$el = document.querySelector('#keyboard');
     this.elements.$keysContainer = document.querySelector('#keyboardKeys');
 
-    this.elements.$textarea = document.querySelector('#screen');
+    this.elements.$screen = document.querySelector('#screen');
+
+    this.property.caretPosition = this.elements.$screen.value.length;
+    console.log('Каретка:',this.property.caretPosition);
+
 
     this._createKeys();
     this.render();
@@ -521,31 +527,73 @@ class Keyboard {
 
   events = () => {
 
+    /*
+        Click To TextArea
+     */
+
+    this.elements.$screen.addEventListener('click', (event) => {
+      this.property.caretPosition = this.elements.$screen.selectionStart;
+      console.log('Каретка', this.property.caretPosition);
+    });
+
+
+    /*
+          Click To Buttons
+     */
+
     this.elements.$keysContainer.addEventListener('click', (event) => {
       const target = event.target;
-
-      // console.log(target);
 
       this.elements.keys.forEach(element => {
 
         if (element.$key === target.closest('.keyboard__key')) {
 
+          /*
+              Add Symbol To Caret Position adn Delete Selection
+           */
+
+          const addSymbol = (symbol, backspace = false) => {
+
+            const curChar = backspace ? '' : symbol;
+            let beginStr;
+            let endStr;
+
+            if (this.elements.$screen.selectionStart === this.elements.$screen.selectionEnd) {
+
+              beginStr = backspace
+                ? this.elements.$screen.value.substring(0, this.property.caretPosition - 1)
+                : this.elements.$screen.value.substring(0, this.property.caretPosition);
+              endStr = this.elements.$screen.value.substring(this.property.caretPosition);
+
+              backspace ? this._setCaret(this.property.caretPosition - 1) : this._setCaret(this.property.caretPosition + 1);
+
+            } else {
+
+              beginStr = this.elements.$screen.value.substring(0, this.elements.$screen.selectionStart);
+              endStr = this.elements.$screen.value.substring(this.elements.$screen.selectionEnd);
+              this.property.caretPosition = backspace ? this.elements.$screen.selectionStart : this._setCaret(this.elements.$screen.selectionStart + 1);
+
+            }
+
+            this.elements.$screen.value = beginStr + curChar + endStr;
+          };
+
           switch (element.eng) {
             case 'space':
-              this.elements.$textarea.value += ' ';
-              this.property.caretPosition--;
+              this.elements.$screen.value += ' ';
+              this._setCaret(this.property.caretPosition - 1);
 
               break;
 
             case 'backspace':
-              const strStart = this.elements.$textarea.value.substring(0, this.property.caretPosition);
-              const strEnd = this.elements.$textarea.value.substring(this.property.caretPosition);
-              this.elements.$textarea.value = strStart.slice(0, -1) + strEnd;
+              //
+
+              addSymbol('', true);
 
               break;
 
             case 'enter':
-              this.elements.$textarea.value += '\n';
+              this.elements.$screen.value += '\n';
 
               break;
 
@@ -565,57 +613,51 @@ class Keyboard {
               break;
 
             case 'arrowLeft':
-              this.property.caretPosition--;
+              if (this.property.shift) {
+                if (this.property.endSelection === 0) {
+
+                  this.property.endSelection = this.property.caretPosition;
+                  this._setCaret(this.property.caretPosition - 1);
+                  this.property.startSelection = this.property.caretPosition;
+
+                  this.elements.$screen.focus();
+                  this.elements.$screen.setSelectionRange(this.property.startSelection, this.property.endSelection);
+                }
+                // this.elements.$screen.setSelectionRange(2, 5);
+              } else {
+                this.property.endSelection = 0;
+                this.property.startSelection = 0;
+                this._setCaret(this.property.caretPosition - 1);
+              }
 
               break;
 
             case 'arrowRight':
-              this.property.caretPosition++;
+
+              this._setCaret(this.property.caretPosition + 1);
 
               break;
 
 
             default:
-
-              /* TODO: Сделать одну функцию на вставку символа и backspaсe.
-               *  Суть в том, делим строку пополам и лмбо вставляем символ, либо отнимаем символ у первой части
-               */
-              const curChar = element.getSymbol(this.property.lang, this.property.shift);
-              let beginStr = undefined;
-              let endStr = undefined;
-              if (this.elements.$textarea.selectionStart === this.elements.$textarea.selectionEnd) {
-                beginStr = this.elements.$textarea.value.substring(0, this.property.caretPosition);
-                endStr = this.elements.$textarea.value.substring(this.property.caretPosition);
-                this.property.caretPosition++;
-              } else {
-                beginStr = this.elements.$textarea.value.substring(0, this.elements.$textarea.selectionStart);
-                endStr = this.elements.$textarea.value.substring(this.elements.$textarea.selectionEnd);
-                this.property.caretPosition = this.elements.$textarea.selectionStart;
-              }
-
-              this.elements.$textarea.value = beginStr + curChar + endStr;
-
-              // if (this.elements.$textarea.selectionStart === this.elements.$textarea.selectionEnd) {
-              //
-              //   this.elements.$textarea.value += element.getSymbol(this.property.lang, this.property.shift);
-              //
-              //   this.property.caretPosition--;
-              //
-              // } else {
-              //   this.elements.$textarea.value = this.elements.$textarea.value.substring(0, this.elements.$textarea.selectionStart)
-              //     + this.elements.$textarea.value.substring(this.elements.$textarea.selectionEnd);
-              //   this.property.caretPosition = this.elements.$textarea.selectionStart;
-              //   // this.property.isSelection = false;
-              // }
-
-
-              // this.elements.$textarea.value += element.getSymbol(this.property.lang, this.property.shift);
+              addSymbol(element.getSymbol(this.property.lang, this.property.shift));
 
               break;
           }
         }
       })
     })
+  };
+
+  _setCaret = (num) => {
+    if (num <= 0) {
+      this.property.caretPosition = 0;
+    } else if (num >= ( this.elements.$screen.value.length + 1 )) {
+      this.property.caretPosition = this.elements.$screen.value.length + 1;
+    } else {
+      this.property.caretPosition = num;
+    }
+    return this.property.caretPosition;
   };
 
   _toggleCapsLock($key) {
@@ -690,6 +732,7 @@ class Keyboard {
           $key.init();
           break;
       }
+
       return $key;
     });
   }
@@ -774,9 +817,6 @@ const Keyboard2 = {
       })
     });
 
-    window.addEventListener('keydown', ev => {
-      console.log(ev);
-    });
 
     this.elements.screen.addEventListener('blur', event => {
       event.preventDefault();
@@ -803,7 +843,7 @@ const Keyboard2 = {
       } else if (code === 'ArrowRight') {
         this.properties.caretPosition++;
       }
-      // console.log(this.properties.caretPosition);
+      console.log(this.properties.caretPosition);
     });
   },
 
@@ -1132,7 +1172,6 @@ const Keyboard2 = {
       }
     ];
 
-    // console.log(fullKeys);
 
     // Create HTML for an icon
     const createIconHTML = (icon_name) => {
@@ -1323,10 +1362,10 @@ const Keyboard2 = {
     const type = event.type;
 
     if (type === 'click') {
-      console.log('Клик в Click');
+      // console.log('Клик в Click');
       if (!this.properties.timeoutId) {
         this.properties.timeoutId = setTimeout(() => {
-          console.log('Внутри setTimeout');
+          // console.log('Внутри setTimeout');
           this.properties.shift = !this.properties.shift;
 
           if (this.properties.isLongShift) {
@@ -1350,7 +1389,7 @@ const Keyboard2 = {
     if (type === 'dblclick') {
 
       clearTimeout(this.properties.timeoutId);
-      console.log('Внутри dblclick. timeoutId: ', this.properties.timeoutId);
+      // console.log('Внутри dblclick. timeoutId: ', this.properties.timeoutId);
       this.properties.shift = true;
       this.properties.isLongShift = true;
       this.properties.timeoutId = null;

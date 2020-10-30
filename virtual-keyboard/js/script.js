@@ -633,21 +633,17 @@ class Keyboard {
 
           switch (element.eng) {
             case 'space':
-              this.elements.$screen.value += ' ';
-              this._setCaret(this.property.caretPosition - 1);
+              addSymbol(' ');
 
               break;
 
             case 'backspace':
-              //
-
               addSymbol('', true);
 
               break;
 
             case 'enter':
               addSymbol('\n');
-              // this.elements.$screen.value += '\n';
 
               break;
 

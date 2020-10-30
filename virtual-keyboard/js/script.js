@@ -18,49 +18,85 @@ class Button {
     this.$key = key;
   }
 
-  getSymbol = (lang, shift) => {
-    // if (lang === 'eng') {
-    //   return shift ? this.shiftEng : this.eng;
-    // } else {
-    //   return shift ? this.shiftRu : this.ru;
-    // }
-
+  getSymbol = (lang, shift = false, caps = false) => {
     if (lang === 'eng') {
 
       if (shift) {
 
         if (this.shiftEng === '') {
-          return this.eng.toUpperCase();
+          if (caps) {
+            return `${this.eng.toLowerCase()}`;
+          } else {
+            return `${this.eng.toUpperCase()}`;
+          }
         } else {
-          return this.shiftEng;
+          return `${this.shiftEng}`;
         }
 
       } else { // !shift
-        return this.eng.toLowerCase();
+        if (caps) {
+          return `${this.eng.toUpperCase()}`;
+        } else {
+          return `${this.eng.toLowerCase()}`;
+        }
       }
     } else { // ru
 
       if (shift) {
 
         if (this.shiftRu === '') {
-          return this.ru.toUpperCase();
+          if (caps) {
+            return `${this.ru.toLowerCase()}`;
+          } else {
+            return `${this.ru.toUpperCase()}`;
+          }
         } else {
-          return this.shiftRu;
+          return `${this.shiftRu}`;
         }
 
       } else { // !shift
-        return this.ru.toLowerCase();
+
+        if (caps) { // caps
+          return `${this.ru.toUpperCase()}`;
+        } else { // !caps
+          return `${this.ru.toLowerCase()}`;
+        }
       }
     }
+    
+    
+    //
+    // if (lang === 'eng') {
+    //
+    //   if (shift) {
+    //
+    //     if (this.shiftEng === '') {
+    //       return this.eng.toUpperCase();
+    //     } else {
+    //       return this.shiftEng;
+    //     }
+    //
+    //   } else { // !shift
+    //     return this.eng.toLowerCase();
+    //   }
+    // } else { // ru
+    //
+    //   if (shift) {
+    //
+    //     if (this.shiftRu === '') {
+    //       return this.ru.toUpperCase();
+    //     } else {
+    //       return this.shiftRu;
+    //     }
+    //
+    //   } else { // !shift
+    //     return this.ru.toLowerCase();
+    //   }
+    // }
 
   };
 
   getElement = () => {
-    // const key = document.createElement('button');
-    // key.setAttribute("type", "button");
-    // key.classList.add("keyboard__key");
-    // this.$key = key;
-
     return this.$key;
   };
 
@@ -70,26 +106,43 @@ class Button {
       if (shift) {
 
         if (this.shiftEng === '') {
-          this.$key.innerHTML = `${this.eng.toUpperCase()}<div class="shift">${this.shiftEng}</div>`;
+          if (caps) {
+            this.$key.innerHTML = `${this.eng.toLowerCase()}<div class="shift">${this.shiftEng}</div>`;
+          } else {
+            this.$key.innerHTML = `${this.eng.toUpperCase()}<div class="shift">${this.shiftEng}</div>`;
+          }
         } else {
           this.$key.innerHTML = `${this.shiftEng}<div class="shift">${this.eng.toUpperCase()}</div>`;
         }
 
       } else { // !shift
+        if (caps) {
+          this.$key.innerHTML = `${this.eng.toUpperCase()}<div class="shift">${this.shiftEng}</div>`;
+        } else {
         this.$key.innerHTML = `${this.eng.toLowerCase()}<div class="shift">${this.shiftEng}</div>`;
+        }
       }
     } else { // ru
 
       if (shift) {
 
         if (this.shiftRu === '') {
-          this.$key.innerHTML = `${this.ru.toUpperCase()}<div class="shift">${this.shiftRu}</div>`;
+          if (caps) {
+            this.$key.innerHTML = `${this.ru.toLowerCase()}<div class="shift">${this.shiftRu}</div>`;
+          } else {
+            this.$key.innerHTML = `${this.ru.toUpperCase()}<div class="shift">${this.shiftRu}</div>`;
+          }
         } else {
           this.$key.innerHTML = `${this.shiftRu}<div class="shift">${this.ru.toUpperCase()}</div>`;
         }
 
       } else { // !shift
-        this.$key.innerHTML = `${this.ru.toLowerCase()}<div class="shift">${this.shiftRu}</div>`;
+
+        if (caps) { // caps
+          this.$key.innerHTML = `${this.ru.toUpperCase()}<div class="shift">${this.shiftRu}</div>`;
+        } else { // !caps
+          this.$key.innerHTML = `${this.ru.toLowerCase()}<div class="shift">${this.shiftRu}</div>`;
+        }
       }
     }
   };
@@ -518,7 +571,7 @@ class Keyboard {
     this.elements.$screen = document.querySelector('#screen');
 
     this.property.caretPosition = this.elements.$screen.value.length;
-    console.log('Каретка:',this.property.caretPosition);
+    console.log('Каретка:', this.property.caretPosition);
 
 
     this._createKeys();
@@ -641,7 +694,7 @@ class Keyboard {
 
 
             default:
-              addSymbol(element.getSymbol(this.property.lang, this.property.shift));
+              addSymbol(element.getSymbol(this.property.lang, this.property.shift, this.property.capsLock));
 
               break;
           }
@@ -653,7 +706,7 @@ class Keyboard {
   _setCaret = (num) => {
     if (num <= 0) {
       this.property.caretPosition = 0;
-    } else if (num >= ( this.elements.$screen.value.length + 1 )) {
+    } else if (num >= (this.elements.$screen.value.length + 1)) {
       this.property.caretPosition = this.elements.$screen.value.length + 1;
     } else {
       this.property.caretPosition = num;

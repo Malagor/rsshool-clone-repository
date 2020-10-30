@@ -5,10 +5,6 @@ class Button {
     this.ru = ru;
     this.shiftEng = shiftEng;
     this.shiftRu = shiftRu;
-
-    // console.log('Create Button:', this.eng);
-    // this.init();
-    // this.events();
   }
 
   init() {
@@ -63,8 +59,8 @@ class Button {
         }
       }
     }
-    
-    
+
+
     //
     // if (lang === 'eng') {
     //
@@ -119,7 +115,7 @@ class Button {
         if (caps) {
           this.$key.innerHTML = `${this.eng.toUpperCase()}<div class="shift">${this.shiftEng}</div>`;
         } else {
-        this.$key.innerHTML = `${this.eng.toLowerCase()}<div class="shift">${this.shiftEng}</div>`;
+          this.$key.innerHTML = `${this.eng.toLowerCase()}<div class="shift">${this.shiftEng}</div>`;
         }
       }
     } else { // ru
@@ -539,12 +535,11 @@ class Keyboard {
       capsLock: false,
       shift: false,
       lang: 'eng',
-      isLongShift: false,
+      // isLongShift: false,
       caretPosition: 0,
       startSelection: 0,
-      endSelection: 0
-
-      // isSelection: false,
+      endSelection: 0,
+      isSelection: false,
       // caretPosition: null,
       // startSelection: null,
       // endSelection: null,
@@ -593,7 +588,6 @@ class Keyboard {
     /*
           Click To Buttons
      */
-
     this.elements.$keysContainer.addEventListener('click', (event) => {
       const target = event.target;
 
@@ -604,7 +598,6 @@ class Keyboard {
           /*
               Add Symbol To Caret Position adn Delete Selection
            */
-
           const addSymbol = (symbol, backspace = false) => {
 
             const curChar = backspace ? '' : symbol;
@@ -634,72 +627,112 @@ class Keyboard {
           switch (element.eng) {
             case 'space':
               addSymbol(' ');
+              this.property.isSelection = false;
               this._setFocus();
 
               break;
 
             case 'backspace':
               addSymbol('', true);
+              this.property.isSelection = false;
               this._setFocus();
 
               break;
 
             case 'enter':
               addSymbol('\n');
+              this.property.isSelection = false;
               this._setFocus();
 
               break;
 
             case 'caps':
               this._toggleCapsLock(element.$key);
-              this._setFocus();
+              // this._setFocus();
+              this._setFocus(this.property.startSelection, this.property.endSelection);
 
               break;
 
             case 'shift':
               this._toggleShift(element.$key);
-              this._setFocus();
+              // this._setFocus();
+              this._setFocus(this.property.startSelection, this.property.endSelection);
 
               break;
 
             case 'eng':
               this._toggleLang();
-              this._setFocus();
+              // this._setFocus();
+              this._setFocus(this.property.startSelection, this.property.endSelection);
 
               break;
 
             case 'arrowLeft':
-              if (this.property.shift) {
-                if (this.property.endSelection === 0) {
 
-                  this.property.endSelection = this.property.caretPosition;
+              if (this.property.shift) {
+
+                if (this.property.isSelection === false) {
+
+                  this.property.endSelection = this.property.caretPosition; // начальное значение
                   this._setCaret(this.property.caretPosition - 1);
                   this.property.startSelection = this.property.caretPosition;
+                  this._setFocus(this.property.startSelection, this.property.endSelection);
+                  this.property.isSelection = true;
 
-                  this.elements.$screen.focus();
-                  this.elements.$screen.setSelectionRange(this.property.startSelection, this.property.endSelection);
+                } else {
+                  if (this.property.caretPosition > this.property.endSelection) {
+                    this._setCaret(this.property.caretPosition - 1);
+                    this._setFocus(this.property.startSelection, this.property.endSelection);
+
+                  } else {
+                    this._setCaret(this.property.caretPosition - 1);
+                    this.property.startSelection = this.property.caretPosition;
+                    this._setFocus(this.property.startSelection, this.property.endSelection);
+                  }
                 }
-                // this.elements.$screen.setSelectionRange(2, 5);
-              } else {
-                this.property.endSelection = 0;
-                this.property.startSelection = 0;
+              } else { // тут работает
+                this.property.isSelection = false;
                 this._setCaret(this.property.caretPosition - 1);
+                this._setFocus();
               }
-              this._setFocus();
 
               break;
 
             case 'arrowRight':
 
-              this._setCaret(this.property.caretPosition + 1);
-              this._setFocus();
+              if (this.property.shift) {
+
+                if (this.property.isSelection === false) {
+
+                  this.property.startSelection = this.property.caretPosition; // начальное значение
+                  this._setCaret(this.property.caretPosition + 1);
+                  this.property.endSelection = this.property.caretPosition;
+                  this._setFocus(this.property.startSelection, this.property.endSelection);
+                  this.property.isSelection = true;
+
+                } else {
+                  if (this.property.caretPosition < this.property.endSelection) {
+                    this._setCaret(this.property.caretPosition + 1);
+                    this._setFocus(this.property.startSelection, this.property.endSelection);
+
+                  } else {
+                    this._setCaret(this.property.caretPosition + 1);
+                    this.property.endSelection = this.property.caretPosition;
+                    this._setFocus(this.property.startSelection, this.property.endSelection);
+                  }
+                }
+              } else { // тут работает
+                this.property.isSelection = false;
+                this._setCaret(this.property.caretPosition + 1);
+                this._setFocus();
+              }
 
               break;
 
 
             default:
               addSymbol(element.getSymbol(this.property.lang, this.property.shift, this.property.capsLock));
-
+              this.property.isSelection = false;
               this._setFocus();
 
               break;
@@ -720,9 +753,16 @@ class Keyboard {
     return this.property.caretPosition;
   };
 
-  _setFocus() {
-    this.elements.$screen.selectionStart = this.property.caretPosition;
-    this.elements.$screen.selectionEnd = this.property.caretPosition;
+  _setFocus(start = undefined, finish = undefined) {
+    this.elements.$screen.selectionStart = start ? start : this.property.caretPosition;
+    this.elements.$screen.selectionEnd = finish ? finish : this.property.caretPosition;
+
+    this.property.startSelection = start ? start : this.property.caretPosition;
+    this.property.endSelection = finish ? finish : this.property.caretPosition;
+
+    if (this.property.startSelection === this.property.endSelection) {
+      this.property.isSelection = false;
+    }
     this.elements.$screen.focus();
   }
 

@@ -134,13 +134,13 @@ h2 {
 .focus {
   width: 100%;
   padding: 1rem 2rem;
-  border: 2px solid currentColor;
+  border: 3px solid currentColor;
   border-radius: 5px; }
 
 .name:focus,
 .focus:focus {
   border: 3px solid white;
-  padding: 0 10px; }
+  padding: 1rem 2rem; }
 
 .controls {
   position: absolute;
@@ -231,11 +231,15 @@ h2 {
 #description {
   width: 100%;
   margin-bottom: 1rem; }
+  .error #description {
+    display: none; }
 
 .humidity {
   width: 100%;
   display: block;
   transition: 0.3s; }
+  .error .humidity {
+    display: none; }
 
 .wind {
   display: flex;
@@ -243,6 +247,8 @@ h2 {
   flex-wrap: wrap;
   width: 100%;
   transition: 0.3s; }
+  .error .wind {
+    display: none; }
   .wind__label {
     margin-right: 8px; }
   .wind__direction {

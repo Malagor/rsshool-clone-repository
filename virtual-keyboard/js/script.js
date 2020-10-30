@@ -593,7 +593,8 @@ class Keyboard {
               break;
 
             case 'enter':
-              this.elements.$screen.value += '\n';
+              addSymbol('\n');
+              // this.elements.$screen.value += '\n';
 
               break;
 

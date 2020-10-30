@@ -584,9 +584,9 @@ class Keyboard {
         Click To TextArea
      */
 
-    this.elements.$screen.addEventListener('click', (event) => {
+    this.elements.$screen.addEventListener('click', () => {
       this.property.caretPosition = this.elements.$screen.selectionStart;
-      console.log('Каретка', this.property.caretPosition);
+      // console.log('Каретка', this.property.caretPosition);
     });
 
 
@@ -634,31 +634,37 @@ class Keyboard {
           switch (element.eng) {
             case 'space':
               addSymbol(' ');
+              this._setFocus();
 
               break;
 
             case 'backspace':
               addSymbol('', true);
+              this._setFocus();
 
               break;
 
             case 'enter':
               addSymbol('\n');
+              this._setFocus();
 
               break;
 
             case 'caps':
               this._toggleCapsLock(element.$key);
+              this._setFocus();
 
               break;
 
             case 'shift':
               this._toggleShift(element.$key);
+              this._setFocus();
 
               break;
 
             case 'eng':
               this._toggleLang();
+              this._setFocus();
 
               break;
 
@@ -679,18 +685,22 @@ class Keyboard {
                 this.property.startSelection = 0;
                 this._setCaret(this.property.caretPosition - 1);
               }
+              this._setFocus();
 
               break;
 
             case 'arrowRight':
 
               this._setCaret(this.property.caretPosition + 1);
+              this._setFocus();
 
               break;
 
 
             default:
               addSymbol(element.getSymbol(this.property.lang, this.property.shift, this.property.capsLock));
+
+              this._setFocus();
 
               break;
           }
@@ -709,6 +719,12 @@ class Keyboard {
     }
     return this.property.caretPosition;
   };
+
+  _setFocus() {
+    this.elements.$screen.selectionStart = this.property.caretPosition;
+    this.elements.$screen.selectionEnd = this.property.caretPosition;
+    this.elements.$screen.focus();
+  }
 
   _toggleCapsLock($key) {
     this.property.capsLock = !this.property.capsLock;

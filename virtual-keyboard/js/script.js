@@ -181,6 +181,10 @@ class SpecialButton extends Button {
 
   }
 
+  setNewIcon(icon) {
+    this.icon = icon;
+  }
+
   setContent = () => {
     this.$key.innerHTML = this._createIconHTML();
   };
@@ -202,6 +206,12 @@ class SpecialButton extends Button {
 class Keyboard {
   constructor(el) {
     this.fullKeys = [
+      {
+        eng: 'sound',
+        ru: 'звук',
+        shiftEng: '',
+        shiftRu: ''
+      },
       {
         eng: '1',
         ru: '1',
@@ -540,6 +550,7 @@ class Keyboard {
       startSelection: 0,
       endSelection: 0,
       isSelection: false,
+      isPlaySound: true
       // caretPosition: null,
       // startSelection: null,
       // endSelection: null,
@@ -589,6 +600,8 @@ class Keyboard {
           Click To Buttons
      */
     this.elements.$keysContainer.addEventListener('click', (event) => {
+
+      this._clickSound();
       const target = event.target;
 
       this.elements.keys.forEach(element => {
@@ -729,6 +742,12 @@ class Keyboard {
 
               break;
 
+            case 'sound':
+              this._toggleSound();
+              this._setFocus(this.property.startSelection, this.property.endSelection);
+
+              break;
+
 
             default:
               addSymbol(element.getSymbol(this.property.lang, this.property.shift, this.property.capsLock));
@@ -833,6 +852,14 @@ class Keyboard {
           $key.init();
           break;
 
+        case "sound":
+
+          $key = new SpecialButton(key.eng, key.ru, key.shiftEng, key.shiftRu, 'music_note', 'keyboard__key--extra');
+
+          $key.init();
+          return $key;
+
+
         default:
           $key = new Button(key.eng, key.ru, key.shiftEng, key.shiftRu);
           $key.init();
@@ -847,7 +874,16 @@ class Keyboard {
     const fragment = document.createDocumentFragment();
 
     this.elements.keys.forEach(key => {
-      const insertLineBreak = ["backspace", "]", "enter", "\\"].indexOf(key.eng) !== -1;
+      const insertLineBreak = ["backspace", "]", "enter", "\\", "sound"].indexOf(key.eng) !== -1;
+
+      if (key.eng === 'sound') {
+        if (this.property.isPlaySound) {
+          key.setNewIcon('music_note')
+        } else {
+          key.setNewIcon('music_off')
+        }
+      }
+
       key.setContent(this.property.lang, this.property.shift, this.property.capsLock);
 
       fragment.appendChild(key.getElement());
@@ -859,6 +895,19 @@ class Keyboard {
 
     this.elements.$keysContainer.innerHTML = '';
     this.elements.$keysContainer.appendChild(fragment);
+  }
+
+  _toggleSound() {
+    this.property.isPlaySound = !this.property.isPlaySound;
+    this.render();
+  }
+
+  _clickSound() {
+    if (this.property.isPlaySound) {
+      const audio = new Audio(); // Создаём новый элемент Audio
+      audio.src = './sounds/click.mp3'; // Указываем путь к звуку "клика"
+      audio.autoplay = true;
+    }
   }
 }
 
@@ -1512,9 +1561,6 @@ const Keyboard2 = {
 
   },
 
-  _removeShift() {
-
-  },
 
   open(initialValue, oninput, onclose) {
     this.properties.value = initialValue || '';

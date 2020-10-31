@@ -532,6 +532,16 @@ class Keyboard {
       }
     ];
 
+    this.sounds = {
+      clickRu: 'click-ru.mp3',
+      clickEng: 'click-eng.mp3',
+      backspace: 'backspace.mp3',
+      caps: 'caps.mp3',
+      enter: 'enter.mp3',
+      shift: 'shift.mp3',
+      space: 'space.mp3'
+    };
+
     this.elements = {
       $container: document.querySelector(el),
       $el: null,
@@ -601,7 +611,7 @@ class Keyboard {
      */
     this.elements.$keysContainer.addEventListener('click', (event) => {
 
-      this._clickSound();
+
       const target = event.target;
 
       this.elements.keys.forEach(element => {
@@ -639,6 +649,7 @@ class Keyboard {
 
           switch (element.eng) {
             case 'space':
+              this._clickSound('space');
               addSymbol(' ');
               this.property.isSelection = false;
               this._setFocus();
@@ -646,6 +657,7 @@ class Keyboard {
               break;
 
             case 'backspace':
+              this._clickSound('backspace');
               addSymbol('', true);
               this.property.isSelection = false;
               this._setFocus();
@@ -653,6 +665,7 @@ class Keyboard {
               break;
 
             case 'enter':
+              this._clickSound('enter');
               addSymbol('\n');
               this.property.isSelection = false;
               this._setFocus();
@@ -660,6 +673,7 @@ class Keyboard {
               break;
 
             case 'caps':
+              this._clickSound('caps');
               this._toggleCapsLock(element.$key);
               // this._setFocus();
               this._setFocus(this.property.startSelection, this.property.endSelection);
@@ -667,6 +681,7 @@ class Keyboard {
               break;
 
             case 'shift':
+              this._clickSound('shift');
               this._toggleShift(element.$key);
               // this._setFocus();
               this._setFocus(this.property.startSelection, this.property.endSelection);
@@ -750,6 +765,7 @@ class Keyboard {
 
 
             default:
+              this._clickSound();
               addSymbol(element.getSymbol(this.property.lang, this.property.shift, this.property.capsLock));
               this.property.isSelection = false;
               this._setFocus();
@@ -902,11 +918,18 @@ class Keyboard {
     this.render();
   }
 
-  _clickSound() {
+  _clickSound(key) {
     if (this.property.isPlaySound) {
       const audio = new Audio(); // Создаём новый элемент Audio
-      audio.src = './sounds/click.mp3'; // Указываем путь к звуку "клика"
+
+      if (['backspace', 'caps', 'enter', 'shift', 'space'].includes(key)){
+        audio.src = `./sounds/${this.sounds[key]}`;
+      } else {
+
+        audio.src = this.property.lang === 'eng' ? `./sounds/${this.sounds['clickEng']}` : `./sounds/${this.sounds['clickRu']}`;
+      }
       audio.autoplay = true;
+
     }
   }
 }

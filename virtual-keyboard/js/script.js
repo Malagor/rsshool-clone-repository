@@ -689,6 +689,7 @@ class Keyboard {
               break;
 
             case 'eng':
+              this._clickSound();
               this._toggleLang();
               // this._setFocus();
               this._setFocus(this.property.startSelection, this.property.endSelection);
@@ -696,7 +697,7 @@ class Keyboard {
               break;
 
             case 'arrowLeft':
-
+              this._clickSound();
               if (this.property.shift) {
 
                 if (this.property.isSelection === false) {
@@ -727,6 +728,7 @@ class Keyboard {
               break;
 
             case 'arrowRight':
+              this._clickSound();
 
               if (this.property.shift) {
 
@@ -758,6 +760,7 @@ class Keyboard {
               break;
 
             case 'sound':
+              this._clickSound();
               this._toggleSound();
               this._setFocus(this.property.startSelection, this.property.endSelection);
 

@@ -603,6 +603,10 @@ class Keyboard {
       this.open();
     });
 
+    this.elements.$pipBoy.addEventListener('click', () => {
+      this.open();
+    });
+
     this.elements.$screen.addEventListener('click', () => {
       this.property.caretPosition = this.elements.$screen.selectionStart;
     });
@@ -610,6 +614,8 @@ class Keyboard {
     // Нажатия клавиш на клавиатуре
     window.addEventListener('keydown', event => {
       this._setFocus(this.elements.$screen.selectionStart, this.elements.$screen.selectionEnd);
+
+
 
       let realChar = event.key.toLowerCase();
       realChar = (realChar === ' ') ? 'space' : realChar;
@@ -644,6 +650,16 @@ class Keyboard {
               sound = 'shift';
               this._toggleCapsLock(this.findKey('shift').$key);
               this._setFocus(this.property.startSelection, this.property.endSelection);
+              break;
+
+            case 'arrowleft':
+              sound = '';
+              this._setCaret(this.property.caretPosition - 1);
+              break;
+
+            case 'arrowright':
+              sound = '';
+              this._setCaret(this.property.caretPosition + 1);
               break;
 
             case 'capslock':
@@ -1125,7 +1141,10 @@ class Keyboard {
     this.elements.$el.classList.remove('keyboard--hidden');
     this.elements.$screen.classList.remove('screen--hidden');
     this.elements.$startScreen.classList.add('start-screen--hidden');
-    this._toggleDone();
+    this.property.isDone = true;
+    this.render();
+
+    // this._toggleDone();
   }
 
   // находит соответствие реальной и фиртуальной кнопки

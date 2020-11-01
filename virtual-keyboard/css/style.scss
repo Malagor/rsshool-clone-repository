@@ -111,6 +111,12 @@ body {
     &::after {
       background: #08ff00;
     }
+
+    &-red {
+      &::after {
+        background: #ff1d2e;
+      }
+    }
   }
 
   &--dark {

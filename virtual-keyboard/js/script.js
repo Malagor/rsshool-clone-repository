@@ -111,12 +111,6 @@ class Button {
       }
     }
   };
-
-  // getContent() {
-  //   this.$key.addEventListener('click', () => {
-  //     return this.$key.textContent;
-  //   })
-  // }
 }
 
 class SpecialButton extends Button {
@@ -175,6 +169,12 @@ class SpecialButton extends Button {
 class Keyboard {
   constructor(el) {
     this.fullKeys = [
+      {
+        eng: 'mic',
+        ru: 'микрофон',
+        shiftEng: '',
+        shiftRu: ''
+      },
       {
         eng: 'sound',
         ru: 'звук',
@@ -528,7 +528,11 @@ class Keyboard {
       startSelection: 0,
       endSelection: 0,
       isSelection: false,
-      isPlaySound: true
+      isPlaySound: true,
+      isMicrophone: false,
+      recognition: null,
+      startPositionRecord: null,
+      endPositionRecord: null
     };
 
     this.init();
@@ -553,16 +557,15 @@ class Keyboard {
     this.property.caretPosition = this.elements.$screen.value.length;
     this.property.startSelection = this.elements.$screen.value.length;
     this.property.endSelection = this.elements.$screen.value.length;
-    // console.log('Каретка',this.property.caretPosition);
-    // console.log('Начало',this.property.startSelection);
-    // console.log('Конец',this.property.endSelection);
-
 
     this._createKeys();
     this.render();
   }
 
   events = () => {
+
+    // говорилка
+    window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
     // Events TextArea
     this.elements.$screen.addEventListener('focus', () => {
@@ -573,7 +576,7 @@ class Keyboard {
       this.property.caretPosition = this.elements.$screen.selectionStart;
     });
 
-
+    // Нажатия клавиш на клавиатуре
     window.addEventListener('keydown', event => {
       this._setFocus(this.elements.$screen.selectionStart, this.elements.$screen.selectionEnd);
 
@@ -622,10 +625,7 @@ class Keyboard {
           }
 
           this._clickSound(sound);
-          console.log('Каретка',this.property.caretPosition);
-          console.log('Начало',this.property.startSelection);
-          console.log('Конец',this.property.endSelection);
-
+          keyboardKey.$key.classList.add('click');
           setTimeout(() => {
             keyboardKey.$key.classList.remove('click');
           }, 100);
@@ -633,11 +633,8 @@ class Keyboard {
       });
     });
 
-    /*
-          Click To Buttons
-     */
+    // Click To Buttons
     this.elements.$keysContainer.addEventListener('click', (event) => {
-
 
       const target = event.target;
 
@@ -645,39 +642,10 @@ class Keyboard {
 
         if (element.$key === target.closest('.keyboard__key')) {
 
-          /*
-              Add Symbol To Caret Position adn Delete Selection
-           */
-          const addSymbol = (symbol, backspace = false) => {
-
-            const curChar = backspace ? '' : symbol;
-            let beginStr;
-            let endStr;
-
-            if (this.elements.$screen.selectionStart === this.elements.$screen.selectionEnd) {
-
-              beginStr = backspace
-                ? this.elements.$screen.value.substring(0, this.property.caretPosition - 1)
-                : this.elements.$screen.value.substring(0, this.property.caretPosition);
-              endStr = this.elements.$screen.value.substring(this.property.caretPosition);
-
-              backspace ? this._setCaret(this.property.caretPosition - 1) : this._setCaret(this.property.caretPosition + 1);
-
-            } else {
-
-              beginStr = this.elements.$screen.value.substring(0, this.elements.$screen.selectionStart);
-              endStr = this.elements.$screen.value.substring(this.elements.$screen.selectionEnd);
-              this.property.caretPosition = backspace ? this.elements.$screen.selectionStart : this._setCaret(this.elements.$screen.selectionStart + 1);
-
-            }
-
-            this.elements.$screen.value = beginStr + curChar + endStr;
-          };
-
           switch (element.eng) {
             case 'space':
               this._clickSound('space');
-              addSymbol(' ');
+              this._addSymbol(' ');
               this.property.isSelection = false;
               this._setFocus();
 
@@ -685,7 +653,7 @@ class Keyboard {
 
             case 'backspace':
               this._clickSound('backspace');
-              addSymbol('', true);
+              this._addSymbol('', true);
               this.property.isSelection = false;
               this._setFocus();
 
@@ -693,14 +661,14 @@ class Keyboard {
 
             case 'enter':
               this._clickSound('enter');
-              addSymbol('\n');
+              this._addSymbol('\n');
               this.property.isSelection = false;
               this._setFocus();
 
               break;
 
             case 'capslock':
-              this._clickSound('caps');
+              this._clickSound('capslock');
               this._toggleCapsLock(element.$key);
               // this._setFocus();
               this._setFocus(this.property.startSelection, this.property.endSelection);
@@ -799,10 +767,16 @@ class Keyboard {
 
               break;
 
+            case 'mic':
+              this._clickSound();
+              this._toggleMic();
+              this._setFocus(this.property.startSelection, this.property.endSelection);
+
+              break;
 
             default:
               this._clickSound();
-              addSymbol(element.getSymbol(this.property.lang, this.property.shift, this.property.capsLock));
+              this._addSymbol(element.getSymbol(this.property.lang, this.property.shift, this.property.capsLock));
               this.property.isSelection = false;
               this._setFocus();
 
@@ -811,6 +785,32 @@ class Keyboard {
         }
       })
     })
+  };
+
+  _addSymbol = (symbol, backspace = false) => {
+
+    const curChar = backspace ? '' : symbol;
+    let beginStr;
+    let endStr;
+
+    if (this.elements.$screen.selectionStart === this.elements.$screen.selectionEnd) {
+
+      beginStr = backspace
+        ? this.elements.$screen.value.substring(0, this.property.caretPosition - 1)
+        : this.elements.$screen.value.substring(0, this.property.caretPosition);
+      endStr = this.elements.$screen.value.substring(this.property.caretPosition);
+
+      backspace ? this._setCaret(this.property.caretPosition - 1) : this._setCaret(this.property.caretPosition + 1);
+
+    } else {
+
+      beginStr = this.elements.$screen.value.substring(0, this.elements.$screen.selectionStart);
+      endStr = this.elements.$screen.value.substring(this.elements.$screen.selectionEnd);
+      this.property.caretPosition = backspace ? this.elements.$screen.selectionStart : this._setCaret(this.elements.$screen.selectionStart + 1);
+
+    }
+
+    this.elements.$screen.value = beginStr + curChar + endStr;
   };
 
   _setCaret = (num) => {
@@ -905,12 +905,16 @@ class Keyboard {
           break;
 
         case "sound":
-
-          $key = new SpecialButton(key.eng, key.ru, key.shiftEng, key.shiftRu, 'music_note', 'keyboard__key--extra');
+          $key = new SpecialButton(key.eng, key.ru, key.shiftEng, key.shiftRu, 'music_note', 'keyboard__key--wide');
 
           $key.init();
-          return $key;
+          break;
 
+        case "mic":
+          $key = new SpecialButton(key.eng, key.ru, key.shiftEng, key.shiftRu, 'mic_none', ['keyboard__key--wide', 'keyboard__key--activatable']);
+
+          $key.init();
+          break;
 
         default:
           $key = new Button(key.eng, key.ru, key.shiftEng, key.shiftRu);
@@ -936,9 +940,20 @@ class Keyboard {
         }
       }
 
+      if (key.eng === 'mic') {
+        if (this.property.isMicrophone) {
+          key.setNewIcon('mic');
+          key.$key.classList.add('keyboard__key--active-red');
+        } else {
+          key.$key.classList.remove('keyboard__key--active-red');
+          key.setNewIcon('mic_none');
+        }
+      }
+
       key.setContent(this.property.lang, this.property.shift, this.property.capsLock);
 
       fragment.appendChild(key.getElement());
+
       if (insertLineBreak) {
         fragment.appendChild(document.createElement('br'));
       }
@@ -967,6 +982,69 @@ class Keyboard {
       audio.autoplay = true;
 
     }
+  }
+
+  _toggleMic() {
+    this.property.isMicrophone = !this.property.isMicrophone;
+    this.render();
+    this._record();
+
+  }
+
+  _record() {
+    console.log('Rec start',this.property.recognition);
+
+    if (this.property.isMicrophone) {
+      this.property.recognition = new SpeechRecognition();
+
+      this.property.recognition.interimResults = true;
+      this.property.recognition.lang = this.property.lang === 'eng' ? 'en-US' : 'ru-RU';
+
+
+      this.property.recognition.addEventListener('result', this._eventRecord);
+
+
+      this.property.recognition.addEventListener('end', () => {
+        if (this.property.isMicrophone) {
+          this.property.recognition.start();
+        }
+      });
+
+      this.property.recognition.start();
+
+    } else { // Остановка записи
+      this.property.recognition.abort();
+      this.property.recognition.stop();
+      this.property.recognition = null;
+    }
+    console.log('Rec end',this.property.recognition);
+
+  }
+
+  _eventRecord = (e) => {
+    const transcript = Array.from(e.results)
+      .map(result => result[0])
+      .map(result => result.transcript)
+      .join('');
+
+    if (e.results[0].isFinal) {
+      this.__printCursorsPosition();
+      this._addSymbol(transcript);
+      this.property.caretPosition = this._setCaret(this.property.caretPosition + transcript.length - 1);
+
+      // В конце фразу добавляем пробел
+      this._addSymbol(' ');
+      this._setCaret(this.property.caretPosition);
+      this._setFocus();
+      this.__printCursorsPosition();
+    }
+  };
+
+  __printCursorsPosition(){
+    console.log('Start Selection:', this.property.startSelection);
+    console.log('End Selection:', this.property.endSelection);
+    console.log('Caret:', this.property.caretPosition);
+    console.log('-------');
   }
 
   close() {

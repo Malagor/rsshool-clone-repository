@@ -542,7 +542,7 @@ class Keyboard {
   init() {
     this.elements.$container.insertAdjacentHTML('beforeend',
       `
-      <div id="keyboard" class="keyboard 1111-------keyboard--hidden">
+      <div id="keyboard" class="keyboard">
         <div id="keyboardKeys" class="keyboard__keys">
         
         </div>
@@ -586,6 +586,14 @@ class Keyboard {
       this.elements.keys.forEach(keyboardKey => {
         const keysObject = [keyboardKey.eng, keyboardKey.ru, keyboardKey.shiftRu, keyboardKey.shiftEng];
 
+        // находит соответствие реальной и фиртуальной кнопки
+        const findKey = (findK) => {
+          const arrKeys = this.elements.keys.filter(key => {
+            return key.eng === findK;
+          });
+          return arrKeys[0];
+        };
+
         if (keysObject.includes(realChar)) {
 
           let sound;
@@ -603,18 +611,23 @@ class Keyboard {
               this.property.isSelection = false;
               break;
 
-            case 'shift':
-              sound = 'shift';
-              break;
-
             case 'enter':
               sound = 'enter';
               this._setCaret(this.property.caretPosition + 1);
               this.property.isSelection = false;
               break;
 
+            case 'shift':
+              sound = 'shift';
+              this._toggleCapsLock(findKey('shift').$key);
+              this._setFocus(this.property.startSelection, this.property.endSelection);
+              break;
+
             case 'capslock':
               sound = 'capslock';
+
+              this._toggleCapsLock(findKey('capslock').$key);
+              this._setFocus(this.property.startSelection, this.property.endSelection);
               break;
 
             default:

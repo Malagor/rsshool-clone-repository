@@ -568,8 +568,6 @@ class Keyboard {
     this.elements.$keysContainer = document.querySelector('#keyboardKeys');
 
     this.elements.$screen = document.querySelector('#screen');
-    // this.elements.$screen.classList.add()
-
 
     this.elements.$pipBoy = document.querySelector('#pipBoy');
     this.elements.$doneBtn = document.querySelector('#done');
@@ -579,8 +577,6 @@ class Keyboard {
     this.property.caretPosition = this.elements.$screen.value.length;
     this.property.startSelection = this.elements.$screen.value.length;
     this.property.endSelection = this.elements.$screen.value.length;
-
-
 
     this._createKeys();
     this.render();
@@ -620,8 +616,6 @@ class Keyboard {
 
       this.elements.keys.forEach(keyboardKey => {
         const keysObject = [keyboardKey.eng, keyboardKey.ru, keyboardKey.shiftRu, keyboardKey.shiftEng];
-
-
 
         if (keysObject.includes(realChar)) {
 
@@ -676,7 +670,6 @@ class Keyboard {
     });
 
     // Click To Buttons
-    // this.elements.$keysContainer.addEventListener('click', (event) => {
     document.body.addEventListener('click', (event) => {
 
       const target = event.target;
@@ -899,7 +892,6 @@ class Keyboard {
     } else {
       this.property.lang = 'eng'
     }
-
     this.render();
   }
 
@@ -934,7 +926,6 @@ class Keyboard {
           break;
 
         case "done":
-          // $key = new SpecialButton(key.eng, key.ru, key.shiftEng, key.shiftRu, 'check_circle', ['keyboard__key--wide', 'keyboard__key--dark']);
           $key = new SpecialButton(key.eng, key.ru, key.shiftEng, key.shiftRu, '', ['keyboard__key--wide', 'keyboard__key--dark']);
           $key.init();
           break;
@@ -950,17 +941,19 @@ class Keyboard {
           break;
 
         case "sound":
-          // $key = new SpecialButton(key.eng, key.ru, key.shiftEng, key.shiftRu, 'music_note', 'keyboard__key--wide');
           $key = new SpecialButton(key.eng, key.ru, key.shiftEng, key.shiftRu, '', 'keyboard__key--wide');
-
           $key.init();
           break;
 
         case "mic":
-          // $key = new SpecialButton(key.eng, key.ru, key.shiftEng, key.shiftRu, 'mic_none', ['keyboard__key--wide', 'keyboard__key--activatable']);
           $key = new SpecialButton(key.eng, key.ru, key.shiftEng, key.shiftRu, '', ['keyboard__key--wide', 'keyboard__key--activatable']);
-
           $key.init();
+          break;
+
+        case "eng":
+          $key = new Button(key.eng, key.ru, key.shiftEng, key.shiftRu);
+          $key.init();
+          $key.$key.classList.add('keyboard__key--wide');
           break;
 
         default:
@@ -968,7 +961,6 @@ class Keyboard {
           $key.init();
           break;
       }
-
       return $key;
     });
   }
@@ -987,16 +979,13 @@ class Keyboard {
         } else {
           // key.setNewIcon('music_off');
           key.$key.classList.remove('keyboard__key--active');
-
         }
       }
       if (key.eng === 'done') {
         if (this.property.isDone) {
           key.$key.classList.add('keyboard__key--active');
-
         } else {
           key.$key.classList.remove('keyboard__key--active');
-
         }
       }
 
@@ -1031,17 +1020,14 @@ class Keyboard {
 
           default:
             break;
-
         }
       } else {
-
         fragment.appendChild(key.getElement());
       }
 
       if (insertLineBreak) {
         fragment.appendChild(document.createElement('br'));
       }
-
     });
 
     this.elements.$keysContainer.innerHTML = '';
@@ -1060,7 +1046,6 @@ class Keyboard {
       if (['backspace', 'capslock', 'enter', 'shift', 'space'].includes(key)) {
         audio.src = `./sounds/${this.sounds[key]}`;
       } else {
-
         audio.src = this.property.lang === 'eng' ? `./sounds/${this.sounds['clickEng']}` : `./sounds/${this.sounds['clickRu']}`;
       }
       audio.autoplay = true;
@@ -1076,13 +1061,10 @@ class Keyboard {
   _toggleDone() {
     this.property.isDone = !this.property.isDone;
     this.render();
-    // this._record();
   }
 
 
   _record() {
-    // console.log('Rec start', this.property.recognition);
-
     if (this.property.isMicrophone) {
       this.property.recognition = new SpeechRecognition();
 
@@ -1106,8 +1088,6 @@ class Keyboard {
       this.property.recognition.stop();
       this.property.recognition = null;
     }
-    // console.log('Rec end', this.property.recognition);
-
   }
 
   _eventRecord = (e) => {
@@ -1125,7 +1105,6 @@ class Keyboard {
       this._addSymbol(' ');
       this._setCaret(this.property.caretPosition);
       this._setFocus();
-      // this.__printCursorsPosition();
     }
   };
 
@@ -1140,8 +1119,6 @@ class Keyboard {
     this.elements.$el.classList.toggle('keyboard--hidden');
     this.elements.$screen.classList.toggle('screen--hidden');
     this.elements.$startScreen.classList.toggle('start-screen--hidden');
-
-    // this.findKey('done').classList.toggle('keyboard__key--activate');
   }
 
   open() {
@@ -1161,6 +1138,5 @@ class Keyboard {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-  // Keyboard.init();
   new Keyboard('#app');
 });

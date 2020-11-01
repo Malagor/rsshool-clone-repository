@@ -340,48 +340,8 @@ p:last-child:after {
   height: 11vh;
 }
 
-@media screen and (max-width: 768px) {
-  body {
-    background-size: 124% 114%;
-    background-repeat: no-repeat;
-    background-position: center 0;
-  }
 
-  .pip-boy {
-    //top: 13.5vh;
-    //left: 24.5vw;
-    //right: 10.5vw;
-    //bottom: 20vh;
-
-    top: 14.5vh;
-    left: 25vw;
-    right: 9vw;
-    bottom: 20vh;
-  }
-
-  .done {
-    bottom: 1vh;
-    left: 44vw;
-    width: 8.5vw;
-    height: 12vh;
-  }
-
-  .mic {
-    bottom: 1vh;
-    left: 53vw;
-    width: 8.5vw;
-    height: 12vh;
-  }
-
-  .sound {
-    bottom: 1vh;
-    left: 62vw;
-    width: 8.5vw;
-    height: 12vh;
-  }
-}
-
-
+// Стартовый экран
 .vaultboy {
   background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/184191/vaultboy2.gif") no-repeat;
   background-size: 42%;
@@ -439,4 +399,99 @@ p:last-child:after {
 .bar6 {
   right: 9vw;
   top: 40vh;
+}
+
+@media screen and (max-width: 768px) {
+  body {
+    background-size: 124% 114%;
+    background-repeat: no-repeat;
+    background-position: center 0;
+  }
+
+  .pip-boy {
+    //top: 13.5vh;
+    //left: 24.5vw;
+    //right: 10.5vw;
+    //bottom: 20vh;
+
+    top: 14.5vh;
+    left: 25vw;
+    right: 9vw;
+    bottom: 20vh;
+  }
+
+  .done {
+    bottom: 1vh;
+    left: 44vw;
+    width: 8.5vw;
+    height: 12vh;
+  }
+
+  .mic {
+    bottom: 1vh;
+    left: 53vw;
+    width: 8.5vw;
+    height: 12vh;
+  }
+
+  .sound {
+    bottom: 1vh;
+    left: 62vw;
+    width: 8.5vw;
+    height: 12vh;
+  }
+}
+
+@media screen and (max-width: 500px){
+  body {
+    background-size: 138% 127%;
+    background-repeat: no-repeat;
+    background-position: center -12px;
+  }
+
+  .pip-boy {
+    top: 12.5vh;
+    left: 21vw;
+    right: 4vw;
+    bottom: 14vh;
+  }
+
+  .done {
+    bottom: -6vh;
+    left: 43.3vw;
+    width: 8.5vw;
+    height: 12vh;
+  }
+
+  .mic {
+    bottom: -6.3vh;
+    left: 53.5vw;
+    width: 8.5vw;
+    height: 12vh;
+  }
+
+  .sound {
+    bottom: -6vh;
+    left: 63.5vw;
+    width: 8.5vw;
+    height: 12vh;
+  }
+
+  .screen {
+    padding: 0.3rem;
+    font-size: 0.8rem;
+  }
+
+  .keyboard__key {
+    height: 30px;
+  }
+
+  .keyboard__key .shift {
+    display: none;
+  }
+
+  .keyboard__key--activatable::after {
+    top: 0;
+    right: 0;
+  }
 }

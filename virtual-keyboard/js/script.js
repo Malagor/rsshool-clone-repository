@@ -599,9 +599,9 @@ class Keyboard {
     window.onresize = this.setSizes;
 
     // Events TextArea
-    this.elements.$screen.addEventListener('focus', () => {
-      this.open();
-    });
+    // this.elements.$screen.addEventListener('focus', () => {
+    //   this.open();
+    // });
 
     this.elements.$pipBoy.addEventListener('click', () => {
       this.open();
@@ -614,7 +614,6 @@ class Keyboard {
     // Нажатия клавиш на клавиатуре
     window.addEventListener('keydown', event => {
       this._setFocus(this.elements.$screen.selectionStart, this.elements.$screen.selectionEnd);
-
 
 
       let realChar = event.key.toLowerCase();
@@ -693,7 +692,6 @@ class Keyboard {
       this.elements.keys.forEach(element => {
 
         if (element.$key === target.closest('.keyboard__key')) {
-
           switch (element.eng) {
             case 'space':
               this._clickSound('space');
@@ -1142,7 +1140,7 @@ class Keyboard {
     this.elements.$screen.classList.remove('screen--hidden');
     this.elements.$startScreen.classList.add('start-screen--hidden');
     this.property.isDone = true;
-    this.render();
+    // this.render();
 
     // this._toggleDone();
   }

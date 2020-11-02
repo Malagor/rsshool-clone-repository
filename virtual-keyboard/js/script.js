@@ -15,48 +15,23 @@ class Button {
   }
 
   getSymbol = (lang, shift = false, caps = false) => {
-    if (lang === 'eng') {
 
-      if (shift) {
-
-        if (this.shiftEng === '') {
-          if (caps) {
-            return `${this.eng.toLowerCase()}`;
-          } else {
-            return `${this.eng.toUpperCase()}`;
-          }
-        } else {
-          return `${this.shiftEng}`;
-        }
-
-      } else { // !shift
+    const langShift = lang === 'eng' ? 'shiftEng' : 'shiftRu';
+    if (shift) {
+      if (this[langShift] === '') {
         if (caps) {
-          return `${this.eng.toUpperCase()}`;
+          return `${this[lang].toLowerCase()}`;
         } else {
-          return `${this.eng.toLowerCase()}`;
+          return `${this[lang].toUpperCase()}`;
         }
+      } else {
+        return `${this[langShift]}`;
       }
-    } else { // ru
-
-      if (shift) {
-
-        if (this.shiftRu === '') {
-          if (caps) {
-            return `${this.ru.toLowerCase()}`;
-          } else {
-            return `${this.ru.toUpperCase()}`;
-          }
-        } else {
-          return `${this.shiftRu}`;
-        }
-
-      } else { // !shift
-
-        if (caps) { // caps
-          return `${this.ru.toUpperCase()}`;
-        } else { // !caps
-          return `${this.ru.toLowerCase()}`;
-        }
+    } else { // !shift
+      if (caps) {
+        return `${this[lang].toUpperCase()}`;
+      } else {
+        return `${this[lang].toLowerCase()}`;
       }
     }
   };
@@ -66,50 +41,7 @@ class Button {
   };
 
   setContent = (lang = 'eng', shift = false, caps = false) => {
-    if (lang === 'eng') {
-
-      if (shift) {
-
-        if (this.shiftEng === '') {
-          if (caps) {
-            this.$key.innerHTML = `${this.eng.toLowerCase()}<div class="shift">${this.shiftEng}</div>`;
-          } else {
-            this.$key.innerHTML = `${this.eng.toUpperCase()}<div class="shift">${this.shiftEng}</div>`;
-          }
-        } else {
-          this.$key.innerHTML = `${this.shiftEng}<div class="shift">${this.eng.toUpperCase()}</div>`;
-        }
-
-      } else { // !shift
-        if (caps) {
-          this.$key.innerHTML = `${this.eng.toUpperCase()}<div class="shift">${this.shiftEng}</div>`;
-        } else {
-          this.$key.innerHTML = `${this.eng.toLowerCase()}<div class="shift">${this.shiftEng}</div>`;
-        }
-      }
-    } else { // ru
-
-      if (shift) {
-
-        if (this.shiftRu === '') {
-          if (caps) {
-            this.$key.innerHTML = `${this.ru.toLowerCase()}<div class="shift">${this.shiftRu}</div>`;
-          } else {
-            this.$key.innerHTML = `${this.ru.toUpperCase()}<div class="shift">${this.shiftRu}</div>`;
-          }
-        } else {
-          this.$key.innerHTML = `${this.shiftRu}<div class="shift">${this.ru.toUpperCase()}</div>`;
-        }
-
-      } else { // !shift
-
-        if (caps) { // caps
-          this.$key.innerHTML = `${this.ru.toUpperCase()}<div class="shift">${this.shiftRu}</div>`;
-        } else { // !caps
-          this.$key.innerHTML = `${this.ru.toLowerCase()}<div class="shift">${this.shiftRu}</div>`;
-        }
-      }
-    }
+    this.$key.innerHTML = this.getSymbol(lang, shift, caps);
   };
 }
 
@@ -160,7 +92,6 @@ class SpecialButton extends Button {
     key.innerHTML = this._createIconHTML(this.icon);
 
     this.$key = key;
-    // this.events();
 
     return this.$key;
   }
@@ -543,13 +474,13 @@ class Keyboard {
 
     this.size = {
       pipboy: null,
-      screen: null,
+      screenHeigth: null,
       keyboard: null,
 
     };
 
     this.init();
-    this.events();
+    this._events();
   }
 
   init() {
@@ -580,23 +511,15 @@ class Keyboard {
 
     this._createKeys();
     this.render();
-    this.setSizes();
+    this._setScreenHeigth();
   }
 
-  setSizes = ()=> {
-    const pipboyHeigth = this.elements.$pipBoy.clientHeight;
-    const keyboardHeight = this.elements.$keysContainer.clientHeight;
-    this.size.screen = pipboyHeigth - keyboardHeight;
-
-    this.elements.$screen.style.height = (this.size.screen - 10) + 'px';
-  };
-
-  events = () => {
+  _events = () => {
 
     // говорилка
     window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
-    window.onresize = this.setSizes;
+    window.onresize = this._setScreenHeigth;
 
     // Events TextArea
     // this.elements.$screen.addEventListener('focus', () => {
@@ -613,8 +536,8 @@ class Keyboard {
 
     // Нажатия клавиш на клавиатуре
     window.addEventListener('keydown', event => {
-      this._setFocus(this.elements.$screen.selectionStart, this.elements.$screen.selectionEnd);
 
+      this._setFocusScreen(this.elements.$screen.selectionStart, this.elements.$screen.selectionEnd);
 
       let realChar = event.key.toLowerCase();
       realChar = (realChar === ' ') ? 'space' : realChar;
@@ -629,53 +552,61 @@ class Keyboard {
           switch (realChar) {
             case 'backspace':
               sound = 'backspace';
-              this._setCaret(this.property.caretPosition - 1);
+              this._setCaretPosition(this.property.caretPosition - 1);
               this.property.isSelection = false;
               break;
 
             case 'space':
               sound = 'space';
-              this._setCaret(this.property.caretPosition + 1);
+              this._setCaretPosition(this.property.caretPosition + 1);
               this.property.isSelection = false;
               break;
 
             case 'enter':
               sound = 'enter';
-              this._setCaret(this.property.caretPosition + 1);
+              this._setCaretPosition(this.property.caretPosition + 1);
               this.property.isSelection = false;
               break;
 
             case 'shift':
               sound = 'shift';
-              this._toggleCapsLock(this.findKey('shift').$key);
-              this._setFocus(this.property.startSelection, this.property.endSelection);
+              this._toggleCapsLock(this._findKey('shift').$key);
+              this._setFocusScreen(this.property.startSelection, this.property.endSelection);
               break;
 
             case 'arrowleft':
               sound = '';
-              this._setCaret(this.property.caretPosition - 1);
+
+              this._actionArrowLeft();
+              this._setFocusScreen(this.property.startSelection, this.property.endSelection);
+
+              // this._setCaretPosition(this.property.caretPosition - 1);
               break;
 
             case 'arrowright':
               sound = '';
-              this._setCaret(this.property.caretPosition + 1);
+              // this._setCaretPosition(this.property.caretPosition + 1);
+              this._actionArrowRight();
+
+              this._setFocusScreen(this.property.startSelection, this.property.endSelection);
+
               break;
 
             case 'capslock':
               sound = 'capslock';
 
-              this._toggleCapsLock(this.findKey('capslock').$key);
-              this._setFocus(this.property.startSelection, this.property.endSelection);
+              this._toggleCapsLock(this._findKey('capslock').$key);
+              this._setFocusScreen(this.property.startSelection, this.property.endSelection);
               break;
 
             default:
               sound = '';
-              this._setCaret(this.property.caretPosition + 1);
+              this._setCaretPosition(this.property.caretPosition + 1);
               this.property.isSelection = false;
               break;
           }
 
-          this._clickSound(sound);
+          this._playSoundKeyClick(sound);
           keyboardKey.$key.classList.add('click');
           setTimeout(() => {
             keyboardKey.$key.classList.remove('click');
@@ -694,142 +625,92 @@ class Keyboard {
         if (element.$key === target.closest('.keyboard__key')) {
           switch (element.eng) {
             case 'space':
-              this._clickSound('space');
+              this._playSoundKeyClick('space');
               this._addSymbol(' ');
               this.property.isSelection = false;
-              this._setFocus();
+              this._setFocusScreen();
 
               break;
 
             case 'backspace':
-              this._clickSound('backspace');
+              this._playSoundKeyClick('backspace');
               this._addSymbol('', true);
               this.property.isSelection = false;
-              this._setFocus();
+              this._setFocusScreen();
 
               break;
 
             case 'enter':
-              this._clickSound('enter');
+              this._playSoundKeyClick('enter');
               this._addSymbol('\n');
               this.property.isSelection = false;
-              this._setFocus();
+              this._setFocusScreen();
 
               break;
 
             case 'capslock':
-              this._clickSound('capslock');
+              this._playSoundKeyClick('capslock');
               this._toggleCapsLock(element.$key);
               // this._setFocus();
-              this._setFocus(this.property.startSelection, this.property.endSelection);
+              this._setFocusScreen(this.property.startSelection, this.property.endSelection);
 
               break;
 
             case 'shift':
-              this._clickSound('shift');
+              this._playSoundKeyClick('shift');
               this._toggleShift(element.$key);
               // this._setFocus();
-              this._setFocus(this.property.startSelection, this.property.endSelection);
+              this._setFocusScreen(this.property.startSelection, this.property.endSelection);
 
               break;
 
             case 'eng':
-              this._clickSound();
+              this._playSoundKeyClick();
               this._toggleLang();
               // this._setFocus();
-              this._setFocus(this.property.startSelection, this.property.endSelection);
+              this._setFocusScreen(this.property.startSelection, this.property.endSelection);
 
               break;
 
             case 'done':
               this._toggleDone();
-              this._clickSound();
+              this._playSoundKeyClick();
               this.close();
 
               break;
 
-            case 'arrowleft':
-              this._clickSound();
-              if (this.property.shift) {
-
-                if (this.property.isSelection === false) {
-
-                  this.property.endSelection = this.property.caretPosition; // начальное значение
-                  this._setCaret(this.property.caretPosition - 1);
-                  this.property.startSelection = this.property.caretPosition;
-                  this._setFocus(this.property.startSelection, this.property.endSelection);
-                  this.property.isSelection = true;
-
-                } else {
-                  if (this.property.caretPosition > this.property.endSelection) {
-                    this._setCaret(this.property.caretPosition - 1);
-                    this._setFocus(this.property.startSelection, this.property.endSelection);
-
-                  } else {
-                    this._setCaret(this.property.caretPosition - 1);
-                    this.property.startSelection = this.property.caretPosition;
-                    this._setFocus(this.property.startSelection, this.property.endSelection);
-                  }
-                }
-              } else { // тут работает
-                this.property.isSelection = false;
-                this._setCaret(this.property.caretPosition - 1);
-                this._setFocus();
-              }
-
-              break;
-
-            case 'arrowright':
-              this._clickSound();
-
-              if (this.property.shift) {
-
-                if (this.property.isSelection === false) {
-
-                  this.property.startSelection = this.property.caretPosition; // начальное значение
-                  this._setCaret(this.property.caretPosition + 1);
-                  this.property.endSelection = this.property.caretPosition;
-                  this._setFocus(this.property.startSelection, this.property.endSelection);
-                  this.property.isSelection = true;
-
-                } else {
-                  if (this.property.caretPosition < this.property.endSelection) {
-                    this._setCaret(this.property.caretPosition + 1);
-                    this._setFocus(this.property.startSelection, this.property.endSelection);
-
-                  } else {
-                    this._setCaret(this.property.caretPosition + 1);
-                    this.property.endSelection = this.property.caretPosition;
-                    this._setFocus(this.property.startSelection, this.property.endSelection);
-                  }
-                }
-              } else { // тут работает
-                this.property.isSelection = false;
-                this._setCaret(this.property.caretPosition + 1);
-                this._setFocus();
-              }
-
-              break;
-
             case 'sound':
-              this._clickSound();
+              this._playSoundKeyClick();
               this._toggleSound();
-              this._setFocus(this.property.startSelection, this.property.endSelection);
+              this._setFocusScreen(this.property.startSelection, this.property.endSelection);
 
               break;
 
             case 'mic':
-              this._clickSound();
+              this._playSoundKeyClick();
               this._toggleMic();
-              this._setFocus(this.property.startSelection, this.property.endSelection);
+              this._setFocusScreen(this.property.startSelection, this.property.endSelection);
 
               break;
 
+            case 'arrowleft':
+              this._playSoundKeyClick();
+              this._actionArrowLeft();
+
+              break;
+
+            case 'arrowright':
+              this._playSoundKeyClick();
+              this._actionArrowRight();
+
+              break;
+
+
             default:
-              this._clickSound();
+              this._playSoundKeyClick();
               this._addSymbol(element.getSymbol(this.property.lang, this.property.shift, this.property.capsLock));
               this.property.isSelection = false;
-              this._setFocus();
+              this._setFocusScreen();
 
               break;
           }
@@ -837,77 +718,6 @@ class Keyboard {
       })
     })
   };
-
-  _addSymbol = (symbol, backspace = false) => {
-
-    const curChar = backspace ? '' : symbol;
-    let beginStr;
-    let endStr;
-
-    if (this.elements.$screen.selectionStart === this.elements.$screen.selectionEnd) {
-
-      beginStr = backspace
-        ? this.elements.$screen.value.substring(0, this.property.caretPosition - 1)
-        : this.elements.$screen.value.substring(0, this.property.caretPosition);
-      endStr = this.elements.$screen.value.substring(this.property.caretPosition);
-
-      backspace ? this._setCaret(this.property.caretPosition - 1) : this._setCaret(this.property.caretPosition + 1);
-
-    } else {
-
-      beginStr = this.elements.$screen.value.substring(0, this.elements.$screen.selectionStart);
-      endStr = this.elements.$screen.value.substring(this.elements.$screen.selectionEnd);
-      this.property.caretPosition = backspace ? this.elements.$screen.selectionStart : this._setCaret(this.elements.$screen.selectionStart + 1);
-
-    }
-
-    this.elements.$screen.value = beginStr + curChar + endStr;
-  };
-
-  _setCaret = (num) => {
-    if (num <= 0) {
-      this.property.caretPosition = 0;
-    } else if (num >= (this.elements.$screen.value.length + 1)) {
-      this.property.caretPosition = this.elements.$screen.value.length + 1;
-    } else {
-      this.property.caretPosition = num;
-    }
-    return this.property.caretPosition;
-  };
-
-  _setFocus(start = undefined, finish = undefined) {
-    this.elements.$screen.selectionStart = start ? start : this.property.caretPosition;
-    this.elements.$screen.selectionEnd = finish ? finish : this.property.caretPosition;
-
-    this.property.startSelection = start ? start : this.property.caretPosition;
-    this.property.endSelection = finish ? finish : this.property.caretPosition;
-
-    if (this.property.startSelection === this.property.endSelection) {
-      this.property.isSelection = false;
-    }
-    this.elements.$screen.focus();
-  }
-
-  _toggleCapsLock($key) {
-    this.property.capsLock = !this.property.capsLock;
-    $key.classList.toggle('keyboard__key--active');
-    this.render();
-  }
-
-  _toggleShift($key) {
-    this.property.shift = !this.property.shift;
-    $key.classList.toggle('keyboard__key--active');
-    this.render();
-  }
-
-  _toggleLang() {
-    if (this.property.lang === 'eng') {
-      this.property.lang = 'ru';
-    } else {
-      this.property.lang = 'eng'
-    }
-    this.render();
-  }
 
   _createKeys() {
     this.elements.keys = this.fullKeys.map(key => {
@@ -979,6 +789,242 @@ class Keyboard {
     });
   }
 
+  _addSymbol = (symbol, backspace = false) => {
+
+    const curChar = backspace ? '' : symbol;
+    let beginStr;
+    let endStr;
+
+    if (this.elements.$screen.selectionStart === this.elements.$screen.selectionEnd) {
+      beginStr = backspace
+        ? this.elements.$screen.value.substring(0, this.property.caretPosition - 1)
+        : this.elements.$screen.value.substring(0, this.property.caretPosition);
+      endStr = this.elements.$screen.value.substring(this.property.caretPosition);
+      backspace ? this._setCaretPosition(this.property.caretPosition - 1) : this._setCaretPosition(this.property.caretPosition + 1);
+
+    } else {
+
+      beginStr = this.elements.$screen.value.substring(0, this.elements.$screen.selectionStart);
+      endStr = this.elements.$screen.value.substring(this.elements.$screen.selectionEnd);
+      this.property.caretPosition = backspace ? this.elements.$screen.selectionStart : this._setCaretPosition(this.elements.$screen.selectionStart + 1);
+    }
+
+    this.elements.$screen.value = beginStr + curChar + endStr;
+  };
+
+  // находит соответствие реальной и фиртуальной кнопки
+  _findKey = (findK) => {
+    const arrKeys = this.elements.keys.filter(key => {
+      return key.eng === findK;
+    });
+    return arrKeys[0];
+  };
+
+  // Устанавливает высоту экрана
+  _setScreenHeigth = () => {
+    const pipboyHeigth = this.elements.$pipBoy.clientHeight;
+    const keyboardHeight = this.elements.$keysContainer.clientHeight;
+    const screenHeigth = pipboyHeigth - keyboardHeight;
+
+    this.elements.$screen.style.height = (screenHeigth - 10) + 'px';
+  };
+
+  // Устанавливает позицию каретки. Проверяет на пограничные значения
+  _setCaretPosition = (num) => {
+    if (num <= 0) {
+      this.property.caretPosition = 0;
+    } else if (num >= (this.elements.$screen.value.length + 1)) {
+      this.property.caretPosition = this.elements.$screen.value.length + 1;
+    } else {
+      this.property.caretPosition = num;
+    }
+    return this.property.caretPosition;
+  };
+
+  // Возвращает фокус на экран и устанавливает положение катерики и границ выделения текста
+  _setFocusScreen(start = undefined, finish = undefined) {
+    this.elements.$screen.selectionStart = start ? start : this.property.caretPosition;
+    this.elements.$screen.selectionEnd = finish ? finish : this.property.caretPosition;
+
+    this.property.startSelection = start ? start : this.property.caretPosition;
+    this.property.endSelection = finish ? finish : this.property.caretPosition;
+
+    if (this.property.startSelection === this.property.endSelection) {
+      this.property.isSelection = false;
+    }
+    this.elements.$screen.focus();
+  }
+
+  _actionArrowLeft() {
+    if (this.property.shift) {
+
+      if (this.property.isSelection === false) {
+
+        this.property.endSelection = this.property.caretPosition; // начальное значение
+        this._setCaretPosition(this.property.caretPosition - 1);
+        this.property.startSelection = this.property.caretPosition;
+        this._setFocusScreen(this.property.startSelection, this.property.endSelection);
+        this.property.isSelection = true;
+
+      } else {
+        if (this.property.caretPosition > this.property.endSelection) {
+          this._setCaretPosition(this.property.caretPosition - 1);
+          this._setFocusScreen(this.property.startSelection, this.property.endSelection);
+
+        } else {
+          this._setCaretPosition(this.property.caretPosition - 1);
+          this.property.startSelection = this.property.caretPosition;
+          this._setFocusScreen(this.property.startSelection, this.property.endSelection);
+        }
+      }
+    } else { // тут работает
+      this.property.isSelection = false;
+      this._setCaretPosition(this.property.caretPosition - 1);
+      this._setFocusScreen();
+    }
+  }
+
+  _actionArrowRight() {
+    if (this.property.shift) {
+
+      if (this.property.isSelection === false) {
+
+        this.property.startSelection = this.property.caretPosition; // начальное значение
+        this._setCaretPosition(this.property.caretPosition + 1);
+        this.property.endSelection = this.property.caretPosition;
+        this._setFocusScreen(this.property.startSelection, this.property.endSelection);
+        this.property.isSelection = true;
+
+      } else {
+        if (this.property.caretPosition < this.property.endSelection) {
+          this._setCaretPosition(this.property.caretPosition + 1);
+          this._setFocusScreen(this.property.startSelection, this.property.endSelection);
+
+        } else {
+          this._setCaretPosition(this.property.caretPosition + 1);
+          this.property.endSelection = this.property.caretPosition;
+          this._setFocusScreen(this.property.startSelection, this.property.endSelection);
+        }
+      }
+    } else { // тут работает
+      this.property.isSelection = false;
+      this._setCaretPosition(this.property.caretPosition + 1);
+      this._setFocusScreen();
+    }
+  }
+
+  // проигрывает звут нажатой клавиши
+  _playSoundKeyClick(key) {
+    if (this.property.isPlaySound) {
+      const audio = new Audio(); // Создаём новый элемент Audio
+
+      if (['backspace', 'capslock', 'enter', 'shift', 'space'].includes(key)) {
+        audio.src = `./sounds/${this.sounds[key]}`;
+      } else {
+        audio.src = this.property.lang === 'eng' ? `./sounds/${this.sounds['clickEng']}` : `./sounds/${this.sounds['clickRu']}`;
+      }
+      audio.autoplay = true;
+    }
+  }
+
+  /*
+    ПЕРЕКЛЮЧАТЕЛИ
+   */
+
+  // Переключает кнопку звука клавиш
+  _toggleSound() {
+    this.property.isPlaySound = !this.property.isPlaySound;
+    this.render();
+  }
+
+  _toggleCapsLock($key) {
+    this.property.capsLock = !this.property.capsLock;
+    $key.classList.toggle('keyboard__key--active');
+    this.render();
+  }
+
+  _toggleShift($key) {
+    this.property.shift = !this.property.shift;
+    $key.classList.toggle('keyboard__key--active');
+    this.render();
+  }
+
+  _toggleLang() {
+    if (this.property.lang === 'eng') {
+      this.property.lang = 'ru';
+    } else {
+      this.property.lang = 'eng'
+    }
+    this.render();
+  }
+
+  _toggleDone() {
+    this.property.isDone = !this.property.isDone;
+    this.render();
+  }
+
+  _toggleMic() {
+    this.property.isMicrophone = !this.property.isMicrophone;
+    this.render();
+    this._speechRecord();
+  }
+
+  // Записывает речь пользователя
+  _speechRecord() {
+    if (this.property.isMicrophone) {
+      this.property.recognition = new SpeechRecognition();
+
+      this.property.recognition.interimResults = true;
+      this.property.recognition.lang = this.property.lang === 'eng' ? 'en-US' : 'ru-RU';
+
+
+      this.property.recognition.addEventListener('result', this._printResultRecordToScreen);
+
+
+      this.property.recognition.addEventListener('end', () => {
+        if (this.property.isMicrophone) {
+          this.property.recognition.start();
+        }
+      });
+
+      this.property.recognition.start();
+
+    } else { // Остановка записи
+      this.property.recognition.abort();
+      this.property.recognition.stop();
+      this.property.recognition = null;
+    }
+  }
+
+  // Помещает записанную речь на экран в место каретки
+  _printResultRecordToScreen = (e) => {
+    const transcript = Array.from(e.results)
+      .map(result => result[0])
+      .map(result => result.transcript)
+      .join('');
+
+    if (e.results[0].isFinal) {
+      // this.__printCursorsPosition();
+      this._addSymbol(transcript);
+      this.property.caretPosition = this._setCaretPosition(this.property.caretPosition + transcript.length - 1);
+
+      // В конце фразу добавляем пробел
+      this._addSymbol(' ');
+      this._setCaretPosition(this.property.caretPosition);
+      this._setFocusScreen();
+    }
+  };
+
+  // Выводит в консоль позицию каретки и границ выделения текста
+  __printCursorsPosition() {
+    console.log('Start Selection:', this.property.startSelection);
+    console.log('End Selection:', this.property.endSelection);
+    console.log('Caret:', this.property.caretPosition);
+    console.log('-------');
+  }
+
+
+  // Перерисовывае все кнопки клавиатуры
   render() {
     const fragment = document.createDocumentFragment();
 
@@ -1048,112 +1094,23 @@ class Keyboard {
     this.elements.$keysContainer.appendChild(fragment);
   }
 
-  _toggleSound() {
-    this.property.isPlaySound = !this.property.isPlaySound;
-    this.render();
-  }
-
-  _clickSound(key) {
-    if (this.property.isPlaySound) {
-      const audio = new Audio(); // Создаём новый элемент Audio
-
-      if (['backspace', 'capslock', 'enter', 'shift', 'space'].includes(key)) {
-        audio.src = `./sounds/${this.sounds[key]}`;
-      } else {
-        audio.src = this.property.lang === 'eng' ? `./sounds/${this.sounds['clickEng']}` : `./sounds/${this.sounds['clickRu']}`;
-      }
-      audio.autoplay = true;
-    }
-  }
-
-  _toggleMic() {
-    this.property.isMicrophone = !this.property.isMicrophone;
-    this.render();
-    this._record();
-  }
-
-  _toggleDone() {
-    this.property.isDone = !this.property.isDone;
-    this.render();
-  }
-
-
-  _record() {
-    if (this.property.isMicrophone) {
-      this.property.recognition = new SpeechRecognition();
-
-      this.property.recognition.interimResults = true;
-      this.property.recognition.lang = this.property.lang === 'eng' ? 'en-US' : 'ru-RU';
-
-
-      this.property.recognition.addEventListener('result', this._eventRecord);
-
-
-      this.property.recognition.addEventListener('end', () => {
-        if (this.property.isMicrophone) {
-          this.property.recognition.start();
-        }
-      });
-
-      this.property.recognition.start();
-
-    } else { // Остановка записи
-      this.property.recognition.abort();
-      this.property.recognition.stop();
-      this.property.recognition = null;
-    }
-  }
-
-  _eventRecord = (e) => {
-    const transcript = Array.from(e.results)
-      .map(result => result[0])
-      .map(result => result.transcript)
-      .join('');
-
-    if (e.results[0].isFinal) {
-      // this.__printCursorsPosition();
-      this._addSymbol(transcript);
-      this.property.caretPosition = this._setCaret(this.property.caretPosition + transcript.length - 1);
-
-      // В конце фразу добавляем пробел
-      this._addSymbol(' ');
-      this._setCaret(this.property.caretPosition);
-      this._setFocus();
-    }
-  };
-
-  __printCursorsPosition() {
-    console.log('Start Selection:', this.property.startSelection);
-    console.log('End Selection:', this.property.endSelection);
-    console.log('Caret:', this.property.caretPosition);
-    console.log('-------');
-  }
-
+  // Скрывает клавиатуру и экран. Показывает стартовый э
   close() {
     this.elements.$el.classList.toggle('keyboard--hidden');
     this.elements.$screen.classList.toggle('screen--hidden');
     this.elements.$startScreen.classList.toggle('start-screen--hidden');
   }
 
+  // Показывает клавиатуру и экран
   open() {
     this.elements.$el.classList.remove('keyboard--hidden');
     this.elements.$screen.classList.remove('screen--hidden');
     this.elements.$startScreen.classList.add('start-screen--hidden');
     this.property.isDone = true;
-    // this.render();
-
-    // this._toggleDone();
   }
-
-  // находит соответствие реальной и фиртуальной кнопки
-  findKey = (findK) => {
-    const arrKeys = this.elements.keys.filter(key => {
-      return key.eng === findK;
-    });
-    return arrKeys[0];
-  };
 }
 
+// Когда DOM готов, поехали
 window.addEventListener('DOMContentLoaded', () => {
   new Keyboard('#app');
 });

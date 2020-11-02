@@ -41,7 +41,25 @@ class Button {
   };
 
   setContent = (lang = 'eng', shift = false, caps = false) => {
-    this.$key.innerHTML = this.getSymbol(lang, shift, caps);
+
+    const langShift = lang === 'eng' ? 'shiftEng' : 'shiftRu';
+    if (shift) {
+      if (this[langShift] === '') {
+        if (caps) {
+          this.$key.innerHTML = `${this[lang].toLowerCase()}<span class=shift>${this[langShift]}</span>`;
+        } else {
+          this.$key.innerHTML = `${this[lang].toUpperCase()}<span class=shift>${this[langShift]}</span>`;
+        }
+      } else {
+        this.$key.innerHTML = `${this[langShift]}<span class=shift>${this[lang]}</span>`;
+      }
+    } else { // !shift
+      if (caps) {
+        this.$key.innerHTML = `${this[lang].toUpperCase()}<span class=shift>${this[langShift]}</span>`;
+      } else {
+        this.$key.innerHTML = `${this[lang].toLowerCase()}<span class=shift>${this[langShift]}</span>`;
+      }
+    }
   };
 }
 

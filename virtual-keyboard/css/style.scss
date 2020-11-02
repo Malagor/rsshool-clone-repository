@@ -495,3 +495,26 @@ p:last-child:after {
     right: 0;
   }
 }
+
+.contact {
+  position: absolute;
+  bottom: 3vh;
+  left: 1vw;
+  color: green;
+
+  font-family: Arial, sans-serif;
+
+  &:after {
+    content: '_';
+    opacity: 1;
+    animation: blink 0.4s ease-in-out infinite;
+  }
+}
+
+@keyframes blink {
+
+  50% {
+    opacity: 0.5;
+  }
+  
+}

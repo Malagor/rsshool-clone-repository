@@ -1106,6 +1106,7 @@ class Keyboard {
     this.elements.$el.classList.remove('keyboard--hidden');
     this.elements.$screen.classList.remove('screen--hidden');
     this.elements.$startScreen.classList.add('start-screen--hidden');
+    this._findKey('done').$key.classList.add('keyboard__key--active');
     this.property.isDone = true;
   }
 }

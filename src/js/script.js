@@ -1,10 +1,6 @@
 'use strict';
-import sound from "./util/sound.js";
-import msToTime from "./util/msToTime.js";
-import Score from "./classes/Score.js";
-import State from "./classes/State.js";
-import Board from "./classes/Board.js";
-// import moveCell from "./util/moveCell.js";
+import Game from "./classes/Game.js";
+
 
 //
 // let turns = 0;
@@ -105,5 +101,6 @@ import Board from "./classes/Board.js";
 //     moveCell(i);
 //   });
 // }
+Game.ready();
 
-const board = Board.create('.field',3, '.stat');
+

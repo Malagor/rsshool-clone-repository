@@ -28,8 +28,8 @@ export default class Score {
   setResult = (result) => {
     const {time, turns} = result;
 
-    const lastTime = this._getLastPositionInScoreByTime();
-    const lastTurns = this._getLastPositionInScoreByTurns();
+    const lastTime = this.getLastPositionInScoreByTime();
+    const lastTurns = this.getLastPositionInScoreByTurns();
 
     if (time < lastTime
       || turns < lastTurns
@@ -44,32 +44,22 @@ export default class Score {
     return false;
   };
 
-  _getLastPositionInScoreByTime = () => {
-    // const maxResultInTable = this.scoreTable
-    //   .sort((a, b) => a.time - b.time)
-    //   .filter((val, index) => index < 10);
+  getLastPositionInScoreByTime = () => {
     const maxResultInTable = this.sortByField('time');
-
 
     if (maxResultInTable.length < 10) {
       return -1
     }
-
     return maxResultInTable[maxResultInTable.length - 1].time;
 
   };
 
-  _getLastPositionInScoreByTurns = () => {
-    // const maxResultInTable = this.scoreTable
-    //   .sort((a, b) => a.turns - b.turns)
-    //   .filter((val, index) => index < 10);
-
+  getLastPositionInScoreByTurns = () => {
     const maxResultInTable = this.sortByField('turns');
 
     if (maxResultInTable.length < 10) {
       return -1
     }
-
     return maxResultInTable[maxResultInTable.length - 1].turns;
   };
 
@@ -79,17 +69,11 @@ export default class Score {
       .filter((val, index) => index < 10);
   }
 
-  // TODO: оформить вывод таблицы рекордов
-
-  bestTime() {
-    return this.sortByField('time').filter((el, i) => {
-      return i < 10;
-    })
+  getBestTime() {
+    return this.sortByField('time');
   }
 
-  bestTurns() {
-    return this.sortByField('turns').filter((el, i) => {
-      return i < 10;
-    })
+  getBestTurns() {
+    return this.sortByField('turns');
   }
 }

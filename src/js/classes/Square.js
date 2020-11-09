@@ -1,18 +1,14 @@
 export default class Square {
-  constructor(index, /*top, left,*/ value) {
+  constructor(index, value) {
     this.index = index;
-    // this.position ={
-    //   top: top,
-    //   left: left
-    // };
     this.value = value;
     this.$square = null;
 
     this.init();
   }
 
-  static create(index, /*top, left,*/ value) {
-    return new Square(index, /*top, left,*/ value);
+  static create(index, value) {
+    return new Square(index, value);
   }
 
   init() {

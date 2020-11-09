@@ -4,14 +4,16 @@ export default class State {
   constructor(el) {
     this._time = 0;
     this._turns = 0;
-    this._state = 'ready';
+    this._state = 'start';
     // this.$turns = null;
     this.$el = document.querySelector(el);
+
+    this.timerID = null;
 
     this.$turns = this.$el.querySelector('.turns');
     this.$times = this.$el.querySelector('.times');
 
-    this.start();
+    // this.start();
   }
 
   static ready(el) {
@@ -27,6 +29,16 @@ export default class State {
 
   stop = () => {
     this._state = 'stop';
+    clearTimeout(this.timerID);
+    this.timerID = null;
+  };
+
+  pause =() => {
+    clearTimeout(this.timerID);
+  };
+
+  resume = () => {
+    this.tick();
   };
 
   turn = () => {
@@ -43,13 +55,14 @@ export default class State {
   tick = () => {
     if (this._state === 'play') {
       this._time += 1000;
-      this.$times.textContent = `Time: ${this.time}`;
-      setTimeout(this.tick, 1000);
+      this.$times.textContent = `Time: ${msToTime(this.time)}`;
+      this.timerID = setTimeout(this.tick, 1000);
     }
   };
 
   get time() {
-    return msToTime(this._time);
+    return this._time;
+    // return msToTime(this._time);
   }
 
 

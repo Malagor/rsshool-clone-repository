@@ -1,5 +1,6 @@
 :root {
     --padding: 2px;
+    --animationSpeed: 0.1s;
 }
 
 * {
@@ -225,6 +226,11 @@ body {
     -1px -1px 2px 1rem white,
     1px 1px 2px 1rem black,
     0.5rem 0.5rem 1.5rem 1rem black;
+    /*background-image: url(../assets/images/1.jpg);*/
+}
+
+.picture {
+    border-radius: 0;
 }
 
 .cell {
@@ -237,6 +243,10 @@ body {
 
     /*border: 1px solid #006B54;*/
     box-sizing: border-box;
+}
+
+.picture .cell {
+    padding: 0;
 }
 
 .square {
@@ -259,25 +269,51 @@ body {
     background: #F96302;
 
     cursor: pointer;
-
-    transition: 0.3s;
 }
 
+.picture .square {
+    border-radius: 0;
+    color: transparent;
+}
 
 .moveUp {
-    transform: translateY(calc(-100% - var(--padding) - var(--padding)));
+    animation: moveUp var(--animationSpeed) ease-in-out;
+}
+
+@keyframes moveUp {
+    100% {
+        transform: translateY(calc(-100% - var(--padding) - var(--padding)));
+    }
 }
 
 .moveDown {
-    transform: translateY(calc(100% + var(--padding) + var(--padding)));
+    animation: moveDown var(--animationSpeed) ease-in-out;
+}
+
+@keyframes moveDown {
+    100% {
+        transform: translateY(calc(100% + var(--padding) + var(--padding)));
+    }
 }
 
 .moveRight {
-    transform: translateX(calc(100% + var(--padding) + var(--padding)));
+    animation: moveRight var(--animationSpeed) ease-in-out;
+}
+
+@keyframes moveRight {
+    100% {
+        transform: translateX(calc(100% + var(--padding) + var(--padding)));
+    }
 }
 
 .moveLeft {
-    transform: translateX(calc(-100% - var(--padding) - var(--padding)));
+    animation: moveLeft var(--animationSpeed) ease-in-out;
+}
+
+@keyframes moveLeft {
+    100% {
+        transform: translateX(calc(-100% - var(--padding) - var(--padding)));
+    }
 }
 
 
@@ -389,6 +425,7 @@ label {
     font-size: 2rem;
     width: 8rem;
 }
+
 .input-label {
     display: flex;
     align-items: center;
@@ -405,7 +442,8 @@ select {
     padding: 0.2em 1em;
 }
 
-input[type='radio'] {
+input[type='radio'],
+input[type='checkbox'] {
     display: none;
 }
 
@@ -420,6 +458,33 @@ input[type='radio'] {
 
 }
 
+
 input[type='radio']:checked + .input-label:before {
     background: #F96302;
+}
+
+
+.sound-label {
+    display: flex;
+    align-items: center;
+    /*margin-right: 1em;*/
+    cursor: pointer;
+    width: 100%;
+}
+.sound-label:after {
+    content: '';
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1em;
+    height: 1em;
+    border: 2px solid #F96302;
+    margin-left: 1em;
+}
+
+input[type='checkbox']:checked + .sound-label:after {
+    content: '\2714';
+    color: #F96302;
+    max-width: 1em;
+    height: 1em;
 }

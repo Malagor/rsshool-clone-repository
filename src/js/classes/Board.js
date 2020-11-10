@@ -2,25 +2,23 @@ import Square from "./Square.js";
 import sound from "../util/sound.js";
 
 export default class Board {
-  constructor(element, size) {
+  constructor(element, size, isPic = false) {
     this.size = size || 4;
     this.countCells = size * size;
-    this.$board = document.querySelector(element);
-    // this.$cellsCollection = null;
+    this.$board = element;
     this.cellArray = [];
-    // this.dragableSquad = null;
+    this.isPic = isPic;
 
     this.init();
   }
 
-  static create(element, size) {
-    return new Board(element, size);
+  static create(element, size, isPic) {
+    return new Board(element, size, isPic);
   }
 
   init() {
     this.start(true);
 
-    console.log(this.cellArray);
     // this.$board.addEventListener('mousedown', (e) => {
     //   e.preventDefault();
     // });
@@ -75,11 +73,17 @@ export default class Board {
   }
 
   start(isInit = false) {
+    // console.log('Board.start');
     this.cellArray = [];
     const randIndexArray = isInit
       ? this.randIndex(this.countCells, false)
       : this.randIndex(this.countCells);
 
+    let imgIndex;
+    if (this.isPic) {
+      imgIndex = 1 + Math.floor(Math.random() * Math.floor(150));
+    }
+    console.log('randIndexArray', randIndexArray);
     for (let i = 0; i < this.countCells; i += 1) {
       const cell = document.createElement('div');
       cell.className = 'cell';
@@ -88,9 +92,23 @@ export default class Board {
       const top = (i - left) / this.size;
       let square = null;
 
+
       if (randIndexArray[i] !== (this.countCells) - 1) {
         square = Square.create(randIndexArray[i], randIndexArray[i] + 1);
-        cell.appendChild(square.square);
+
+        if (this.isPic) {
+          const sqr = square.square;
+          const width = 400;
+          const height = 400;
+          const size = this.size;
+          const sqrSize = width / size;
+          const leftBg = randIndexArray[i] % size;
+          const topBg = (randIndexArray[i] - leftBg) / size;
+
+          sqr.style.backgroundImage = `url(../assets/images/${imgIndex}.jpg)`;
+          sqr.style.backgroundSize = `${width}px ${height}px`;
+          sqr.style.backgroundPosition = `${(size - leftBg) * sqrSize}px ${(size - topBg) * sqrSize}px`;
+        }
       }
 
       this.cellArray.push({
@@ -104,6 +122,7 @@ export default class Board {
   }
 
   render = () => {
+
     this.$board.style.gridTemplateColumns = `repeat(${this.size}, 1fr)`;
     this.$board.style.gridTemplateRows = `repeat(${this.size}, 1fr)`;
     this.$board.innerHTML = '';
@@ -185,18 +204,60 @@ export default class Board {
     // });
   };
 
+  // Поиск индексов фишек с решаемым результатом
   randIndex(num, isSort = true) {
+
     let arr = [...Array(num).keys()];
 
-    if (isSort) {
-      return arr.sort(() => Math.random() - 0.5);
-    }
+    do {
+      if (isSort) {
+        arr = arr.sort(() => Math.random() - 0.5);
+      }
+    } while (!this.isSolution(arr));
+
     return arr;
   }
 
-  move = (target) => {
-    sound();
-    // const target = event.target.closest('.cell');
+  // Проверка на решаемость
+  isSolution = (arr) => {
+
+    // Проверка на четность
+    function isEven(num) {
+      return !(num % 2);
+    }
+
+    let emptyPosition = null;
+    const size = Math.sqrt(arr.length);
+
+    const sum = arr.reduce((sum, value, index, arr) => {
+      if (value === arr.length - 1) {
+        sum += (index % size) + 1;
+        emptyPosition = (index % size) + 1;
+        // console.log('empty pos', (index % size) + 1);
+      } else {
+        for (let i = index + 1; i < arr.length; i += 1) {
+          if (value > arr[i]) {
+            sum += 1;
+          }
+        }
+      }
+      return sum;
+    }, 0);
+
+    if (isEven(arr.length)) {
+      if (isEven(sum)) return true;
+    } else {
+      if (!isEven(sum) && !isEven(emptyPosition)) return true;
+    }
+    return false;
+  };
+
+
+  // Перемещение фишки
+  move = (target, isSound = true) => {
+    if (isSound) {
+      sound();
+    }
 
     const curIndex = this.getIndexClick(target);
     const emptyIndex = this.getIndexEmpty();
@@ -226,9 +287,13 @@ export default class Board {
 
       this.cellArray[emptyIndex].square = this.cellArray[curIndex].square;
       this.cellArray[curIndex].square = null;
+
+      return true;
     }
+    return false;
   };
 
+  // Провека на окончание игры
   isFinish() {
     return this.cellArray.every(el => {
       const {top, left} = el;
@@ -243,6 +308,7 @@ export default class Board {
     })
   }
 
+  // ПАеремещение фишек перетягиванием
   dragNDrop = () => {
 
     this.setDraggable();
@@ -311,6 +377,7 @@ export default class Board {
 
   };
 
+  // Установка возможности Drag-N-Drop
   setDraggable(element) {
     if (element) {
       element.setAttribute('draggable', 'true');
@@ -322,41 +389,39 @@ export default class Board {
     }
   }
 
+  // Анимация перемещения
   animationMove = (direction, indexElement) => {
-    // console.log(indexElement);
     const cls = `move${direction}`;
     const $el = this.cellArray[indexElement].square['$square'];
-    // console.log(this.cellArray);
-    // console.log($el);
 
 
     $el.classList.add(cls);
-    // console.log($el.classList);
-
-    setTimeout(() => {
-      // console.log('anim');
+    this.$board.addEventListener('click', (e) => {
+      e.preventDefault();
+    });
+    $el.addEventListener('animationend', () => {
       $el.classList.remove(cls);
       this.render();
-    }, 300);
+    });
   };
 
-
+  // Получение индекса кликнутой фишки в массиве
   getIndexClick = (target) => {
     return this.cellArray.findIndex(curElement => {
       return curElement.cell === target;
     })
   };
 
+  // Поиск индекса пустой фишки
   getIndexEmpty = () => {
     return this.cellArray.findIndex(element => {
       return element.square === null;
     })
   };
 
+  // Поиск индексов соседних фишек
   nextdoorNeighbours(top, left) {
-
     const curIndex = top * this.size + left;
-    // console.log('curIndex', curIndex);
 
     const getLeft = () => {
       if (left === 0) return null;

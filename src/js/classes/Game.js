@@ -5,16 +5,11 @@ import msToTime from "../util/msToTime.js";
 
 
 export default class Game {
-  constructor(board) {
-    // this.view = {
-    //   menu: null,
-    //   score: null,
-    //   setting: null
-    // };
-    // this.menuToggle = null;
+  constructor() {
     this.properties = {
       size: 4,
-      isPicturesSquare: false
+      isPicturesSquare: false,
+      isSound: true
     };
 
     this.elements = {
@@ -26,23 +21,28 @@ export default class Game {
       setting: null,
       resume: null,
       timeToggle: null,
-      turnsToggle: null
+      turnsToggle: null,
+      board: null
     };
 
-    this.board = board;
-    this.state = State.ready('.stat');
-    this.score = Score.ready();
+    // this.board = board;
+    this.board = null;
+    this.state = null;
+    this.score = null;
 
     this.init();
     this.events();
   }
 
-  static ready() {
-    const board = new Board('.field', 3);
-    return new Game(board);
+  static ready(size = 4) {
+    const game = new Game();
+    game.properties.size = size;
+    game.board = game.createBoard(game.elements.board, game.properties.size, game.properties.isPicturesSquare);
+
+    return game;
   }
 
-  init() {
+  init = () => {
     document.body.insertAdjacentHTML('afterbegin', `
     <div class="menu-toggle">
       <span></span>
@@ -58,6 +58,16 @@ export default class Game {
     </div>
     `);
 
+    document.body.insertAdjacentHTML('afterbegin', `
+    <div class="field"></div>
+    <div class="statistic"></div>
+    `);
+
+    this.state = State.ready('.statistic');
+    this.score = Score.ready();
+
+    this.elements.board = document.querySelector('.field');
+
     this.elements.menuToggle = document.querySelector('.menu-toggle');
     this.elements.menuInner = document.querySelector('.menu-inner');
     this.elements.menu = document.querySelector('.menu');
@@ -67,8 +77,11 @@ export default class Game {
     this.elements.score = document.querySelector('#score');
     this.elements.setting = document.querySelector('#setting');
 
-    // this.elements.menuInner.innerHTML = this.viewMenu();
     this.viewMenu();
+  };
+
+  createBoard(el, size) {
+    return new Board(el, size);
   }
 
   events = () => {
@@ -77,10 +90,11 @@ export default class Game {
 
       // Клик по клетке поля
       if (target.closest('.cell')) {
-        this.board.move(target.closest('.cell'));
-        this.state.turn();
-        if (this.board.isFinish()) {
-          this.finishGame();
+        if (this.board.move(target.closest('.cell'), this.properties.isSound)) {
+          this.state.turn();
+          if (this.board.isFinish()) {
+            this.finishGame();
+          }
         }
       }
 
@@ -114,15 +128,19 @@ export default class Game {
   };
 
   newGame = (e) => {
-    console.log('new Game');
     this.menuToggle(e);
+    if (this.properties.isPicturesSquare) {
+      this.elements.board.classList.add('picture');
+    } else {
+      this.elements.board.classList.remove('picture');
+    }
+    this.board = Board.create(this.elements.board, this.properties.size, this.properties.isPicturesSquare);
     this.board.start();
     this.state.stop();
     this.state.start();
   };
 
   resume(e) {
-    console.log('resume');
     this.menuToggle(e);
   }
 
@@ -161,20 +179,40 @@ export default class Game {
         <input type="radio" name="isPicture" id="isPic" checked value="false"><label class="input-label" for="isPic">Digit</label>
         </div>
         <div>
-        <input type="radio" name="isPicture" value="true" id="isDig"><label class="input-label" for="isDig">Picture</label>
+        <input type="radio" name="isPicture" value="true" id="isDig"  checked="checked"><label class="input-label" for="isDig">Picture</label>
         </div>
+        </div>
+        <div class="group">
+          <input type="checkbox" id="sound">
+          <label class="sound-label" for="sound">Sound</label>
         </div>
         </form>
     `);
 
+    const select = document.querySelector('.settings #size');
+    const radios = document.querySelectorAll('input[type="radio"][name="isPicture"]');
+    const check = document.querySelector('#sound');
 
-    // TODO: забрать данные с формы при изменении выбора и сохранить в переменные. При выборе новой игры, применить
+    select.options[this.properties.size - 3].selected = true;
+    check.checked = this.properties.isSound;
 
+    const setSettings = () => {
+      this.properties.size = select.value;
+      this.properties.isSound = check.checked;
 
-    function setSetings() {
-      // const sizeSelect = settings.language;
-      // document.querySelector('#size')
+      for (let radio of radios) {
+        if (radio.checked) {
+          this.properties.isPicturesSquare = radio.value === "true";
+        }
+      }
+    };
 
+    select.addEventListener('change', setSettings);
+    check.addEventListener('change', setSettings);
+
+    for (let radio of radios) {
+      radio.checked = radio.value === '' + this.properties.isPicturesSquare;
+      radio.addEventListener('change', setSettings);
     }
   }
 
@@ -199,10 +237,6 @@ export default class Game {
     this.elements.timeToggle = document.querySelector('#timeLabel');
     this.elements.turnsToggle = document.querySelector('#turnLabel');
 
-    // if (!this.elements.timeToggle.classList.contains('active') && !this.elements.turnsToggle.classList.contains('active')) {
-    //   this.elements.timeToggle.classList.add('active');
-    // }
-
     if (this.elements.timeToggle.classList.contains('active')) {
       this.viewTimeScore();
     } else {
@@ -211,7 +245,7 @@ export default class Game {
 
   };
 
-  viewTimeScore() {
+  viewTimeScore = () => {
     if (!this.elements.timeToggle.classList.contains('active')) {
       this.scoreToggle();
     }
@@ -236,7 +270,7 @@ export default class Game {
           <div class="turns">${turns}</div>       
       `)
     });
-  }
+  };
 
   viewTurnsScore = () => {
     if (!this.elements.turnsToggle.classList.contains('active')) {
@@ -286,5 +320,5 @@ export default class Game {
 
     this.score.setResult(res);
     console.log(res);
-  };
-};
+  }
+}

@@ -5,14 +5,14 @@ export default class State {
     this._time = 0;
     this._turns = 0;
     this._state = 'start';
-    // this.$turns = null;
-    this.$el = document.querySelector(el);
 
     this.timerID = null;
 
-    this.$turns = this.$el.querySelector('.turns');
-    this.$times = this.$el.querySelector('.times');
+    this.$el = null;
+    this.$turns = null;
+    this.$times = null;
 
+    this.init(el);
     // this.start();
   }
 
@@ -20,11 +20,28 @@ export default class State {
     return new State(el);
   }
 
+  init(el) {
+    this.$el = document.querySelector(el);
+    this.createHTML(this.$el);
+  }
+
+  createHTML = (parentEl) => {
+    parentEl.insertAdjacentHTML('afterbegin', `
+    <div class="stat">
+      <span class="turns">Turns: 0</span>
+      <span class="times">Time: 00:00:00</span>
+    </div>
+    `);
+    this.$turns = this.$el.querySelector('.turns');
+    this.$times = this.$el.querySelector('.times');
+  };
+
   start = () => {
     this._time = 0;
     this._turns = 0;
     this._state = 'play';
-    this.tick();
+    this.$turns.innerText = `Turns: ${this._turns}`;
+    setTimeout(this.tick, 1000);
   };
 
   stop = () => {
@@ -62,8 +79,5 @@ export default class State {
 
   get time() {
     return this._time;
-    // return msToTime(this._time);
   }
-
-
 }

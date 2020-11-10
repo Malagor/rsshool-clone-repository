@@ -1,5 +1,6 @@
 export default class Square {
   constructor(index, value) {
+
     this.index = index;
     this.value = value;
     this.$square = null;

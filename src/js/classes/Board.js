@@ -8,82 +8,34 @@ export default class Board {
     this.$board = element;
     this.cellArray = [];
     this.isPic = isPic;
+    this.draggableSquare = null;
 
-    this.init();
+    this.start(true);
   }
 
   static create(element, size, isPic) {
     return new Board(element, size, isPic);
   }
 
-  init() {
-    this.start(true);
-
-    // this.$board.addEventListener('mousedown', (e) => {
-    //   e.preventDefault();
-    // });
-
-    // let currentCard;
-    // const dragStart = function () {
-    //   setTimeout(() => {
-    //     this.classList.add('hide');
-    //     currentCard = this;
-    //   }, 0);
-    // };
-    //
-    // const dragEnd = function () {
-    //   this.classList.remove('hide');
-    // };
-    //
-    // const dragOver = function (evt) {
-    //   evt.preventDefault();
-    // };
-    //
-    // const dragDrop = function (evt) {
-    //   evt.preventDefault();
-    //   this.append(currentCard);
-    //   this.classList.remove('hovered');
-    // };
-    //
-    // const dragEnter = function () {
-    //   this.classList.add('hovered');
-    // };
-    //
-    // const dragLeave = function () {
-    //   this.classList.remove('hovered');
-    // };
-    //
-    // this.cellArray.forEach(cell => {
-    //   const grid = cell.cell;
-    //   const square = cell.square;
-    //
-    //   grid.addEventListener('dragover', dragOver);
-    //   grid.addEventListener('dragenter', dragEnter);
-    //   grid.addEventListener('dragleave', dragLeave);
-    //   grid.addEventListener('drop', dragDrop);
-    //
-    //   if (square) {
-    //     square['$square'].addEventListener('dragstart', dragStart);
-    //     square['$square'].addEventListener('dragend', dragEnd);
-    //   }
-    // });
-
-    // this.dragNDrop();
-    // this.render();
-  }
+  // init() {
+  //   this.start(true);
+  // }
 
   start(isInit = false) {
-    // console.log('Board.start');
     this.cellArray = [];
+
+    // Если это новая игра, то получаем перемешанные индексы, иначе попорядку
     const randIndexArray = isInit
       ? this.randIndex(this.countCells, false)
       : this.randIndex(this.countCells);
 
+    // выюираем рандомную картинку
     let imgIndex;
     if (this.isPic) {
       imgIndex = 1 + Math.floor(Math.random() * Math.floor(150));
     }
-    console.log('randIndexArray', randIndexArray);
+
+    // создаем массив клеток
     for (let i = 0; i < this.countCells; i += 1) {
       const cell = document.createElement('div');
       cell.className = 'cell';
@@ -93,9 +45,11 @@ export default class Board {
       let square = null;
 
 
+      // Создаем фишку в клетке
       if (randIndexArray[i] !== (this.countCells) - 1) {
         square = Square.create(randIndexArray[i], randIndexArray[i] + 1);
 
+        // Если в настройках выбрана картинка, то формируем картинку для фишки
         if (this.isPic) {
           const sqr = square.square;
           const width = 400;
@@ -111,17 +65,21 @@ export default class Board {
         }
       }
 
+      // Помещаем элемент в массив
       this.cellArray.push({
-        top,
-        left,
-        cell,
-        square
+        top, // строка
+        left, // рядок
+        cell, // DOM элемент клетки
+        square //DOM  элемент фишки в клетке, или null
       });
     }
+
+    // рисуем поле на экране
     this.render();
   }
 
   render = () => {
+    // console.log('RENDER!!!');
 
     this.$board.style.gridTemplateColumns = `repeat(${this.size}, 1fr)`;
     this.$board.style.gridTemplateRows = `repeat(${this.size}, 1fr)`;
@@ -141,67 +99,8 @@ export default class Board {
 
     this.$board.appendChild(fragment);
 
-
-    // // Drag N Drop
-    // const emptyCell = this.cellArray[this.getIndexEmpty()];
-    // // console.log('emptyCell', emptyCell);
-    //
-    // const {top, left} = emptyCell;
-    // const movableSquaresIndex = this.nextdoorNeighbours(top, left);
-    //
-    //
-    // // Массив соседних с пустой элементоы
-    // const gridEl = movableSquaresIndex.map(i => {
-    //     return this.cellArray[i].square['$square'];
-    //   }
-    // );
-    //
-    // console.log('gridEl', gridEl);
-    //
-    // // drag n drop events
-    // let currentCard;
-    // const dragStart = function () {
-    //   setTimeout(() => {
-    //     this.classList.add('hide');
-    //     currentCard = this;
-    //   }, 0);
-    // };
-    //
-    // const dragEnd = function () {
-    //   this.classList.remove('hide');
-    // };
-    //
-    // const dragOver = function (evt) {
-    //   evt.preventDefault();
-    // };
-    //
-    // const dragDrop = function (evt) {
-    //   evt.preventDefault();
-    //   this.append(currentCard);
-    //   this.classList.remove('hovered');
-    // };
-    //
-    // const dragEnter = function () {
-    //   this.classList.add('hovered');
-    // };
-    //
-    // const dragLeave = function () {
-    //   this.classList.remove('hovered');
-    // };
-    //
-    //
-    // // пустая ячейка в которую можно положить
-    // emptyCell.cell.addEventListener('dragover', dragOver);
-    // emptyCell.cell.addEventListener('dragenter', dragEnter);
-    // emptyCell.cell.addEventListener('dragleave', dragLeave);
-    // emptyCell.cell.addEventListener('drop', dragDrop);
-    //
-    // // Те которые можно тягать
-    // gridEl.forEach(cell => {
-    //   cell.setAttribute('draggable', 'true');
-    //   cell.addEventListener('dragstart', dragStart);
-    //   cell.addEventListener('dragend', dragEnd);
-    // });
+    // после отрисовки навешиваем возможность тягать клетки ТОЛЬКО рядом с пустой
+    // this.dragNDrop();
   };
 
   // Поиск индексов фишек с решаемым результатом
@@ -255,11 +154,7 @@ export default class Board {
 
   // Перемещение фишки
   move = (target, isSound = true) => {
-    if (isSound) {
-      sound();
-    }
-
-    const curIndex = this.getIndexClick(target);
+    const curIndex = this.getIndexElementByTarget(target);
     const emptyIndex = this.getIndexEmpty();
 
     const {top: curTop, left: curLeft} = this.cellArray[curIndex];
@@ -270,6 +165,9 @@ export default class Board {
 
 
     if ((Math.abs(deltaLeft) + Math.abs(deltaTop)) === 1) {
+      if (isSound) {
+        sound();
+      }
 
       // Animation moves
       let directionMove;
@@ -308,48 +206,64 @@ export default class Board {
     })
   }
 
-  // ПАеремещение фишек перетягиванием
+  // Перемещение фишек перетягиванием
   dragNDrop = () => {
 
+    // console.log('DRAG N DROP!!!');
+
+    // Убирает возможность тягаться у всех фишек
     this.setDraggable();
 
-    // Drag N Drop
+    // Получаем пустую клетку
     const emptyCell = this.cellArray[this.getIndexEmpty()];
-    // console.log('emptyCell', emptyCell);
 
+    // Ее позиция
     const {top, left} = emptyCell;
-    const movableSquaresIndex = this.nextdoorNeighbours(top, left);
 
+    // Массив соседних с пустой элементов
+    const gridEl_1 = this.nextdoorNeighbours(top, left);
 
-    // Массив соседних с пустой элементоы
-    const gridEl = movableSquaresIndex.map(i => {
-        return this.cellArray[i].square['$square'];
+      const gridEl = gridEl_1.map(i => {
+        try {
+          if (this.cellArray[i].square){
+            return this.cellArray[i].square['$square'];
+          }
+        } catch (e) {
+
+          // console.log('Пустая', this.cellArray[this.getIndexEmpty()]);
+          debugger;
+          // console.log('Ошибка', e);
+        }
       }
     );
 
-    // console.log('gridEl', gridEl);
-
     // drag n drop events
-    let currentCard;
-    const dragStart = function () {
+    const dragStart = (target) => {
       setTimeout(() => {
-        this.classList.add('hide');
-        currentCard = this;
-      }, 0);
+        target.classList.add('hide');
+        this.draggableSquare = target;
+        }, 0);
     };
 
-    const dragEnd = function () {
-      this.classList.remove('hide');
+    const dragEnd = (target) => {
+      target.classList.remove('hide');
     };
 
     const dragOver = function (evt) {
       evt.preventDefault();
     };
 
-    const dragDrop = function (evt) {
+    const dragDrop = (evt) => {
       evt.preventDefault();
-      this.append(currentCard);
-      this.classList.remove('hovered');
+      const indexDropCell = this.getIndexElementByTarget(evt.target);
+
+      this.moveSquareInArray(indexDropCell, this.draggableSquare);
+
+      evt.target.append(this.draggableSquare);
+      evt.target.classList.remove('hovered');
+
+      console.log('Индекс пустой ячейки:', this.getIndexEmpty());
+      this.render();
     };
 
     const dragEnter = function () {
@@ -360,25 +274,50 @@ export default class Board {
       this.classList.remove('hovered');
     };
 
-
     // пустая ячейка в которую можно положить
     emptyCell.cell.addEventListener('dragover', dragOver);
     emptyCell.cell.addEventListener('dragenter', dragEnter);
     emptyCell.cell.addEventListener('dragleave', dragLeave);
-    emptyCell.cell.addEventListener('drop', dragDrop);
+    emptyCell.cell.addEventListener('drop', (e) => {
+      dragDrop(e);
+      // this.render();
 
+    });
+
+    console.log('gridEl', gridEl);
     // Те которые можно тягать
     gridEl.forEach(cell => {
-
+      // Устанавливаем клеткам возможность тягаться
       this.setDraggable(cell);
-      cell.addEventListener('dragstart', dragStart);
-      cell.addEventListener('dragend', dragEnd);
+      cell.addEventListener('dragstart', (e) => {
+        dragStart(e.target)
+      });
+      cell.addEventListener('dragend', (e) => {
+        dragEnd(e.target);
+      });
     });
 
   };
 
+  moveSquareInArray = (newCellIndex, squareElement) => {
+
+    const oldCell = this.cellArray.filter(cell => {
+      if (cell.square && cell.square['$square'] === squareElement) {
+        return true;
+      }
+    });
+    this.cellArray[newCellIndex].square = oldCell[0].square;
+    // console.log(oldCell[0]);
+
+    oldCell[0].square = null;
+
+    // console.log('Empty:', oldCell[0]);
+  };
+
   // Установка возможности Drag-N-Drop
-  setDraggable(element) {
+  // Если передан DOM элемен, то ему навешивается возможность тягаться
+  // Усли не передан, то у всех фишек убирается перетягивание
+  setDraggable(element = false) {
     if (element) {
       element.setAttribute('draggable', 'true');
     } else {
@@ -394,7 +333,6 @@ export default class Board {
     const cls = `move${direction}`;
     const $el = this.cellArray[indexElement].square['$square'];
 
-
     $el.classList.add(cls);
     this.$board.addEventListener('click', (e) => {
       e.preventDefault();
@@ -406,7 +344,7 @@ export default class Board {
   };
 
   // Получение индекса кликнутой фишки в массиве
-  getIndexClick = (target) => {
+  getIndexElementByTarget = (target) => {
     return this.cellArray.findIndex(curElement => {
       return curElement.cell === target;
     })

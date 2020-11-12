@@ -4,7 +4,8 @@ export default class State {
   constructor(el) {
     this._time = 0;
     this._turns = 0;
-    this._state = 'start';
+    // TODO Выставить значение в 'start' после тестирования
+    this._state = 'play';
 
     this.timerID = null;
 
@@ -79,5 +80,14 @@ export default class State {
 
   get time() {
     return this._time;
+  }
+
+  get state() {
+    return this._state;
+  }
+
+
+  get turns() {
+    return this._turns;
   }
 }

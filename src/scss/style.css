@@ -74,8 +74,8 @@ body {
     right: 3rem;
     width: 3rem;
     height: 3rem;
-    z-index: 200;
     cursor: pointer;
+    z-index: 1002;
 }
 
 .menu-toggle span {
@@ -458,7 +458,6 @@ input[type='checkbox'] {
 
 }
 
-
 input[type='radio']:checked + .input-label:before {
     background: #F96302;
 }
@@ -471,6 +470,7 @@ input[type='radio']:checked + .input-label:before {
     cursor: pointer;
     width: 100%;
 }
+
 .sound-label:after {
     content: '';
     display: flex;
@@ -488,3 +488,123 @@ input[type='checkbox']:checked + .sound-label:after {
     max-width: 1em;
     height: 1em;
 }
+
+
+/* Модальное окно победы */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+
+    background: rgba(249, 146, 103, 0.9);
+
+    z-index: 99;
+}
+.win-modal {
+    font-size: 16px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    width: 90%;
+    max-width: 600px;
+
+    padding: 2rem;
+
+    color: #010D19;
+    background: #00B27A;
+    border: 1rem solid #006B54;
+
+    box-shadow: 0 0 4.5px rgba(0, 0, 0, 0.08),
+    0 0.4px 9.6px rgba(0, 0, 0, 0.101),
+    0 2.3px 15.6px rgba(0, 0, 0, 0.115),
+    0 9.3px 23.7px rgba(0, 0, 0, 0.128),
+    0 36.2px 37.6px rgba(0, 0, 0, 0.149),
+    0 100px 80px rgba(0, 0, 0, 0.2);
+    z-index: 99;
+}
+
+.win-modal .title {
+    font-size: 3em;
+    text-align: center;
+}
+
+.win-modal .text,
+.win-modal .record,
+.win-modal .question,
+.win-modal .next-game{
+    margin-top: 1em;
+    font-size: 1.3em;
+}
+
+.record-time,
+.record-turns,
+.record-size
+{
+    font-weight: bold;
+    font-style: italic;
+}
+
+.worm-words {
+    display: none;
+}
+.no-record .worm-words {
+    display: inline;
+}
+.no-record .reason {
+    display: none;
+}
+
+.no-record .question {
+    display: none;
+}
+
+.no-record .your-name-form {
+    display: none;
+}
+
+.your-name-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-top: 1em;
+}
+
+.your-name-form .name {
+    flex-basis: 90%;
+    font-size: 1.5em;
+    padding: 0.3em;
+    text-align: center;
+}
+
+input[type='submit'],
+input[type='reset'] {
+    padding: 1em;
+    background: transparent;
+    border: 0.3em solid #006B54;
+
+    margin: 1rem 1rem 0;
+    font-size: 1.2em;
+
+    border-radius: 0.5em;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+input[type='submit']:hover,
+input[type='reset']:hover {
+    background: rgba(0, 107, 84, 0.5);
+    color: white;
+}
+

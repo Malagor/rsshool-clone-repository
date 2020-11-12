@@ -89,11 +89,14 @@ export default class Game {
       const {target} = e;
 
       // Клик по клетке поля
+
       if (target.closest('.cell')) {
-        if (this.board.move(target.closest('.cell'), this.properties.isSound)) {
-          this.state.turn();
-          if (this.board.isFinish()) {
-            this.finishGame();
+        if (this.state.state === 'play') {
+          if (this.board.move(target.closest('.cell'), this.properties.isSound)) {
+            this.state.turn();
+            if (this.board.isFinish()) {
+              this.finishGame();
+            }
           }
         }
       }
@@ -113,7 +116,8 @@ export default class Game {
       if (target.closest('#turnLabel')) this.viewTurnsScore();
 
       if (target.closest('.back')) this.viewMenu();
-    })
+    });
+
   };
 
   menuToggle(e) {
@@ -125,10 +129,21 @@ export default class Game {
 
     document.querySelector('.field').classList.toggle('blur');
     document.querySelector('.stat').classList.toggle('blur');
+
+    try {
+      document.querySelector('.win-modal').classList.toggle('blur');
+    } catch (e) {
+    }
+
   };
 
   newGame = (e) => {
     this.menuToggle(e);
+    try {
+      document.body.removeChild(document.querySelector('.overlay'));
+      document.body.removeChild(document.querySelector('.win-modal'));
+    } catch (e) {
+    }
     if (this.properties.isPicturesSquare) {
       this.elements.board.classList.add('picture');
     } else {
@@ -299,6 +314,32 @@ export default class Game {
     });
   };
 
+  viewWin = () => {
+    const lastTime = this.score.getLastPositionInScoreByTime();
+    const lastTurns = this.score.getLastPositionInScoreByTurns();
+
+    const isRecord = lastTime < 0 || lastTurns < 0 || (lastTime > this.state.time) || (lastTurns > this.state.turns);
+
+    document.body.insertAdjacentHTML('afterbegin', `
+    <div class="overlay"></div>
+      <div class="win-modal ${isRecord ? '' : 'no-record'}">
+        <div class="title">Вам удалось!!!</div>
+        <div class="text">После <span class="record-time">${msToTime(this.state.time)}</span> времени и <span class="record-turns">${this.state.turns}</span> ходов вы собрали пазл из <span class="record-size">${(this.properties.size * this.properties.size) - 1}</span> клеток. Поздравляю!!!
+        </div>
+        <div class="record">Вы<span class="worm-words">, к сожалению не</span> попали в таблицу рекордов<span class="worm-words">. Но это не повод унывать, вы все равно молодец!</span><span class="reason">.</span> </div>
+        <div class="question">Внести ваш результат в таблицу? Если "Да", то введите ваше имя и отправте форму. Если вы скромничаете, то тоже имеете право.
+        </div>
+        <div class="next-game">Для начала новой игры или изменения настроек зайдите в меню. Там все будет.</div>
+        <form class="your-name-form">
+          <input id="name" class="name" type="text" placeholder="Ваше имя?">
+          <input id="cancel" type="reset" value="Я скромный">
+          <input id="send" type="submit" value="Я ПОБЕДИТЕЛЬ!">
+        </form>
+    
+    </div>    
+    `);
+  };
+
   scoreToggle = () => {
     const {timeToggle, turnsToggle} = this.elements;
     timeToggle.classList.toggle('active');
@@ -308,17 +349,43 @@ export default class Game {
 
   finishGame() {
     this.state.stop();
+    this.state['_state'] = 'finish';
     const turns = this.state.getTurns();
     const time = this.state.time;
-    const name = prompt('Your Name?');
+    // const name = prompt('Your Name?');
 
-    const res = {
-      turns,
-      time,
-      name
-    };
+    this.viewWin();
 
-    this.score.setResult(res);
-    console.log(res);
+    document.querySelector('#send').addEventListener('click', () => {
+      let name = document.querySelector('#name').value;
+
+      if (name === '') name = 'Gamer';
+
+      const res = {
+        turns,
+        time,
+        name
+      };
+
+      if (turns && time) {
+        this.score.setResult(res);
+      }
+
+      this.closeModal();
+    });
+
+    document.querySelector('#cancel').addEventListener('click', () => {
+      this.closeModal();
+    });
+
+  }
+
+  closeModal() {
+    const modal = document.querySelector('.win-modal ');
+    const overlay = document.querySelector('.overlay ');
+
+    document.body.removeChild(modal);
+    document.body.removeChild(overlay);
+
   }
 }

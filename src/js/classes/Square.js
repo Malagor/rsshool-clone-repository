@@ -24,4 +24,10 @@ export default class Square {
   get square() {
     return this.$square;
   }
+
+  findSquare(el) {
+    if (el === this.$square) {
+      return this;
+    }
+  }
 }

@@ -34,10 +34,37 @@ export default class Game {
     this.events();
   }
 
-  static ready(size = 4) {
+  static ready() {
     const game = new Game();
-    game.properties.size = size;
-    game.board = game.createBoard(game.elements.board, game.properties.size, game.properties.isPicturesSquare);
+
+    const loadGameObj = game.loadStateGame();
+    console.log('Load game Data:', loadGameObj);
+
+    if (loadGameObj) {
+      game.properties.size = Number.parseInt(loadGameObj.size);
+      game.properties.isSound = loadGameObj.isSound;
+      game.properties.isPicturesSquare = loadGameObj.isPic;
+      if (game.properties.isPicturesSquare) {
+        game.elements.board.classList.add('picture');
+      } else {
+        game.elements.board.classList.remove('picture');
+      }
+      const {imgIndex, state, arrayCell} = loadGameObj;
+      game.state.time = state.time;
+      game.state.turns = state.turns;
+      game.state.state = state.state;
+      game.board = game.createBoard(game.elements.board, game.properties.size, arrayCell, game.properties.isPicturesSquare, imgIndex);
+    } else {
+      game.board = game.createBoard(game.elements.board, game.properties.size);
+    }
+
+    game.board.start(true);
+    if (game.state.state === 'play') {
+      game.state.start();
+    }
+
+    // game.board.cellArray = loadGameObg.arrayCell;
+    // game.board.render();
 
     return game;
   }
@@ -80,8 +107,8 @@ export default class Game {
     this.viewMenu();
   };
 
-  createBoard(el, size) {
-    return new Board(el, size);
+  createBoard(el, size, arrayCell, isPic, imageIndex) {
+    return new Board(el, size, arrayCell, isPic, imageIndex);
   }
 
   events = () => {
@@ -97,6 +124,7 @@ export default class Game {
             if (this.board.isFinish()) {
               this.finishGame();
             }
+            this.saveStateGame();
           }
         }
       }
@@ -149,7 +177,7 @@ export default class Game {
     } else {
       this.elements.board.classList.remove('picture');
     }
-    this.board = Board.create(this.elements.board, this.properties.size, this.properties.isPicturesSquare);
+    this.board = Board.create(this.elements.board, this.properties.size, [], this.properties.isPicturesSquare);
     this.board.start();
     this.state.stop();
     this.state.start();
@@ -348,12 +376,14 @@ export default class Game {
 
 
   finishGame() {
+    this.board.randIndexArray = [];
     this.state.stop();
     this.state['_state'] = 'finish';
     const turns = this.state.getTurns();
     const time = this.state.time;
     // const name = prompt('Your Name?');
 
+    this.saveStateGame();
     this.viewWin();
 
     document.querySelector('#send').addEventListener('click', () => {
@@ -387,5 +417,24 @@ export default class Game {
     document.body.removeChild(modal);
     document.body.removeChild(overlay);
 
+  }
+
+  saveStateGame = () => {
+    const gamePropertyJson = {
+      size: this.properties.size,
+      isPic: this.properties.isPicturesSquare,
+      isSound: this.properties.isSound,
+      imgIndex: this.board.imageIndex,
+      arrayCell: this.board.getValueSquareArray(),
+      state: this.state.getState()
+    };
+
+    console.log('Save data', gamePropertyJson);
+    localStorage.setItem('saveGame', JSON.stringify(gamePropertyJson));
+  };
+
+  loadStateGame = () => {
+    const loadObj = JSON.parse(localStorage.getItem('saveGame'));
+    return loadObj ? loadObj : null;
   }
 }

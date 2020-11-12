@@ -274,6 +274,7 @@ body {
 .picture .square {
     border-radius: 0;
     color: transparent;
+    font-size: 0;
 }
 
 .moveUp {

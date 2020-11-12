@@ -2,19 +2,21 @@ import Square from "./Square.js";
 import sound from "../util/sound.js";
 
 export default class Board {
-  constructor(element, size, isPic = false) {
+  constructor(element, size, arrayCell = [], isPic = false, imageIndex = null) {
     this.size = size || 4;
     this.countCells = size * size;
     this.$board = element;
-    this.cellArray = [];
+    this.cellArray = null;
     this.isPic = isPic;
+    this.imageIndex = imageIndex;
     this.draggableSquare = null;
+    this.randIndexArray = arrayCell;
 
-    this.start(true);
+    // this.start(true);
   }
 
-  static create(element, size, isPic) {
-    return new Board(element, size, isPic);
+  static create(element, size, arrayCell, isPic, imageIndex) {
+    return new Board(element, size, arrayCell, isPic, imageIndex);
   }
 
   // init() {
@@ -25,14 +27,13 @@ export default class Board {
     this.cellArray = [];
 
     // Если это новая игра, то получаем перемешанные индексы, иначе попорядку
-    const randIndexArray = isInit
-      ? this.randIndex(this.countCells, false)
-      : this.randIndex(this.countCells);
+    if (this.randIndexArray.length === 0) {
+      this.randIndexArray = this.randIndex(this.countCells, !isInit);
+    }
 
     // выюираем рандомную картинку
-    let imgIndex;
-    if (this.isPic) {
-      imgIndex = 1 + Math.floor(Math.random() * Math.floor(150));
+    if (this.isPic && (this.imageIndex === null)) {
+      this.imageIndex = 1 + Math.floor(Math.random() * Math.floor(150));
     }
 
     // создаем массив клеток
@@ -46,8 +47,8 @@ export default class Board {
 
 
       // Создаем фишку в клетке
-      if (randIndexArray[i] !== (this.countCells) - 1) {
-        square = Square.create(randIndexArray[i], randIndexArray[i] + 1);
+      if (this.randIndexArray[i] !== (this.countCells) - 1) {
+        square = Square.create(this.randIndexArray[i], this.randIndexArray[i] + 1);
 
         // Если в настройках выбрана картинка, то формируем картинку для фишки
         if (this.isPic) {
@@ -56,10 +57,10 @@ export default class Board {
           const height = 400;
           const size = this.size;
           const sqrSize = width / size;
-          const leftBg = randIndexArray[i] % size;
-          const topBg = (randIndexArray[i] - leftBg) / size;
+          const leftBg = this.randIndexArray[i] % size;
+          const topBg = (this.randIndexArray[i] - leftBg) / size;
 
-          sqr.style.backgroundImage = `url(../assets/images/${imgIndex}.jpg)`;
+          sqr.style.backgroundImage = `url(../assets/images/${this.imageIndex}.jpg)`;
           sqr.style.backgroundSize = `${width}px ${height}px`;
           sqr.style.backgroundPosition = `${(size - leftBg) * sqrSize}px ${(size - topBg) * sqrSize}px`;
         }
@@ -223,9 +224,9 @@ export default class Board {
     // Массив соседних с пустой элементов
     const gridEl_1 = this.nextdoorNeighbours(top, left);
 
-      const gridEl = gridEl_1.map(i => {
+    const gridEl = gridEl_1.map(i => {
         try {
-          if (this.cellArray[i].square){
+          if (this.cellArray[i].square) {
             return this.cellArray[i].square['$square'];
           }
         } catch (e) {
@@ -242,7 +243,7 @@ export default class Board {
       setTimeout(() => {
         target.classList.add('hide');
         this.draggableSquare = target;
-        }, 0);
+      }, 0);
     };
 
     const dragEnd = (target) => {
@@ -388,5 +389,16 @@ export default class Board {
       getBottom(),
     ].filter(index => index !== null);
   }
+
+  getSquareIndex(cell) {
+    const {square} = cell;
+    // возвращаем либо индекс, если фоишки нет, то последний индекс
+    return square ? square.index: this.countCells - 1;
+
+  }
+
+  getValueSquareArray = () => {
+    return this.cellArray.map(cell => this.getSquareIndex(cell));
+  };
 
 }

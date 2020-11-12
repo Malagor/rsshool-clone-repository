@@ -38,9 +38,11 @@ export default class State {
   };
 
   start = () => {
-    this._time = 0;
-    this._turns = 0;
-    this._state = 'play';
+    if (this._state !== 'play') {
+      this._time = 0;
+      this._turns = 0;
+      this._state = 'play';
+    }
     this.$turns.innerText = `Turns: ${this._turns}`;
     setTimeout(this.tick, 1000);
   };
@@ -51,7 +53,7 @@ export default class State {
     this.timerID = null;
   };
 
-  pause =() => {
+  pause = () => {
     clearTimeout(this.timerID);
   };
 
@@ -60,7 +62,7 @@ export default class State {
   };
 
   turn = () => {
-    if (this._state === 'play'){
+    if (this._state === 'play') {
       this._turns += 1;
       this.$turns.innerText = `Turns: ${this._turns}`;
     }
@@ -82,12 +84,31 @@ export default class State {
     return this._time;
   }
 
+  set time(value) {
+    this._time = value;
+  }
+
   get state() {
     return this._state;
   }
 
+  set state(value) {
+    this._state = value;
+  }
 
   get turns() {
     return this._turns;
+  }
+
+  set turns(value) {
+    this._turns = value;
+  }
+
+  getState() {
+    return {
+      time: this._time,
+      turns: this._turns,
+      state: this._state,
+    };
   }
 }

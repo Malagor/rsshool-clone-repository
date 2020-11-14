@@ -2,6 +2,7 @@
 
 Private repository for @malagor
 
+<<<<<<< HEAD
 ## WebDev
 https://rolling-scopes-school.github.io/malagor-JS2020Q3/webdev
 
@@ -17,3 +18,5 @@ https://rolling-scopes-school.github.io/malagor-JS2020Q3/calculator/
 ## Virtual Keyboard
 https://rolling-scopes-school.github.io/malagor-JS2020Q3/virtual-keyboard/
 
+## Gem-puzzle
+https://rolling-scopes-school.github.io/malagor-JS2020Q3/gem-puzzle/src/

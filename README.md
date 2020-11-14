@@ -2,7 +2,6 @@
 
 Private repository for @malagor
 
-<<<<<<< HEAD
 ## WebDev
 https://rolling-scopes-school.github.io/malagor-JS2020Q3/webdev
 

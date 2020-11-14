@@ -1,11 +1,12 @@
-import msToTime from "../util/msToTime.js";
+/* eslint-disable import/extensions */
+import msToTime from '../util/msToTime.js';
 
 export default class State {
   constructor(el) {
     this._time = 0;
     this._turns = 0;
-    // TODO Выставить значение в 'start' после тестирования
-    this._state = 'play';
+
+    this._state = 'start';
 
     this.timerID = null;
 
@@ -57,9 +58,7 @@ export default class State {
     clearTimeout(this.timerID);
   };
 
-  resume = () => {
-    this.tick();
-  };
+  resume = () => this.tick();
 
   turn = () => {
     if (this._state === 'play') {
@@ -68,9 +67,7 @@ export default class State {
     }
   };
 
-  getTurns = () => {
-    return this._turns;
-  };
+  getTurns = () => this._turns;
 
   tick = () => {
     if (this._state === 'play') {

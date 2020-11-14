@@ -1,6 +1,5 @@
 export default class Square {
   constructor(index, value) {
-
     this.index = index;
     this.value = value;
     this.$square = null;
@@ -25,9 +24,9 @@ export default class Square {
     return this.$square;
   }
 
-  findSquare(el) {
-    if (el === this.$square) {
-      return this;
-    }
-  }
+  // findSquare(el) {
+  //   if (el === this.$square) {
+  //     return this;
+  //   }
+  // }
 }

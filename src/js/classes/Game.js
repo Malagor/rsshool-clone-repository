@@ -1,8 +1,8 @@
-import Board from "./Board.js";
-import State from "./State.js";
-import Score from "./Score.js";
-import msToTime from "../util/msToTime.js";
-
+/* eslint-disable import/extensions */
+import Board from './Board.js';
+import State from './State.js';
+import Score from './Score.js';
+import msToTime from '../util/msToTime.js';
 
 export default class Game {
   constructor() {
@@ -10,7 +10,7 @@ export default class Game {
       size: 4,
       isPicturesSquare: false,
       isSound: true,
-      sizeBoard: null
+      sizeBoard: null,
     };
 
     this.elements = {
@@ -23,10 +23,9 @@ export default class Game {
       resume: null,
       timeToggle: null,
       turnsToggle: null,
-      board: null
+      board: null,
     };
 
-    // this.board = board;
     this.board = null;
     this.state = null;
     this.score = null;
@@ -41,7 +40,7 @@ export default class Game {
     const loadGameObj = game.loadStateGame();
 
     if (loadGameObj) {
-      game.properties.size = Number.parseInt(loadGameObj.size);
+      game.properties.size = +loadGameObj.size;
       game.properties.isSound = loadGameObj.isSound;
       game.properties.isPicturesSquare = loadGameObj.isPic;
       if (game.properties.isPicturesSquare) {
@@ -49,13 +48,15 @@ export default class Game {
       } else {
         game.elements.board.classList.remove('picture');
       }
-      const {imgIndex, state, arrayCell} = loadGameObj;
+      const { imgIndex, state, arrayCell } = loadGameObj;
       game.state.time = state.time;
       game.state.turns = state.turns;
       game.state.state = state.state;
-      game.board = game.createBoard(game.elements.board, game.properties.size, game.properties.sizeBoard, arrayCell, game.properties.isPicturesSquare, imgIndex);
+      game.board = Board.create(game.elements.board, game.properties.size,
+        game.properties.sizeBoard, arrayCell, game.properties.isPicturesSquare, imgIndex);
     } else {
-      game.board = game.createBoard(game.elements.board, game.properties.size, game.properties.sizeBoard);
+      game.board = Board.create(game.elements.board,
+        game.properties.size, game.properties.sizeBoard);
     }
 
     game.board.start(true);
@@ -95,8 +96,6 @@ export default class Game {
 
     this.elements.board = document.querySelector('.field');
 
-    // this.setBoardSize();
-
     this.elements.menuToggle = document.querySelector('.menu-toggle');
     this.elements.menuInner = document.querySelector('.menu-inner');
     this.elements.menu = document.querySelector('.menu');
@@ -109,30 +108,9 @@ export default class Game {
     this.viewMenu();
   };
 
-  createBoard(el, size, sizeBoard, arrayCell, isPic, imageIndex) {
-    return new Board(el, size, sizeBoard, arrayCell, isPic, imageIndex);
-  }
-
-  setBoardSize() {
-    const screenWidth = window.screen.width;
-    console.log('Width', screenWidth);
-    const screenHeight = window.screen.height;
-    console.log('Height', screenHeight);
-    this.properties.sizeBoard = screenWidth < screenHeight ? screenWidth : screenHeight;
-
-    this.properties.sizeBoard *= 0.9;
-    console.log('size', this.properties.sizeBoard);
-
-    this.elements.board.style.width = `${this.properties.sizeBoard}px`;
-    this.elements.board.style.height = `${this.properties.sizeBoard}px`;
-
-    document.querySelector('.statistic').style.width = `${this.properties.sizeBoard}px`;
-
-  }
-
   events = () => {
     document.body.addEventListener('click', (e) => {
-      const {target} = e;
+      const { target } = e;
 
       // Клик по клетке поля
 
@@ -164,40 +142,42 @@ export default class Game {
 
       if (target.closest('.back')) this.viewMenu();
     });
-
   };
 
   menuToggle(e) {
     e.preventDefault();
 
-    const {menu, menuToggle} = this.elements;
+    const { menu, menuToggle } = this.elements;
     menu.classList.toggle('open');
     menuToggle.classList.toggle('open');
 
     document.querySelector('.field').classList.toggle('blur');
     document.querySelector('.stat').classList.toggle('blur');
 
-    try {
+    if (document.querySelector('.win-modal')) {
       document.querySelector('.win-modal').classList.toggle('blur');
-    } catch (e) {
     }
-
-  };
+  }
 
   newGame = (e) => {
     this.menuToggle(e);
-    try {
-      document.body.removeChild(document.querySelector('.overlay'));
+
+    if (document.querySelector('.win-modal')) {
       document.body.removeChild(document.querySelector('.win-modal'));
-    } catch (e) {
     }
+
+    if (document.querySelector('.win-modal')) {
+      document.body.removeChild(document.querySelector('.overlay'));
+    }
+
     if (this.properties.isPicturesSquare) {
       this.elements.board.classList.add('picture');
     } else {
       this.elements.board.classList.remove('picture');
     }
-    this.board = Board.create(this.elements.board, this.properties.size, this.properties.sizeBoard,[], this.properties.isPicturesSquare);
-    this.board.start(true);
+    this.board = Board.create(this.elements.board, this.properties.size,
+      this.properties.sizeBoard, [], this.properties.isPicturesSquare);
+    this.board.start();
     this.state.stop();
     this.state.start();
   };
@@ -262,9 +242,9 @@ export default class Game {
       this.properties.size = select.value;
       this.properties.isSound = check.checked;
 
-      for (let radio of radios) {
+      for (const radio of radios) {
         if (radio.checked) {
-          this.properties.isPicturesSquare = radio.value === "true";
+          this.properties.isPicturesSquare = radio.value === 'true';
         }
       }
     };
@@ -272,8 +252,8 @@ export default class Game {
     select.addEventListener('change', setSettings);
     check.addEventListener('change', setSettings);
 
-    for (let radio of radios) {
-      radio.checked = radio.value === '' + this.properties.isPicturesSquare;
+    for (const radio of radios) {
+      radio.checked = radio.value === `${this.properties.isPicturesSquare}`;
       radio.addEventListener('change', setSettings);
     }
   }
@@ -304,7 +284,6 @@ export default class Game {
     } else {
       this.viewTurnsScore();
     }
-
   };
 
   viewTimeScore = () => {
@@ -323,14 +302,14 @@ export default class Game {
 
     const bestTime = this.score.getBestTime();
     bestTime.forEach((res, index) => {
-      const {name, time, turns} = res;
+      const { name, time, turns } = res;
 
       table.insertAdjacentHTML('beforeend', `
           <div class="position">${index + 1}</div>
           <div class="name">${name}</div>
           <div class="time">${msToTime(time)}</div>
           <div class="turns">${turns}</div>       
-      `)
+      `);
     });
   };
 
@@ -350,14 +329,14 @@ export default class Game {
 
     const bestTime = this.score.getBestTurns();
     bestTime.forEach((res, index) => {
-      const {name, time, turns} = res;
+      const { name, time, turns } = res;
 
       table.insertAdjacentHTML('beforeend', `
           <div class="position">${index + 1}</div>
           <div class="name">${name}</div>
           <div class="turns">${turns}</div>       
           <div class="time">${msToTime(time)}</div>
-      `)
+      `);
     });
   };
 
@@ -365,7 +344,8 @@ export default class Game {
     const lastTime = this.score.getLastPositionInScoreByTime();
     const lastTurns = this.score.getLastPositionInScoreByTurns();
 
-    const isRecord = lastTime < 0 || lastTurns < 0 || (lastTime > this.state.time) || (lastTurns > this.state.turns);
+    const isRecord = lastTime < 0 || lastTurns < 0
+      || (lastTime > this.state.time) || (lastTurns > this.state.turns);
 
     document.body.insertAdjacentHTML('afterbegin', `
     <div class="overlay"></div>
@@ -388,18 +368,17 @@ export default class Game {
   };
 
   scoreToggle = () => {
-    const {timeToggle, turnsToggle} = this.elements;
+    const { timeToggle, turnsToggle } = this.elements;
     timeToggle.classList.toggle('active');
     turnsToggle.classList.toggle('active');
   };
 
-
   finishGame() {
     this.board.randIndexArray = [];
     this.state.stop();
-    this.state['_state'] = 'finish';
+    this.state._state = 'finish';
     const turns = this.state.getTurns();
-    const time = this.state.time;
+    const { time } = this.state;
     // const name = prompt('Your Name?');
 
     this.saveStateGame();
@@ -413,7 +392,7 @@ export default class Game {
       const res = {
         turns,
         time,
-        name
+        name,
       };
 
       if (turns && time) {
@@ -426,17 +405,15 @@ export default class Game {
     document.querySelector('#cancel').addEventListener('click', () => {
       this.closeModal();
     });
-
   }
 
-  closeModal() {
+  closeModal = () => {
     const modal = document.querySelector('.win-modal ');
     const overlay = document.querySelector('.overlay ');
 
     document.body.removeChild(modal);
     document.body.removeChild(overlay);
-
-  }
+  };
 
   saveStateGame = () => {
     const gamePropertyJson = {
@@ -445,7 +422,7 @@ export default class Game {
       isSound: this.properties.isSound,
       imgIndex: this.board.imageIndex,
       arrayCell: this.board.getValueSquareArray(),
-      state: this.state.getState()
+      state: this.state.getState(),
     };
 
     // console.log('Save data', gamePropertyJson);
@@ -454,6 +431,6 @@ export default class Game {
 
   loadStateGame = () => {
     const loadObj = JSON.parse(localStorage.getItem('saveGame'));
-    return loadObj ? loadObj : null;
+    return loadObj || null;
   }
 }

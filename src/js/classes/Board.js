@@ -2,7 +2,7 @@ import Square from "./Square.js";
 import sound from "../util/sound.js";
 
 export default class Board {
-  constructor(element, size, arrayCell = [], isPic = false, imageIndex = null) {
+  constructor(element, size, sizeBoard, arrayCell = [], isPic = false, imageIndex = null) {
     this.size = size || 4;
     this.countCells = size * size;
     this.$board = element;
@@ -11,12 +11,13 @@ export default class Board {
     this.imageIndex = imageIndex;
     this.draggableSquare = null;
     this.randIndexArray = arrayCell;
+    this.sizeBoard = sizeBoard;
 
     // this.start(true);
   }
 
-  static create(element, size, arrayCell, isPic, imageIndex) {
-    return new Board(element, size, arrayCell, isPic, imageIndex);
+  static create(element, size, sizeBoard, arrayCell, isPic, imageIndex) {
+    return new Board(element, size, sizeBoard, arrayCell, isPic, imageIndex);
   }
 
   // init() {
@@ -24,6 +25,8 @@ export default class Board {
   // }
 
   start(isInit = false) {
+
+    this.$board.style.setProperty('--size', `${this.size}`);
     this.cellArray = [];
 
     // Если это новая игра, то получаем перемешанные индексы, иначе попорядку
@@ -53,16 +56,16 @@ export default class Board {
         // Если в настройках выбрана картинка, то формируем картинку для фишки
         if (this.isPic) {
           const sqr = square.square;
-          const width = 400;
-          const height = 400;
+          const width = this.sizeBoard;
+          const height = this.sizeBoard;
           const size = this.size;
-          const sqrSize = width / size;
           const leftBg = this.randIndexArray[i] % size;
           const topBg = (this.randIndexArray[i] - leftBg) / size;
 
           sqr.style.backgroundImage = `url(../assets/images/${this.imageIndex}.jpg)`;
           sqr.style.backgroundSize = `${width}px ${height}px`;
-          sqr.style.backgroundPosition = `${(size - leftBg) * sqrSize}px ${(size - topBg) * sqrSize}px`;
+          sqr.style.setProperty('--bgTop', `${leftBg}`);
+          sqr.style.setProperty('--bgLeft', `${topBg}`);
         }
       }
 
@@ -75,12 +78,10 @@ export default class Board {
       });
     }
 
-    // рисуем поле на экране
     this.render();
   }
 
   render = () => {
-    // console.log('RENDER!!!');
 
     this.$board.style.gridTemplateColumns = `repeat(${this.size}, 1fr)`;
     this.$board.style.gridTemplateRows = `repeat(${this.size}, 1fr)`;
@@ -122,6 +123,7 @@ export default class Board {
   isSolution = (arr) => {
 
     // Проверка на четность
+    // Если четный то вовзращает true
     function isEven(num) {
       return !(num % 2);
     }
@@ -129,11 +131,10 @@ export default class Board {
     let emptyPosition = null;
     const size = Math.sqrt(arr.length);
 
-    const sum = arr.reduce((sum, value, index, arr) => {
+    let sum = arr.reduce((sum, value, index) => {
       if (value === arr.length - 1) {
-        sum += (index % size) + 1;
-        emptyPosition = (index % size) + 1;
-        // console.log('empty pos', (index % size) + 1);
+        const left = index % size;
+        emptyPosition = ( (index - left) / size ) + 1;
       } else {
         for (let i = index + 1; i < arr.length; i += 1) {
           if (value > arr[i]) {
@@ -145,11 +146,11 @@ export default class Board {
     }, 0);
 
     if (isEven(arr.length)) {
-      if (isEven(sum)) return true;
-    } else {
-      if (!isEven(sum) && !isEven(emptyPosition)) return true;
+      sum += emptyPosition;
     }
-    return false;
+
+    return isEven(sum);
+
   };
 
 

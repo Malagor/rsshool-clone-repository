@@ -9,7 +9,8 @@ export default class Game {
     this.properties = {
       size: 4,
       isPicturesSquare: false,
-      isSound: true
+      isSound: true,
+      sizeBoard: null
     };
 
     this.elements = {
@@ -38,7 +39,6 @@ export default class Game {
     const game = new Game();
 
     const loadGameObj = game.loadStateGame();
-    console.log('Load game Data:', loadGameObj);
 
     if (loadGameObj) {
       game.properties.size = Number.parseInt(loadGameObj.size);
@@ -53,9 +53,9 @@ export default class Game {
       game.state.time = state.time;
       game.state.turns = state.turns;
       game.state.state = state.state;
-      game.board = game.createBoard(game.elements.board, game.properties.size, arrayCell, game.properties.isPicturesSquare, imgIndex);
+      game.board = game.createBoard(game.elements.board, game.properties.size, game.properties.sizeBoard, arrayCell, game.properties.isPicturesSquare, imgIndex);
     } else {
-      game.board = game.createBoard(game.elements.board, game.properties.size);
+      game.board = game.createBoard(game.elements.board, game.properties.size, game.properties.sizeBoard);
     }
 
     game.board.start(true);
@@ -95,6 +95,8 @@ export default class Game {
 
     this.elements.board = document.querySelector('.field');
 
+    // this.setBoardSize();
+
     this.elements.menuToggle = document.querySelector('.menu-toggle');
     this.elements.menuInner = document.querySelector('.menu-inner');
     this.elements.menu = document.querySelector('.menu');
@@ -107,8 +109,25 @@ export default class Game {
     this.viewMenu();
   };
 
-  createBoard(el, size, arrayCell, isPic, imageIndex) {
-    return new Board(el, size, arrayCell, isPic, imageIndex);
+  createBoard(el, size, sizeBoard, arrayCell, isPic, imageIndex) {
+    return new Board(el, size, sizeBoard, arrayCell, isPic, imageIndex);
+  }
+
+  setBoardSize() {
+    const screenWidth = window.screen.width;
+    console.log('Width', screenWidth);
+    const screenHeight = window.screen.height;
+    console.log('Height', screenHeight);
+    this.properties.sizeBoard = screenWidth < screenHeight ? screenWidth : screenHeight;
+
+    this.properties.sizeBoard *= 0.9;
+    console.log('size', this.properties.sizeBoard);
+
+    this.elements.board.style.width = `${this.properties.sizeBoard}px`;
+    this.elements.board.style.height = `${this.properties.sizeBoard}px`;
+
+    document.querySelector('.statistic').style.width = `${this.properties.sizeBoard}px`;
+
   }
 
   events = () => {
@@ -177,8 +196,8 @@ export default class Game {
     } else {
       this.elements.board.classList.remove('picture');
     }
-    this.board = Board.create(this.elements.board, this.properties.size, [], this.properties.isPicturesSquare);
-    this.board.start();
+    this.board = Board.create(this.elements.board, this.properties.size, this.properties.sizeBoard,[], this.properties.isPicturesSquare);
+    this.board.start(true);
     this.state.stop();
     this.state.start();
   };
@@ -429,7 +448,7 @@ export default class Game {
       state: this.state.getState()
     };
 
-    console.log('Save data', gamePropertyJson);
+    // console.log('Save data', gamePropertyJson);
     localStorage.setItem('saveGame', JSON.stringify(gamePropertyJson));
   };
 

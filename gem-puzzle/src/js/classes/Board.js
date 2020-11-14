@@ -55,7 +55,7 @@ export default class Board {
           const leftBg = this.randIndexArray[i] % size;
           const topBg = (this.randIndexArray[i] - leftBg) / size;
 
-          sqr.style.backgroundImage = `url(../assets/images/${this.imageIndex}.jpg)`;
+          sqr.style.backgroundImage = `url(./assets/images/${this.imageIndex}.jpg)`;
           sqr.style.backgroundSize = `${width}px ${height}px`;
           sqr.style.setProperty('--bgTop', `${leftBg}`);
           sqr.style.setProperty('--bgLeft', `${topBg}`);

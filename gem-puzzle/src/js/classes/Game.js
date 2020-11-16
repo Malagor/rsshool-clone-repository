@@ -200,6 +200,8 @@ export default class Game {
           <li id="score">Счет</li>
           <li id="setting">Настройки</li>
         </ul>
+        
+        <div class="author">Discord: Malagor#6535</div>
     `);
   }
 

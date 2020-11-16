@@ -2,6 +2,7 @@
 import Board from './Board.js';
 import State from './State.js';
 import Score from './Score.js';
+import sound from '../util/sound.js';
 import msToTime from '../util/msToTime.js';
 
 export default class Game {
@@ -113,17 +114,7 @@ export default class Game {
       const { target } = e;
 
       // Клик по клетке поля
-
-      if (target.closest('.cell')) {
-        if (this.state.state === 'play') {
-          if (this.board.move(target.closest('.cell'), this.properties.isSound)) {
-            this.state.turn();
-            // Проверяем окончание ли игры, и запускаем событие в случае успеха
-            this.board.isFinish();
-            this.saveStateGame();
-          }
-        }
-      }
+      if (target.closest('.cell')) this.board.move(target.closest('.cell'));
 
       // Клик по переключателю меню
       if (target.closest('.menu-toggle')) this.menuToggle(e);
@@ -136,17 +127,26 @@ export default class Game {
 
       // Переключатель вида таблицы рекордов
       if (target.closest('#timeLabel')) this.viewTimeScore();
-
       if (target.closest('#turnLabel')) this.viewTurnsScore();
-
       if (target.closest('.back')) this.viewMenu();
     });
 
-    this.elements.board.addEventListener('finish', () => {
-      console.log('Поймали событие финиш гейм');
-      this.finishGame();
-      this.saveStateGame();
-    });
+    // Пользовательские события
+    this.elements.board.addEventListener('finish', this.eventFinishGame);
+    this.elements.board.addEventListener('isMove', this.eventIsMove);
+  };
+
+  eventFinishGame = () => {
+    this.finishGame();
+    this.saveStateGame();
+  };
+
+  eventIsMove = () => {
+    if (this.properties.isSound) {
+      sound();
+    }
+    this.state.turn();
+    this.saveStateGame();
   };
 
   menuToggle(e) {
@@ -171,7 +171,7 @@ export default class Game {
       document.body.removeChild(document.querySelector('.win-modal'));
     }
 
-    if (document.querySelector('.win-modal')) {
+    if (document.querySelector('.overlay')) {
       document.body.removeChild(document.querySelector('.overlay'));
     }
 
@@ -421,7 +421,7 @@ export default class Game {
   };
 
   saveStateGame = () => {
-    const gamePropertyJson = {
+    const gamePropertyForSave = {
       size: this.properties.size,
       isPic: this.properties.isPicturesSquare,
       isSound: this.properties.isSound,
@@ -430,8 +430,7 @@ export default class Game {
       state: this.state.getState(),
     };
 
-    // console.log('Save data', gamePropertyJson);
-    localStorage.setItem('saveGame', JSON.stringify(gamePropertyJson));
+    localStorage.setItem('saveGame', JSON.stringify(gamePropertyForSave));
   };
 
   loadStateGame = () => {

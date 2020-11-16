@@ -1,6 +1,5 @@
 /* eslint-disable import/extensions */
 import Square from './Square.js';
-import sound from '../util/sound.js';
 
 export default class Board {
   constructor(element, size, sizeBoard, arrayCell = [], isPic = false, imageIndex = null) {
@@ -144,7 +143,7 @@ export default class Board {
   };
 
   // Перемещение фишки
-  move = (target, isSound = true) => {
+  move = (target) => {
     const curIndex = this.getIndexElementByTarget(target);
     const emptyIndex = this.getIndexEmpty();
 
@@ -155,10 +154,6 @@ export default class Board {
     const deltaLeft = curLeft - emptyLeft;
 
     if ((Math.abs(deltaLeft) + Math.abs(deltaTop)) === 1) {
-      if (isSound) {
-        sound();
-      }
-
       // Animation moves
       let directionMove;
       if (deltaLeft === -1) {
@@ -176,10 +171,18 @@ export default class Board {
       this.cellArray[emptyIndex].square = this.cellArray[curIndex].square;
       this.cellArray[curIndex].square = null;
 
+      this.createEventMove();
+      this.isFinish();
+
       return true;
     }
     return false;
   };
+
+  createEventMove() {
+    const event = new Event('isMove', { bubbles: true });
+    this.$board.dispatchEvent(event);
+  }
 
   // Провека на окончание игры
   isFinish() {
@@ -194,13 +197,18 @@ export default class Board {
 
       return (top * this.size + left) === index;
     });
+
     if (isFin) {
-      const event = new Event('finish', { bubbles: true });
-      this.$board.dispatchEvent(event);
+      this.createEventFinish();
       return true;
     }
     return false;
   }
+
+  createEventFinish = () => {
+    const event = new Event('finish', { bubbles: true });
+    this.$board.dispatchEvent(event);
+  };
 
   // Перемещение фишек перетягиванием
   dragNDrop = () => {
@@ -212,8 +220,9 @@ export default class Board {
     const emptyCell = this.cellArray[this.getIndexEmpty()];
     const { top, left } = emptyCell;
 
+    const neighboursIndexes = this.nextdoorNeighbours(top, left);
     // Массив соседних с пустой элементов
-    const nextdoorNeighboursCell = this.nextdoorNeighbours(top, left).map((i) => {
+    const nextdoorNeighboursCell = neighboursIndexes.map((i) => {
       if (this.cellArray[i].square) {
         return this.cellArray[i].square.$square;
       }
@@ -256,7 +265,7 @@ export default class Board {
       evt.target.append(this.draggableSquare);
       evt.target.classList.remove('hovered');
 
-      console.log('Индекс пустой ячейки:', this.getIndexEmpty());
+      // console.log('Индекс пустой ячейки:', this.getIndexEmpty());
 
       this.cellArray.forEach((cell) => {
         const target = cell.cell;
@@ -266,8 +275,10 @@ export default class Board {
         target.removeEventListener('dragleave', dragLeave);
         target.removeEventListener('drop', dragDrop);
       });
+      this.createEventMove();
       this.isFinish();
       this.render();
+      // this.dragNDrop();
     };
 
     // пустая ячейка в которую можно положить
@@ -290,7 +301,7 @@ export default class Board {
 
   moveSquareInArray = (newCellIndex, squareElement) => {
     const oldCell = this.cellArray
-      .filter((cell) => !!(cell.square && cell.square.$square === squareElement));
+      .filter((cell) => cell.square && cell.square.$square === squareElement);
     this.cellArray[newCellIndex].square = oldCell[0].square;
 
     oldCell[0].square = null;

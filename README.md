@@ -18,4 +18,4 @@ https://rolling-scopes-school.github.io/malagor-JS2020Q3/calculator/
 https://rolling-scopes-school.github.io/malagor-JS2020Q3/virtual-keyboard/
 
 ## Gem-puzzle
-https://rolling-scopes-school.github.io/malagor-JS2020Q3/gem-puzzle/src/
+https://rolling-scopes-school.github.io/malagor-JS2020Q3/gem-puzzle/dist/

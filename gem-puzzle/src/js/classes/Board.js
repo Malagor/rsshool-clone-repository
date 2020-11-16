@@ -95,7 +95,7 @@ export default class Board {
 
     // после отрисовки навешиваем возможность тягать клетки ТОЛЬКО рядом с пустой
     // this.setDraggable();
-    // this.dragNDrop();
+    this.dragNDrop();
   };
 
   // Поиск индексов фишек с решаемым результатом
@@ -198,10 +198,6 @@ export default class Board {
 
   // Перемещение фишек перетягиванием
   dragNDrop = () => {
-    // console.log('DRAG N DROP!!!');
-
-    // this.setDraggable();
-
     const allCell = document.querySelectorAll('.square');
     allCell.forEach((el) => {
       el.setAttribute('draggable', 'false');
@@ -211,14 +207,14 @@ export default class Board {
     const { top, left } = emptyCell;
 
     // Массив соседних с пустой элементов
-    const gridEl = this.nextdoorNeighbours(top, left).map((i) => {
+    const nextdoorNeighboursCell = this.nextdoorNeighbours(top, left).map((i) => {
       if (this.cellArray[i].square) {
         return this.cellArray[i].square.$square;
       }
       return false;
     });
 
-    gridEl.forEach((cell) => cell.setAttribute('draggable', 'true'));
+    nextdoorNeighboursCell.forEach((cell) => cell.setAttribute('draggable', 'true'));
 
     // drag n drop events
     const dragStart = (event) => {
@@ -236,20 +232,6 @@ export default class Board {
       evt.preventDefault();
     };
 
-    const dragDrop = (evt) => {
-      evt.preventDefault();
-      const indexDropCell = this.getIndexElementByTarget(evt.target);
-      this.moveSquareInArray(indexDropCell, this.draggableSquare);
-
-      evt.target.append(this.draggableSquare);
-      evt.target.classList.remove('hovered');
-
-      console.log('Индекс пустой ячейки:', this.getIndexEmpty());
-      // this.dragNDrop();
-      // this.setDraggable();
-      this.render();
-    };
-
     function dragEnter() {
       this.classList.add('hovered');
     }
@@ -258,11 +240,28 @@ export default class Board {
       this.classList.remove('hovered');
     }
 
-    // Удаляем старые слушатели
-    emptyCell.cell.removeEventListener('dragover', dragOver);
-    emptyCell.cell.removeEventListener('dragenter', dragEnter);
-    emptyCell.cell.removeEventListener('dragleave', dragLeave);
-    emptyCell.cell.removeEventListener('drop', dragDrop);
+    const dragDrop = (evt) => {
+      evt.preventDefault();
+      const indexDropCell = this.getIndexElementByTarget(evt.target);
+
+      // изменяем массив клеток в свойстве класса
+      this.moveSquareInArray(indexDropCell, this.draggableSquare);
+
+      evt.target.append(this.draggableSquare);
+      evt.target.classList.remove('hovered');
+
+      console.log('Индекс пустой ячейки:', this.getIndexEmpty());
+
+      this.cellArray.forEach((cell) => {
+        const target = cell.cell;
+        // Удаляем старые слушатели
+        target.removeEventListener('dragover', dragOver);
+        target.removeEventListener('dragenter', dragEnter);
+        target.removeEventListener('dragleave', dragLeave);
+        target.removeEventListener('drop', dragDrop);
+      });
+      this.render();
+    };
 
     // пустая ячейка в которую можно положить
     emptyCell.cell.addEventListener('dragover', dragOver);
@@ -270,10 +269,8 @@ export default class Board {
     emptyCell.cell.addEventListener('dragleave', dragLeave);
     emptyCell.cell.addEventListener('drop', dragDrop);
 
-    console.log('gridEl', gridEl);
-
     // Те которые можно тягать
-    gridEl.forEach((cell) => {
+    nextdoorNeighboursCell.forEach((cell) => {
       cell.removeEventListener('dragstart', dragStart);
       cell.removeEventListener('dragend', dragEnd);
 
@@ -288,36 +285,9 @@ export default class Board {
     const oldCell = this.cellArray
       .filter((cell) => !!(cell.square && cell.square.$square === squareElement));
     this.cellArray[newCellIndex].square = oldCell[0].square;
-    // console.log(oldCell[0]);
 
     oldCell[0].square = null;
-
-    // console.log('Empty:', oldCell[0]);
   };
-
-  // Установка возможности Drag-N-Drop
-  // Если передан DOM элемен, то ему навешивается возможность тягаться
-  // Усли не передан, то у всех фишек убирается перетягивание
-
-  // setDraggable = () => {
-  //   const allCell = document.querySelectorAll('.square');
-  //   allCell.forEach((el) => {
-  //     el.setAttribute('draggable', 'false');
-  //   });
-  //
-  //   const emptyCell = this.cellArray[this.getIndexEmpty()];
-  //   const { top, left } = emptyCell;
-  //
-  //   // Массив соседних с пустой элементов
-  //   const gridEl = this.nextdoorNeighbours(top, left).map((i) => {
-  //     if (this.cellArray[i].square) {
-  //       return this.cellArray[i].square.$square;
-  //     }
-  //     return false;
-  //   });
-  //
-  //   gridEl.forEach((cell) => cell.setAttribute('draggable', 'true'));
-  // };
 
   // Анимация перемещения
   animationMove = (direction, indexElement) => {

@@ -1,15 +1,18 @@
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
   entry: './src/index.js',
+  // context: path.resolve(__dirname, 'src'),
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
   },
   mode: 'development',
-
+  devtool: 'inline-source-map',
   module: {
     rules: [
       {
@@ -19,16 +22,11 @@ module.exports = {
           use: ['css-loader', 'sass-loader'],
         }),
       },
-      // {
-      //   test: /\.m?js$/,
-      //   exclude: /node_modules/,
-      //   use: {
-      //     loader: "babel-loader",
-      //     options: {
-      //       presets: ['module:@babel/plugin-proposal-class-properties'],
-      //     },
-      //   }
-      // },
+      {
+        test: /\.(js)$/,
+        exclude: /node_modules/,
+        use: ['babel-loader', 'eslint-loader'],
+      },
       {
         test: /\.html$/,
         use: [
@@ -48,8 +46,16 @@ module.exports = {
           {
             loader: 'file-loader',
             options: {
-              name: 'images/[name].[ext]',
+              name: 'assets/images/[name].[ext]',
             },
+          },
+        ],
+      },
+      {
+        test: /\.mp3$/,
+        use: [
+          {
+            loader: 'file-loader',
           },
         ],
       },
@@ -69,11 +75,29 @@ module.exports = {
     ],
   },
   plugins: [
+    new CleanWebpackPlugin(),
     new ExtractTextPlugin('style.css'),
     new HtmlWebpackPlugin({
       template: './src/index.html',
       filename: './index.html',
     }),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, 'src/assets/images/'),
+          to: path.resolve(__dirname, 'dist/assets/images/'),
+        },
+      ],
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, 'src/favicon.ico'),
+          to: path.resolve(__dirname, 'dist/favicon.ico'),
+        },
+      ],
+    }),
+
   ],
   devServer: {
     contentBase: path.join(__dirname, 'dist'),

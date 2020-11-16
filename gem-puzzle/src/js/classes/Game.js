@@ -118,9 +118,8 @@ export default class Game {
         if (this.state.state === 'play') {
           if (this.board.move(target.closest('.cell'), this.properties.isSound)) {
             this.state.turn();
-            if (this.board.isFinish()) {
-              this.finishGame();
-            }
+            // Проверяем окончание ли игры, и запускаем событие в случае успеха
+            this.board.isFinish();
             this.saveStateGame();
           }
         }
@@ -141,6 +140,12 @@ export default class Game {
       if (target.closest('#turnLabel')) this.viewTurnsScore();
 
       if (target.closest('.back')) this.viewMenu();
+    });
+
+    this.elements.board.addEventListener('finish', () => {
+      console.log('Поймали событие финиш гейм');
+      this.finishGame();
+      this.saveStateGame();
     });
   };
 

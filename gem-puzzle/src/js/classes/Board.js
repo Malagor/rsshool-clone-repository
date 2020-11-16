@@ -183,7 +183,7 @@ export default class Board {
 
   // Провека на окончание игры
   isFinish() {
-    return this.cellArray.every((el) => {
+    const isFin = this.cellArray.every((el) => {
       const { top, left } = el;
       let index;
       if (el.square) {
@@ -194,6 +194,12 @@ export default class Board {
 
       return (top * this.size + left) === index;
     });
+    if (isFin) {
+      const event = new Event('finish', { bubbles: true });
+      this.$board.dispatchEvent(event);
+      return true;
+    }
+    return false;
   }
 
   // Перемещение фишек перетягиванием
@@ -260,6 +266,7 @@ export default class Board {
         target.removeEventListener('dragleave', dragLeave);
         target.removeEventListener('drop', dragDrop);
       });
+      this.isFinish();
       this.render();
     };
 

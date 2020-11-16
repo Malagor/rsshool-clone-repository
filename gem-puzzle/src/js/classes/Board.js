@@ -85,7 +85,7 @@ export default class Board {
       const { square } = gridElement;
 
       if (square) {
-        square.$square.setAttribute('draggable', false);
+        square.$square.setAttribute('draggable', 'false');
         gridElement.cell.appendChild(square.$square);
       }
       fragment.appendChild(gridElement.cell);
@@ -200,7 +200,7 @@ export default class Board {
   dragNDrop = () => {
     // console.log('DRAG N DROP!!!');
 
-    this.setDraggable();
+    // this.setDraggable();
 
     const allCell = document.querySelectorAll('.square');
     allCell.forEach((el) => {
@@ -220,35 +220,16 @@ export default class Board {
 
     gridEl.forEach((cell) => cell.setAttribute('draggable', 'true'));
 
-    // // Убирает возможность тягаться у всех фишек
-    // this.setDraggable();
-    //
-    // // Получаем пустую клетку
-    // const emptyCell = this.cellArray[this.getIndexEmpty()];
-    //
-    // // Ее позиция
-    // const { top, left } = emptyCell;
-    //
-    // // Массив соседних с пустой элементов
-    // const gridEl = this.nextdoorNeighbours(top, left).map((i) => {
-    //   if (this.cellArray[i].square) {
-    //     return this.cellArray[i].square.$square;
-    //   }
-    //   return false;
-    // });
-    //
-    // this.setDraggable(gridEl);
-
     // drag n drop events
-    const dragStart = (target) => {
+    const dragStart = (event) => {
       setTimeout(() => {
-        target.classList.add('hide');
-        this.draggableSquare = target;
+        event.target.classList.add('hide');
+        this.draggableSquare = event.target;
       }, 0);
     };
 
-    const dragEnd = (target) => {
-      target.classList.remove('hide');
+    const dragEnd = (event) => {
+      event.target.classList.remove('hide');
     };
 
     const dragOver = (evt) => {
@@ -264,9 +245,9 @@ export default class Board {
       evt.target.classList.remove('hovered');
 
       console.log('Индекс пустой ячейки:', this.getIndexEmpty());
-      this.dragNDrop();
+      // this.dragNDrop();
       // this.setDraggable();
-      // this.render();
+      this.render();
     };
 
     function dragEnter() {
@@ -277,26 +258,29 @@ export default class Board {
       this.classList.remove('hovered');
     }
 
+    // Удаляем старые слушатели
+    emptyCell.cell.removeEventListener('dragover', dragOver);
+    emptyCell.cell.removeEventListener('dragenter', dragEnter);
+    emptyCell.cell.removeEventListener('dragleave', dragLeave);
+    emptyCell.cell.removeEventListener('drop', dragDrop);
+
     // пустая ячейка в которую можно положить
     emptyCell.cell.addEventListener('dragover', dragOver);
     emptyCell.cell.addEventListener('dragenter', dragEnter);
     emptyCell.cell.addEventListener('dragleave', dragLeave);
-    emptyCell.cell.addEventListener('drop', (e) => {
-      dragDrop(e);
-      // this.render();
-    });
+    emptyCell.cell.addEventListener('drop', dragDrop);
 
     console.log('gridEl', gridEl);
+
     // Те которые можно тягать
     gridEl.forEach((cell) => {
-      // Устанавливаем клеткам возможность тягаться
-      // this.setDraggable(cell);
-      cell.addEventListener('dragstart', (e) => {
-        dragStart(e.target);
-      });
-      cell.addEventListener('dragend', (e) => {
-        dragEnd(e.target);
-      });
+      cell.removeEventListener('dragstart', dragStart);
+      cell.removeEventListener('dragend', dragEnd);
+
+      // Устанавливаем клеткам новую возможность тягаться
+
+      cell.addEventListener('dragstart', dragStart);
+      cell.addEventListener('dragend', dragEnd);
     });
   };
 
@@ -314,25 +298,26 @@ export default class Board {
   // Установка возможности Drag-N-Drop
   // Если передан DOM элемен, то ему навешивается возможность тягаться
   // Усли не передан, то у всех фишек убирается перетягивание
-  setDraggable = () => {
-    const allCell = document.querySelectorAll('.square');
-    allCell.forEach((el) => {
-      el.setAttribute('draggable', 'false');
-    });
 
-    const emptyCell = this.cellArray[this.getIndexEmpty()];
-    const { top, left } = emptyCell;
-
-    // Массив соседних с пустой элементов
-    const gridEl = this.nextdoorNeighbours(top, left).map((i) => {
-      if (this.cellArray[i].square) {
-        return this.cellArray[i].square.$square;
-      }
-      return false;
-    });
-
-    gridEl.forEach((cell) => cell.setAttribute('draggable', 'true'));
-  };
+  // setDraggable = () => {
+  //   const allCell = document.querySelectorAll('.square');
+  //   allCell.forEach((el) => {
+  //     el.setAttribute('draggable', 'false');
+  //   });
+  //
+  //   const emptyCell = this.cellArray[this.getIndexEmpty()];
+  //   const { top, left } = emptyCell;
+  //
+  //   // Массив соседних с пустой элементов
+  //   const gridEl = this.nextdoorNeighbours(top, left).map((i) => {
+  //     if (this.cellArray[i].square) {
+  //       return this.cellArray[i].square.$square;
+  //     }
+  //     return false;
+  //   });
+  //
+  //   gridEl.forEach((cell) => cell.setAttribute('draggable', 'true'));
+  // };
 
   // Анимация перемещения
   animationMove = (direction, indexElement) => {

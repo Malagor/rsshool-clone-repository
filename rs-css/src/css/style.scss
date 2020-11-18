@@ -1,59 +1,363 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;700&display=swap');
+
+
+$color-main: #5E412F;
+$color-accent: #F7BC05;
+$color-bg: #FCEBB6;
+$gradient: linear-gradient(135deg, #F07818, #F0A830);
+
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
 }
 
-html{
+html {
   height: 100vh;
   width: 100%;
 }
+
 body {
   position: relative;
   display: grid;
-  grid-template-areas:  "header sidebar"
-                        "main sidebar"
-                        "footer sidebar";
-  grid-template-columns: 1fr 20%;
-  grid-template-rows: 50px 1fr 100px;
+  grid-template-areas: "header header" "main sidebar" "footer footer";
+  grid-template-columns: 1fr 30%;
+  grid-template-rows: 75px 1fr 75px;
 
   height: 100vh;
   width: 100%;
+
+  font-family: 'Poppins', sans-serif;
+  line-height: 1.6;
+
+  background: $gradient;
 }
+
 .header {
   grid-area: header;
-  background: magenta;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  //background: #F0A830;
+  //background-image: $gradient;
+
 }
+
 .main {
   grid-area: main;
-  background: cyan;
+  //background: cyan;
 
   display: grid;
-  grid-template-areas:  "railway railway"
-                        "css html";
+  grid-template-areas: "railway railway" "css html";
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 2fr;
 }
 
 .railway {
   grid-area: railway;
-  background: green;
+  background: #FCEBB6;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .style-css {
   grid-area: css;
-  background: cadetblue;
+  background: #5E412F;
+  color: #EAF2BB;
 }
+
 .html-code {
   grid-area: html;
-  background: chocolate;
+  background: #5E412F;
+  color: #EAF2BB;
+
+  div {
+    width: auto;
+    padding: 3px;
+    margin: 5px;
+    color: #F7BC05;
+    font-weight: bold;
+
+    transition: 0.2s;
+    cursor: pointer;
+
+    &.highlight {
+      color: #EAF2BB;
+    }
+  }
+
 }
-.sidebar{
+
+.sidebar {
   grid-area: sidebar;
-  background: wheat;
+  //background: $gradient;
+  padding: 0 1rem;
+  color: black;
 }
+
 .footer {
   grid-area: footer;
 
-  background: #dddddd;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  //background-image: $gradient;
+
 }
+
+.author {
+  padding: 1rem;
+
+  a {
+    display: flex;
+    align-items: center;
+    line-height: 1;
+    text-decoration: none;
+    color: black;
+  }
+
+  img {
+    margin-left: 1rem;
+    height: 2rem;
+    width: 2rem;
+  }
+}
+
+.school {
+  padding: 1rem;
+
+  a {
+    display: flex;
+    align-items: center;
+    line-height: 1;
+    text-decoration: none;
+    color: black;
+  }
+
+  img {
+    height: 2rem;
+    margin-right: 1rem;
+  }
+}
+
+
+wagon {
+  position: relative;
+  display: block;
+  width: 150px;
+  height: 50px;
+  margin: 0 10px;
+  background-image: url("../img/tileable_wood_texture.png");
+  background-size: 150px 50px;
+  border: 1px solid black;
+  transition: 0.2s;
+  transform-origin: bottom center;
+
+  &.highlight {
+    box-shadow: 0 0 5px 5px #F07818;
+  }
+
+  &.moving {
+    animation: swing 1s ease-in-out infinite;
+  }
+
+  &:before,
+  &:after {
+    position: absolute;
+    content: '\29BF \29BF';
+    font-size: 16px;
+    line-height: 16px;
+    bottom: -16px;
+  }
+
+  &:before {
+    left: 5%;
+  }
+
+  &:after {
+    right: 5%;
+  }
+}
+
+@keyframes swing {
+  0% {
+    transform: skewX(3deg);
+  }
+  50% {
+    transform: skewX(-3deg);
+  }
+  100% {
+    transform: skewX(3deg);
+  }
+
+}
+
+
+.task {
+  font-size: 1rem;
+
+  strong,
+  &__syntax {
+    font-weight: normal;
+    padding: 0 1em;
+    background: rgba(0, 0, 0, 0.2);
+  }
+
+  &__subtitle {
+    font-weight: 200;
+  }
+
+  &__syntax {
+    display: inline-flex;
+    margin: 1em 0;
+    font-size: 2em;
+    font-weight: bold;
+  }
+
+  &__examples-list {
+    margin-top: 2em;
+    list-style: none;
+
+    &:before {
+      display: block;
+      content: 'Examples';
+      margin-bottom: 1em;
+      font-weight: bold;
+    }
+  }
+
+  &__example-item {
+    border-bottom: 1px solid black;
+    padding-bottom: 1em;
+    margin-bottom: 1em;
+
+    &:last-child {
+      border: none;
+    }
+  }
+}
+
+.info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.levels {
+  //display: inline-flex;
+  font-size: 2rem;
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 4rem;
+}
+
+.arrow {
+  width: 2rem;
+  height: 2rem;
+  background: transparent url(/img/next-arrow.svg);
+  //background-image: url(/img/next-arrow.svg);
+  border: none;
+  cursor: pointer;
+
+  &__left {
+    transform: rotate(180deg);
+
+    &:hover {
+      animation: slide-left 1s ease-in-out infinite;
+    }
+  }
+
+  &__right {
+    &:hover {
+      animation: slide-right 1s ease-in-out infinite;
+    }
+  }
+
+  //&:hover {
+  //  animation: slide-right 1s ease-in-out infinite;
+
+  //& .arrow__left {
+  //  //transform: rotate(180deg);
+  //  animation: slide-left 1s ease-in-out infinite;
+  //}
+  //}
+}
+
+
+@keyframes slide-right {
+  50% {
+    transform: translateX(0.3rem);
+  }
+}
+
+@keyframes slide-left {
+  50% {
+    transform: rotate(180deg) translateX(0.3rem);
+  }
+}
+
+.menu__toggle {
+  position: relative;
+  width: 2.5rem;
+  height: 2rem;
+
+  cursor: pointer;
+
+  span {
+    position: absolute;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 3px;
+    background: #000;
+    transition: 0.3s;
+
+    &:nth-child(1) {
+      top: 0;
+    }
+
+    &:nth-child(2) {
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    &:nth-child(3) {
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    &:nth-child(4) {
+      bottom: 0;
+    }
+  }
+
+  &:hover {
+    span {
+      &:nth-child(1) {
+        top: -1rem;
+        opacity: 0;
+      }
+
+      &:nth-child(2) {
+        transform: translateY(-50%) rotate(-45deg);
+      }
+
+      &:nth-child(3) {
+        transform: translateY(-50%) rotate(45deg);
+      }
+
+      &:nth-child(4) {
+        bottom: -1rem;
+        opacity: 0;
+      }
+    }
+  }
+}
+

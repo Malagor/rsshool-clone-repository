@@ -1,0 +1,59 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html{
+  height: 100vh;
+  width: 100%;
+}
+body {
+  position: relative;
+  display: grid;
+  grid-template-areas:  "header sidebar"
+                        "main sidebar"
+                        "footer sidebar";
+  grid-template-columns: 1fr 20%;
+  grid-template-rows: 50px 1fr 100px;
+
+  height: 100vh;
+  width: 100%;
+}
+.header {
+  grid-area: header;
+  background: magenta;
+}
+.main {
+  grid-area: main;
+  background: cyan;
+
+  display: grid;
+  grid-template-areas:  "railway railway"
+                        "css html";
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 2fr;
+}
+
+.railway {
+  grid-area: railway;
+  background: green;
+}
+
+.style-css {
+  grid-area: css;
+  background: cadetblue;
+}
+.html-code {
+  grid-area: html;
+  background: chocolate;
+}
+.sidebar{
+  grid-area: sidebar;
+  background: wheat;
+}
+.footer {
+  grid-area: footer;
+
+  background: #dddddd;
+}

@@ -2,7 +2,7 @@ const taskList = [
   {
     target: 'Select the wagons',
     title: 'Type Selector',
-    subTitle: 'Select elements by their type',
+    subtitle: 'Select elements by their type',
     syntax: 'A',
     description: 'Selects all elements of type <strong>A</strong>. Type refers to the type of tag, so <strong>&lt;div&gt;</strong>, <strong>&lt;p&gt;</strong> and <strong>&lt;ul&gt;</strong> are all different element types.',
     examples: [
@@ -14,7 +14,7 @@ const taskList = [
   {
     target: 'Select the platform',
     title: 'Type Selector',
-    subTitle: 'Select elements by their type',
+    subtitle: 'Select elements by their type',
     syntax: 'A',
     description: 'Selects all elements of type <strong>A</strong>. Type refers to the type of tag, so <strong>&lt;div&gt;</strong>, <strong>&lt;p&gt;</strong> and <strong>&lt;ul&gt;</strong> are all different element types.',
     examples: [
@@ -26,7 +26,7 @@ const taskList = [
   {
     target: 'Select the moving wagon',
     title: 'ID Selector',
-    subTitle: 'Select elements with an ID',
+    subtitle: 'Select elements with an ID',
     syntax: '#id',
     description: 'Selects the element with a specific <strong>id</strong>. You can also combine the ID selector with the type selector.',
     examples: [
@@ -38,7 +38,7 @@ const taskList = [
   {
     target: 'Select the wood on the platform',
     title: 'Descendant Selector',
-    subTitle: 'Select an element inside another element',
+    subtitle: 'Select an element inside another element',
     syntax: 'A B',
     description: 'Selects all <strong>B</strong> inside of <strong>A</strong>. <strong>B</strong> is called a descendant because it is inside of another element.',
     examples: [
@@ -50,7 +50,7 @@ const taskList = [
   {
     target: 'Select the wood on the moving platform',
     title: 'Combine the Descendant & ID Selectors',
-    subTitle: 'Select an element inside another element',
+    subtitle: 'Select an element inside another element',
     syntax: '#id  A',
     description: 'You can combine any selector with the descendent selector.',
     examples: [
@@ -61,7 +61,7 @@ const taskList = [
   {
     target: 'Select the small apples',
     title: 'Class Selector',
-    subTitle: 'Select elements by their class',
+    subtitle: 'Select elements by their class',
     syntax: '.classname',
     description: 'The class selector selects all elements with that class attribute. Elements can only have one ID, but many classes.',
     examples: [
@@ -72,7 +72,7 @@ const taskList = [
   {
     target: 'Select the small oranges',
     title: '',
-    subTitle: 'Combine the Class Selector',
+    subtitle: 'Combine the Class Selector',
     syntax: 'A.className',
     description: 'You can combine the class selector with other selectors, like the type selector.',
     examples: [
@@ -85,7 +85,7 @@ const taskList = [
   {
     target: 'Select the small oranges in the bentos',
     title: '',
-    subTitle: 'You can do it...',
+    subtitle: 'You can do it...',
     syntax: 'Put your back into it!',
     description: 'Combine what you learned in the last few levels to solve this one!',
     examples: [],
@@ -95,7 +95,7 @@ const taskList = [
   {
     target: 'Select all the plates and bentos',
     title: 'Comma Combinator',
-    subTitle: 'Combine, selectors, with... commas!',
+    subtitle: 'Combine, selectors, with... commas!',
     syntax: 'A, B',
     description: 'Thanks to Shatner technology, this selects all <stong>A</stong> and <stong>B</stong> elements. You can combine any selectors this way, and you can specify more than two.',
     examples: [
@@ -108,7 +108,7 @@ const taskList = [
   {
     target: 'Select all the things!',
     title: 'The Universal Selector',
-    subTitle: 'You can select everything!',
+    subtitle: 'You can select everything!',
     syntax: '*',
     description: 'You can select all elements with the universal selector!',
     examples: [

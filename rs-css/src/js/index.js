@@ -3,12 +3,20 @@
 
 import '../css/style.css';
 import '../css/style.scss';
-import Task from "./Classes/Task";
-import '../img/GitHub-Mark-64px.png';
-import '../img/rs_school_js.svg';
-import '../img/next-arrow.svg';
 
-const taskList = require('./Models/taskList');
+import main from "./Controller/main";
+
+main();
+
+// import '../img/GitHub-Mark-64px.png';
+// import '../img/rs_school_js.svg';
+// import '../img/next-arrow.svg';
+// import '../img/check.svg';
+//
+// import Task from "./Classes/Task";
+// import Sidebar from "./Views/Sidebar";
+//
+// const taskList = require('./Models/taskList');
 // import { moduleOne } from './moduleOne';
 //
 // const helloArr = require('./moduleOne.js');
@@ -43,97 +51,46 @@ const taskList = require('./Models/taskList');
 //
 // console.log(editor);
 
-const tasks = taskList.map(taskItem => {
-  const {title, subtitle, syntax, description, examples} = taskItem;
-  const taskObj = {
-    title,
-    description,
-    subtitle,
-    syntax,
-    examples
-  };
-  return Task.create(taskObj)
-});
+// const wagons = document.querySelectorAll('wagon');
+// const linesCode = document.querySelectorAll('.html-code div');
 
-console.log(tasks);
+// function toggleHighlight(el) {
+//   const {target} = el;
+//   let index = 0;
+//
+//   if (target.localName === 'wagon') {
+//     wagons.forEach((wag, i) => {
+//       if (wag === target) {
+//         console.log(i);
+//         index = i;
+//       }
+//     });
+//   } else {
+//     linesCode.forEach((wag, i) => {
+//
+//       if (wag === target) {
+//         console.log(i);
+//         index = i;
+//       }
+//     });
+//   }
+//
+//   if (index >= 0) {
+//     wagons[index].classList.toggle('highlight');
+//     linesCode[index].classList.toggle('highlight');
+//   }
+//   // target.classList.toggle('highlight');
+// }
 
-const $task = document.querySelector('#task');
-$task.innerHTML = "";
-
-// $task.innerHTML = tasks[0].toHTML();
-
-// Листалка задач
-const $arrowLeft = document.querySelector('.arrow__left');
-const $arrowRight = document.querySelector('.arrow__right');
-const $allTaskCount = document.querySelector('#all-tasks-count');
-const $currentTaskNumber = document.querySelector('#current-task');
-
-const countTask = tasks.length;
-let currentTask = 0;
-
-$allTaskCount.textContent = countTask;
-$currentTaskNumber.textContent = currentTask + 1;
-
-function showTask(i) {
-  $currentTaskNumber.textContent = i + 1;
-  $task.innerHTML = "";
-  $task.innerHTML = tasks[i].toHTML();
-}
-
-$task.innerHTML = "";
-$task.innerHTML = tasks[currentTask].toHTML();
-
-$arrowLeft.addEventListener('click', () => {
-  currentTask = currentTask > 0 ? currentTask -= 1 : currentTask;
-  showTask(currentTask);
-});
-
-$arrowRight.addEventListener('click', () => {
-  currentTask = currentTask < countTask - 1 ? currentTask += 1 : currentTask;
-
-  showTask(currentTask);
-});
-
-
-const wagons = document.querySelectorAll('wagon');
-const linesCode = document.querySelectorAll('.html-code div');
-
-function toggleHighlight(el) {
-  const {target} = el;
-  let index;
-
-  if (target.localName === 'wagon') {
-    wagons.forEach((wag, i) => {
-      if (wag === target) {
-        index = i;
-      }
-    });
-  } else {
-    linesCode.forEach((wag, i) => {
-      if (wag === target) {
-        index = i;
-      }
-    });
-  }
-
-  if (index && index >= 0) {
-    wagons[index].classList.toggle('highlight');
-    linesCode[index].classList.toggle('highlight');
-  }
-  // target.classList.toggle('highlight');
-}
-
-function setMouseEvents(arr) {
-  arr.forEach((el) => {
-    el.addEventListener('mouseover', toggleHighlight);
-    el.addEventListener('mouseout', toggleHighlight);
-  });
-}
-
-setMouseEvents(wagons);
-setMouseEvents(linesCode);
-
-
+// function setMouseEvents(arr) {
+//   arr.forEach((el) => {
+//     el.addEventListener('mouseover', toggleHighlight);
+//     el.addEventListener('mouseout', toggleHighlight);
+//   });
+// }
+//
+// setMouseEvents(wagons);
+// setMouseEvents(linesCode);
 
 
 

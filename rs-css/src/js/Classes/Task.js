@@ -1,7 +1,7 @@
 export default class Task {
   constructor(obj) {
     this.id = Task.instanceCount;
-    this.target = obj.target;
+    this.mission = obj.mission;
     this.title = obj.title;
     this.subtitle = obj.subtitle;
     this.syntax = obj.syntax;
@@ -10,14 +10,14 @@ export default class Task {
     this.answers = obj.answers;
     this.level = obj.level;
     this.code = obj.code;
-    this._done = false;
+    this._done = obj.done;
 
     Task.instanceCount += 1;
   }
 
   static create(obj) {
     const resultConfig = {
-      target: 'Text task',
+      mission: 'Text task',
       title: 'Task title',
       subtitle: 'Subtitle task',
       syntax: 'tag',
@@ -26,6 +26,7 @@ export default class Task {
       answers: [],
       level: 0,
       code: null,
+      done: false,
       ...obj
     };
 
@@ -56,6 +57,24 @@ export default class Task {
           ${examples}
           </ul>
       `;
+  }
+
+  toHTMLForMenu() {
+    const checkClass = this.done ? 'task-done-check' : '';
+    return `
+      <li class="nav__item" data-index="${this.id}">
+        <div class="nav__check ${checkClass}">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M504.502 75.496c-9.997-9.998-26.205-9.998-36.204 0L161.594 382.203 43.702 264.311c-9.997-9.998-26.205-9.997-36.204 0-9.998 9.997-9.998 26.205 0 36.203l135.994 135.992c9.994 9.997 26.214 9.99 36.204 0L504.502 111.7c9.998-9.997 9.997-26.206 0-36.204z"/></svg>
+        </div>
+        <div class="nav__level">${this.level}</div>
+        <div class="nav__syntax">${this.syntax}</div>
+        <div class="nav__title">${this.title}</div>
+      </li>
+  `;
+  }
+
+  isRightAnswer(answer){
+    return this.answers.filter(test => test === answer).length;
   }
 }
 

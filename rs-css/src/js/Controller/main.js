@@ -37,8 +37,9 @@ export default function main() {
   screen.setTitleText(tasks[indexCurrentTask].mission);
 
   function printNewTaskOnScreen() {
-    sidebar.setHeader(tasks[indexCurrentTask].level);
+    sidebar.setCurrentTaskLevel(tasks[indexCurrentTask].level);
     sidebar.printTaskText(tasks[indexCurrentTask]);
+    sidebar.setDoneCheckboxInHeader(tasks[indexCurrentTask].done);
 
     screen.setTitleText(tasks[indexCurrentTask].mission);
 
@@ -50,7 +51,13 @@ export default function main() {
   }
 
   function answerIsWrong() {
-    console.log('Answer Is Wrong!!!')
+    console.log('Answer Is Wrong!!!');
+
+    css.elements.textarea.classList.add('shake');
+    css.elements.textarea.addEventListener('animationend', () => {
+      css.elements.textarea.classList.remove('shake');
+      css.elements.textarea.value = css.elements.textarea.value.trim();
+    })
   }
 
   // Слушаем события от компонентов
@@ -65,7 +72,7 @@ export default function main() {
   });
 
   document.body.addEventListener('enter', () => {
-    const answer = css.getScreenValue();
+    const answer = css.getScreenValue().trim();
     const answerIsRight = tasks[indexCurrentTask].isRightAnswer(answer);
 
     if (answerIsRight) {

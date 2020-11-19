@@ -1,6 +1,6 @@
 const taskList = [
   {
-    target: 'Select the wagons',
+    mission: 'Select the wagons',
     title: 'Type Selector',
     subtitle: 'Select elements by their type',
     syntax: 'A',
@@ -10,9 +10,10 @@ const taskList = [
       '<strong>p</strong> selects all <strong>&lt;p&gt;</strong> elements.'],
     answers: ['wagon'],
     level: 1,
+    done: true
   },
   {
-    target: 'Select the platform',
+    mission: 'Select the platform',
     title: 'Type Selector',
     subtitle: 'Select elements by their type',
     syntax: 'A',
@@ -24,7 +25,7 @@ const taskList = [
     level: 2,
   },
   {
-    target: 'Select the moving wagon',
+    mission: 'Select the moving wagon',
     title: 'ID Selector',
     subtitle: 'Select elements with an ID',
     syntax: '#id',
@@ -36,7 +37,7 @@ const taskList = [
     level: 3,
   },
   {
-    target: 'Select the wood on the platform',
+    mission: 'Select the wood on the platform',
     title: 'Descendant Selector',
     subtitle: 'Select an element inside another element',
     syntax: 'A B',
@@ -48,7 +49,7 @@ const taskList = [
     level: 4,
   },
   {
-    target: 'Select the wood on the moving platform',
+    mission: 'Select the wood on the moving platform',
     title: 'Combine the Descendant & ID Selectors',
     subtitle: 'Select an element inside another element',
     syntax: '#id  A',
@@ -59,7 +60,7 @@ const taskList = [
     level: 5,
   },
   {
-    target: 'Select the small apples',
+    mission: 'Select the small apples',
     title: 'Class Selector',
     subtitle: 'Select elements by their class',
     syntax: '.classname',
@@ -70,7 +71,7 @@ const taskList = [
     level: 6,
   },
   {
-    target: 'Select the small oranges',
+    mission: 'Select the small oranges',
     title: '',
     subtitle: 'Combine the Class Selector',
     syntax: 'A.className',
@@ -83,7 +84,7 @@ const taskList = [
     level: 7,
   },
   {
-    target: 'Select the small oranges in the bentos',
+    mission: 'Select the small oranges in the bentos',
     title: '',
     subtitle: 'You can do it...',
     syntax: 'Put your back into it!',
@@ -93,7 +94,7 @@ const taskList = [
     level: 8,
   },
   {
-    target: 'Select all the plates and bentos',
+    mission: 'Select all the plates and bentos',
     title: 'Comma Combinator',
     subtitle: 'Combine, selectors, with... commas!',
     syntax: 'A, B',
@@ -106,7 +107,7 @@ const taskList = [
     level: 9,
   },
   {
-    target: 'Select all the things!',
+    mission: 'Select all the things!',
     title: 'The Universal Selector',
     subtitle: 'You can select everything!',
     syntax: '*',

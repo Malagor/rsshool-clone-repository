@@ -1,22 +1,23 @@
 export default class Sidebar {
-  constructor(el) {
+  constructor(obj) {
     this.elements = {
-      main: el.main,
-      infoBlock: el.infoBlock,
+      main: obj.main,
+      infoBlock: obj.infoBlock,
       controls: {
-        arrowLeft: el.arrowLeft,
-        arrowRight: el.arrowRight
+        arrowLeft: obj.arrowLeft,
+        arrowRight: obj.arrowRight
       },
       levels: {
-        currentLevel: el.currentLevel,
-        allCountLevels: el.allCountLevels
+        currentLevel: obj.currentLevel,
+        allCountLevels: obj.allCountLevels
       },
-      menuToggle: el.menuToggle,
+      taskDoneCheckbox: obj.taskDoneCheckbox,
+      menuToggle: obj.menuToggle,
       nav: {
-        nav: el.nav,
-        navList: el.navList
+        navWrapper: obj.nav,
+        navList: obj.navList
       },
-      taskText: el.taskText
+      taskText: obj.taskText
     };
 
     this.init.bind(this);
@@ -28,6 +29,9 @@ export default class Sidebar {
     main.innerHTML = '';
     main.insertAdjacentHTML('afterbegin', `
     <div id="info" class="info">
+    <div class="info__task-check task-done-check">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M504.502 75.496c-9.997-9.998-26.205-9.998-36.204 0L161.594 382.203 43.702 264.311c-9.997-9.998-26.205-9.997-36.204 0-9.998 9.997-9.998 26.205 0 36.203l135.994 135.992c9.994 9.997 26.214 9.99 36.204 0L504.502 111.7c9.998-9.997 9.997-26.206 0-36.204z"/></svg>
+    </div>
     <div class="levels">Level <span id="current-task"></span> of <span id="all-tasks-count"></span></div>
     <div class="controls">
       <button class="arrow arrow__left"></button>
@@ -57,6 +61,7 @@ export default class Sidebar {
     const nav = document.querySelector('#nav');
     const navList = document.querySelector('#navList');
     const taskText = document.querySelector('#task');
+    const taskDoneCheckbox = document.querySelector('.info__task-check');
 
     const elements = {
       main,
@@ -68,7 +73,8 @@ export default class Sidebar {
       menuToggle,
       nav,
       navList,
-      taskText
+      taskText,
+      taskDoneCheckbox
     };
 
     return new Sidebar(elements);
@@ -78,7 +84,7 @@ export default class Sidebar {
     console.log(taskArray);
     this.createTaskListInMenu(taskArray);
     this.setCountAllTasksInInfoBlock(taskArray.length);
-    this.setHeader(taskArray[0].level);
+    this.setCurrentTaskLevel(taskArray[0].level);
     this.printTaskText(taskArray[0]);
   }
 
@@ -97,7 +103,7 @@ export default class Sidebar {
       if (target.closest('#menuToggle')) {
         this.toggleMenu();
       }
-      if (target.closest('.nav__item')){
+      if (target.closest('.nav__item')) {
         const event = new Event('clickMenuTask', {bubbles: true});
         target.closest('.nav__item').dispatchEvent(event);
       }
@@ -106,25 +112,33 @@ export default class Sidebar {
 
   toggleMenu() {
     this.elements.menuToggle.classList.toggle('open');
-    this.elements.nav.nav.classList.toggle('open');
+    this.elements.nav.navWrapper.classList.toggle('open');
   }
 
-  createTaskListInMenu(taskArray){
+  createTaskListInMenu(taskArray) {
     this.elements.nav.navList.innerHTML = '';
     taskArray.forEach(task => {
-   this.elements.nav.navList.innerHTML += task.toHTMLForMenu()
- });
+      this.elements.nav.navList.innerHTML += task.toHTMLForMenu()
+    });
   }
 
-  setHeader(cur){
+  setCurrentTaskLevel(cur) {
     this.elements.levels.currentLevel.textContent = cur;
   }
 
-  setCountAllTasksInInfoBlock(num){
+  setCountAllTasksInInfoBlock(num) {
     this.elements.levels.allCountLevels.textContent = num;
   }
 
   printTaskText(taskObj) {
     this.elements.taskText.innerHTML = taskObj.toHTML();
+  }
+
+  setDoneCheckboxInHeader(isDone = true) {
+    if (isDone) {
+      this.elements.taskDoneCheckbox.classList.add('task-done-check');
+    } else {
+      this.elements.taskDoneCheckbox.classList.remove('task-done-check');
+    }
   }
 }

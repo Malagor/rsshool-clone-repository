@@ -31,6 +31,14 @@ export default class CSS {
         const event = new Event('enter', {bubbles: true});
         document.body.dispatchEvent(event);
       }
+    });
+
+    this.elements.main.addEventListener('keydown', (e) => {
+      if (e.keyCode === 13){
+        e.preventDefault();
+        const event = new Event('enter', {bubbles: true});
+        document.body.dispatchEvent(event);
+      }
     })
   }
 

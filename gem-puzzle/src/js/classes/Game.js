@@ -1,4 +1,3 @@
-/* eslint-disable import/extensions */
 import Board from './Board.js';
 import State from './State.js';
 import Score from './Score.js';
@@ -65,9 +64,6 @@ export default class Game {
       game.state.start();
     }
 
-    // game.board.cellArray = loadGameObg.arrayCell;
-    // game.board.render();
-
     return game;
   }
 
@@ -113,25 +109,20 @@ export default class Game {
     document.body.addEventListener('click', (e) => {
       const { target } = e;
 
-      // Клик по клетке поля
       if (target.closest('.cell')) this.board.move(target.closest('.cell'));
 
-      // Клик по переключателю меню
       if (target.closest('.menu-toggle')) this.menuToggle(e);
 
-      // пункты меню
       if (target.closest('#new')) this.newGame(e);
       if (target.closest('#resume')) this.resume(e);
       if (target.closest('#score')) this.viewScore();
       if (target.closest('#setting')) this.viewSetting();
 
-      // Переключатель вида таблицы рекордов
       if (target.closest('#timeLabel')) this.viewTimeScore();
       if (target.closest('#turnLabel')) this.viewTurnsScore();
       if (target.closest('.back')) this.viewMenu();
     });
 
-    // Пользовательские события
     this.elements.board.addEventListener('finish', this.eventFinishGame);
     this.elements.board.addEventListener('isMove', this.eventIsMove);
   };
@@ -386,7 +377,6 @@ export default class Game {
     this.state._state = 'finish';
     const turns = this.state.getTurns();
     const { time } = this.state;
-    // const name = prompt('Your Name?');
 
     this.saveStateGame();
     this.viewWin();

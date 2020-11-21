@@ -7,7 +7,7 @@ export default class Score {
     return new Score();
   }
 
-  // Сохранение таблицы рекордов в localStorage
+  // save in localStorage
   saveTable() {
     if (this.scoreTable.length) {
       localStorage.setItem('scoreTable', JSON.stringify(this.scoreTable));
@@ -16,7 +16,7 @@ export default class Score {
     }
   }
 
-  // Загрузка таблицы рекордов из localStorage
+  // load from localStorage
   loadTable = () => {
     if (localStorage.getItem('scoreTable')) {
       return JSON.parse(localStorage.getItem('scoreTable'));
@@ -25,7 +25,7 @@ export default class Score {
     return [];
   };
 
-  // Запись нового рекорда в таблицу, или нет, если он маленький
+  // set new record to score table
   setResult = (result) => {
     const { time, turns } = result;
 
@@ -44,7 +44,6 @@ export default class Score {
     return false;
   };
 
-  // Получение времени последнего в ранге рекорда в таблице (возвращает 10 результат)
   getLastPositionInScoreByTime = () => {
     const maxResultInTable = this.sortByField('time');
 
@@ -54,7 +53,6 @@ export default class Score {
     return maxResultInTable[maxResultInTable.length - 1].time;
   };
 
-  // Получение количства ходов последнего в ранге рекодда
   getLastPositionInScoreByTurns = () => {
     const maxResultInTable = this.sortByField('turns');
 
@@ -64,19 +62,16 @@ export default class Score {
     return maxResultInTable[maxResultInTable.length - 1].turns;
   };
 
-  // Сортировка таблицы рекордов по времени или ходам
   sortByField(field) {
     return this.scoreTable
       .sort((a, b) => a[field] - b[field])
       .filter((val, index) => index < 10);
   }
 
-  // Возвращает таблицу рекордов отсортированную по времени
   getBestTime() {
     return this.sortByField('time');
   }
 
-  // Возвращает таблицу рекордов отсортированную по ходам
   getBestTurns() {
     return this.sortByField('turns');
   }

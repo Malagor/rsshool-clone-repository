@@ -1,9 +1,8 @@
-/* eslint-disable import/extensions */
-import Board from './Board.js';
-import State from './State.js';
-import Score from './Score.js';
-import sound from '../util/sound.js';
-import msToTime from '../util/msToTime.js';
+import Board from './Board';
+import State from './State';
+import Score from './Score';
+import sound from '../util/sound';
+import msToTime from '../util/msToTime';
 
 export default class Game {
   constructor() {
@@ -49,7 +48,11 @@ export default class Game {
       } else {
         game.elements.board.classList.remove('picture');
       }
-      const { imgIndex, state, arrayCell } = loadGameObj;
+      const {
+        imgIndex,
+        state,
+        arrayCell
+      } = loadGameObj;
       game.state.time = state.time;
       game.state.turns = state.turns;
       game.state.state = state.state;
@@ -64,9 +67,6 @@ export default class Game {
     if (game.state.state === 'play') {
       game.state.start();
     }
-
-    // game.board.cellArray = loadGameObg.arrayCell;
-    // game.board.render();
 
     return game;
   }
@@ -111,27 +111,24 @@ export default class Game {
 
   events = () => {
     document.body.addEventListener('click', (e) => {
-      const { target } = e;
+      const {
+        target
+      } = e;
 
-      // Клик по клетке поля
       if (target.closest('.cell')) this.board.move(target.closest('.cell'));
 
-      // Клик по переключателю меню
       if (target.closest('.menu-toggle')) this.menuToggle(e);
 
-      // пункты меню
       if (target.closest('#new')) this.newGame(e);
       if (target.closest('#resume')) this.resume(e);
       if (target.closest('#score')) this.viewScore();
       if (target.closest('#setting')) this.viewSetting();
 
-      // Переключатель вида таблицы рекордов
       if (target.closest('#timeLabel')) this.viewTimeScore();
       if (target.closest('#turnLabel')) this.viewTurnsScore();
       if (target.closest('.back')) this.viewMenu();
     });
 
-    // Пользовательские события
     this.elements.board.addEventListener('finish', this.eventFinishGame);
     this.elements.board.addEventListener('isMove', this.eventIsMove);
   };
@@ -152,7 +149,10 @@ export default class Game {
   menuToggle(e) {
     e.preventDefault();
 
-    const { menu, menuToggle } = this.elements;
+    const {
+      menu,
+      menuToggle
+    } = this.elements;
     menu.classList.toggle('open');
     menuToggle.classList.toggle('open');
 
@@ -195,10 +195,10 @@ export default class Game {
     this.elements.menuInner.innerHTML = '';
     this.elements.menuInner.insertAdjacentHTML('afterbegin', `
         <ul class="menu-list">
-          <li id="resume">Продолжить</li>
-          <li id="new">Новая игра</li>
-          <li id="score">Счет</li>
-          <li id="setting">Настройки</li>
+          <li id="resume">Continue</li>
+          <li id="new">New Game</li>
+          <li id="score">Score</li>
+          <li id="setting">Setting</li>
         </ul>
         
         <div class="author">Discord: Malagor#6535</div>
@@ -221,7 +221,7 @@ export default class Game {
               <option value="7">7x7</option>
               <option value="8">8x8</option>
             </select>
-         </div>
+        </div>
         <div class="group">
         <label for="isPicture">Design</label>
         <div>
@@ -309,7 +309,11 @@ export default class Game {
 
     const bestTime = this.score.getBestTime();
     bestTime.forEach((res, index) => {
-      const { name, time, turns } = res;
+      const {
+        name,
+        time,
+        turns
+      } = res;
 
       table.insertAdjacentHTML('beforeend', `
           <div class="position">${index + 1}</div>
@@ -336,7 +340,11 @@ export default class Game {
 
     const bestTime = this.score.getBestTurns();
     bestTime.forEach((res, index) => {
-      const { name, time, turns } = res;
+      const {
+        name,
+        time,
+        turns
+      } = res;
 
       table.insertAdjacentHTML('beforeend', `
           <div class="position">${index + 1}</div>
@@ -351,8 +359,8 @@ export default class Game {
     const lastTime = this.score.getLastPositionInScoreByTime();
     const lastTurns = this.score.getLastPositionInScoreByTurns();
 
-    const isRecord = lastTime < 0 || lastTurns < 0
-      || (lastTime > this.state.time) || (lastTurns > this.state.turns);
+    const isRecord = lastTime < 0 || lastTurns < 0 ||
+      (lastTime > this.state.time) || (lastTurns > this.state.turns);
 
     document.body.insertAdjacentHTML('afterbegin', `
     <div class="overlay"></div>
@@ -375,7 +383,10 @@ export default class Game {
   };
 
   scoreToggle = () => {
-    const { timeToggle, turnsToggle } = this.elements;
+    const {
+      timeToggle,
+      turnsToggle
+    } = this.elements;
     timeToggle.classList.toggle('active');
     turnsToggle.classList.toggle('active');
   };
@@ -385,8 +396,9 @@ export default class Game {
     this.state.stop();
     this.state._state = 'finish';
     const turns = this.state.getTurns();
-    const { time } = this.state;
-    // const name = prompt('Your Name?');
+    const {
+      time
+    } = this.state;
 
     this.saveStateGame();
     this.viewWin();

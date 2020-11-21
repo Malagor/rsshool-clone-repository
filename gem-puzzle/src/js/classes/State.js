@@ -1,5 +1,4 @@
-/* eslint-disable import/extensions */
-import msToTime from '../util/msToTime.js';
+import msToTime from '../util/msToTime';
 
 export default class State {
   constructor(el) {
@@ -15,7 +14,6 @@ export default class State {
     this.$times = null;
 
     this.init(el);
-    // this.start();
   }
 
   static ready(el) {
@@ -53,12 +51,6 @@ export default class State {
     clearTimeout(this.timerID);
     this.timerID = null;
   };
-
-  pause = () => {
-    clearTimeout(this.timerID);
-  };
-
-  resume = () => this.tick();
 
   turn = () => {
     if (this._state === 'play') {

@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/extensions
-import Game from './classes/Game.js';
+import Game from './classes/Game';
 
 Game.ready();

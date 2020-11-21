@@ -89,7 +89,7 @@ export default class Board {
 
     this.$board.appendChild(fragment);
 
-    this.dragNDrop();
+    // this.dragNDrop();
   };
 
   // shuffling indexes

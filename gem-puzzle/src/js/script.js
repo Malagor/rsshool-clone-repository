@@ -1,4 +1,3 @@
-import Game from './classes/Game.js';
-import '../css/style.css';
+import Game from './classes/Game';
 
 Game.ready();

@@ -1,118 +1,179 @@
 const path = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebPackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
-module.exports = {
-  entry: './src/index.js',
-  // context: path.resolve(__dirname, 'src'),
+const ENV = process.env.npm_lifecycle_event;
+const isDev = ENV === 'dev';
+const isProd = ENV === 'build';
+
+function setDevTool() {
+  if (isDev) {
+    return 'cheap-module-eval-source-map';
+  } else {
+    return 'none';
+  }
+}
+
+function setDMode() {
+  if (isProd) {
+    return 'production';
+  } else {
+    return 'development';
+  }
+}
+
+const config = {
+  target: "web",
+  entry: {index: './src/index.js'},
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js',
+    filename: '[name].js'
   },
-  mode: 'development',
-  devtool: 'inline-source-map',
+  mode: setDMode(),
+  devtool: setDevTool(),
   module: {
-    rules: [
+    rules: [{
+        test: /\.html$/,
+        use: [{
+          loader: 'html-loader',
+          options: {
+            minimize: false
+          }
+        }]
+      },
+      {
+        test: /\.js$/,
+        use: ['babel-loader', 'eslint-loader'],
+        exclude: [
+          /node_modules/
+        ]
+      },
+      {
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: true
+            }
+          }, {
+            loader: 'postcss-loader',
+            options: { sourceMap: true, config: { path: './postcss.config.js' } }
+          }
+        ]
+      },
       {
         test: /\.scss$/,
         use: [
           'style-loader',
+          MiniCssExtractPlugin.loader,
           {
             loader: 'css-loader',
             options: {
-              sourceMap: true,
-            },
-          },
-          {
+              sourceMap: true
+            }
+          }, {
+            loader: 'postcss-loader',
+            options: { sourceMap: true, config: { path: './postcss.config.js' } }
+          }, {
             loader: 'sass-loader',
             options: {
-              sourceMap: true,
-            },
-          },
-        ],
-      },
-      {
-        test: /\.(js)$/,
-        exclude: /node_modules/,
-        use: ['babel-loader', 'eslint-loader'],
-      },
-      {
-        test: /\.html$/,
-        use: [
-          {
-            loader: 'html-loader',
-            // loader: "raw-loader"
-          },
-        ],
-      },
-      {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
-      },
-      {
-        test: /\.(png|jpe?g|gif|svg)$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: 'assets/images/[name].[ext]',
-            },
-          },
-        ],
+              sourceMap: true
+            }
+          }
+        ]
       },
       {
         test: /\.mp3$/,
-        use: [
-          {
-            loader: 'file-loader',
-          },
-        ],
+        use: [{
+          loader: 'file-loader',
+        }, ],
       },
       {
-        // Apply rule for fonts files
-        test: /\.(woff|woff2|ttf|otf|eot)$/,
+        test: /\.(jpe?g|png|svg|gif)$/,
         use: [
           {
-            // Using file-loader too
             loader: 'file-loader',
             options: {
-              outputPath: 'fonts',
-            },
-          },
-        ],
+              outputPath: 'img',
+              name: '[name].[ext]'
+            }},
+          {
+            loader: 'image-webpack-loader',
+            options: {
+              bypassOnDebug : true,
+              mozjpeg: {
+                progressive: true,
+                quality: 70
+              },
+              // optipng.enabled: false will disable optipng
+              optipng: {
+                enabled: false,
+              },
+              pngquant: {
+                quality: [0.65, 0.90],
+                speed: 4
+              },
+              gifsicle: {
+                interlaced: false,
+                optimizationLevel: 1
+              },
+              // the webp option will enable WEBP
+              webp: {
+                quality: 75
+              }
+            }
+          }
+        ]
       },
-    ],
+      {
+        test: /\.(woff|woff2|ttf|otf|eot)$/,
+        use: [{
+          loader: 'file-loader',
+          options: {
+            outputPath: 'fonts'
+          }
+        }]
+      }
+    ]
   },
-  plugins: [
-    new CleanWebpackPlugin(),
-    new ExtractTextPlugin('style.css'),
-    new HtmlWebpackPlugin({
-      template: './src/index.html',
-      filename: './index.html',
-    }),
-    new CopyWebpackPlugin({
-      patterns: [
-        {
-          from: path.resolve(__dirname, 'src/assets/images/'),
-          to: path.resolve(__dirname, 'dist/assets/images/'),
-        },
-      ],
-    }),
-    new CopyWebpackPlugin({
-      patterns: [
-        {
-          from: path.resolve(__dirname, 'src/favicon.ico'),
-          to: path.resolve(__dirname, 'dist/favicon.ico'),
-        },
-      ],
-    }),
 
+  plugins: [
+    new MiniCssExtractPlugin({
+      filename: 'style.css',
+    }),
+    new HtmlWebPackPlugin({
+      template: './src/index.html',
+      filename: './index.html'
+    }),
+    new CopyWebpackPlugin([
+      {from: './src/favicon.ico', to: './favicon.ico'},
+      {
+        from: path.resolve(__dirname, 'src/assets/images/'),
+        to: path.resolve(__dirname, './assets/images/')
+      },
+      // {from: './src/img', to: './img/'},
+    ]),
   ],
+
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
     compress: true,
-    port: 9000,
-  },
+    port: 3000,
+    overlay: true,
+    stats: 'errors-only',
+    clientLogLevel: 'none'
+  }
 };
+
+if (isProd) {
+  config.plugins.push(
+    new UglifyJSPlugin(),
+  );
+}
+
+module.exports = config;

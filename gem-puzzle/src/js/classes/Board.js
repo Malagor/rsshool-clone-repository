@@ -1,4 +1,4 @@
-import Square from './Square.js';
+import Square from './Square';
 
 export default class Board {
   constructor(element, size, sizeBoard, arrayCell = [], isPic = false, imageIndex = null) {
@@ -113,18 +113,18 @@ export default class Board {
     let emptyPosition = null;
     const size = Math.sqrt(arr.length);
 
-    let sum = arr.reduce((summ, value, index) => {
+    let sum = arr.reduce((acum, value, index) => {
       if (value === arr.length - 1) {
         const left = index % size;
         emptyPosition = ((index - left) / size) + 1;
       } else {
         for (let i = index + 1; i < arr.length; i += 1) {
           if (value > arr[i]) {
-            summ += 1;
+            acum += 1;
           }
         }
       }
-      return summ;
+      return acum;
     }, 0);
 
     if (isEven(arr.length)) {

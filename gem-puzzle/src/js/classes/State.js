@@ -1,4 +1,4 @@
-import msToTime from '../util/msToTime.js';
+import msToTime from '../util/msToTime';
 
 export default class State {
   constructor(el) {

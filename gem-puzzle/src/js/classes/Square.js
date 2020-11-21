@@ -15,7 +15,6 @@ export default class Square {
     const element = document.createElement('div');
     element.className = 'square';
     element.innerText = this.value;
-    // element.setAttribute('draggable', 'true');
 
     this.$square = element;
   }

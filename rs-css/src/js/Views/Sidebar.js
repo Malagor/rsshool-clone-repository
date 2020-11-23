@@ -20,6 +20,8 @@ export default class Sidebar {
       taskText: obj.taskText
     };
 
+    this.changeTask = null;
+
     this.init.bind(this);
     this.events.bind(this)();
   }
@@ -93,19 +95,19 @@ export default class Sidebar {
       const {target} = e;
 
       if (target.closest('.arrow__left')) {
-        const event = new Event('clickLeftArrow', {bubbles: true});
-        document.body.dispatchEvent(event);
+        this.changeTask('left');
       }
       if (target.closest('.arrow__right')) {
-        const event = new Event('clickRightArrow', {bubbles: true});
-        document.body.dispatchEvent(event);
+        this.changeTask('right');
       }
       if (target.closest('#menuToggle')) {
         this.toggleMenu();
       }
       if (target.closest('.nav__item')) {
-        const event = new Event('clickMenuTask', {bubbles: true});
-        target.closest('.nav__item').dispatchEvent(event);
+        this.changeTask(target.closest('.nav__item'));
+
+        // const event = new Event('clickMenuTask', {bubbles: true});
+        // target.closest('.nav__item').dispatchEvent(event);
       }
     });
   }

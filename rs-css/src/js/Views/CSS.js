@@ -6,6 +6,8 @@ export default class CSS {
       textarea: obj.textarea
     };
 
+    this.checkAnswer = null;
+
     this.events.bind(this)();
   }
 
@@ -26,20 +28,18 @@ export default class CSS {
   events() {
     this.elements.main.addEventListener('click', (e) => {
       const {target} = e;
-
       if (target.closest('#enter')){
-        const event = new Event('enter', {bubbles: true});
-        document.body.dispatchEvent(event);
+        this.checkAnswer();
       }
     });
 
     this.elements.main.addEventListener('keydown', (e) => {
       if (e.keyCode === 13){
         e.preventDefault();
-        const event = new Event('enter', {bubbles: true});
-        document.body.dispatchEvent(event);
+        this.checkAnswer();
       }
     })
+
   }
 
   getScreenValue() {

@@ -4,9 +4,9 @@
 import '../css/style.css';
 import '../css/style.scss';
 
-import main from "./Controller/main";
+import App from "./Controller/App";
 
-main();
+App.create();
 
 // import '../img/GitHub-Mark-64px.png';
 // import '../img/rs_school_js.svg';

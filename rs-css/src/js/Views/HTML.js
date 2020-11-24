@@ -1,4 +1,4 @@
-import {convertClasses, convertId, convertTag} from '../utils/utils';
+import {convertClasses, convertId, convertTag} from '../utils/converterHTML';
 
 export default class HTML {
   constructor(obj) {

@@ -2,7 +2,7 @@ import Sidebar from "../Views/Sidebar";
 import Task from "../Classes/Task";
 import Screen from "../Views/Screen";
 
-import * as utils from "../utils/utils"
+import getNewIndexCurrentTask from "../utils/getNewIndexCurrentTask"
 
 import '../../img/GitHub-Mark-64px.png';
 import '../../img/rs_school_js.svg';
@@ -52,6 +52,7 @@ export default class App{
     sidebar.init(tasks);
     sidebar.printTaskText(tasks[indexCurrentTask]);
     screen.setTitleText(tasks[indexCurrentTask].mission);
+    html.printTaskCode(tasks[indexCurrentTask].code);
 
     const config = {
       indexCurrentTask,
@@ -59,7 +60,8 @@ export default class App{
       TASKS_COUNT,
       screen,
       sidebar,
-      css
+      css,
+      html
     };
 
     return new App(config);
@@ -92,7 +94,7 @@ export default class App{
     if (this.isFinish()) {
       this.finish();
     } else {
-      this.propertes.indexCurrentTask = utils.getNewIndexCurrentTask(this.propertes.indexCurrentTask, this.propertes.TASKS_COUNT);
+      this.propertes.indexCurrentTask = getNewIndexCurrentTask(this.propertes.indexCurrentTask, this.propertes.TASKS_COUNT);
       this.printTaskOnScreen(this.propertes.indexCurrentTask);
       this.components.sidebar.createTaskListInMenu(this.tasks);
     }
@@ -110,9 +112,9 @@ export default class App{
 
   changeTask(target) {
     if (target === 'left') {
-      this.propertes.indexCurrentTask = utils.getNewIndexCurrentTask(this.propertes.indexCurrentTask);
+      this.propertes.indexCurrentTask = getNewIndexCurrentTask(this.propertes.indexCurrentTask);
     } else if (target === 'right') {
-      this.propertes.indexCurrentTask = utils.getNewIndexCurrentTask(this.propertes.indexCurrentTask, this.propertes.TASKS_COUNT);
+      this.propertes.indexCurrentTask = getNewIndexCurrentTask(this.propertes.indexCurrentTask, this.propertes.TASKS_COUNT);
     } else { // here target is element of a menu item
       this.propertes.indexCurrentTask = parseInt(target.dataset.index, 10);
       this.components.sidebar.toggleMenu();
@@ -173,9 +175,9 @@ export default class App{
   // Target can be the direction or element of a menu item
   // function changeTask(target) {
   //   if (target === 'left') {
-  //     indexCurrentTask = utils.getNewIndexCurrentTask(indexCurrentTask);
+  //     indexCurrentTask = getNewIndexCurrentTask(indexCurrentTask);
   //   } else if (target === 'right') {
-  //     indexCurrentTask = utils.getNewIndexCurrentTask(indexCurrentTask, TASKS_COUNT);
+  //     indexCurrentTask = getNewIndexCurrentTask(indexCurrentTask, TASKS_COUNT);
   //   } else { // target is element of a menu item
   //     indexCurrentTask = parseInt(target.dataset.index, 10);
   //     sidebar.toggleMenu();
@@ -195,7 +197,7 @@ export default class App{
   //   if (tasks.isFinish()) {
   //     finish();
   //   } else {
-  //     indexCurrentTask = utils.getNewIndexCurrentTask(indexCurrentTask, TASKS_COUNT);
+  //     indexCurrentTask = getNewIndexCurrentTask(indexCurrentTask, TASKS_COUNT);
   //     printTaskOnScreen(indexCurrentTask);
   //     sidebar.createTaskListInMenu(tasks);
   //   }

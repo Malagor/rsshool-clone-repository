@@ -1,17 +1,17 @@
-export default class Railway {
+export default class Screen {
   constructor(obj) {
     this.elements = {
-      main: obj.main,
+      node: obj.node,
       title: obj.title,
       innerBox: obj.innerBox
     };
   }
 
   static create(el) {
-    const main = document.querySelector(el);
-    main.insertAdjacentHTML('afterbegin', `
+    const node = document.querySelector(el);
+    node.insertAdjacentHTML('afterbegin', `
     <h2 id="taskTarget" class="railway__title">Mission Task</h2>
-    <div class="railway__inner">
+    <div class="screen__inner">
       <wagon></wagon>
       <wagon class="moving">
         <wood></wood>
@@ -21,15 +21,15 @@ export default class Railway {
     `);
 
     const title = document.querySelector('#taskTarget');
-    const innerBox = document.querySelector('.railway__inner');
+    const innerBox = document.querySelector('.screen__inner');
 
     const config = {
-      main,
+      main: node,
       title,
       innerBox
     };
 
-    return new Railway(config);
+    return new Screen(config);
   }
 
   setTitleText(text) {

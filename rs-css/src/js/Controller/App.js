@@ -1,6 +1,6 @@
 import Sidebar from "../Views/Sidebar";
 import Task from "../Classes/Task";
-import Railway from "../Views/Railway";
+import Screen from "../Views/Screen";
 
 import * as utils from "../utils/utils"
 
@@ -9,6 +9,7 @@ import '../../img/rs_school_js.svg';
 import '../../img/next-arrow.svg';
 import '../../img/check.svg';
 import CSS from "../Views/CSS";
+import HTML from "../Views/HTML";
 
 const taskRawData = require('../Models/taskList');
 
@@ -43,9 +44,10 @@ export default class App{
       return Task.create(taskItem);
     });
     const TASKS_COUNT = tasks.length;
-    const screen = Railway.create('.railway');
+    const screen = Screen.create('.screen');
     const sidebar = Sidebar.create('.sidebar');
     const css = CSS.create('.style-css');
+    const html = HTML.create('.html-code');
 
     sidebar.init(tasks);
     sidebar.printTaskText(tasks[indexCurrentTask]);

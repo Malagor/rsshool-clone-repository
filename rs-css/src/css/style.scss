@@ -33,6 +33,12 @@ body {
 
   overflow: hidden;
   background: $gradient;
+
+  @media screen and (max-width: 768px) {
+    grid-template-areas: "header " "main" "footer";
+    grid-template-columns: 1fr;
+    grid-template-rows: 75px 1fr 75px;
+  }
 }
 
 .header {
@@ -51,13 +57,19 @@ body {
   //background: cyan;
 
   display: grid;
-  grid-template-areas: "railway railway" "css html";
+  grid-template-areas: "screen screen" "css html";
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 3fr 2fr;
+  grid-template-rows: 1fr 2fr;
+
+  @media screen and (max-width: 768px) {
+    grid-template-areas: "screen" "html" "css";
+    grid-template-columns: 1fr ;
+    grid-template-rows: auto auto auto;
+  }
 }
 
 .screen {
-  grid-area: railway;
+  grid-area: screen;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -84,19 +96,24 @@ body {
   grid-area: html;
   background: #5E412F;
   color: #EAF2BB;
+  padding: 1rem;
 
   div {
     width: auto;
-    padding: 3px;
-    margin: 5px;
+    padding: 0 3px;
+    margin-bottom: 5px;
     color: #F7BC05;
-    font-weight: bold;
+    //font-weight: bold;
 
     transition: 0.2s;
     cursor: pointer;
 
     &.highlight {
       color: #EAF2BB;
+    }
+
+    div {
+      padding-left: 1rem;
     }
   }
 
@@ -108,6 +125,10 @@ body {
   //background: $gradient;
   padding: 0 1rem;
   color: black;
+
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 }
 
 .footer {

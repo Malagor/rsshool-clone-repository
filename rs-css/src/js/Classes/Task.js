@@ -59,7 +59,6 @@ export default class Task {
     codeRaw.forEach(node => {
       result.push(Node.create(node));
     });
-    console.log('result', result);
 
   return result;
   }

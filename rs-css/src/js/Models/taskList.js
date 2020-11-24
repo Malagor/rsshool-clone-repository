@@ -10,7 +10,44 @@ const taskList = [
       '<strong>p</strong> selects all <strong>&lt;p&gt;</strong> elements.'],
     answers: ['wagon'],
     level: 1,
-    done: true
+    done: true,
+    code: [
+      {
+        tag: "wagon",
+        id: "moving",
+        classes: ["green"]
+      },
+      {
+        tag: "wagon",
+        child: [
+          {
+            tag: "wood",
+            classes: ["yellow"],
+            child: [
+              {
+                tag: 'tent'
+              }
+            ]
+          },
+          {
+            tag: "rocks"
+          }
+        ]
+      },
+      {
+        tag: "wagon"
+      },
+      {
+        tag: "platform",
+        id: "brown",
+        child: [
+          {
+            tag: "rocks",
+            id: "searocks"
+          }
+        ]
+      }
+    ]
   },
   {
     mission: 'Select the platform',

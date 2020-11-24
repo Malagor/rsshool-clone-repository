@@ -120,8 +120,23 @@ export default class Sidebar {
   createTaskListInMenu(taskArray) {
     this.elements.nav.navList.innerHTML = '';
     taskArray.forEach(task => {
-      this.elements.nav.navList.innerHTML += task.toHTMLForMenu()
+      this.elements.nav.navList.innerHTML += Sidebar.printTaskTextForMenuList(task);
     });
+  }
+
+  static printTaskTextForMenuList(taskObj) {
+    const {title, id, syntax, level, done} = taskObj;
+    const checkClass = done ? 'task-done-check' : '';
+    return `
+      <li class="nav__item" data-index="${id}">
+        <div class="nav__check ${checkClass}">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M504.502 75.496c-9.997-9.998-26.205-9.998-36.204 0L161.594 382.203 43.702 264.311c-9.997-9.998-26.205-9.997-36.204 0-9.998 9.997-9.998 26.205 0 36.203l135.994 135.992c9.994 9.997 26.214 9.99 36.204 0L504.502 111.7c9.998-9.997 9.997-26.206 0-36.204z"/></svg>
+        </div>
+        <div class="nav__level">${level}</div>
+        <div class="nav__syntax">${syntax}</div>
+        <div class="nav__title">${title}</div>
+      </li>
+  `;
   }
 
   setCurrentTaskLevel(cur) {
@@ -133,7 +148,23 @@ export default class Sidebar {
   }
 
   printTaskText(taskObj) {
-    this.elements.taskText.innerHTML = taskObj.toHTML();
+    const {examples, title, subtitle, syntax, description} = taskObj;
+    let examplesHtml = '';
+
+    examples.forEach(example => {
+      examplesHtml += `<li class="task__example-item">${example}</li>`
+    });
+
+    this.elements.taskText.innerHTML = `
+          <h3 class="task__title">${title}</h3>
+          <div class="task__subtitle">${subtitle}</div>
+          <div class="task__syntax">${syntax}</div>
+          <div class="task__desc">${description}
+          </div>
+          <ul class="task__examples-list">
+          ${examplesHtml}
+          </ul>
+      `;
   }
 
   setDoneCheckboxInHeader(isDone = true) {

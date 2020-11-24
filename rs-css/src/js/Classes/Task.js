@@ -1,3 +1,5 @@
+import Node from "./Node";
+
 export default class Task {
   constructor(obj) {
     this.id = Task.instanceCount;
@@ -30,6 +32,12 @@ export default class Task {
       ...obj
     };
 
+    const {code: codeRaw} = resultConfig;
+
+    if (codeRaw) {
+      resultConfig.code = Task.parserRawCode(codeRaw);
+    }
+
     return new Task(resultConfig);
   }
 
@@ -42,8 +50,18 @@ export default class Task {
     return this;
   }
 
-  isRightAnswer(answer){
+  isRightAnswer(answer) {
     return this.answers.filter(test => test === answer).length;
+  }
+
+  static parserRawCode(codeRaw) {
+    const result = [];
+    codeRaw.forEach(node => {
+      result.push(Node.create(node));
+    });
+    console.log('result', result);
+
+  return result;
   }
 }
 

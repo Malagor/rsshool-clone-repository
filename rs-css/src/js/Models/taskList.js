@@ -65,6 +65,29 @@ const taskList = [
       '<strong>p</strong> selects all <strong>&lt;p&gt;</strong> elements.'],
     answers: ['platform'],
     level: 2,
+    code: [
+      {
+        tag: "wagon",
+        id: "moving",
+        classes: ["green"]
+      },
+      {
+        tag: "wagon",
+      },
+      {
+        tag: "wagon"
+      },
+      {
+        tag: "platform",
+        id: "brown",
+        child: [
+          {
+            tag: "rocks",
+            id: "searocks"
+          }
+        ]
+      }
+    ]
   },
   {
     mission: 'Select the moving wagon',
@@ -77,6 +100,40 @@ const taskList = [
       '<strong>ul#long</strong> selects ul <strong>id="long"</strong>'],
     answers: ['wagon#moving', '#moving'],
     level: 3,
+    code: [
+      {
+        tag: "wagon",
+        child: [
+          {
+            tag: "wood",
+            classes: ["yellow"],
+            child: [
+              {
+                tag: 'tent',
+                child: [
+                  {
+                    tag: 'sand'
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            tag: "rocks"
+          }
+        ]
+      },
+      {
+        tag: "platform",
+        id: "brown",
+        child: [
+          {
+            tag: "rocks",
+            id: "searocks"
+          }
+        ]
+      }
+    ]
   },
   {
     mission: 'Select the wood on the platform',
@@ -89,6 +146,35 @@ const taskList = [
       '<strong>#fancy  span</strong> selects any <strong>&lt;span&gt;</strong> elements that are inside of the element with <strong>id="fancy"</strong>'],
     answers: ['wagon#green', '#green'],
     level: 4,
+    code: [
+      {
+        tag: "wagon",
+        id: "moving",
+        classes: ["green"]
+      },
+      {
+        tag: "wagon",
+        child: [
+          {
+            tag: "wood",
+            classes: ["yellow"],
+            child: [
+              {
+                tag: 'tent',
+                child: [
+                  {
+                    tag: 'sand'
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            tag: "rocks"
+          }
+        ]
+      }
+    ]
   },
   {
     mission: 'Select the wood on the moving platform',
@@ -100,6 +186,33 @@ const taskList = [
       '<stong>#cool span</stong> selects all <stong>&lt;span&gt;</stong> elements that are inside of elements with <stong>id="cool"</stong>'],
     answers: ['#moving wood'],
     level: 5,
+    code: [
+      {
+        tag: "wagon",
+        child: [
+          {
+            tag: "wood",
+            classes: ["yellow"]
+          },
+          {
+            tag: "rocks"
+          }
+        ]
+      },
+      {
+        tag: "platform",
+        id: "brown",
+        child: [
+          {
+            tag: "rocks",
+            id: "searocks"
+          }
+        ]
+      },
+      {
+        tag: 'wagon'
+      }
+    ]
   },
   {
     mission: 'Select the small apples',
@@ -111,6 +224,40 @@ const taskList = [
       '<stong>.neato</stong> selects all elements with <stong>class="neato"</stong>'],
     answers: ['#moving wood'],
     level: 6,
+    code: [
+      {
+        tag: "wagon",
+        child: [
+          {
+            tag: "wood",
+            classes: ["yellow"]
+          },
+          {
+            tag: "rocks"
+          }
+        ]
+      },
+      {
+        tag: "platform",
+        id: "brown",
+        child: [
+          {
+            tag: "rocks",
+            id: "searocks"
+          }
+        ]
+      },
+      {
+        tag: "platform",
+        id: "brown",
+        child: [
+          {
+            tag: "rocks",
+            id: "searocks"
+          }
+        ]
+      }
+    ]
   },
   {
     mission: 'Select the small oranges',
@@ -124,6 +271,32 @@ const taskList = [
     ],
     answers: ['#moving wood'],
     level: 7,
+    code: [
+      {
+        tag: "platform",
+        id: "brown",
+      },
+      {
+        tag: "platform",
+        id: "brown",
+        child: [
+          {
+            tag: "rocks",
+            id: "searocks"
+          }
+        ]
+      },
+      {
+        tag: "platform",
+        id: "brown",
+        child: [
+          {
+            tag: "rocks",
+            id: "searocks"
+          }
+        ]
+      }
+    ]
   },
   {
     mission: 'Select the small oranges in the bentos',
@@ -134,6 +307,32 @@ const taskList = [
     examples: [],
     answers: ['#moving wood'],
     level: 8,
+    code: [
+      {
+        tag: "wagon",
+        id: "brown",
+      },
+      {
+        tag: "platform",
+        id: "brown",
+        child: [
+          {
+            tag: "rocks",
+            id: "searocks"
+          }
+        ]
+      },
+      {
+        tag: "wagon",
+        id: "brown",
+        child: [
+          {
+            tag: "rocks",
+            id: "searocks"
+          }
+        ]
+      }
+    ]
   },
   {
     mission: 'Select all the plates and bentos',
@@ -147,6 +346,12 @@ const taskList = [
     ],
     answers: ['#moving wood'],
     level: 9,
+    code: [
+      {
+        tag: "platform",
+        id: "brown",
+      }
+    ]
   },
   {
     mission: 'Select all the things!',
@@ -159,6 +364,42 @@ const taskList = [
     ],
     answers: ['#moving wood'],
     level: 10,
+    code: [
+      {
+        tag: "platform",
+        id: "brown",
+      },
+      {
+        tag: "wagon",
+        id: "brown",
+        child: [
+          {
+            tag: "rocks",
+            id: "searocks"
+          }
+        ]
+      },
+      {
+        tag: "platform",
+        id: "brown",
+        child: [
+          {
+            tag: "rocks",
+            id: "searocks"
+          }
+        ]
+      },
+      {
+        tag: "wagon",
+        id: "brown",
+        child: [
+          {
+            tag: "rocks",
+            id: "searocks"
+          }
+        ]
+      }
+    ]
   },
 ];
 

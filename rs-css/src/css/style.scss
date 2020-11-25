@@ -80,9 +80,11 @@ body {
   &__inner {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: end;
     width: 100%;
     height: 100%;
+
+    padding-bottom: 2rem;
   }
 }
 
@@ -177,7 +179,8 @@ body {
 }
 
 
-wagon {
+wagon,
+platform {
   position: relative;
   display: block;
   width: 150px;
@@ -213,6 +216,11 @@ wagon {
   &:after {
     right: 5%;
   }
+}
+
+platform {
+  height: 10px;
+  background: #000;
 }
 
 @keyframes swing {

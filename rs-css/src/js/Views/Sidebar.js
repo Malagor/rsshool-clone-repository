@@ -23,7 +23,7 @@ export default class Sidebar {
     this.changeTask = null;
 
     this.init.bind(this);
-    this.events.bind(this)();
+    this.events.call(this);
   }
 
   static create(el) {

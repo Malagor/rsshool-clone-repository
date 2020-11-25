@@ -25,7 +25,12 @@ const taskList = [
             classes: ["yellow"],
             child: [
               {
-                tag: 'tent'
+                tag: 'tent',
+                child: [
+                  {
+                    tag: 'sand'
+                  }
+                ]
               }
             ]
           },

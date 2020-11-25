@@ -94,20 +94,20 @@ export default class Sidebar {
     this.elements.node.addEventListener('click', e => {
       const {target} = e;
 
+      // Change tasks
       if (target.closest('.arrow__left')) {
         this.changeTask('left');
       }
       if (target.closest('.arrow__right')) {
         this.changeTask('right');
       }
-      if (target.closest('#menuToggle')) {
-        this.toggleMenu();
-      }
       if (target.closest('.nav__item')) {
         this.changeTask(target.closest('.nav__item'));
+      }
 
-        // const event = new Event('clickMenuTask', {bubbles: true});
-        // target.closest('.nav__item').dispatchEvent(event);
+      // Close-open task menu
+      if (target.closest('#menuToggle')) {
+        this.toggleMenu();
       }
     });
   }

@@ -29,20 +29,38 @@ export default class App{
       html: obj.html,
     };
 
-
     // handlers component`s events
     this.components.sidebar.changeTask = this.changeTask.bind(this);
     this.components.css.checkAnswer = this.checkAnswer.bind(this);
-
   }
 
-  static create() {
-    // Начальное состояние приложения
-    const indexCurrentTask = 0; // Индекс текущего Задания в массиве заданий
+  static create(el) {
+    const node = document.querySelector(el);
+
+    node.innerHTML = `
+    <section class="screen"></section>
+    <section class="style-css"></section>
+    <section class="html-code">
+      <div class="">
+        &lt;wagon /&gt;
+      </div>
+      <div class="">
+        &lt;wagon&gt;
+        <div class="">
+          &lt;wood /&gt;
+        </div>
+        &lt;/wagon&gt;
+      </div>
+      <div class="">
+        &lt;wagon /&gt;
+      </div>
+    </section>    
+    `;
 
     const tasks = taskRawData.map(taskItem => {
       return Task.create(taskItem);
     });
+    const indexCurrentTask = 0;
     const TASKS_COUNT = tasks.length;
     const screen = Screen.create('.screen');
     const sidebar = Sidebar.create('.sidebar');
@@ -135,92 +153,3 @@ export default class App{
   }
 
 }
-
-// export default function main() {
-
-  // let indexCurrentTask = 0; // Индекс текущего Задания в массиве заданий
-
-  // Начальное состояние приложения
-  // const tasks = taskRawData.map(taskItem => {
-  //   return Task.create(taskItem)
-  // });
-
-  // console.log(taskRawData[0].code);
-
-  // tasks.isFinish = () => {
-  //   return tasks.every(task => {
-  //     return task.done;
-  //   })
-  // };
-
-  // const TASKS_COUNT = tasks.length;
-  // const screen = Railway.create('.railway');
-  // const sidebar = Sidebar.create('.sidebar');
-  // const css = CSS.create('.style-css');
-
-  // sidebar.init(tasks);
-  // sidebar.printTaskText(tasks[indexCurrentTask]);
-  // screen.setTitleText(tasks[indexCurrentTask].mission);
-
-  // function printTaskOnScreen(index) {
-  //   sidebar.setCurrentTaskLevel(tasks[index].level);
-  //   sidebar.printTaskText(tasks[index]);
-  //   sidebar.setDoneCheckboxInHeader(tasks[index].done);
-  //
-  //   screen.setTitleText(tasks[index].mission);
-  //
-  //   css.clear();
-  // }
-
-  // Target can be the direction or element of a menu item
-  // function changeTask(target) {
-  //   if (target === 'left') {
-  //     indexCurrentTask = getNewIndexCurrentTask(indexCurrentTask);
-  //   } else if (target === 'right') {
-  //     indexCurrentTask = getNewIndexCurrentTask(indexCurrentTask, TASKS_COUNT);
-  //   } else { // target is element of a menu item
-  //     indexCurrentTask = parseInt(target.dataset.index, 10);
-  //     sidebar.toggleMenu();
-  //   }
-  //   printTaskOnScreen(indexCurrentTask);
-  // }
-
-  // sidebar.changeTask = changeTask.bind(this);
-
-  // function finish() {
-  //   console.log("Finish training");
-  // }
-
-  // function answerIsRight() {
-  //   tasks[indexCurrentTask].done = true;
-  //
-  //   if (tasks.isFinish()) {
-  //     finish();
-  //   } else {
-  //     indexCurrentTask = getNewIndexCurrentTask(indexCurrentTask, TASKS_COUNT);
-  //     printTaskOnScreen(indexCurrentTask);
-  //     sidebar.createTaskListInMenu(tasks);
-  //   }
-  // }
-
-  // function answerIsWrong() {
-  //   css.elements.textarea.classList.add('shake');
-  //   css.elements.textarea.addEventListener('animationend', () => {
-  //     css.elements.textarea.classList.remove('shake');
-  //     css.elements.textarea.value = css.elements.textarea.value.trim();
-  //   })
-  // }
-
-  // function checkAnswer() {
-  //   const answer = css.getScreenValue().trim();
-  //   const isAnswersMatch = tasks[indexCurrentTask].isRightAnswer(answer);
-  //
-  //   if (isAnswersMatch) {
-  //     answerIsRight();
-  //   } else {
-  //     answerIsWrong();
-  //   }
-  // }
-
-  // css.checkAnswer = checkAnswer.bind(this);
-// }

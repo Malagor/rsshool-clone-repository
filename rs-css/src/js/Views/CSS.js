@@ -1,6 +1,6 @@
 export default class CSS {
   constructor(obj) {
-    this.elements ={
+    this.elements = {
       node: obj.node,
       button: obj.button,
       textarea: obj.textarea
@@ -14,8 +14,14 @@ export default class CSS {
   static create(el) {
     const node = document.querySelector(el);
 
+    node.innerHTML = `
+        <textarea name="css" id="cssArea" class="css__area"></textarea>
+        <button class="css__button" id="enter">Enter</button>
+     `;
+
     const button = document.querySelector('#enter');
     const textarea = document.querySelector('#cssArea');
+
     const elements = {
       node,
       button,
@@ -28,13 +34,13 @@ export default class CSS {
   events() {
     this.elements.node.addEventListener('click', (e) => {
       const {target} = e;
-      if (target.closest('#enter')){
+      if (target.closest('#enter')) {
         this.checkAnswer();
       }
     });
 
     this.elements.node.addEventListener('keydown', (e) => {
-      if (e.keyCode === 13){
+      if (e.keyCode === 13) {
         e.preventDefault();
         this.checkAnswer();
       }
@@ -46,7 +52,7 @@ export default class CSS {
     return this.elements.textarea.value;
   }
 
-  clear(){
+  clear() {
     this.elements.textarea.value = '';
   }
 }

@@ -1,3 +1,5 @@
+import {convertClasses, convertId, convertTagForScreenBlock} from '../utils/converterHTML';
+
 export default class Screen {
   constructor(obj) {
     this.elements = {
@@ -34,6 +36,46 @@ export default class Screen {
 
   setTitleText(text) {
     this.elements.title.textContent = text;
+  }
+
+
+  printTask(code){
+    this.elements.innerBox.innerHTML = '';
+
+    if (!code || !Array.isArray(code)) {
+      throw new Error('Received is not correct data for print task code');
+    }
+
+    console.log('code', code);
+    code.forEach((node) => {
+      this.elements.innerBox.innerHTML += Screen.nodeToHTML(node)
+    });
+
+    // TODO: НАвесить события
+    // this.createArrayOfNodes();
+    // this.addListenersToNodes();
+  }
+
+  static nodeToHTML(code) {
+
+    const {tag, id, classes, child} = code;
+
+    const formatIdAndClasses = `
+      ${convertId(id)} ${convertClasses(classes)}
+      `.trim();
+
+    let formatChild = '';
+    if (child) {
+      child.forEach(el => {
+        formatChild += Screen.nodeToHTML(el);
+      })
+    }
+
+    const formatTag = convertTagForScreenBlock(tag, formatIdAndClasses, formatChild).trim();
+
+    return `      
+        ${formatTag}      
+      `;
   }
 
 }

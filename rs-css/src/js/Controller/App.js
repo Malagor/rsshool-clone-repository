@@ -72,6 +72,7 @@ export default class App{
     sidebar.printTaskText(tasks[indexCurrentTask]);
     screen.setTitleText(tasks[indexCurrentTask].mission);
     html.printTaskCode(tasks[indexCurrentTask].code);
+    screen.printTask(tasks[indexCurrentTask].code);
 
     const config = {
       indexCurrentTask,
@@ -142,15 +143,18 @@ export default class App{
   }
 
   printTaskOnScreen(index) {
-    const {sidebar} = this.components;
+    const {sidebar, css, html, screen} = this.components;
+    const task = this.tasks[index];
 
-    sidebar.setCurrentTaskLevel(this.tasks[index].level);
-    sidebar.printTaskText(this.tasks[index]);
-    sidebar.setDoneCheckboxInHeader(this.tasks[index].done);
+    sidebar.setCurrentTaskLevel(task.level);
+    sidebar.printTaskText(task);
+    sidebar.setDoneCheckboxInHeader(task.done);
 
-    this.components.screen.setTitleText(this.tasks[index].mission);
+    screen.setTitleText(task.mission);
+    html.printTaskCode(task.code);
+    screen.printTask(task.code);
 
-    this.components.css.clear();
+    css.clear();
   }
 
   toggleHighlight(event){

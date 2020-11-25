@@ -14,7 +14,7 @@ export const convertClasses = (classes) => {
   return '';
 };
 
-export const convertTag = (tag, inner = '', child) => {
+export const convertTagForHtmlBlock = (tag, inner = '', child) => {
   let result = `&lt;${tag} ${inner}`;
 
   if (child){
@@ -23,6 +23,17 @@ export const convertTag = (tag, inner = '', child) => {
     &lt;/${tag}&gt;`
   } else {
     result += ` /&gt;`
+  }
+  return result;
+};
+
+export const convertTagForScreenBlock = (tag, inner = '', child) => {
+  let result = `<${tag} ${inner}>`;
+
+  if (child){
+    result += `${child} </${tag}>`;
+  } else {
+     result += `</${tag}>`;
   }
   return result;
 };

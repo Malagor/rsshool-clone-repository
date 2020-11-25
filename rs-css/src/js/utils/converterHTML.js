@@ -15,12 +15,11 @@ export const convertClasses = (classes) => {
 };
 
 export const convertTag = (tag, inner = '', child) => {
-  console.log('convertTag:', tag, inner);
   let result = `&lt;${tag} ${inner}`;
 
   if (child){
     result += `&gt;
-    <div>${child}</div>
+    ${child}
     &lt;/${tag}&gt;`
   } else {
     result += ` /&gt;`

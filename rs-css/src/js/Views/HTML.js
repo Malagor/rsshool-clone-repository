@@ -1,4 +1,4 @@
-import {convertClasses, convertId, convertTag} from '../utils/converterHTML';
+import {convertClasses, convertId, convertTagForHtmlBlock} from '../utils/converterHTML';
 
 export default class HTML {
   constructor(obj) {
@@ -35,7 +35,7 @@ export default class HTML {
         })
       }
 
-      const formatTag = convertTag(tag, formatIdAndClasses, formatChild).trim();
+      const formatTag = convertTagForHtmlBlock(tag, formatIdAndClasses, formatChild).trim();
 
       return `
       <div>

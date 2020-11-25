@@ -1,6 +1,8 @@
 import Sidebar from "../Views/Sidebar";
 import Task from "../Classes/Task";
 import Screen from "../Views/Screen";
+import CSS from "../Views/CSS";
+import HTML from "../Views/HTML";
 
 import getNewIndexCurrentTask from "../utils/getNewIndexCurrentTask"
 
@@ -8,8 +10,6 @@ import '../../img/GitHub-Mark-64px.png';
 import '../../img/rs_school_js.svg';
 import '../../img/next-arrow.svg';
 import '../../img/check.svg';
-import CSS from "../Views/CSS";
-import HTML from "../Views/HTML";
 
 const taskRawData = require('../Models/taskList');
 
@@ -32,6 +32,7 @@ export default class App{
     // handlers component`s events
     this.components.sidebar.changeTask = this.changeTask.bind(this);
     this.components.css.checkAnswer = this.checkAnswer.bind(this);
+    this.components.html.toggleHighlight = this.toggleHighlight.bind(this);
   }
 
   static create(el) {
@@ -152,4 +153,15 @@ export default class App{
     this.components.css.clear();
   }
 
+  toggleHighlight(event){
+    event.stopPropagation();
+
+    const {target} = event;
+
+    if (target.classList.contains('highlight')) {
+      target.classList.remove('highlight');
+    } else {
+    target.classList.add('highlight');
+    }
+  }
 }

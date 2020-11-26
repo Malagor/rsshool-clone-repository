@@ -34,9 +34,6 @@ const taskList = [
               }
             ]
           },
-          {
-            tag: "rocks"
-          }
         ]
       },
       {
@@ -230,11 +227,13 @@ const taskList = [
         child: [
           {
             tag: "wood",
-            classes: ["yellow"]
+            classes: ["yellow"],
+            child: [
+              {
+                tag: "rocks"
+              }
+            ]
           },
-          {
-            tag: "rocks"
-          }
         ]
       },
       {
@@ -374,7 +373,7 @@ const taskList = [
         id: "brown",
         child: [
           {
-            tag: "rocks",
+            tag: "wood",
             id: "searocks"
           }
         ]
@@ -394,7 +393,7 @@ const taskList = [
         id: "brown",
         child: [
           {
-            tag: "rocks",
+            tag: "wood",
             id: "searocks"
           }
         ]

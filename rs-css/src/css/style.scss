@@ -192,9 +192,9 @@ platform {
   transition: 0.2s;
   transform-origin: bottom center;
 
-  &.highlight {
-    box-shadow: 0 0 5px 5px #F07818;
-  }
+  //&.highlight {
+  //  box-shadow: 0 0 5px 5px #F07818;
+  //}
 
   &.moving {
     animation: swing 1s ease-in-out infinite;
@@ -221,6 +221,38 @@ platform {
 platform {
   height: 10px;
   background: #000;
+}
+
+wood{
+  position: absolute;
+  top: -50px;
+  left: 5%;
+  width: 90%;
+  height: 50px;
+  background-image: url(../img/wood-texture.jpg);
+  background-size: contain;
+}
+
+rocks {
+  position: absolute;
+  top: -15px;
+  left: 5%;
+  width: 90%;
+  height: 15px;
+  border-top-left-radius: 50px;
+  border-top-right-radius: 50px;
+  //background: #532001;
+  background-image: url(../img/rocks-trexture.jpg);
+  background-size: contain;
+}
+
+wagon,
+platform,
+wood,
+rocks{
+  &.highlight {
+    box-shadow: 0 0 5px 5px #F07818;
+  }
 }
 
 @keyframes swing {

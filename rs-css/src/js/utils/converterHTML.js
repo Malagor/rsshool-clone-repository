@@ -15,7 +15,10 @@ export const convertClasses = (classes) => {
 };
 
 export const convertTagForHtmlBlock = (tag, inner = '', child) => {
-  let result = `&lt;${tag} ${inner}`;
+  let result = `&lt;${tag}`;
+  if (inner) {
+    result += ` ${inner}`
+  }
 
   if (child){
     result += `&gt;

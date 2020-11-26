@@ -5,7 +5,7 @@ import CSS from "../Views/CSS";
 import HTML from "../Views/HTML";
 
 import getNewIndexCurrentTask from "../utils/getNewIndexCurrentTask"
-import {parseNodeInnerText, createStringForSearch } from "../utils/parseNodeInnerText";
+import {parseNodeInnerText, createStringForSearch, convertToNodeInnerText } from "../utils/parseNodeInnerText";
 
 const taskRawData = require('../Models/taskList');
 
@@ -29,6 +29,7 @@ export default class App{
     this.components.sidebar.changeTask = this.changeTask.bind(this);
     this.components.css.checkAnswer = this.checkAnswer.bind(this);
     this.components.html.toggleHighlight = this.toggleHighlight.bind(this);
+    this.components.screen.toggleHighlightScreen = this.toggleHighlightScreen.bind(this);
   }
 
   static create(el) {
@@ -153,23 +154,41 @@ export default class App{
     css.clear();
   }
 
-  toggleHighlight(target){
+  toggleHighlight(event){
+    const {target} = event;
     if (target.classList.contains('html-code')) return;
     const innerText = target.firstChild.nodeValue;
     const parseText = parseNodeInnerText(innerText);
     const strForSearch = createStringForSearch(parseText);
-    this.components.screen.elements.innerBox.querySelectorAll(strForSearch).forEach(el => el.classList.toggle('highlight'));
+
+    const screenElements = this.components.screen.elements.innerBox.querySelectorAll(strForSearch);
+    screenElements.forEach(el => el.classList.toggle('highlight'));
     target.classList.toggle('highlight');
 
+    // this.printTooltip(target, innerText);
   }
-  //   event.stopPropagation();
-  //
-  //   const {target} = event;
-  //
-  //   if (target.classList.contains('highlight')) {
-  //     target.classList.remove('highlight');
-  //   } else {
-  //   target.classList.add('highlight');
-  //   }
-  // }
+
+  toggleHighlightScreen(event) {
+    const {target} = event;
+    if (target.classList.contains('screen__inner')) return;
+
+    const {id, localName: tag, className, childElementCount: child} = target;
+    const nodeData = {
+      tag,
+      id,
+      className,
+      child
+    };
+    const innerText = convertToNodeInnerText(nodeData);
+
+    this.components.html.elements.blocks.forEach(node => {
+      if (node.firstChild.nodeValue.trim() === innerText) {
+        node.classList.toggle('highlight')
+      }
+    });
+
+    target.classList.toggle('highlight');
+
+    this.components.screen.printTooltip(target, innerText);
+  }
 }

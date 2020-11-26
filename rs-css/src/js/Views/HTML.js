@@ -70,52 +70,14 @@ export default class HTML {
 
   events() {
     this.elements.node.onmouseover = (event) => {
-      const {target} = event;
-      this.toggleHighlight(target);
+      this.toggleHighlight(event);
     };
     this.elements.node.onmouseout = (event) => {
-      const {target} = event;
-      this.toggleHighlight(target);
+      this.toggleHighlight(event);
     };
   }
 
   clearScreen() {
     this.elements.node.textContent = '';
   }
-
-
-  // setMouseEvents(arr) {
-  //   arr.forEach((el) => {
-  //     el.addEventListener('mouseover', this.toggleHighlight);
-  //     el.addEventListener('mouseout', this.toggleHighlight);
-  //   });
-  // }
-  //
-  // toggleHighlight(el) {
-  //   const {target} = el;
-  //   let index = 0;
-  //
-  //   if (target.localName === 'wagon') {
-  //     wagons.forEach((wag, i) => {
-  //       if (wag === target) {
-  //         console.log(i);
-  //         index = i;
-  //       }
-  //     });
-  //   } else {
-  //     linesCode.forEach((wag, i) => {
-  //
-  //       if (wag === target) {
-  //         console.log(i);
-  //         index = i;
-  //       }
-  //     });
-  //   }
-  //
-  //   if (index >= 0) {
-  //     wagons[index].classList.toggle('highlight');
-  //     linesCode[index].classList.toggle('highlight');
-  //   }
-  //   target.classList.toggle('highlight');
-  // }
 }

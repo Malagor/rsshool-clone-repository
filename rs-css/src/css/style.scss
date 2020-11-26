@@ -69,6 +69,7 @@ body {
 }
 
 .screen {
+  position: relative;
   grid-area: screen;
   display: flex;
   align-items: center;
@@ -86,7 +87,21 @@ body {
 
     padding-bottom: 2rem;
   }
+
+  .tooltip {
+    position: absolute;
+    background: #fff;
+    padding: 0.5em;
+    border: 3px solid #f07818;
+    transition: 0.3s;
+    opacity: 0;
+
+    &.open {
+      opacity: 1;
+    }
+  }
 }
+
 
 .style-css {
   grid-area: css;
@@ -184,77 +199,69 @@ platform {
   position: relative;
   display: block;
   width: 150px;
-  height: 50px;
-  margin: 0 10px;
-  background-image: url("../img/tileable_wood_texture.png");
-  background-size: 150px 50px;
-  border: 1px solid black;
+  height: 41px;
+  background-image: url("../img/wagon.png");
   transition: 0.2s;
   transform-origin: bottom center;
-
-  //&.highlight {
-  //  box-shadow: 0 0 5px 5px #F07818;
-  //}
-
-  &.moving {
-    animation: swing 1s ease-in-out infinite;
-  }
-
-  &:before,
-  &:after {
-    position: absolute;
-    content: '\29BF \29BF';
-    font-size: 16px;
-    line-height: 16px;
-    bottom: -16px;
-  }
-
-  &:before {
-    left: 5%;
-  }
-
-  &:after {
-    right: 5%;
-  }
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 platform {
-  height: 10px;
-  background: #000;
+  height: 22px;
+  background-image: url(../img/platform.png);
+}
+
+wood,
+rocks,
+sand {
+  position: absolute;
+  left: 15%;
+  width: 70%;
+  background-size: cover;
+  background-repeat: no-repeat;
+
 }
 
 wood{
-  position: absolute;
-  top: -50px;
-  left: 5%;
-  width: 90%;
-  height: 50px;
+  top: -30px;
+  height: 30px;
   background-image: url(../img/wood-texture.jpg);
   background-size: contain;
+  background-repeat: repeat;
+
 }
 
 rocks {
+  top: -30px;
+  height: 30px;
+  //border-top-left-radius: 50px;
+  //border-top-right-radius: 50px;
+  border-radius: 50% 50% 50% 50% / 100% 100% 0% 0%;
+  background-image: url(../img/rocks-texture.png);
+}
+
+sand{
   position: absolute;
-  top: -15px;
-  left: 5%;
-  width: 90%;
-  height: 15px;
-  border-top-left-radius: 50px;
-  border-top-right-radius: 50px;
-  //background: #532001;
-  background-image: url(../img/rocks-trexture.jpg);
-  background-size: contain;
+  height: 30px;
+  top: -30px;
+  background-image: url(../img/sand-texture.png);
+  border-radius: 50% 50% 50% 50% / 100% 100% 0% 0%;
 }
 
 wagon,
 platform,
 wood,
-rocks{
+rocks,
+sand{
   &.highlight {
     box-shadow: 0 0 5px 5px #F07818;
   }
 }
 
+.moving {
+  animation: swing 1s ease-in-out infinite;
+}
 @keyframes swing {
   0% {
     transform: skewX(3deg);

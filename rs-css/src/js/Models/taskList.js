@@ -25,12 +25,7 @@ const taskList = [
             classes: ["yellow"],
             child: [
               {
-                tag: 'tent',
-                child: [
-                  {
-                    tag: 'sand'
-                  }
-                ]
+                tag: 'sand'
               }
             ]
           },
@@ -223,21 +218,16 @@ const taskList = [
     level: 6,
     code: [
       {
-        tag: "wagon",
+        tag: "platform",
         child: [
           {
             tag: "wood",
             classes: ["yellow"],
-            child: [
-              {
-                tag: "rocks"
-              }
-            ]
           },
         ]
       },
       {
-        tag: "platform",
+        tag: "wagon",
         id: "brown",
         child: [
           {
@@ -280,7 +270,7 @@ const taskList = [
         id: "brown",
         child: [
           {
-            tag: "rocks",
+            tag: "sand",
             id: "searocks"
           }
         ]
@@ -350,8 +340,10 @@ const taskList = [
         tag: "platform",
         id: "brown",
       }
-    ]
+    ],
+    done: true
   },
+
   {
     mission: 'Select all the things!',
     title: 'The Universal Selector',

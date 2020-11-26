@@ -8,6 +8,8 @@ export default class HTML {
     };
 
     this.toggleHighlight = null;
+
+    this.events.call(this);
   }
 
   static create(el) {
@@ -55,7 +57,6 @@ export default class HTML {
       this.elements.node.innerHTML += HTML.nodeToHTML(node)
     });
     this.createArrayOfNodes();
-    this.addListenersToNodes();
   }
 
   createArrayOfNodes() {
@@ -67,11 +68,15 @@ export default class HTML {
     });
   }
 
-  addListenersToNodes() {
-    this.elements.blocks.forEach((el) => {
-      el.addEventListener('mouseover', event => this.toggleHighlight(event));
-      el.addEventListener('mouseout', event => this.toggleHighlight(event));
-    });
+  events() {
+    this.elements.node.onmouseover = (event) => {
+      const {target} = event;
+      this.toggleHighlight(target);
+    };
+    this.elements.node.onmouseout = (event) => {
+      const {target} = event;
+      this.toggleHighlight(target);
+    };
   }
 
   clearScreen() {

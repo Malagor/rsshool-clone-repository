@@ -5,11 +5,7 @@ import CSS from "../Views/CSS";
 import HTML from "../Views/HTML";
 
 import getNewIndexCurrentTask from "../utils/getNewIndexCurrentTask"
-
-import '../../img/GitHub-Mark-64px.png';
-import '../../img/rs_school_js.svg';
-import '../../img/next-arrow.svg';
-import '../../img/check.svg';
+import {parseNodeInnerText, createStringForSearch } from "../utils/parseNodeInnerText";
 
 const taskRawData = require('../Models/taskList');
 
@@ -157,15 +153,23 @@ export default class App{
     css.clear();
   }
 
-  toggleHighlight(event){
-    event.stopPropagation();
+  toggleHighlight(target){
+    if (target.classList.contains('html-code')) return;
+    const innerText = target.firstChild.nodeValue;
+    const parseText = parseNodeInnerText(innerText);
+    const strForSearch = createStringForSearch(parseText);
+    this.components.screen.elements.innerBox.querySelectorAll(strForSearch).forEach(el => el.classList.toggle('highlight'));
+    target.classList.toggle('highlight');
 
-    const {target} = event;
-
-    if (target.classList.contains('highlight')) {
-      target.classList.remove('highlight');
-    } else {
-    target.classList.add('highlight');
-    }
   }
+  //   event.stopPropagation();
+  //
+  //   const {target} = event;
+  //
+  //   if (target.classList.contains('highlight')) {
+  //     target.classList.remove('highlight');
+  //   } else {
+  //   target.classList.add('highlight');
+  //   }
+  // }
 }

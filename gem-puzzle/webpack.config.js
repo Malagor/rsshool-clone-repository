@@ -3,6 +3,9 @@ const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const OptimizeCssAssetWebpackPlugin = require('optimize-css-assets-webpack-plugin');
+const TerserWebpackPlugin = require('terser-webpack-plugin');
 
 const ENV = process.env.npm_lifecycle_event;
 const isDev = ENV === 'dev';
@@ -24,6 +27,23 @@ function setDMode() {
   }
 }
 
+const optimization = () => {
+  const config = {
+    splitChunks: {
+      chunks: 'all'
+    }
+  };
+
+  if (isProd) {
+    config.minimizer = [
+      new OptimizeCssAssetWebpackPlugin(),
+      // new TerserWebpackPlugin()
+    ]
+  }
+
+  return config
+};
+
 const config = {
   target: "web",
   entry: {index: './src/index.js'},
@@ -31,6 +51,7 @@ const config = {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].js'
   },
+  optimization: optimization(),
   mode: setDMode(),
   devtool: setDevTool(),
   module: {
@@ -143,6 +164,7 @@ const config = {
   },
 
   plugins: [
+    new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
       filename: 'style.css',
     }),
@@ -151,10 +173,10 @@ const config = {
       filename: './index.html'
     }),
     new CopyWebpackPlugin([
-      {from: './src/favicon.ico', to: './favicon.ico'},
+      {from: 'src/favicon.ico', to: 'favicon.ico'},
       {
-        from: path.resolve(__dirname, 'src/assets/images/'),
-        to: path.resolve(__dirname, './assets/images/')
+        from: path.resolve(__dirname, 'src/assets/images'),
+        to: path.resolve(__dirname, 'dist/assets/images/')
       },
       // {from: './src/img', to: './img/'},
     ]),

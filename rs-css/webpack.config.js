@@ -132,6 +132,16 @@ const config = {
             outputPath: 'fonts'
           }
         }]
+      },
+      {
+        test: /\.(ogg|mp3|wav|mpe?g)$/i,
+        loader: 'url-loader',
+        options: {
+          outputPath: 'sounds',
+          limit: 10000,
+          name: '[name].[ext]',
+          mimetype: 'audio/mpeg'
+        }
       }
     ]
   },

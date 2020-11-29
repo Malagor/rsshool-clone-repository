@@ -5,11 +5,12 @@ import CSS from "../Views/CSS";
 import HTML from "../Views/HTML";
 
 import getNewIndexCurrentTask from "../utils/getNewIndexCurrentTask"
-import {parseNodeInnerText, createStringForSearch, convertToNodeInnerText } from "../utils/parseNodeInnerText";
+import {parseNodeInnerText, createStringForSearch, convertToNodeInnerText} from "../utils/parseNodeInnerText";
+import typingText from "../utils/typingText";
 
 const taskRawData = require('../Models/taskList');
 
-export default class App{
+export default class App {
   constructor(obj) {
     this.propertes = {
       indexCurrentTask: obj.indexCurrentTask,
@@ -30,6 +31,7 @@ export default class App{
     this.components.css.checkAnswer = this.checkAnswer.bind(this);
     this.components.html.toggleHighlight = this.toggleHighlight.bind(this);
     this.components.screen.toggleHighlightScreen = this.toggleHighlightScreen.bind(this);
+    this.components.css.typeCorrectAnswer = this.typeCorrectAnswer.bind(this);
   }
 
   static create(el) {
@@ -154,7 +156,7 @@ export default class App{
     css.clear();
   }
 
-  toggleHighlight(event){
+  toggleHighlight(event) {
     const {target} = event;
     if (target.classList.contains('html-code')) return;
     const innerText = target.firstChild.nodeValue;
@@ -191,4 +193,15 @@ export default class App{
 
     this.components.screen.printTooltip(target, innerText);
   }
+
+  typeCorrectAnswer() {
+    const task = this.tasks[this.propertes.indexCurrentTask];
+    const rightAnswer = task.answers;
+    task.hint = true;
+    const cssPanel = this.components.css.elements.textarea;
+
+    typingText(cssPanel, rightAnswer[0]);
+  }
+
+
 }

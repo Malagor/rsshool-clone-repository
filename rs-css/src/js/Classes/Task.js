@@ -9,10 +9,11 @@ export default class Task {
     this.syntax = obj.syntax;
     this.description = obj.description;
     this.examples = obj.examples;
-    this.answers = obj.answers;
+    this._answers = obj.answers;
     this.level = obj.level;
     this.code = obj.code;
     this._done = obj.done;
+    this._hint = false;
 
     Task.instanceCount += 1;
   }
@@ -50,8 +51,21 @@ export default class Task {
     return this;
   }
 
+  get answers() {
+    return this._answers;
+  }
+
+
+  get hint() {
+    return this._hint;
+  }
+
+  set hint(value) {
+    this._hint = !!value;
+  }
+
   isRightAnswer(answer) {
-    return this.answers.filter(test => test === answer).length;
+    return this._answers.filter(test => test === answer).length;
   }
 
   static parserRawCode(codeRaw) {
@@ -60,7 +74,12 @@ export default class Task {
       result.push(Node.create(node));
     });
 
-  return result;
+    return result;
+  }
+
+  reset() {
+    this.done = false;
+    this.hint = false;
   }
 }
 

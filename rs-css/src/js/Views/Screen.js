@@ -94,4 +94,10 @@ export default class Screen {
     const posTooltip = calculateTooltipsPosition(node);
     showTooltip(tooltip, posTooltip.top, posTooltip.left);
   }
+
+  markRightAnswerElements(sel) {
+    this.elements.innerBox.querySelectorAll(sel).forEach(el => {
+      el.classList.add('right-answer-element');
+    })
+  }
 }

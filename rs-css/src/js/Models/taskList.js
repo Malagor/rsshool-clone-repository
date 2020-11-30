@@ -14,35 +14,12 @@ const taskList = [
     code: [
       {
         tag: "wagon",
-        id: "moving",
-        classes: ["green"]
-      },
-      {
-        tag: "wagon",
-        child: [
-          {
-            tag: "wood",
-            classes: ["yellow"],
-            child: [
-              {
-                tag: 'sand'
-              }
-            ]
-          },
-        ]
-      },
-      {
-        tag: "wagon"
       },
       {
         tag: "platform",
-        id: "brown",
-        child: [
-          {
-            tag: "rocks",
-            id: "searocks"
-          }
-        ]
+      },
+      {
+        tag: "wagon",
       }
     ]
   },
@@ -59,25 +36,13 @@ const taskList = [
     level: 2,
     code: [
       {
-        tag: "wagon",
-        id: "moving",
-        classes: ["green"]
-      },
-      {
-        tag: "wagon",
-      },
-      {
-        tag: "wagon"
-      },
-      {
         tag: "platform",
-        id: "brown",
-        child: [
-          {
-            tag: "rocks",
-            id: "searocks"
-          }
-        ]
+      },
+      {
+        tag: "wagon",
+      },
+      {
+        tag: "wagon",
       }
     ]
   },
@@ -90,26 +55,12 @@ const taskList = [
     examples: [
       '<strong>#cool</strong> selects any element with <strong>id="cool"</strong>',
       '<strong>ul#long</strong> selects ul <strong>id="long"</strong>'],
-    answers: ['wagon#moving', '#moving'],
+    answers: ['rocks#searocks', '#searocks'],
     level: 3,
     code: [
       {
         tag: "wagon",
         child: [
-          {
-            tag: "wood",
-            classes: ["yellow"],
-            child: [
-              {
-                tag: 'tent',
-                child: [
-                  {
-                    tag: 'sand'
-                  }
-                ]
-              }
-            ]
-          },
           {
             tag: "rocks"
           }
@@ -136,33 +87,23 @@ const taskList = [
     examples: [
       '<strong>p  strong</strong> selects all <strong>&lt;strong&gt;</strong> elements that are inside of any <strong>&lt;p&gt;</strong>',
       '<strong>#fancy  span</strong> selects any <strong>&lt;span&gt;</strong> elements that are inside of the element with <strong>id="fancy"</strong>'],
-    answers: ['wagon#green', '#green'],
+    answers: ['wagon sand'],
     level: 4,
     code: [
       {
         tag: "wagon",
-        id: "moving",
-        classes: ["green"]
+        classes: ["green"],
+        child: [
+          {
+            tag: "rocks"
+          }
+        ]
       },
       {
         tag: "wagon",
         child: [
           {
-            tag: "wood",
-            classes: ["yellow"],
-            child: [
-              {
-                tag: 'tent',
-                child: [
-                  {
-                    tag: 'sand'
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            tag: "rocks"
+            tag: 'sand'
           }
         ]
       }
@@ -176,7 +117,7 @@ const taskList = [
     description: 'You can combine any selector with the descendent selector.',
     examples: [
       '<stong>#cool span</stong> selects all <stong>&lt;span&gt;</stong> elements that are inside of elements with <stong>id="cool"</stong>'],
-    answers: ['#moving wood'],
+    answers: ['wagon sand'],
     level: 5,
     code: [
       {

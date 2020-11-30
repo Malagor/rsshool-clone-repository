@@ -73,6 +73,10 @@ export default class App {
     html.printTaskCode(tasks[indexCurrentTask].code);
     screen.printTask(tasks[indexCurrentTask].code);
 
+    // add animation to right answer elements
+    const rightAnswer = tasks[indexCurrentTask].answers[0];
+    screen.markRightAnswerElements(rightAnswer);
+
     const config = {
       indexCurrentTask,
       tasks,
@@ -130,7 +134,7 @@ export default class App {
   }
 
   changeTask(target) {
-    if (target === 'left') {
+    if (target === 'left') { // click arrow left-right in menu
       this.propertes.indexCurrentTask = getNewIndexCurrentTask(this.propertes.indexCurrentTask);
     } else if (target === 'right') {
       this.propertes.indexCurrentTask = getNewIndexCurrentTask(this.propertes.indexCurrentTask, this.propertes.TASKS_COUNT);
@@ -152,6 +156,8 @@ export default class App {
     screen.setTitleText(task.mission);
     html.printTaskCode(task.code);
     screen.printTask(task.code);
+    const rightAnswer = task.answers[0];
+    screen.markRightAnswerElements(rightAnswer);
 
     css.clear();
   }
@@ -174,7 +180,12 @@ export default class App {
     const {target} = event;
     if (target.classList.contains('screen__inner')) return;
 
-    const {id, localName: tag, className, childElementCount: child} = target;
+    const {id, localName: tag, childElementCount: child} = target;
+
+    // deleting the service class - right answer element
+    let {className} = target;
+    className = className.replace('right-answer-element', '').trim();
+
     const nodeData = {
       tag,
       id,

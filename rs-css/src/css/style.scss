@@ -259,8 +259,9 @@ sand{
   }
 }
 
-.moving {
+.right-answer-element {
   animation: swing 1s ease-in-out infinite;
+  transform-origin: bottom center;
 }
 @keyframes swing {
   0% {

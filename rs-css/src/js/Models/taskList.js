@@ -11,6 +11,7 @@ const taskList = [
     answers: ['wagon'],
     level: 1,
     done: true,
+    hint: false,
     code: [
       {
         tag: "wagon",

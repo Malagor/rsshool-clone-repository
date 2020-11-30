@@ -151,7 +151,7 @@ export default class App {
 
     sidebar.setCurrentTaskLevel(task.level);
     sidebar.printTaskText(task);
-    sidebar.setDoneCheckboxInHeader(task.done);
+    sidebar.setDoneCheckboxInHeader(task.done, task.hint);
 
     screen.setTitleText(task.mission);
     html.printTaskCode(task.code);

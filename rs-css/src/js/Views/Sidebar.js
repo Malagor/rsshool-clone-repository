@@ -1,3 +1,5 @@
+import setTitleMessage from "../utils/setTitleMessage";
+
 export default class Sidebar {
   constructor(obj) {
     this.elements = {
@@ -125,11 +127,15 @@ export default class Sidebar {
   }
 
   static printTaskTextForMenuList(taskObj) {
-    const {title, id, syntax, level, done} = taskObj;
-    const checkClass = done ? 'task-done-check' : '';
-    return `
+    const {title, id, syntax, level, done, hint} = taskObj;
+    let checkClass = done ? 'task-done-check' : '';
+    checkClass += hint ? ' task-hint' : '';
+
+      const titleMessage = setTitleMessage(done, hint);
+
+      return `
       <li class="nav__item" data-index="${id}">
-        <div class="nav__check ${checkClass}">
+        <div class="nav__check ${checkClass}" title="${titleMessage}">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M504.502 75.496c-9.997-9.998-26.205-9.998-36.204 0L161.594 382.203 43.702 264.311c-9.997-9.998-26.205-9.997-36.204 0-9.998 9.997-9.998 26.205 0 36.203l135.994 135.992c9.994 9.997 26.214 9.99 36.204 0L504.502 111.7c9.998-9.997 9.997-26.206 0-36.204z"/></svg>
         </div>
         <div class="nav__level">${level}</div>
@@ -137,25 +143,28 @@ export default class Sidebar {
         <div class="nav__title">${title}</div>
       </li>
   `;
-  }
+    }
 
-  setCurrentTaskLevel(cur) {
-    this.elements.levels.currentLevel.textContent = cur;
-  }
+    setCurrentTaskLevel(cur)
+    {
+      this.elements.levels.currentLevel.textContent = cur;
+    }
 
-  setCountAllTasksInInfoBlock(num) {
-    this.elements.levels.allCountLevels.textContent = num;
-  }
+    setCountAllTasksInInfoBlock(num)
+    {
+      this.elements.levels.allCountLevels.textContent = num;
+    }
 
-  printTaskText(taskObj) {
-    const {examples, title, subtitle, syntax, description} = taskObj;
-    let examplesHtml = '';
+    printTaskText(taskObj)
+    {
+      const {examples, title, subtitle, syntax, description} = taskObj;
+      let examplesHtml = '';
 
-    examples.forEach(example => {
-      examplesHtml += `<li class="task__example-item">${example}</li>`
-    });
+      examples.forEach(example => {
+        examplesHtml += `<li class="task__example-item">${example}</li>`
+      });
 
-    this.elements.taskText.innerHTML = `
+      this.elements.taskText.innerHTML = `
           <h3 class="task__title">${title}</h3>
           <div class="task__subtitle">${subtitle}</div>
           <div class="task__syntax">${syntax}</div>
@@ -165,13 +174,20 @@ export default class Sidebar {
           ${examplesHtml}
           </ul>
       `;
-  }
+    }
 
-  setDoneCheckboxInHeader(isDone = true) {
-    if (isDone) {
-      this.elements.taskDoneCheckbox.classList.add('task-done-check');
-    } else {
-      this.elements.taskDoneCheckbox.classList.remove('task-done-check');
+    setDoneCheckboxInHeader(isDone = true, isHint = false)
+    {
+      if (isDone) {
+        this.elements.taskDoneCheckbox.classList.add('task-done-check');
+      } else {
+        this.elements.taskDoneCheckbox.classList.remove('task-done-check');
+      }
+
+      if (isHint) {
+        this.elements.taskDoneCheckbox.classList.add('task-hint');
+      } else {
+        this.elements.taskDoneCheckbox.classList.remove('task-hint');
+      }
     }
   }
-}

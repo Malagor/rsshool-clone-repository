@@ -7,7 +7,6 @@ export default function typingText(element, text) {
 
   const timer = setInterval(() => {
     element.value = text.slice(0, i);
-    console.log(text.slice(0, i));
     i += 1;
     element.selectionStart = 100;
     element.selectionEnd = 100;

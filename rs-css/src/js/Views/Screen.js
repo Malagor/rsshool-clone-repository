@@ -100,4 +100,11 @@ export default class Screen {
       el.classList.add('right-answer-element');
     })
   }
+
+  correctAnswerAnimation(){
+    const rightAnswerElements = this.elements.innerBox.querySelectorAll('.right-answer-element');
+    rightAnswerElements.forEach(el => {
+      el.classList.add('animation-correct-answer');
+    })
+  }
 }

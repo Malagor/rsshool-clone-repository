@@ -97,7 +97,7 @@ export default class App {
     const isAnswersMatch = this.tasks[this.propertes.indexCurrentTask].isRightAnswer(answer);
 
     if (isAnswersMatch) {
-      this.answerIsRight();
+      this.answerIsCorrect();
     } else {
       this.answerIsWrong();
     }
@@ -113,16 +113,20 @@ export default class App {
     })
   }
 
-  answerIsRight() {
+  answerIsCorrect() {
     this.tasks[this.propertes.indexCurrentTask].done = true;
+    this.components.screen.correctAnswerAnimation();
 
-    if (this.isFinish()) {
-      this.finish();
-    } else {
-      this.propertes.indexCurrentTask = getNewIndexCurrentTask(this.propertes.indexCurrentTask, this.propertes.TASKS_COUNT);
-      this.printTaskOnScreen(this.propertes.indexCurrentTask);
-      this.components.sidebar.createTaskListInMenu(this.tasks);
-    }
+    // wait animation correct answer
+    setTimeout(() => {
+      if (this.isFinish()) {
+        this.finish();
+      } else {
+        this.propertes.indexCurrentTask = getNewIndexCurrentTask(this.propertes.indexCurrentTask, this.propertes.TASKS_COUNT);
+        this.printTaskOnScreen(this.propertes.indexCurrentTask);
+        this.components.sidebar.createTaskListInMenu(this.tasks);
+      }
+    }, 1000);
   }
 
   finish() {

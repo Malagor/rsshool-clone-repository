@@ -273,7 +273,19 @@ sand{
   100% {
     transform: skewX(3deg);
   }
+}
 
+.animation-correct-answer {
+  animation: slideLeft 1s ease-in-out;
+}
+
+@keyframes slideLeft {
+  20% {
+    transform: translateX(100px);
+  }
+  100% {
+    transform: translateX(-1000px);
+  }
 }
 
 

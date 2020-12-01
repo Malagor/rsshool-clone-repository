@@ -5,8 +5,9 @@ import CSS from "../Views/CSS";
 import HTML from "../Views/HTML";
 
 import getNewIndexCurrentTask from "../utils/getNewIndexCurrentTask"
-import {parseNodeInnerText, createStringForSearch, convertToNodeInnerText} from "../utils/parseNodeInnerText";
+import {convertToNodeInnerText, createStringForSearch, parseNodeInnerText} from "../utils/parseNodeInnerText";
 import typingText from "../utils/typingText";
+import saveLoad from "../utils/saveLoad";
 
 const taskRawData = require('../Models/taskList');
 
@@ -60,16 +61,34 @@ export default class App {
     const tasks = taskRawData.map(taskItem => {
       return Task.create(taskItem);
     });
-    const indexCurrentTask = 0;
     const TASKS_COUNT = tasks.length;
+    let indexCurrentTask = 0;
+
+    const loadData = App.loadData();
+    if (loadData) {
+      indexCurrentTask = loadData.current;
+
+      const {tasks: data} = loadData;
+
+      tasks.forEach(task => {
+        data.forEach(d => {
+          if (task.id === d.id) {
+            task.done = d.done;
+            task.hint = d.hint;
+          }
+        })
+      })
+    }
+
     const screen = Screen.create('.screen');
     const sidebar = Sidebar.create('.sidebar');
     const css = CSS.create('.style-css');
     const html = HTML.create('.html-code');
 
-    sidebar.init(tasks);
+    sidebar.init(tasks, indexCurrentTask);
     sidebar.printTaskText(tasks[indexCurrentTask]);
     sidebar.setCurrentTaskInMenu(tasks[indexCurrentTask].id);
+    sidebar.setDoneCheckboxInHeader(tasks[indexCurrentTask].done, tasks[indexCurrentTask].hint);
 
     screen.setTitleText(tasks[indexCurrentTask].mission);
     screen.printTask(tasks[indexCurrentTask].code);
@@ -119,10 +138,11 @@ export default class App {
 
     // wait animation correct answer
     setTimeout(() => {
+      this.propertes.indexCurrentTask = getNewIndexCurrentTask(this.propertes.indexCurrentTask, this.propertes.TASKS_COUNT);
+      this.saveData();
       if (this.isFinish()) {
         this.finish();
       } else {
-        this.propertes.indexCurrentTask = getNewIndexCurrentTask(this.propertes.indexCurrentTask, this.propertes.TASKS_COUNT);
         this.printTaskOnScreen(this.propertes.indexCurrentTask);
         this.components.sidebar.createTaskListInMenu(this.tasks);
       }
@@ -221,5 +241,20 @@ export default class App {
     typingText(cssPanel, rightAnswer[0]);
   }
 
+  saveData(){
+    const data = {
+      current: this.propertes.indexCurrentTask,
+      tasks: []
+    };
 
+    this.tasks.forEach(task => {
+      data.tasks.push(task.save());
+    });
+
+    saveLoad(JSON.stringify(data));
+  }
+
+  static loadData(){
+    return JSON.parse(saveLoad());
+  }
 }

@@ -84,12 +84,12 @@ export default class Sidebar {
     return new Sidebar(elements);
   }
 
-  init(taskArray) {
+  init(taskArray, curentTaskIndex) {
     console.log(taskArray);
     this.createTaskListInMenu(taskArray);
     this.setCountAllTasksInInfoBlock(taskArray.length);
-    this.setCurrentTaskLevel(taskArray[0].level);
-    this.printTaskText(taskArray[0]);
+    this.setCurrentTaskLevel(taskArray[curentTaskIndex].level);
+    this.printTaskText(taskArray[curentTaskIndex]);
   }
 
   events() {

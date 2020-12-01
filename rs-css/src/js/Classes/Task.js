@@ -13,7 +13,7 @@ export default class Task {
     this.level = obj.level;
     this.code = obj.code;
     this._done = obj.done;
-    this._hint = false;
+    this._hint = obj.hint;
 
     Task.instanceCount += 1;
   }
@@ -30,6 +30,7 @@ export default class Task {
       level: 0,
       code: null,
       done: false,
+      hint: false,
       ...obj
     };
 
@@ -80,6 +81,21 @@ export default class Task {
   reset() {
     this.done = false;
     this.hint = false;
+  }
+
+  save() {
+    const {id, done, hint} = this;
+    return {
+      id,
+      done,
+      hint
+    }
+  }
+
+  load(obj) {
+    this.id = obj.id;
+    this.done = obj.done;
+    this.hint = obj.hint;
   }
 }
 

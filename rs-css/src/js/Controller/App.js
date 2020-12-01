@@ -69,13 +69,15 @@ export default class App {
 
     sidebar.init(tasks);
     sidebar.printTaskText(tasks[indexCurrentTask]);
-    screen.setTitleText(tasks[indexCurrentTask].mission);
-    html.printTaskCode(tasks[indexCurrentTask].code);
-    screen.printTask(tasks[indexCurrentTask].code);
+    sidebar.setCurrentTaskInMenu(tasks[indexCurrentTask].id);
 
+    screen.setTitleText(tasks[indexCurrentTask].mission);
+    screen.printTask(tasks[indexCurrentTask].code);
     // add animation to right answer elements
     const rightAnswer = tasks[indexCurrentTask].answers[0];
     screen.markRightAnswerElements(rightAnswer);
+
+    html.printTaskCode(tasks[indexCurrentTask].code);
 
     const config = {
       indexCurrentTask,
@@ -152,13 +154,14 @@ export default class App {
     sidebar.setCurrentTaskLevel(task.level);
     sidebar.printTaskText(task);
     sidebar.setDoneCheckboxInHeader(task.done, task.hint);
+    sidebar.setCurrentTaskInMenu(task.id);
 
     screen.setTitleText(task.mission);
-    html.printTaskCode(task.code);
     screen.printTask(task.code);
     const rightAnswer = task.answers[0];
     screen.markRightAnswerElements(rightAnswer);
 
+    html.printTaskCode(task.code);
     css.clear();
   }
 

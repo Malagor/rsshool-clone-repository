@@ -461,7 +461,8 @@ sand{
     cursor: pointer;
     transition: 0.3s;
 
-    &:hover {
+    &:hover,
+    &.current-task{
       background: #f04b01;
     }
   }

@@ -1,0 +1,118 @@
+.sidebar {
+  position: relative;
+  grid-area: sidebar;
+
+  display: flex;
+  flex-direction: column;
+
+  padding: 0 1rem;
+  color: black;
+
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+}
+
+// Style of task elements
+.task {
+  font-size: 1rem;
+
+  strong,
+  &__syntax {
+    font-weight: normal;
+    padding: 0 1em;
+    background: rgba(0, 0, 0, 0.2);
+  }
+
+  &__subtitle {
+    font-weight: 200;
+  }
+
+  &__syntax {
+    display: inline-flex;
+    margin: 1em 0;
+    font-size: 2em;
+    font-weight: bold;
+  }
+
+  &__examples-list {
+    margin-top: 2em;
+    list-style: none;
+
+    &:before {
+      display: block;
+      content: 'Examples';
+      margin-bottom: 1em;
+      font-weight: bold;
+    }
+  }
+
+  &__example-item {
+    border-bottom: 1px solid black;
+    padding-bottom: 1em;
+    margin-bottom: 1em;
+
+    &:last-child {
+      border: none;
+    }
+  }
+}
+
+.info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.levels {
+  width: 13rem;
+  font-size: 2rem;
+}
+
+.info__task-check {
+  width: 2em;
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 4rem;
+}
+
+.arrow {
+  width: 2rem;
+  height: 2rem;
+  background: transparent url(../img/next-arrow.svg);
+  border: none;
+  cursor: pointer;
+
+  &__left {
+    transform: rotate(180deg);
+
+    &:hover {
+      animation: slide-left 1s ease-in-out infinite;
+    }
+  }
+
+  &__right {
+    &:hover {
+      animation: slide-right 1s ease-in-out infinite;
+    }
+  }
+}
+
+@keyframes slide-right {
+  50% {
+    transform: translateX(0.3rem);
+  }
+}
+
+@keyframes slide-left {
+  50% {
+    transform: rotate(180deg) translateX(0.3rem);
+  }
+}
+
+
+

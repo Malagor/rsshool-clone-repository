@@ -1,0 +1,169 @@
+wagon,
+platform {
+  position: relative;
+  display: block;
+  width: 229px;
+  transition: 0.2s;
+  transform-origin: bottom center;
+  background-size: contain;
+  background-repeat: no-repeat;
+
+  &.highlight {
+    box-shadow: 0 0 5px 5px #F07818;
+  }
+
+
+}
+
+wagon {
+  height: 60px;
+  background-image: url("../img/textures/wagon.png");
+
+  &.blue {
+    background-image: url("../img/textures/wagon-blue.png");
+  }
+
+  &.green {
+    background-image: url("../img/textures/wagon-green.png");
+  }
+
+  &.purple {
+    background-image: url("../img/textures/wagon-purple.png");
+  }
+
+  &.red {
+    background-image: url("../img/textures/wagon-red.png");
+  }
+}
+
+platform {
+  height: 32px;
+  background-image: url(../img/textures/platform.png);
+
+  &.blue {
+    background-image: url(../img/textures/platform-blue.png);
+  }
+  &.green {
+    background-image: url(../img/textures/platform-green.png);
+  }
+  &.pink {
+    background-image: url(../img/textures/platform-pink.png);
+  }
+  &.yellow {
+    background-image: url(../img/textures/platform-yellow.png);
+  }
+}
+
+wood,
+rocks,
+sand,
+tracktor,
+coal {
+  position: absolute;
+  left: 15%;
+  width: 70%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: -1;
+
+  &.highlight {
+    box-shadow: 0 0 5px 5px #F07818;
+  }
+}
+
+wood {
+  top: -35px;
+  height: 36px;
+  background-image: url(../img/textures/wood-texture.jpg);
+  background-size: contain;
+  background-repeat: repeat;
+
+}
+
+rocks {
+  top: -50px;
+  height: 50px;
+  border-radius: 50% 50% 50% 50% / 100% 100% 0% 0%;
+  background-image: url(../img/textures/rocks-texture.png);
+}
+
+sand {
+  height: 50px;
+  top: -50px;
+  background-image: url(../img/textures/sand-texture.png);
+  border-radius: 50% 50% 50% 50% / 100% 100% 0% 0%;
+}
+coal {
+  height: 50px;
+  top: -50px;
+  background-image: url(../img/textures/coal-texture.png);
+  border-radius: 50% 50% 50% 50% / 100% 100% 0% 0%;
+}
+
+tracktor {
+  top: -48px;
+  height: 60px;
+  width: 40%;
+  left: 10%;
+  background-image: url(../img/textures/tractor-texture.png);
+
+  &:nth-child(2) {
+    left: auto;
+    right: 10%;
+  }
+}
+
+wagon rocks,
+wagon sand,
+wagon coal,
+wagon wood,
+{
+  top: -25px;
+}
+
+.small {
+  width: 40%;
+  height: 28px;
+  top: -28px;
+
+  &:nth-child(1) {
+    left: 10%;
+  }
+
+  &:nth-child(2) {
+    left: auto;
+    right: 10%;
+  }
+}
+
+// ./Style of task elements
+
+.right-answer-element {
+  animation: swing 1s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+
+@keyframes swing {
+  0% {
+    transform: skewX(3deg);
+  }
+  50% {
+    transform: skewX(-3deg);
+  }
+  100% {
+    transform: skewX(3deg);
+  }
+}
+
+.animation-correct-answer {
+  animation: slideLeft 1s ease-in-out;
+}
+
+@keyframes slideLeft {
+  20% {
+    transform: translateX(100px);
+  }
+  100% {
+    transform: translateX(-1000px);
+  }
+}

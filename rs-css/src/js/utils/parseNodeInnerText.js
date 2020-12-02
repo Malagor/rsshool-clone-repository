@@ -1,5 +1,5 @@
 export function parseNodeInnerText(text) {
-  const regTag = /[a-z]+(\s||>)/;
+  const regTag = /[a-z]+(\s|>)/;
   const regId = /id="(.*?)"/;
   const regClass = /class="(.*?)"/;
 
@@ -41,7 +41,6 @@ export function createStringForSearch(obj) {
   return resultStr;
 }
 
-
 export function convertToNodeInnerText(obj) {
   const {tag, id, child} = obj;
   let {className} = obj;
@@ -52,21 +51,12 @@ export function convertToNodeInnerText(obj) {
     result += ` id="${id}"`;
   }
 
-  if (className && className.includes('highlight')) {
-    className = className.replace('highlight', '').trim();
-  }
   if (className) {
     className = className.replace('highlight', '').trim();
-    const clsArray = className.split(' ');
-    result += ' class="';
-    clsArray.forEach(cls => {
-      result += `${cls}`;
-    });
-    result = result.trim();
-    result += '"'
+    result += ` class="${className}"`;
   }
 
-  if (child){
+  if (child) {
     result += '>';
   } else {
     result += ' />'

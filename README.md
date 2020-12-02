@@ -4,8 +4,8 @@ Private repository for @malagor
 ## Rs-Selectors
 1. Task: https://github.com/rolling-scopes-school/tasks/blob/master/tasks/rs-css.md
 2. Screenshot:
-   ![](https://webpolygon.by/wp-content/uploads/2020/11/rs-selectors.jpg)
-3. Deploy: https://rolling-scopes-school.github.io/malagor-JS2020Q3/rs-css/
+   ![](https://webpolygon.by/wp-content/uploads/2020/12/rs-css.jpg)
+3. Deploy: https://malagor-rs-css.netlify.app/
 4. Done xx.12.2020 / deadline 07.11.2020
 
 ## NPM команды

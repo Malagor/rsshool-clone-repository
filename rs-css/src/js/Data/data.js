@@ -1,4 +1,4 @@
-const taskList = [
+const data = [
   {
     mission: 'Select the wagons',
     title: 'Type Selector',
@@ -60,10 +60,13 @@ const taskList = [
     level: 3,
     code: [
       {
-        tag: "wagon",
+        tag: "platform",
         child: [
           {
-            tag: "rocks"
+            tag: "tracktor"
+          },
+          {
+            tag: "tracktor"
           }
         ]
       },
@@ -102,6 +105,7 @@ const taskList = [
       },
       {
         tag: "wagon",
+        classes: ["red"],
         child: [
           {
             tag: 'sand'
@@ -123,19 +127,22 @@ const taskList = [
     code: [
       {
         tag: "wagon",
+        classes: ["purple"],
         child: [
           {
             tag: "wood",
-            classes: ["yellow"]
+            classes: ["yellow", "small"]
           },
           {
-            tag: "rocks"
+            tag: "rocks",
+            classes: ['small']
           }
         ]
       },
       {
         tag: "platform",
         id: "brown",
+        classes: ["blue"],
         child: [
           {
             tag: "rocks",
@@ -144,7 +151,8 @@ const taskList = [
         ]
       },
       {
-        tag: 'wagon'
+        tag: 'wagon',
+        classes: ["blue"],
       }
     ]
   },
@@ -163,18 +171,22 @@ const taskList = [
         tag: "platform",
         child: [
           {
-            tag: "wood",
-            classes: ["yellow"],
+            tag: "coal",
+            classes: ["small"]
+          },
+          {
+            tag: "coal",
+            classes: ["small"]
           },
         ]
       },
       {
-        tag: "wagon",
+        tag: "platform",
+        classes: ["pink"],
         id: "brown",
         child: [
           {
-            tag: "rocks",
-            id: "searocks"
+            tag: "coal",
           }
         ]
       },
@@ -206,6 +218,11 @@ const taskList = [
       {
         tag: "platform",
         id: "brown",
+        child: [
+          {
+            tag: "wood",
+          }
+        ]
       },
       {
         tag: "platform",
@@ -285,7 +302,6 @@ const taskList = [
     ],
     done: true
   },
-
   {
     mission: 'Select all the things!',
     title: 'The Universal Selector',
@@ -334,6 +350,49 @@ const taskList = [
       }
     ]
   },
+  {
+    mission: 'Select all the things!',
+    title: 'The Universal Selector',
+    subtitle: 'You can select everything!',
+    syntax: '*',
+    description: 'You can select all elements with the universal selector!',
+    examples: [
+      '<stong>p *</stong> selects any element inside all <stong>&lt;p&gt;</stong> elements.',
+    ],
+    answers: ['#moving wood'],
+    level: 11,
+    code: [
+      {
+        tag: "wagon",
+        id: "brown",
+        child: [
+          {
+            tag: "coal",
+          }
+        ]
+      },
+      {
+        tag: "platform",
+        id: "brown",
+        child: [
+          {
+            tag: "rocks",
+            id: "searocks"
+          }
+        ]
+      },
+      {
+        tag: "wagon",
+        id: "brown",
+        child: [
+          {
+            tag: "wood",
+            id: "searocks"
+          }
+        ]
+      }
+    ]
+  },
 ];
 
-module.exports = taskList;
+module.exports = data;

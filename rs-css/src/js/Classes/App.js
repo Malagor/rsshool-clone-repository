@@ -1,15 +1,16 @@
-import Sidebar from "../Views/Sidebar";
-import Task from "../Classes/Task";
-import Screen from "../Views/Screen";
-import CSS from "../Views/CSS";
-import HTML from "../Views/HTML";
+import Sidebar from "./Sidebar";
+import Task from "./Task";
+import Screen from "./Screen";
+import CSS from "./CSS";
+import HTML from "./HTML";
 
 import getNewIndexCurrentTask from "../utils/getNewIndexCurrentTask"
 import {convertToNodeInnerText, createStringForSearch, parseNodeInnerText} from "../utils/parseNodeInnerText";
 import typingText from "../utils/typingText";
 import saveLoad from "../utils/saveLoad";
+import Modal from "./Modal";
 
-const taskRawData = require('../Models/taskList');
+const taskRawData = require('../Data/data');
 
 export default class App {
   constructor(obj) {
@@ -25,6 +26,7 @@ export default class App {
       screen: obj.screen,
       css: obj.css,
       html: obj.html,
+      modal: obj.modal
     };
 
     // handlers component`s events
@@ -38,7 +40,7 @@ export default class App {
   static create(el) {
     const node = document.querySelector(el);
 
-    node.innerHTML = `
+    node.innerHTML = `    
     <section class="screen"></section>
     <section class="style-css"></section>
     <section class="html-code">
@@ -65,6 +67,7 @@ export default class App {
     let indexCurrentTask = 0;
 
     const loadData = App.loadData();
+
     if (loadData) {
       indexCurrentTask = loadData.current;
 
@@ -73,8 +76,7 @@ export default class App {
       tasks.forEach(task => {
         data.forEach(d => {
           if (task.id === d.id) {
-            task.done = d.done;
-            task.hint = d.hint;
+            task.load(d);
           }
         })
       })
@@ -84,6 +86,7 @@ export default class App {
     const sidebar = Sidebar.create('.sidebar');
     const css = CSS.create('.style-css');
     const html = HTML.create('.html-code');
+    const modal = Modal.create();
 
     sidebar.init(tasks, indexCurrentTask);
     sidebar.printTaskText(tasks[indexCurrentTask]);
@@ -105,7 +108,8 @@ export default class App {
       screen,
       sidebar,
       css,
-      html
+      html,
+      modal
     };
 
     return new App(config);
@@ -139,24 +143,34 @@ export default class App {
     // wait animation correct answer
     setTimeout(() => {
       this.propertes.indexCurrentTask = getNewIndexCurrentTask(this.propertes.indexCurrentTask, this.propertes.TASKS_COUNT);
+      this.printTaskOnScreen(this.propertes.indexCurrentTask);
+      this.components.sidebar.createTaskListInMenu(this.tasks);
       this.saveData();
+
       if (this.isFinish()) {
         this.finish();
-      } else {
-        this.printTaskOnScreen(this.propertes.indexCurrentTask);
-        this.components.sidebar.createTaskListInMenu(this.tasks);
       }
+      // } else {
+      //   this.printTaskOnScreen(this.propertes.indexCurrentTask);
+      //   this.components.sidebar.createTaskListInMenu(this.tasks);
+      // }
     }, 1000);
   }
 
   finish() {
-    console.log("Finish training");
+    this.components.modal.showModal(this.propertes.TASKS_COUNT, this.countHintTask());
   }
 
   isFinish() {
     return this.tasks.every(task => {
       return task.done;
     })
+  }
+
+  countHintTask() {
+    return this.tasks.reduce((count, task) => {
+      return task.hint ? count + 1 : count;
+    }, 0)
   }
 
   changeTask(target) {
@@ -219,6 +233,7 @@ export default class App {
       className,
       child
     };
+
     const innerText = convertToNodeInnerText(nodeData);
 
     this.components.html.elements.blocks.forEach(node => {
@@ -241,7 +256,7 @@ export default class App {
     typingText(cssPanel, rightAnswer[0]);
   }
 
-  saveData(){
+  saveData() {
     const data = {
       current: this.propertes.indexCurrentTask,
       tasks: []
@@ -254,7 +269,7 @@ export default class App {
     saveLoad(JSON.stringify(data));
   }
 
-  static loadData(){
+  static loadData() {
     return JSON.parse(saveLoad());
   }
 }

@@ -18,7 +18,7 @@ export default class CSS {
 
     node.innerHTML = `
         <textarea name="css" id="cssArea" class="css__area"></textarea>
-        <button class="css__button" id="enter">Enter</button>
+        <button class="btn btn__css" id="enter">Enter</button>
         <button class="help__button" id="helpButton">?</button>
         <div class="help__block">By clicking this button, you will get the correct answer. The task will be marked as "completed with a hint".</div>
      `;

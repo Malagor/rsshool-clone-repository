@@ -19,7 +19,14 @@ export default class Sidebar {
         navWrapper: obj.nav,
         navList: obj.navList
       },
-      taskText: obj.taskText
+      taskText: obj.taskText,
+      resetBtn: obj.resetBtn
+    };
+
+    this.statistics = {
+      allTask: obj.allTask,
+      doneTask: obj.doneTask,
+      hintTask: obj.hintTask
     };
 
     this.changeTask = null;
@@ -51,9 +58,30 @@ export default class Sidebar {
   <nav id="nav" class="nav">
     <ul id="navList" class="nav__list">
     </ul>
-   </nav>
-    <div id="task" class="task">
+  </nav>
+  <div id="task" class="task"></div>
+  <div class="statistics">
+    <div class="statistics__wrapper">
+    <h3 class="statistics__title">Statistics</h3>
+      <div class="statistics__progress">
+        <div class="statistics__progress-bar"></div>
+      </div>      
+      <div class="statistics__item">
+        <div class="statistics__title">All tasks</div>
+        <div id="countAllTask" class="statistics__value">10</div>
+      </div>
+      <div class="statistics__item">
+        <div class="statistics__title">Done</div>
+        <div id="countDoneTask" class="statistics__value">5</div>
+      </div>
+      <div class="statistics__item">
+        <div class="statistics__title">Hint</div>
+        <div id="countHintTask" class="statistics__value">3</div>
+      </div>  
     </div>
+    <button id="reset" class="btn btn__reset">Reset</button>
+  </div>
+
     `);
 
     const infoBlock = document.querySelector('#info');
@@ -66,6 +94,10 @@ export default class Sidebar {
     const navList = document.querySelector('#navList');
     const taskText = document.querySelector('#task');
     const taskDoneCheckbox = document.querySelector('.info__task-check');
+    const resetBtn = document.querySelector('#reset');
+    const countAllTask = document.querySelector('#countAllTask');
+    const countDoneTask = document.querySelector('#countDoneTask');
+    const countHintTask = document.querySelector('#countHintTask');
 
     const elements = {
       node,
@@ -78,7 +110,11 @@ export default class Sidebar {
       nav,
       navList,
       taskText,
-      taskDoneCheckbox
+      taskDoneCheckbox,
+      countAllTask,
+      countDoneTask,
+      countHintTask,
+      resetBtn
     };
 
     return new Sidebar(elements);
@@ -198,5 +234,19 @@ export default class Sidebar {
         el.classList.add('current-task');
       }
     });
+  }
+
+  setStatistics(done, hint = -1, all = -1){
+    if (done) {
+      this.statistics.doneTask.textContent = done;
+    }
+
+    if (hint !== -1) {
+      this.statistics.hintTask.textContent = hint;
+    }
+
+    if (all !== -1) {
+      this.statistics.allTask.textContent = all;
+    }
   }
 }

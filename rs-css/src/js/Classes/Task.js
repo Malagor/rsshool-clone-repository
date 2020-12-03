@@ -65,10 +65,6 @@ export default class Task {
     this._hint = !!value;
   }
 
-  isRightAnswer(answer) {
-    return this._answers.filter(test => test === answer).length;
-  }
-
   static parserRawCode(codeRaw) {
     const result = [];
     codeRaw.forEach(node => {
@@ -92,7 +88,7 @@ export default class Task {
     }
   }
 
-  load(obj) {
+  changeData(obj) {
     this.id = obj.id;
     this.done = obj.done;
     this.hint = obj.hint;

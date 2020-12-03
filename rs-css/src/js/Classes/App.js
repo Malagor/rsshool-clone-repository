@@ -1,5 +1,4 @@
 import Sidebar from "./Sidebar";
-import Task from "./Task";
 import Screen from "./Screen";
 import CSS from "./CSS";
 import HTML from "./HTML";
@@ -7,8 +6,9 @@ import HTML from "./HTML";
 import getNewIndexCurrentTask from "../utils/getNewIndexCurrentTask"
 import {convertToNodeInnerText, createStringForSearch, parseNodeInnerText} from "../utils/parseNodeInnerText";
 import typingText from "../utils/typingText";
-import saveLoad from "../utils/saveLoad";
+import saveLoadLocalStorage from "../utils/saveLoadLocalStorage";
 import Modal from "./Modal";
+import TaskList from "./TaskList";
 
 const taskRawData = require('../Data/data');
 
@@ -19,7 +19,7 @@ export default class App {
       TASKS_COUNT: obj.TASKS_COUNT
     };
 
-    this.tasks = obj.tasks;
+    this.tasksList = obj.tasksList;
 
     this.components = {
       sidebar: obj.sidebar,
@@ -60,26 +60,14 @@ export default class App {
     </section>    
     `;
 
-    const tasks = taskRawData.map(taskItem => {
-      return Task.create(taskItem);
-    });
-    const TASKS_COUNT = tasks.length;
-    let indexCurrentTask = 0;
-
+    const tasksList = TaskList.create(taskRawData);
+    const TASKS_COUNT = tasksList.getAllTasksCount();
     const loadData = App.loadData();
+    let indexCurrentTask = 0;
 
     if (loadData) {
       indexCurrentTask = loadData.current;
-
-      const {tasks: data} = loadData;
-
-      tasks.forEach(task => {
-        data.forEach(d => {
-          if (task.id === d.id) {
-            task.load(d);
-          }
-        })
-      })
+      tasksList.loadTasks(loadData.tasks);
     }
 
     const screen = Screen.create('.screen');
@@ -87,6 +75,8 @@ export default class App {
     const css = CSS.create('.style-css');
     const html = HTML.create('.html-code');
     const modal = Modal.create();
+
+    const tasks = tasksList.tasksArray;
 
     sidebar.init(tasks, indexCurrentTask);
     sidebar.printTaskText(tasks[indexCurrentTask]);
@@ -103,7 +93,7 @@ export default class App {
 
     const config = {
       indexCurrentTask,
-      tasks,
+      tasksList,
       TASKS_COUNT,
       screen,
       sidebar,
@@ -117,7 +107,7 @@ export default class App {
 
   checkAnswer() {
     const answer = this.components.css.getScreenValue().trim();
-    const isAnswersMatch = this.tasks[this.propertes.indexCurrentTask].isRightAnswer(answer);
+    const isAnswersMatch = this.tasksList.checkAnswer(this.propertes.indexCurrentTask, answer);
 
     if (isAnswersMatch) {
       this.answerIsCorrect();
@@ -137,40 +127,25 @@ export default class App {
   }
 
   answerIsCorrect() {
-    this.tasks[this.propertes.indexCurrentTask].done = true;
+    this.tasksList.tasksArray[this.propertes.indexCurrentTask].done = true;
     this.components.screen.correctAnswerAnimation();
 
     // wait animation correct answer
     setTimeout(() => {
       this.propertes.indexCurrentTask = getNewIndexCurrentTask(this.propertes.indexCurrentTask, this.propertes.TASKS_COUNT);
       this.printTaskOnScreen(this.propertes.indexCurrentTask);
-      this.components.sidebar.createTaskListInMenu(this.tasks);
+      this.components.sidebar.createTaskListInMenu(this.tasksList.tasksArray);
       this.saveData();
 
-      if (this.isFinish()) {
+      if (this.tasksList.isAllDone()) {
         this.finish();
       }
-      // } else {
-      //   this.printTaskOnScreen(this.propertes.indexCurrentTask);
-      //   this.components.sidebar.createTaskListInMenu(this.tasks);
-      // }
+
     }, 1000);
   }
 
   finish() {
-    this.components.modal.showModal(this.propertes.TASKS_COUNT, this.countHintTask());
-  }
-
-  isFinish() {
-    return this.tasks.every(task => {
-      return task.done;
-    })
-  }
-
-  countHintTask() {
-    return this.tasks.reduce((count, task) => {
-      return task.hint ? count + 1 : count;
-    }, 0)
+    this.components.modal.showModal(this.propertes.TASKS_COUNT, this.tasksList.countHintTask());
   }
 
   changeTask(target) {
@@ -187,7 +162,7 @@ export default class App {
 
   printTaskOnScreen(index) {
     const {sidebar, css, html, screen} = this.components;
-    const task = this.tasks[index];
+    const task = this.tasksList.tasksArray[index];
 
     sidebar.setCurrentTaskLevel(task.level);
     sidebar.printTaskText(task);
@@ -248,28 +223,23 @@ export default class App {
   }
 
   typeCorrectAnswer() {
-    const task = this.tasks[this.propertes.indexCurrentTask];
-    const rightAnswer = task.answers;
+    const task = this.tasksList.tasksArray[this.propertes.indexCurrentTask];
+    const rightAnswer = task.answers[0];
     task.hint = true;
     const cssPanel = this.components.css.elements.textarea;
 
-    typingText(cssPanel, rightAnswer[0]);
+    typingText(cssPanel, rightAnswer);
   }
 
   saveData() {
-    const data = {
-      current: this.propertes.indexCurrentTask,
-      tasks: []
-    };
+    const data = {};
+    data.current = this.propertes.indexCurrentTask;
+    data.tasks = this.tasksList.saveArray();
 
-    this.tasks.forEach(task => {
-      data.tasks.push(task.save());
-    });
-
-    saveLoad(JSON.stringify(data));
+    saveLoadLocalStorage(JSON.stringify(data));
   }
 
   static loadData() {
-    return JSON.parse(saveLoad());
+    return JSON.parse(saveLoadLocalStorage());
   }
 }

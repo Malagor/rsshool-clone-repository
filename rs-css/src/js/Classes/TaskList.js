@@ -49,6 +49,13 @@ export default class TaskList {
     }, 0)
   }
 
+  countDoneTask(){
+    return this.tasksArray.reduce((count, task) => {
+      return task.done ? count + 1 : count;
+    }, 0)
+  }
+
+
   saveArray(){
     const data = [];
     this.tasksArray.forEach(task => {

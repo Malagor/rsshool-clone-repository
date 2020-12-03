@@ -35,6 +35,7 @@ const data = [
       '<strong>p</strong> selects all <strong>&lt;p&gt;</strong> elements.'],
     answers: ['platform'],
     level: 2,
+    done: true,
     code: [
       {
         tag: "platform",
@@ -58,6 +59,7 @@ const data = [
       '<strong>ul#long</strong> selects ul <strong>id="long"</strong>'],
     answers: ['rocks#searocks', '#searocks'],
     level: 3,
+    done: true,
     code: [
       {
         tag: "platform",
@@ -93,6 +95,7 @@ const data = [
       '<strong>#fancy  span</strong> selects any <strong>&lt;span&gt;</strong> elements that are inside of the element with <strong>id="fancy"</strong>'],
     answers: ['wagon sand'],
     level: 4,
+    done: true,
     code: [
       {
         tag: "wagon",
@@ -124,6 +127,7 @@ const data = [
       '<stong>#cool span</stong> selects all <stong>&lt;span&gt;</stong> elements that are inside of elements with <stong>id="cool"</stong>'],
     answers: ['wagon sand'],
     level: 5,
+    done: true,
     code: [
       {
         tag: "wagon",
@@ -166,6 +170,7 @@ const data = [
       '<stong>.neato</stong> selects all elements with <stong>class="neato"</stong>'],
     answers: ['#moving wood'],
     level: 6,
+    done: true,
     code: [
       {
         tag: "platform",
@@ -214,6 +219,7 @@ const data = [
     ],
     answers: ['#moving wood'],
     level: 7,
+    done: true,
     code: [
       {
         tag: "platform",
@@ -255,6 +261,7 @@ const data = [
     examples: [],
     answers: ['#moving wood'],
     level: 8,
+    done: true,
     code: [
       {
         tag: "wagon",
@@ -313,6 +320,7 @@ const data = [
     ],
     answers: ['#moving wood'],
     level: 10,
+    done: true,
     code: [
       {
         tag: "platform",
@@ -359,7 +367,7 @@ const data = [
     examples: [
       '<stong>p *</stong> selects any element inside all <stong>&lt;p&gt;</stong> elements.',
     ],
-    answers: ['#moving wood'],
+    answers: ['wood'],
     level: 11,
     code: [
       {

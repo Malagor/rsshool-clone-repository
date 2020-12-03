@@ -35,6 +35,7 @@ export default class App {
     this.components.html.toggleHighlight = this.toggleHighlight.bind(this);
     this.components.screen.toggleHighlightScreen = this.toggleHighlightScreen.bind(this);
     this.components.css.typeCorrectAnswer = this.typeCorrectAnswer.bind(this);
+    this.components.sidebar.statistics.reset = this.reset.bind(this);
   }
 
   static create(el) {
@@ -82,6 +83,7 @@ export default class App {
     sidebar.printTaskText(tasks[indexCurrentTask]);
     sidebar.setCurrentTaskInMenu(tasks[indexCurrentTask].id);
     sidebar.setDoneCheckboxInHeader(tasks[indexCurrentTask].done, tasks[indexCurrentTask].hint);
+    sidebar.statistics.setStatictics(TASKS_COUNT, tasksList.countDoneTask(), tasksList.countHintTask());
 
     screen.setTitleText(tasks[indexCurrentTask].mission);
     screen.printTask(tasks[indexCurrentTask].code);
@@ -136,6 +138,7 @@ export default class App {
       this.printTaskOnScreen(this.propertes.indexCurrentTask);
       this.components.sidebar.createTaskListInMenu(this.tasksList.tasksArray);
       this.saveData();
+      this.components.sidebar.statistics.setStatictics(this.propertes.TASKS_COUNT, this.tasksList.countDoneTask(), this.tasksList.countHintTask());
 
       if (this.tasksList.isAllDone()) {
         this.finish();
@@ -146,6 +149,13 @@ export default class App {
 
   finish() {
     this.components.modal.showModal(this.propertes.TASKS_COUNT, this.tasksList.countHintTask());
+  }
+
+  newChalenge(){
+    this.propertes.indexCurrentTask = 0;
+    this.printTaskOnScreen(this.propertes.indexCurrentTask);
+    this.components.sidebar.createTaskListInMenu(this.tasksList.tasksArray);
+    this.components.sidebar.statistics.setStatictics(this.propertes.TASKS_COUNT, this.tasksList.countDoneTask(), this.tasksList.countHintTask());
   }
 
   changeTask(target) {
@@ -241,5 +251,12 @@ export default class App {
 
   static loadData() {
     return JSON.parse(saveLoadLocalStorage());
+  }
+
+  reset(){
+    // TODO: implement action confirmation
+    this.tasksList.reset();
+    saveLoadLocalStorage('reset');
+    this.newChalenge();
   }
 }

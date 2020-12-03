@@ -1,4 +1,8 @@
 export default function saveLoadLocalStorage(data = null) {
+  if (data === 'reset') {
+    localStorage.removeItem('rs-css-data');
+    return true;
+  }
   if (data) {
     try {
       localStorage.setItem('rs-css-data', data);

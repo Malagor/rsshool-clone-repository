@@ -243,7 +243,11 @@ export default class App {
   typeCorrectAnswer() {
     const task = this.tasksList.tasksArray[this.propertes.indexCurrentTask];
     const rightAnswer = task.answers[0];
-    task.hint = true;
+
+    // Mark the hint only if we haven't solved this task before
+    if (!task.done) {
+      task.hint = true;
+    }
     const cssPanel = this.components.css.elements.textarea;
 
     typingText(cssPanel, rightAnswer);

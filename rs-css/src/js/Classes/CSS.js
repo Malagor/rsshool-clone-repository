@@ -56,8 +56,6 @@ export default class CSS {
         this.checkAnswer();
       }
     });
-
-
   }
 
   getScreenValue() {

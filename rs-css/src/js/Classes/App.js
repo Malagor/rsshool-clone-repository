@@ -4,7 +4,7 @@ import CSS from "./CSS";
 import HTML from "./HTML";
 
 import getNewIndexCurrentTask from "../utils/getNewIndexCurrentTask"
-import {convertToNodeInnerText, createStringForSearch, parseNodeInnerText} from "../utils/parseNodeInnerText";
+import {convertToNodeInnerText} from "../utils/parseNodeInnerText";
 import typingText from "../utils/typingText";
 import saveLoadLocalStorage from "../utils/saveLoadLocalStorage";
 import Modal from "./Modal";
@@ -151,7 +151,7 @@ export default class App {
     this.components.modal.showModal(this.propertes.TASKS_COUNT, this.tasksList.countHintTask());
   }
 
-  newChalenge(){
+  newChalenge() {
     this.propertes.indexCurrentTask = 0;
     this.printTaskOnScreen(this.propertes.indexCurrentTask);
     this.components.sidebar.createTaskListInMenu(this.tasksList.tasksArray);
@@ -192,14 +192,20 @@ export default class App {
     const {target} = event;
     if (target.classList.contains('html-code')) return;
     const innerText = target.firstChild.nodeValue;
-    const parseText = parseNodeInnerText(innerText);
-    const strForSearch = createStringForSearch(parseText);
+    // const parseText = parseNodeInnerText(innerText);
+    // const innerText = createStringForSearch(parseText);
 
-    const screenElements = this.components.screen.elements.innerBox.querySelectorAll(strForSearch);
-    screenElements.forEach(el => el.classList.toggle('highlight'));
+    const screenElements = this.components.screen.elements.innerBox.querySelectorAll('*');
+
+    const dataIndex = target.dataset.index;
+    screenElements.forEach(el => {
+      if (el.dataset.index === dataIndex) {
+        el.classList.toggle('highlight');
+        this.components.screen.printTooltip(el, innerText);
+      }
+    });
     target.classList.toggle('highlight');
 
-    // this.printTooltip(target, innerText);
   }
 
   toggleHighlightScreen(event) {
@@ -211,6 +217,7 @@ export default class App {
     // deleting the service class - right answer element
     let {className} = target;
     className = className.replace('right-answer-element', '').trim();
+    className = className.replace('highlight', '').trim();
 
     const nodeData = {
       tag,
@@ -219,16 +226,17 @@ export default class App {
       child
     };
 
-    const innerText = convertToNodeInnerText(nodeData);
-
+    // select an item on the HTML-block
+    const dataIndex = target.dataset.index;
     this.components.html.elements.blocks.forEach(node => {
-      if (node.firstChild.nodeValue.trim() === innerText) {
-        node.classList.toggle('highlight')
+      if (node.dataset.index === dataIndex) {
+        node.classList.toggle('highlight');
       }
     });
-
+    // select an element on SCREEN-block
     target.classList.toggle('highlight');
 
+    const innerText = convertToNodeInnerText(nodeData);
     this.components.screen.printTooltip(target, innerText);
   }
 
@@ -253,7 +261,7 @@ export default class App {
     return JSON.parse(saveLoadLocalStorage());
   }
 
-  reset(){
+  reset() {
     // TODO: implement action confirmation
     this.tasksList.reset();
     saveLoadLocalStorage('reset');

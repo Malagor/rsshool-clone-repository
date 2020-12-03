@@ -26,8 +26,9 @@ export function calculateTooltipsPosition(node) {
 
   getPosition(node);
 
-  top -= 70 + offsetTop;
-  left += offsetLeft;
+  // top -= offsetTop;
+  top -= 20 + offsetTop;
+  left += 10 + offsetLeft;
 
   return {top, left};
 }

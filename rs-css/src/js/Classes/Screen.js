@@ -13,16 +13,15 @@ export default class Screen {
     this.events.call(this);
 
     // events handlers
-
     this.toggleHighlightScreen = null;
   }
 
   static create(el) {
     const node = document.querySelector(el);
     node.insertAdjacentHTML('afterbegin', `
-    <h2 id="taskTarget" class="railway__title">Mission Task</h2>
+    <h2 id="taskTarget" class="screen__title">Mission Task</h2>
     <div class="screen__inner"></div>
-    <div id="tooltip" class="tooltip">&lt;wagon id="moving" class="yellow"&gt;</div>
+    <div id="tooltip" class="tooltip"></div>
     `);
 
     const title = document.querySelector('#taskTarget');
@@ -53,6 +52,16 @@ export default class Screen {
 
     code.forEach((node) => {
       this.elements.innerBox.innerHTML += Screen.nodeToHTML(node)
+    });
+
+    this.setIndexesForNodes();
+  }
+
+  setIndexesForNodes() {
+    const nodes = this.elements.innerBox.querySelectorAll('*');
+
+    nodes.forEach((el, i) => {
+      el.dataset.index = i.toString(10);
     });
   }
 

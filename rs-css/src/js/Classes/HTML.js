@@ -63,8 +63,7 @@ export default class HTML {
     this.elements.blocks = this.elements.node.getElementsByTagName("div");
 
     this.elements.blocks.forEach((el, i) => {
-      // eslint-disable-next-line no-param-reassign
-      el.dataset.index = i;
+      el.dataset.index = i.toString();
     });
   }
 

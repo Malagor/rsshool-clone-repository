@@ -1,4 +1,4 @@
-export default function saveLoad(data = null) {
+export default function saveLoadLocalStorage(data = null) {
   if (data) {
     try {
       localStorage.setItem('rs-css-data', data);

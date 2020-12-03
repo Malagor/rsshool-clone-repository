@@ -1,4 +1,5 @@
 import setTitleMessage from "../utils/setTitleMessage";
+import Statistics from "./Statistics";
 
 export default class Sidebar {
   constructor(obj) {
@@ -23,12 +24,7 @@ export default class Sidebar {
       resetBtn: obj.resetBtn
     };
 
-    this.statistics = {
-      allTask: obj.allTask,
-      doneTask: obj.doneTask,
-      hintTask: obj.hintTask,
-      progressBar: obj.progressBar
-    };
+    this.statistics = obj.statistics;
 
     this.changeTask = null;
 
@@ -64,8 +60,8 @@ export default class Sidebar {
   <div class="statistics">
     <div class="statistics__wrapper">
     <h3 class="statistics__title">Statistics</h3>
-      <div id="progressBar" class="statistics__progress">
-        <div class="statistics__progress-bar"></div>
+      <div class="statistics__progress">
+        <div id="progressBar" class="statistics__progress-bar" title="Completed without/with hints"></div>
       </div>      
       <div class="statistics__item">
         <div class="statistics__title">All tasks</div>
@@ -95,12 +91,22 @@ export default class Sidebar {
     const navList = document.querySelector('#navList');
     const taskText = document.querySelector('#task');
     const taskDoneCheckbox = document.querySelector('.info__task-check');
-    const resetBtn = document.querySelector('#reset');
-    const countAllTask = document.querySelector('#countAllTask');
-    const countDoneTask = document.querySelector('#countDoneTask');
-    const countHintTask = document.querySelector('#countHintTask');
-    const progressBar = document.querySelector('#progressBar');
 
+    const resetBtn = document.querySelector('#reset');
+    const allTask = document.querySelector('#countAllTask');
+    const doneTask = document.querySelector('#countDoneTask');
+    const hintTask = document.querySelector('#countHintTask');
+    const progress = document.querySelector('#progressBar');
+
+    const statisticsConfig = {
+      allTask,
+      doneTask,
+      hintTask,
+      progress,
+      resetBtn
+    };
+
+    const statistics = Statistics.create(statisticsConfig);
     const elements = {
       node,
       infoBlock,
@@ -113,11 +119,7 @@ export default class Sidebar {
       navList,
       taskText,
       taskDoneCheckbox,
-      countAllTask,
-      countDoneTask,
-      countHintTask,
-      resetBtn,
-      progressBar
+      statistics
     };
 
     return new Sidebar(elements);
@@ -237,19 +239,5 @@ export default class Sidebar {
         el.classList.add('current-task');
       }
     });
-  }
-
-  setStatistics(done, hint = -1, all = -1){
-    if (done) {
-      this.statistics.doneTask.textContent = done;
-    }
-
-    if (hint !== -1) {
-      this.statistics.hintTask.textContent = hint;
-    }
-
-    if (all !== -1) {
-      this.statistics.allTask.textContent = all;
-    }
   }
 }

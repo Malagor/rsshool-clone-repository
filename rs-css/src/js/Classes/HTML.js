@@ -24,22 +24,22 @@ export default class HTML {
 
   static nodeToHTML(code) {
 
-      const {tag, id, classes, child} = code;
+    const {tag, id, classes, child} = code;
 
-      const formatIdAndClasses = `
+    const formatIdAndClasses = `
       ${convertId(id)} ${convertClasses(classes)}
       `.trim();
 
-      let formatChild = '';
-      if (child) {
-        child.forEach(el => {
-          formatChild += HTML.nodeToHTML(el);
-        })
-      }
+    let formatChild = '';
+    if (child) {
+      child.forEach(el => {
+        formatChild += HTML.nodeToHTML(el);
+      })
+    }
 
-      const formatTag = convertTagForHtmlBlock(tag, formatIdAndClasses, formatChild).trim();
+    const formatTag = convertTagForHtmlBlock(tag, formatIdAndClasses, formatChild).trim();
 
-      return `
+    return `
       <div>
         ${formatTag}
       </div>
@@ -69,10 +69,13 @@ export default class HTML {
 
   events() {
     this.elements.node.onmouseover = (event) => {
-      this.toggleHighlight(event);
+      const target = event.target.closest("div");
+      this.toggleHighlight(target);
     };
+
     this.elements.node.onmouseout = (event) => {
-      this.toggleHighlight(event);
+      const target = event.target.closest("div");
+      this.toggleHighlight(target);
     };
   }
 

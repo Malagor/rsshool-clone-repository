@@ -7,12 +7,6 @@ platform {
   transform-origin: bottom center;
   background-size: contain;
   background-repeat: no-repeat;
-
-  &.highlight {
-    box-shadow: 0 0 5px 5px #F07818;
-  }
-
-
 }
 
 wagon {
@@ -65,10 +59,6 @@ coal {
   background-size: cover;
   background-repeat: no-repeat;
   z-index: -1;
-
-  &.highlight {
-    box-shadow: 0 0 5px 5px #F07818;
-  }
 }
 
 wood {
@@ -113,11 +103,7 @@ tracktor {
   }
 }
 
-wagon rocks,
-wagon sand,
-wagon coal,
-wagon wood,
-{
+wagon > * {
   top: -25px;
 }
 
@@ -133,6 +119,19 @@ wagon wood,
   &:nth-child(2) {
     left: auto;
     right: 10%;
+  }
+}
+
+wagon,
+platform,
+wood,
+rocks,
+sand,
+tracktor,
+coal {
+
+  &.highlight {
+    box-shadow: 0 0 5px 5px #F07818;
   }
 }
 

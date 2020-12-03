@@ -1,5 +1,5 @@
 export function parseNodeInnerText(text) {
-  const regTag = /[a-z]+(\s|>)/;
+  const regTag = /[a-z]+/;
   const regId = /id="(.*?)"/;
   const regClass = /class="(.*?)"/;
 

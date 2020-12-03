@@ -26,7 +26,8 @@ export default class Sidebar {
     this.statistics = {
       allTask: obj.allTask,
       doneTask: obj.doneTask,
-      hintTask: obj.hintTask
+      hintTask: obj.hintTask,
+      progressBar: obj.progressBar
     };
 
     this.changeTask = null;
@@ -63,7 +64,7 @@ export default class Sidebar {
   <div class="statistics">
     <div class="statistics__wrapper">
     <h3 class="statistics__title">Statistics</h3>
-      <div class="statistics__progress">
+      <div id="progressBar" class="statistics__progress">
         <div class="statistics__progress-bar"></div>
       </div>      
       <div class="statistics__item">
@@ -98,6 +99,7 @@ export default class Sidebar {
     const countAllTask = document.querySelector('#countAllTask');
     const countDoneTask = document.querySelector('#countDoneTask');
     const countHintTask = document.querySelector('#countHintTask');
+    const progressBar = document.querySelector('#progressBar');
 
     const elements = {
       node,
@@ -114,7 +116,8 @@ export default class Sidebar {
       countAllTask,
       countDoneTask,
       countHintTask,
-      resetBtn
+      resetBtn,
+      progressBar
     };
 
     return new Sidebar(elements);

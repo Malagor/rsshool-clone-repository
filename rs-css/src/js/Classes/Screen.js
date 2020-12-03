@@ -21,7 +21,7 @@ export default class Screen {
     node.insertAdjacentHTML('afterbegin', `
     <h2 id="taskTarget" class="screen__title">Mission Task</h2>
     <div class="screen__inner"></div>
-    <div id="tooltip" class="tooltip"></div>
+    <div id="tooltip" class="tooltip language-html"></div>
     `);
 
     const title = document.querySelector('#taskTarget');

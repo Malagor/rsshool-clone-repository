@@ -4,6 +4,7 @@ $color-bg: #FCEBB6;
 $gradient: linear-gradient(135deg, #F07818, #F0A830);
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;700&display=swap');
+@import '../../node_modules/highlight.js/scss/monokai-sublime';
 
 @import "global";
 @import "screen";
@@ -15,3 +16,9 @@ $gradient: linear-gradient(135deg, #F07818, #F0A830);
 @import "tasks-layout";
 @import "modal";
 @import "buttons";
+
+
+.hljs {
+  display: flex;
+  flex-direction: column;
+}

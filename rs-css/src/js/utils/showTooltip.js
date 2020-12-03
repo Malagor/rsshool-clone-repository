@@ -1,8 +1,12 @@
+import hljs from 'highlight.js';
+
 export function showTooltip(element, top, left) {
   const tooltip = element;
   tooltip.style.top = `${top}px`;
   tooltip.style.left = `${left}px`;
   tooltip.classList.toggle('open');
+
+  hljs.highlightBlock(tooltip);
 }
 
 export function calculateTooltipsPosition(node) {
@@ -26,7 +30,6 @@ export function calculateTooltipsPosition(node) {
 
   getPosition(node);
 
-  // top -= offsetTop;
   top -= 20 + offsetTop;
   left += 10 + offsetLeft;
 

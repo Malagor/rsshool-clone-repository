@@ -31,7 +31,7 @@ export const convertTagForHtmlBlock = (tag, inner = '', child) => {
 };
 
 export const convertTagForScreenBlock = (tag, inner = '', child) => {
-  let result = `<${tag} ${inner}>`;
+  let result = `<${tag} ${inner} data-html='&lt;${tag} ${inner} /&gt;'>`;
 
   if (child){
     result += `${child} </${tag}>`;

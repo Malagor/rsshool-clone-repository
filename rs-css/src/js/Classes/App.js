@@ -1,10 +1,11 @@
+import hljs from 'highlight.js';
+
 import Sidebar from "./Sidebar";
 import Screen from "./Screen";
 import CSS from "./CSS";
 import HTML from "./HTML";
 
 import getNewIndexCurrentTask from "../utils/getNewIndexCurrentTask"
-import {convertToNodeInnerText} from "../utils/parseNodeInnerText";
 import typingText from "../utils/typingText";
 import saveLoadLocalStorage from "../utils/saveLoadLocalStorage";
 import Modal from "./Modal";
@@ -36,6 +37,9 @@ export default class App {
     this.components.screen.toggleHighlightScreen = this.toggleHighlightScreen.bind(this);
     this.components.css.typeCorrectAnswer = this.typeCorrectAnswer.bind(this);
     this.components.sidebar.statistics.reset = this.reset.bind(this);
+    this.components.css.changeCss = this.changeCss.bind(this);
+
+    this.init();
   }
 
   static create(el) {
@@ -44,7 +48,7 @@ export default class App {
     node.innerHTML = `    
     <section class="screen"></section>
     <section class="style-css"></section>
-    <section class="html-code">
+    <section class="html-code code language-html">
       <div class="">
         &lt;wagon /&gt;
       </div>
@@ -106,6 +110,12 @@ export default class App {
 
     return new App(config);
   }
+
+  init(){
+    hljs.highlightBlock(this.components.html.elements.node);
+    hljs.highlightBlock(this.components.css.elements.textarea);
+  }
+
 
   checkAnswer() {
     const answer = this.components.css.getScreenValue().trim();
@@ -186,14 +196,19 @@ export default class App {
 
     html.printTaskCode(task.code);
     css.clear();
+
+    hljs.highlightBlock(html.elements.node);
+    hljs.highlightBlock(css.elements.textarea);
   }
 
-  toggleHighlight(event) {
-    const {target} = event;
+  changeCss(){
+    hljs.highlightBlock(this.components.css.elements.textarea);
+  }
+
+  toggleHighlight(target) {
+    // const {target} = event;
+    // const target = event;
     if (target.classList.contains('html-code')) return;
-    const innerText = target.firstChild.nodeValue;
-    // const parseText = parseNodeInnerText(innerText);
-    // const innerText = createStringForSearch(parseText);
 
     const screenElements = this.components.screen.elements.innerBox.querySelectorAll('*');
 
@@ -201,42 +216,29 @@ export default class App {
     screenElements.forEach(el => {
       if (el.dataset.index === dataIndex) {
         el.classList.toggle('highlight');
+        const innerText = el.dataset.html;
         this.components.screen.printTooltip(el, innerText);
       }
     });
     target.classList.toggle('highlight');
-
   }
 
   toggleHighlightScreen(event) {
     const {target} = event;
     if (target.classList.contains('screen__inner')) return;
 
-    const {id, localName: tag, childElementCount: child} = target;
-
-    // deleting the service class - right answer element
-    let {className} = target;
-    className = className.replace('right-answer-element', '').trim();
-    className = className.replace('highlight', '').trim();
-
-    const nodeData = {
-      tag,
-      id,
-      className,
-      child
-    };
-
-    // select an item on the HTML-block
+    // mark an item on the HTML-block
     const dataIndex = target.dataset.index;
+
     this.components.html.elements.blocks.forEach(node => {
       if (node.dataset.index === dataIndex) {
         node.classList.toggle('highlight');
       }
     });
-    // select an element on SCREEN-block
+    // mark an element on SCREEN-block
     target.classList.toggle('highlight');
 
-    const innerText = convertToNodeInnerText(nodeData);
+    const innerText = target.dataset.html;
     this.components.screen.printTooltip(target, innerText);
   }
 

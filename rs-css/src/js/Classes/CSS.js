@@ -9,6 +9,7 @@ export default class CSS {
 
     this.checkAnswer = null;
     this.typeCorrectAnswer = null;
+    this.changeCss = null;
 
     this.events.bind(this)();
   }
@@ -17,7 +18,7 @@ export default class CSS {
     const node = document.querySelector(el);
 
     node.innerHTML = `
-        <textarea name="css" id="cssArea" class="css__area"></textarea>
+        <textarea name="css" id="cssArea" class="css__area code language-css"></textarea>
         <button class="btn btn__css" id="enter">Enter</button>
         <button class="help__button" id="helpButton">?</button>
         <div class="help__block">By clicking this button, you will get the correct answer. The task will be marked as "completed with a hint".</div>
@@ -56,6 +57,10 @@ export default class CSS {
         this.checkAnswer();
       }
     });
+
+    this.elements.textarea.addEventListener('input', () => {
+      this.changeCss();
+    })
   }
 
   getScreenValue() {
@@ -65,5 +70,4 @@ export default class CSS {
   clear() {
     this.elements.textarea.value = '';
   }
-
 }

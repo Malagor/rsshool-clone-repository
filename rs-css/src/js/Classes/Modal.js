@@ -41,12 +41,13 @@ export default class Modal {
   }
 
   showModal(countTask, hintTask = 0){
-    let modalText = `Вы успешно прошли симулятор. Выполнив все ${countTask} заданий.`;
+    let modalText = `You have successfully completed the simulator. After completing all <strong>${countTask}</strong> tasks.`;
     if (hintTask) {
-      modalText += `<div>Из них ${hintTask} решены с подсказкой.</div>`;
+      modalText += `<div>Of these, <strong>${hintTask}</strong> is solved with a hint.</div>`;
     } else {
-      modalText += `<div>При этом ниразу не воспользовались подсказкой. Это отличный разультат!</div>`;
+      modalText += `<div>At the same time, they never used the hint. This is a great result!</div>`;
     }
+    modalText += '<div class="small-text">You can reset the results and try again.<br>To do this, use the "Reset" button in the statistics section.</div>';
 
     this.elements.modalInner.innerHTML = modalText;
     this.elements.overlay.classList.remove('hide');
@@ -60,7 +61,7 @@ export default class Modal {
     this.elements.overlay.addEventListener('click', (event) => {
       const {target} = event;
 
-      if (target === this.elements.modalInner) return;
+      if (target === this.elements.modal || target.closest('.modal__inner')) return;
 
       this.hideModal();
     })

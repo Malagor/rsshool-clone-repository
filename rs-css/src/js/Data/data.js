@@ -49,7 +49,7 @@ const data = [
     ]
   },
   {
-    mission: 'Select the moving wagon',
+    mission: 'Select the moving platform',
     title: 'ID Selector',
     subtitle: 'Select elements with an ID',
     syntax: '#id',
@@ -57,7 +57,7 @@ const data = [
     examples: [
       '<strong>#cool</strong> selects any element with <strong>id="cool"</strong>',
       '<strong>ul#long</strong> selects ul <strong>id="long"</strong>'],
-    answers: ['rocks#searocks', '#searocks'],
+    answers: ['platform#moving', '#moving'],
     level: 3,
     done: true,
     code: [
@@ -74,18 +74,17 @@ const data = [
       },
       {
         tag: "platform",
-        id: "brown",
+        id: "moving",
         child: [
           {
             tag: "rocks",
-            id: "searocks"
           }
         ]
       }
     ]
   },
   {
-    mission: 'Select the wood on the platform',
+    mission: 'Select the sand in the wagon',
     title: 'Descendant Selector',
     subtitle: 'Select an element inside another element',
     syntax: 'A B',
@@ -98,17 +97,15 @@ const data = [
     done: true,
     code: [
       {
-        tag: "wagon",
-        classes: ["green"],
+        tag: "platform",
         child: [
           {
-            tag: "rocks"
+            tag: "sand"
           }
         ]
       },
       {
         tag: "wagon",
-        classes: ["red"],
         child: [
           {
             tag: 'sand'
@@ -118,57 +115,53 @@ const data = [
     ]
   },
   {
-    mission: 'Select the wood on the moving platform',
+    mission: 'Select rocks on the moving platform',
     title: 'Combine the Descendant & ID Selectors',
     subtitle: 'Select an element inside another element',
     syntax: '#id  A',
     description: 'You can combine any selector with the descendent selector.',
     examples: [
       '<stong>#cool span</stong> selects all <stong>&lt;span&gt;</stong> elements that are inside of elements with <stong>id="cool"</stong>'],
-    answers: ['wagon sand'],
+    answers: ['#moving rocks'],
     level: 5,
     done: true,
     code: [
       {
-        tag: "wagon",
-        classes: ["purple"],
+        tag: "platform",
         child: [
           {
-            tag: "wood",
-            classes: ["yellow", "small"]
-          },
-          {
             tag: "rocks",
-            classes: ['small']
-          }
+          },
         ]
       },
       {
         tag: "platform",
-        id: "brown",
-        classes: ["blue"],
+        id: "moving",
         child: [
           {
             tag: "rocks",
-            id: "searocks"
           }
         ]
       },
       {
-        tag: 'wagon',
-        classes: ["blue"],
+        tag: 'platform',
+        child: [
+          {
+            tag: "wood",
+          }
+        ]
       }
     ]
   },
   {
-    mission: 'Select the small apples',
+    mission: 'Select the small goods',
     title: 'Class Selector',
     subtitle: 'Select elements by their class',
     syntax: '.classname',
     description: 'The class selector selects all elements with that class attribute. Elements can only have one ID, but many classes.',
     examples: [
       '<stong>.neato</stong> selects all elements with <stong>class="neato"</stong>'],
-    answers: ['#moving wood'],
+    answers: ['.small'],
     level: 6,
     done: true,
     code: [
@@ -191,7 +184,12 @@ const data = [
         id: "brown",
         child: [
           {
-            tag: "coal",
+            tag: "wood",
+            classes: ["small"]
+          },
+          {
+            tag: "rocks",
+            classes: ["small"]
           }
         ]
       },
@@ -201,7 +199,7 @@ const data = [
         child: [
           {
             tag: "rocks",
-            id: "searocks"
+            id: "gravel"
           }
         ]
       }

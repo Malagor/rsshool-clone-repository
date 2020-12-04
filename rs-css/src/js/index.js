@@ -24,7 +24,7 @@ import '../img/textures/tractor-texture.png';
 import '../img/textures/coal-texture.png';
 
 // components App
-import '../css/style.css';
+// import '../css/style.css';
 import '../css/style.scss';
 
 import App from "./Classes/App";

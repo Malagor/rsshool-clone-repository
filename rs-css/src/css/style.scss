@@ -4,8 +4,14 @@ $color-bg: #FCEBB6;
 $gradient: linear-gradient(135deg, #F07818, #F0A830);
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;700&display=swap');
-@import '../../node_modules/highlight.js/scss/monokai-sublime';
 
+// highlight
+@import '../../node_modules/highlight.js/scss/monokai-sublime';
+// codemirror
+@import '../../node_modules/codemirror/lib/codemirror.css';
+@import '../../node_modules/codemirror/theme/monokai.css';
+
+// layouts
 @import "global";
 @import "screen";
 @import "sidebar";
@@ -17,8 +23,6 @@ $gradient: linear-gradient(135deg, #F07818, #F0A830);
 @import "modal";
 @import "buttons";
 
+// last styles
+@import "correct-styles";
 
-.hljs {
-  display: flex;
-  flex-direction: column;
-}

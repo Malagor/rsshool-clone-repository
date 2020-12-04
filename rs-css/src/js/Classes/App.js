@@ -37,7 +37,6 @@ export default class App {
     this.components.screen.toggleHighlightScreen = this.toggleHighlightScreen.bind(this);
     this.components.css.typeCorrectAnswer = this.typeCorrectAnswer.bind(this);
     this.components.sidebar.statistics.reset = this.reset.bind(this);
-    this.components.css.changeCss = this.changeCss.bind(this);
 
     this.init();
   }
@@ -47,21 +46,18 @@ export default class App {
 
     node.innerHTML = `    
     <section class="screen"></section>
-    <section class="style-css"></section>
-    <section class="html-code code language-html">
-      <div class="">
-        &lt;wagon /&gt;
+    <section class="style-css">
+    <div class="style-css__title">
+        <div class="style-css__left">CSS Editor</div>
+        <div class="style-css__right">style.css</div>
       </div>
-      <div class="">
-        &lt;wagon&gt;
-        <div class="">
-          &lt;wood /&gt;
-        </div>
-        &lt;/wagon&gt;
+    </section>
+    <section class="html-code">
+      <div class="html-code__title">
+        <div class="html-code__left">HTML Viewer</div>
+        <div class="html-code__right">railway.html</div>
       </div>
-      <div class="">
-        &lt;wagon /&gt;
-      </div>
+      <div class="html-code__inner code language-html"></div>
     </section>    
     `;
 
@@ -78,7 +74,7 @@ export default class App {
     const screen = Screen.create('.screen');
     const sidebar = Sidebar.create('.sidebar');
     const css = CSS.create('.style-css');
-    const html = HTML.create('.html-code');
+    const html = HTML.create('.html-code__inner');
     const modal = Modal.create();
 
     const tasks = tasksList.tasksArray;
@@ -111,14 +107,13 @@ export default class App {
     return new App(config);
   }
 
-  init(){
+  init() {
     hljs.highlightBlock(this.components.html.elements.node);
-    hljs.highlightBlock(this.components.css.elements.textarea);
   }
 
 
   checkAnswer() {
-    const answer = this.components.css.getScreenValue().trim();
+    const answer = this.components.css.codeMirror.getValue().trim();
     const isAnswersMatch = this.tasksList.checkAnswer(this.propertes.indexCurrentTask, answer);
 
     if (isAnswersMatch) {
@@ -134,7 +129,6 @@ export default class App {
     css.elements.textarea.classList.add('shake');
     css.elements.textarea.addEventListener('animationend', () => {
       css.elements.textarea.classList.remove('shake');
-      css.elements.textarea.value = this.components.css.elements.textarea.value.trim();
     })
   }
 
@@ -144,6 +138,7 @@ export default class App {
 
     // wait animation correct answer
     setTimeout(() => {
+      this.components.css.codeMirror.setValue('');
       this.propertes.indexCurrentTask = getNewIndexCurrentTask(this.propertes.indexCurrentTask, this.propertes.TASKS_COUNT);
       this.printTaskOnScreen(this.propertes.indexCurrentTask);
       this.components.sidebar.createTaskListInMenu(this.tasksList.tasksArray);
@@ -198,11 +193,7 @@ export default class App {
     css.clear();
 
     hljs.highlightBlock(html.elements.node);
-    hljs.highlightBlock(css.elements.textarea);
-  }
-
-  changeCss(){
-    hljs.highlightBlock(this.components.css.elements.textarea);
+    // hljs.highlightBlock(css.elements.textarea);
   }
 
   toggleHighlight(target) {
@@ -250,9 +241,8 @@ export default class App {
     if (!task.done) {
       task.hint = true;
     }
-    const cssPanel = this.components.css.elements.textarea;
 
-    typingText(cssPanel, rightAnswer);
+    typingText(this.components.css.codeMirror, rightAnswer);
   }
 
   saveData() {

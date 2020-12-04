@@ -1,14 +1,39 @@
 .style-css {
   position: relative;
   grid-area: css;
+  display: flex;
+  flex-direction: column;
+
   background: #5E412F;
   color: #EAF2BB;
 
+  &__title {
+    display: flex;
+    justify-content: space-between;
+
+    align-items: center;
+    background-image: linear-gradient(135deg,#959595,#70655f);
+    color: #eaf2bb;
+    border-bottom: 2px solid #000000;
+  }
+
+  &__left,
+  &__right {
+    width: 50%;
+    padding: 0.5em 2rem;
+  }
+
+  &__right {
+    text-align: right;
+  }
+
   .css__area {
+    position: relative;
+    z-index: 0;
     width: 100%;
     height: 100%;
     resize: none;
-    padding: 1em;
+    //padding: 0.2em;
     font-size: 1em;
     font-family: 'Poppins', sans-serif;
 
@@ -41,7 +66,7 @@
 
 .help__button {
   position: absolute;
-  top: 4rem;
+  top: 6.5rem;
   right: 2rem;
   width: 3rem;
   height: 3rem;
@@ -61,14 +86,14 @@
 
 .help__block {
   position: absolute;
-  top: 8rem;
+  top: 10rem;
   right: 2rem;
   width: 12rem;
   padding: 1rem;
   border: 2px solid #f07818;
   border-radius: 5px;
   font-size: 0.9em;
-  color: white;
+  color: #000000;
   opacity: 0;
   transform-origin: top right;
   transform: scale(0);

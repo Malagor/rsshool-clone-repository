@@ -1,3 +1,7 @@
+import CodeMirror from "codemirror/lib/codemirror";
+import 'codemirror/mode/css/css';
+
+
 export default class CSS {
   constructor(obj) {
     this.elements = {
@@ -6,10 +10,11 @@ export default class CSS {
       textarea: obj.textarea,
       helpButton: obj.helpButton
     };
+    this.codeMirror = obj.codeMirror;
 
+    // handlers
     this.checkAnswer = null;
     this.typeCorrectAnswer = null;
-    this.changeCss = null;
 
     this.events.bind(this)();
   }
@@ -17,22 +22,29 @@ export default class CSS {
   static create(el) {
     const node = document.querySelector(el);
 
-    node.innerHTML = `
-        <textarea name="css" id="cssArea" class="css__area code language-css"></textarea>
+    node.insertAdjacentHTML('beforeend', `
+        <div id="cssArea" class="css__area"></div>
         <button class="btn btn__css" id="enter">Enter</button>
         <button class="help__button" id="helpButton">?</button>
         <div class="help__block">By clicking this button, you will get the correct answer. The task will be marked as "completed with a hint".</div>
-     `;
+     `);
 
     const button = document.querySelector('#enter');
     const textarea = document.querySelector('#cssArea');
     const helpButton = node.querySelector('#helpButton');
 
+    const codeMirror = CodeMirror(textarea, {
+      lineNumbers: true,
+      matchBrackets: true,
+    });
+
+
     const elements = {
       node,
       button,
       textarea,
-      helpButton
+      helpButton,
+      codeMirror
     };
 
     return new CSS(elements);
@@ -51,23 +63,16 @@ export default class CSS {
       }
     });
 
+    // Press "Enter" button on the keyboard
     this.elements.node.addEventListener('keydown', (e) => {
       if (e.keyCode === 13) {
         e.preventDefault();
         this.checkAnswer();
       }
     });
-
-    this.elements.textarea.addEventListener('input', () => {
-      this.changeCss();
-    })
-  }
-
-  getScreenValue() {
-    return this.elements.textarea.value;
   }
 
   clear() {
-    this.elements.textarea.value = '';
+    this.codeMirror.setValue('');
   }
 }

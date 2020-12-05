@@ -126,7 +126,7 @@ export default class Sidebar {
   }
 
   init(taskArray, curentTaskIndex) {
-    console.log(taskArray);
+    // console.log(taskArray);
     this.createTaskListInMenu(taskArray);
     this.setCountAllTasksInInfoBlock(taskArray.length);
     this.setCurrentTaskLevel(taskArray[curentTaskIndex].level);

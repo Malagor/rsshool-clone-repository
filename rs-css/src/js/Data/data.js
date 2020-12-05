@@ -10,7 +10,7 @@ const data = [
       '<strong>p</strong> selects all <strong>&lt;p&gt;</strong> elements.'],
     answers: ['wagon'],
     level: 1,
-    done: true,
+    done: false,
     hint: false,
     code: [
       {
@@ -38,7 +38,7 @@ const data = [
       '<strong>p</strong> selects all <strong>&lt;p&gt;</strong> elements.'],
     answers: ['platform'],
     level: 2,
-    done: true,
+    done: false,
     code: [
       {
         tag: "locomotive",
@@ -65,7 +65,7 @@ const data = [
       '<strong>ul#long</strong> selects ul <strong>id="long"</strong>'],
     answers: ['#moving', 'wagon#moving'],
     level: 3,
-    done: true,
+    done: false,
     code: [
       {
         tag: "locomotive",
@@ -90,7 +90,7 @@ const data = [
       '<strong>#fancy  span</strong> selects any <strong>&lt;span&gt;</strong> elements that are inside of the element with <strong>id="fancy"</strong>'],
     answers: ['wagon coal'],
     level: 4,
-    done: true,
+    done: false,
     code: [
       {
         tag: "locomotive",
@@ -123,7 +123,7 @@ const data = [
       '<stong>#cool span</stong> selects all <stong>&lt;span&gt;</stong> elements that are inside of elements with <stong>id="cool"</stong>'],
     answers: ['#moving rocks', 'platform#moving rocks'],
     level: 5,
-    done: true,
+    done: false,
     code: [
       {
         tag: "locomotive",
@@ -165,7 +165,7 @@ const data = [
       '<stong>.neato</stong> selects all elements with <stong>class="neato"</stong>'],
     answers: ['.small'],
     level: 6,
-    done: true,
+    done: false,
     code: [
       {
         tag: "locomotive",
@@ -221,7 +221,7 @@ const data = [
     ],
     answers: ['tank.small'],
     level: 7,
-    done: true,
+    done: false,
     code: [
       {
         tag: "locomotive",
@@ -267,7 +267,7 @@ const data = [
     examples: [],
     answers: ['platform#light.blue tank.small'],
     level: 8,
-    done: true,
+    done: false,
     code: [
       {
         tag: "locomotive",
@@ -339,6 +339,7 @@ const data = [
     ],
     answers: ['wood, tank', 'tank, wood'],
     level: 9,
+    done: false,
     code: [
       {
         tag: "locomotive",
@@ -375,7 +376,6 @@ const data = [
         ]
       }
     ],
-    done: true
   },
   {
     mission: 'Select all train!',
@@ -388,7 +388,7 @@ const data = [
     ],
     answers: ['*'],
     level: 10,
-    done: true,
+    done: false,
     code: [
       {
         tag: "locomotive",
@@ -446,6 +446,7 @@ const data = [
     ],
     answers: ['platform *'],
     level: 11,
+    done: false,
     code: [
       {
         tag: "locomotive",

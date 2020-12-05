@@ -12,5 +12,5 @@ export default function typingText(element, text) {
     // element.focus();
     sound();
     if (i > text.length) clearInterval(timer);
-  }, 200);
+  }, 100);
 }

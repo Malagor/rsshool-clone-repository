@@ -68,8 +68,12 @@
   width: 100%;
   height: calc(100% - 55px);
   overflow-x: auto;
-  background: #F07818;
+  background: #89af89;
   transition: 0.3s;
+
+  .night & {
+    background: #6a6582;
+  }
 
   &.open {
     right: 0;
@@ -87,7 +91,11 @@
 
     &:hover,
     &.current-task {
-      background: #f04b01;
+      background: #5f876c;
+
+      .night & {
+        background: #47435d;
+      }
     }
   }
 
@@ -118,7 +126,7 @@
 
 // styles done and hint checker
 .task-done-check {
-  fill: rgb(16, 178, 4);
+  fill: #12ff00;
 }
 
 .task-hint {

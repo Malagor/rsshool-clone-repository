@@ -16,13 +16,19 @@
     left: 0;
     width: 100%;
     height: 100%;
-    //background-image: url(../img/background-forest.jpg);
+    background-image: url(../img/textures/bg-day.png);
     background-size: cover;
-    filter: blur(7px);
+    background-position: bottom right;
+    transition: 0.3s;
+
+    .night & {
+      background-image: url(../img/textures/bg-night.png);
+    }
   }
 
   &__title {
     z-index: 1;
+    color: black;
   }
 
   &__inner {
@@ -34,19 +40,27 @@
     height: 100%;
     z-index: 1;
 
-    padding-bottom: 2rem;
+    padding-bottom: 3rem;
 
-    &:after{
+    &:after {
       content: '';
       position: absolute;
       bottom: 0;
       left: 0;
-      height: 2rem;
+      height: 3rem;
       width: 100%;
-      border-top: 3px solid rgba(0, 0, 0, 0.7);
-      //background-image: url("../img/grass.jpg");
-    }
+      border-top: 4px solid rgb(95, 97, 102);
+      background-image: url("../img/textures/rw-day.png");
+      background-position: bottom center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      box-sizing: border-box;
+      transition: 0.3s;
 
+      .night & {
+        background-image: url("../img/textures/rw-night.png");
+      }
+    }
   }
 
   .tooltip {

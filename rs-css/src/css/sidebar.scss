@@ -1,21 +1,17 @@
 .sidebar {
-  position: relative;
   grid-area: sidebar;
-
+  position: relative;
   display: flex;
   flex-direction: column;
-
   padding: 0 1rem;
-  color: black;
+  overflow: hidden;
 
-  @media screen and (max-width: 768px) {
-    display: none;
-  }
 }
 
 // Style of task elements
 .task {
   font-size: 1rem;
+
 
   strong,
   &__syntax {

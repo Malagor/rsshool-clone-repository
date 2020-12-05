@@ -41,10 +41,10 @@ export default class App {
     this.init();
   }
 
-  static create(el) {
-    const node = document.querySelector(el);
+  static create() {
+    const node = document.querySelector('header.header');
 
-    node.innerHTML = `    
+    node.insertAdjacentHTML('afterend', `    
     <section class="screen"></section>
     <section class="style-css">
     <div class="style-css__title">
@@ -59,7 +59,7 @@ export default class App {
       </div>
       <div class="html-code__inner code language-html"></div>
     </section>    
-    `;
+    `);
 
     const tasksList = TaskList.create(taskRawData);
     const TASKS_COUNT = tasksList.getAllTasksCount();
@@ -109,6 +109,10 @@ export default class App {
 
   init() {
     hljs.highlightBlock(this.components.html.elements.node);
+
+    document.querySelector('.mode').addEventListener('click', ()=> {
+      document.body.classList.toggle('night');
+    })
   }
 
 

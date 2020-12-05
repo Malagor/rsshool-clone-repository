@@ -14,6 +14,9 @@ const data = [
     hint: false,
     code: [
       {
+        tag: "locomotive",
+      },
+      {
         tag: "wagon",
       },
       {
@@ -38,6 +41,9 @@ const data = [
     done: true,
     code: [
       {
+        tag: "locomotive",
+      },
+      {
         tag: "platform",
       },
       {
@@ -45,11 +51,11 @@ const data = [
       },
       {
         tag: "wagon",
-      }
+      },
     ]
   },
   {
-    mission: 'Select the moving platform',
+    mission: 'Select the moving wagon',
     title: 'ID Selector',
     subtitle: 'Select elements with an ID',
     syntax: '#id',
@@ -57,34 +63,24 @@ const data = [
     examples: [
       '<strong>#cool</strong> selects any element with <strong>id="cool"</strong>',
       '<strong>ul#long</strong> selects ul <strong>id="long"</strong>'],
-    answers: ['platform#moving', '#moving'],
+    answers: ['#moving', 'wagon#moving'],
     level: 3,
     done: true,
     code: [
       {
-        tag: "platform",
-        child: [
-          {
-            tag: "tracktor"
-          },
-          {
-            tag: "tracktor"
-          }
-        ]
+        tag: "locomotive",
       },
       {
-        tag: "platform",
-        id: "moving",
-        child: [
-          {
-            tag: "rocks",
-          }
-        ]
+        tag: "wagon"
+      },
+      {
+        tag: "wagon",
+        id: "moving"
       }
     ]
   },
   {
-    mission: 'Select the sand in the wagon',
+    mission: 'Select the coal in the wagon',
     title: 'Descendant Selector',
     subtitle: 'Select an element inside another element',
     syntax: 'A B',
@@ -92,23 +88,26 @@ const data = [
     examples: [
       '<strong>p  strong</strong> selects all <strong>&lt;strong&gt;</strong> elements that are inside of any <strong>&lt;p&gt;</strong>',
       '<strong>#fancy  span</strong> selects any <strong>&lt;span&gt;</strong> elements that are inside of the element with <strong>id="fancy"</strong>'],
-    answers: ['wagon sand'],
+    answers: ['wagon coal'],
     level: 4,
     done: true,
     code: [
       {
-        tag: "platform",
-        child: [
-          {
-            tag: "sand"
-          }
-        ]
+        tag: "locomotive",
       },
       {
         tag: "wagon",
         child: [
           {
-            tag: 'sand'
+            tag: 'coal'
+          }
+        ]
+      },
+      {
+        tag: "platform",
+        child: [
+          {
+            tag: "coal"
           }
         ]
       }
@@ -122,10 +121,13 @@ const data = [
     description: 'You can combine any selector with the descendent selector.',
     examples: [
       '<stong>#cool span</stong> selects all <stong>&lt;span&gt;</stong> elements that are inside of elements with <stong>id="cool"</stong>'],
-    answers: ['#moving rocks'],
+    answers: ['#moving rocks', 'platform#moving rocks'],
     level: 5,
     done: true,
     code: [
+      {
+        tag: "locomotive",
+      },
       {
         tag: "platform",
         child: [
@@ -166,7 +168,10 @@ const data = [
     done: true,
     code: [
       {
-        tag: "platform",
+        tag: "locomotive",
+      },
+      {
+        tag: "wagon",
         child: [
           {
             tag: "coal",
@@ -179,9 +184,8 @@ const data = [
         ]
       },
       {
-        tag: "platform",
-        classes: ["pink"],
-        id: "brown",
+        tag: "wagon",
+        id: "moving",
         child: [
           {
             tag: "wood",
@@ -194,7 +198,7 @@ const data = [
         ]
       },
       {
-        tag: "platform",
+        tag: "wagon",
         id: "brown",
         child: [
           {
@@ -206,7 +210,7 @@ const data = [
     ]
   },
   {
-    mission: 'Select the small oranges',
+    mission: 'Select small tanks',
     title: '',
     subtitle: 'Combine the Class Selector',
     syntax: 'A.className',
@@ -215,80 +219,116 @@ const data = [
       '<stong>ul.important</stong> selects all <stong>&lt;ul&gt;</stong> elements that have <stong>class="important"</stong>',
       '<stong>#big.wide<stong> selects all elements with <stong>id="big"<stong> that also have <stong>class="wide"<stong>'
     ],
-    answers: ['#moving wood'],
+    answers: ['tank.small'],
     level: 7,
     done: true,
     code: [
       {
+        tag: "locomotive",
+      },
+      {
         tag: "platform",
-        id: "brown",
+
         child: [
           {
-            tag: "wood",
+            tag: "tank",
           }
         ]
       },
       {
         tag: "platform",
-        id: "brown",
         child: [
           {
-            tag: "sand",
-            id: "searocks"
+            tag: "tank",
+            classes: ["small"]
+          },
+          {
+            tag: "tank",
+            classes: ["small"]
           }
         ]
       },
       {
         tag: "platform",
-        id: "brown",
         child: [
           {
-            tag: "rocks",
-            id: "searocks"
+            tag: "wood"
           }
         ]
       }
     ]
   },
   {
-    mission: 'Select the small oranges in the bentos',
+    mission: 'Select small oranges tanks on in the platform',
     title: '',
     subtitle: 'You can do it...',
     syntax: 'Put your back into it!',
     description: 'Combine what you learned in the last few levels to solve this one!',
     examples: [],
-    answers: ['#moving wood'],
+    answers: ['platform#light.blue tank.small'],
     level: 8,
     done: true,
     code: [
       {
-        tag: "wagon",
-        id: "brown",
+        tag: "locomotive",
       },
       {
         tag: "platform",
-        id: "brown",
+        classes: ["blue"],
         child: [
           {
+            tag: "tank",
+            classes: ["small"]
+          },
+          {
             tag: "rocks",
-            id: "searocks"
+            classes: ["small"]
           }
         ]
       },
       {
-        tag: "wagon",
-        id: "brown",
+        tag: "platform",
+        classes: ["green"],
+        id: "light",
         child: [
           {
-            tag: "rocks",
-            id: "searocks"
+            tag: "tank",
+            classes: ["small"]
+          },
+          {
+            tag: "tank",
+            classes: ["small"]
           }
         ]
-      }
+      },
+      {
+        tag: "platform",
+        classes: ['blue'],
+        id: "light",
+        child: [
+          {
+            tag: "tank",
+            classes: ["small"]
+          },
+          {
+            tag: "tank",
+            classes: ["small"]
+          }
+        ]
+      },
+      {
+        tag: "platform",
+        classes: ["blue"],
+        child: [
+          {
+            tag: "tank"
+          }
+        ]
+      },
     ]
   },
   {
-    mission: 'Select all the plates and bentos',
+    mission: 'Select all the tanks and woods',
     title: 'Comma Combinator',
     subtitle: 'Combine, selectors, with... commas!',
     syntax: 'A, B',
@@ -297,18 +337,48 @@ const data = [
       '<stong>p, .fun</stong> selects all <stong>&lt;p&gt;</stong> elements as well as all elements with <stong>class="fun"</stong>',
       '<stong>a, p, div</stong> selects all <stong>&lt;a&gt;</stong>, <stong>&lt;p&gt;</stong> and <stong>&lt;div&gt;</stong> elements'
     ],
-    answers: ['#moving wood'],
+    answers: ['wood, tank', 'tank, wood'],
     level: 9,
     code: [
       {
+        tag: "locomotive",
+      },
+      {
         tag: "platform",
-        id: "brown",
+        child: [
+          {
+            tag: 'wood',
+            classes: ['small']
+          },
+          {
+            tag: 'tank',
+            classes: ['small']
+          }
+        ]
+      },
+      {
+        tag: "wagon",
+        classes: ['green'],
+        child: [
+          {
+            tag: 'wood',
+          }
+        ]
+      },
+      {
+        tag: "platform",
+        classes: ['yellow'],
+        child: [
+          {
+            tag: 'tank',
+          }
+        ]
       }
     ],
     done: true
   },
   {
-    mission: 'Select all the things!',
+    mission: 'Select all train!',
     title: 'The Universal Selector',
     subtitle: 'You can select everything!',
     syntax: '*',
@@ -316,13 +386,22 @@ const data = [
     examples: [
       '<stong>p *</stong> selects any element inside all <stong>&lt;p&gt;</stong> elements.',
     ],
-    answers: ['#moving wood'],
+    answers: ['*'],
     level: 10,
     done: true,
     code: [
       {
+        tag: "locomotive",
+      },
+      {
         tag: "platform",
         id: "brown",
+        child: [
+          {
+            tag: "wood",
+            id: "pine"
+          }
+        ]
       },
       {
         tag: "wagon",
@@ -357,20 +436,32 @@ const data = [
     ]
   },
   {
-    mission: 'Select all the things!',
-    title: 'The Universal Selector',
-    subtitle: 'You can select everything!',
-    syntax: '*',
-    description: 'You can select all elements with the universal selector!',
+    mission: 'Select everything on platforms',
+    title: 'Combine the Universal Selector',
+    subtitle: '',
+    syntax: 'A *',
+    description: 'This selects all elements inside of <strong>A</strong>',
     examples: [
       '<stong>p *</stong> selects any element inside all <stong>&lt;p&gt;</stong> elements.',
     ],
-    answers: ['wood'],
+    answers: ['platform *'],
     level: 11,
     code: [
       {
-        tag: "wagon",
+        tag: "locomotive",
+      },
+      {
+        tag: "platform",
         id: "brown",
+        child: [
+          {
+            tag: "rocks",
+            id: "volcanо"
+          }
+        ]
+      },
+      {
+        tag: "wagon",
         child: [
           {
             tag: "coal",
@@ -379,21 +470,12 @@ const data = [
       },
       {
         tag: "platform",
-        id: "brown",
-        child: [
-          {
-            tag: "rocks",
-            id: "searocks"
-          }
-        ]
-      },
-      {
-        tag: "wagon",
-        id: "brown",
+        id: "light",
+        classes: ['green'],
         child: [
           {
             tag: "wood",
-            id: "searocks"
+            id: "oak"
           }
         ]
       }

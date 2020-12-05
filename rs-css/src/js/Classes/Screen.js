@@ -51,14 +51,14 @@ export default class Screen {
     }
 
     code.forEach((node) => {
-      this.elements.innerBox.innerHTML += Screen.nodeToHTML(node)
+      this.elements.innerBox.innerHTML += `<div class="tag-wrapper">${Screen.nodeToHTML(node)}</div>`
     });
 
     this.setIndexesForNodes();
   }
 
   setIndexesForNodes() {
-    const nodes = this.elements.innerBox.querySelectorAll('*');
+    const nodes = this.elements.innerBox.querySelectorAll(':scope div *');
 
     nodes.forEach((el, i) => {
       el.dataset.index = i.toString(10);
@@ -82,8 +82,8 @@ export default class Screen {
 
     const formatTag = convertTagForScreenBlock(tag, formatIdAndClasses, formatChild).trim();
 
-    return `      
-        ${formatTag}      
+    return `
+        ${formatTag}
       `;
   }
 

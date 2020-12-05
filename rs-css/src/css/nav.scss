@@ -71,6 +71,11 @@
   background: #89af89;
   transition: 0.3s;
 
+  @media screen and (max-width: 768px){
+    top: 44px;
+    height: calc(100% - 44px);
+  }
+
   .night & {
     background: #6a6582;
   }

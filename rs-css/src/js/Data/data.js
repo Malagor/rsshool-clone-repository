@@ -62,7 +62,7 @@ const data = [
     description: 'Selects the element with a specific <strong>id</strong>. You can also combine the ID selector with the type selector.',
     examples: [
       '<strong>#cool</strong> selects any element with <strong>id="cool"</strong>',
-      '<strong>ul#long</strong> selects ul <strong>id="long"</strong>'],
+      '<strong>ul#long</strong> selects <strong>&lt;ul id="long"&gt;</strong>'],
     answers: ['#moving', 'wagon#moving'],
     level: 3,
     done: false,
@@ -120,7 +120,7 @@ const data = [
     syntax: '#id  A',
     description: 'You can combine any selector with the descendent selector.',
     examples: [
-      '<stong>#cool span</stong> selects all <stong>&lt;span&gt;</stong> elements that are inside of elements with <stong>id="cool"</stong>'],
+      '<strong>#cool span</strong> selects all <strong>&lt;span&gt;</strong> elements that are inside of elements with <strong>id="cool"</strong>'],
     answers: ['#moving rocks', 'platform#moving rocks'],
     level: 5,
     done: false,
@@ -162,7 +162,7 @@ const data = [
     syntax: '.classname',
     description: 'The class selector selects all elements with that class attribute. Elements can only have one ID, but many classes.',
     examples: [
-      '<stong>.neato</stong> selects all elements with <stong>class="neato"</stong>'],
+      '<strong>.neato</strong> selects all elements with <strong>class="neato"</strong>'],
     answers: ['.small'],
     level: 6,
     done: false,
@@ -216,8 +216,8 @@ const data = [
     syntax: 'A.className',
     description: 'You can combine the class selector with other selectors, like the type selector.',
     examples: [
-      '<stong>ul.important</stong> selects all <stong>&lt;ul&gt;</stong> elements that have <stong>class="important"</stong>',
-      '<stong>#big.wide<stong> selects all elements with <stong>id="big"<stong> that also have <stong>class="wide"<stong>'
+      '<strong>ul.important</strong> selects all <strong>&lt;ul&gt;</strong> elements that have <strong>class="important"</strong>',
+      '<strong>#big.wide</strong> selects all elements with <strong>id="big"</strong> that also have <strong>class="wide"</strong>'
     ],
     answers: ['tank.small'],
     level: 7,
@@ -334,8 +334,8 @@ const data = [
     syntax: 'A, B',
     description: 'Thanks to Shatner technology, this selects all <stong>A</stong> and <stong>B</stong> elements. You can combine any selectors this way, and you can specify more than two.',
     examples: [
-      '<stong>p, .fun</stong> selects all <stong>&lt;p&gt;</stong> elements as well as all elements with <stong>class="fun"</stong>',
-      '<stong>a, p, div</stong> selects all <stong>&lt;a&gt;</stong>, <stong>&lt;p&gt;</stong> and <stong>&lt;div&gt;</stong> elements'
+      '<strong>p, .fun</strong> selects all <strong>&lt;p&gt;</strong> elements as well as all elements with <strong>class="fun"</strong>',
+      '<strong>a, p, div</strong> selects all <strong>&lt;a&gt;</strong>, <strong>&lt;p&gt;</strong> and <strong>&lt;div&gt;</strong> elements'
     ],
     answers: ['wood, tank', 'tank, wood'],
     level: 9,
@@ -384,7 +384,7 @@ const data = [
     syntax: '*',
     description: 'You can select all elements with the universal selector!',
     examples: [
-      '<stong>p *</stong> selects any element inside all <stong>&lt;p&gt;</stong> elements.',
+      '<strong>p *</strong> selects any element inside all <strong>&lt;p&gt;</strong> elements.',
     ],
     answers: ['*'],
     level: 10,
@@ -435,6 +435,7 @@ const data = [
       }
     ]
   },
+
   {
     mission: 'Select everything on platforms',
     title: 'Combine the Universal Selector',
@@ -442,7 +443,7 @@ const data = [
     syntax: 'A *',
     description: 'This selects all elements inside of <strong>A</strong>',
     examples: [
-      '<stong>p *</stong> selects any element inside all <stong>&lt;p&gt;</stong> elements.',
+      '<strong>div *</strong> selects any element inside all <strong>&lt;div&gt;</strong> elements.',
     ],
     answers: ['platform *'],
     level: 11,
@@ -477,6 +478,233 @@ const data = [
           {
             tag: "wood",
             id: "oak"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    mission: 'Select every tank that\'s next to the coal',
+    title: 'Adjacent Sibling Selector',
+    subtitle: 'Select an element that directly follows another element',
+    syntax: 'A + B',
+    description: 'This selects all <strong>B</strong> elements that directly follow <strong>A</strong>. In the HTML markup for this level, elements that have the same indentation are siblings.',
+    examples: [
+      '<strong>p + .intro</strong> selects every element with <strong>class="intro"</strong> that directly follows a <strong>&lt;p&gt;</strong>',
+      '<strong>div + a</strong> selects every <strong>&lg;a&gt;</strong> element that directly follows a <strong>&lt;div&gt;</strong>'
+    ],
+    answers: ['coal + tank'],
+    level: 12,
+    done: false,
+    code: [
+      {
+        tag: "locomotive",
+      },
+      {
+        tag: "platform",
+        classes: ['red'],
+        child: [
+          {
+            tag: 'wood',
+            classes: ['small']
+          },
+          {
+            tag: 'tank',
+            classes: ['small']
+          }
+        ]
+      },
+      {
+        tag: "platform",
+        classes: ['blue'],
+        child: [
+          {
+            tag: 'coal',
+            classes: ['small']
+          },
+          {
+            tag: 'tank',
+            classes: ['small']
+          }
+        ]
+      },
+
+      {
+        tag: "platform",
+        classes: ['green'],
+        child: [
+          {
+            tag: 'rocks',
+            classes: ['small']
+          },
+          {
+            tag: 'tank',
+            classes: ['small']
+          }
+        ]
+      }
+    ]
+  },
+  {
+    mission: 'Select the pickles beside the bento',
+    title: 'General Sibling Selector',
+    subtitle: 'Select elements that follows another element',
+    syntax: 'A ~ B',
+    description: 'You can select all siblings of an element that follow it. This is like the Adjacent Selector (A + B) except it gets all of the following elements instead of one.',
+    examples: [
+      '<strong>div ~ p</strong> selects all <strong>&lt;p&gt;</strong> that follow a <strong>&lt;div&gt;</strong>',
+      '<strong>.light ~ span</strong> selects all <strong>&lt;span&gt;</strong> that follow a element with<strong>class="light"</strong>'
+    ],
+    answers: ['rocks ~ coal'],
+    level: 13,
+    done: false,
+    code: [
+      {
+        tag: "locomotive",
+      },
+      {
+        tag: "platform",
+        id: "brown",
+        child: [
+          {
+            tag: "rocks",
+            id: "volcanо",
+            classes: ['small']
+          },
+          {
+            tag: "coal",
+            id: "volcanо",
+            classes: ['small']
+          }
+        ]
+      },
+      {
+        tag: "wagon",
+        child: [
+          {
+            tag: "coal",
+          }
+        ]
+      },
+      {
+        tag: "platform",
+        id: "light",
+        classes: ['green'],
+        child: [
+          {
+            tag: "wood",
+            id: "oak"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    mission: 'Select the apple directly on a plate',
+    title: 'Child Selector',
+    subtitle: 'Select direct children of an element',
+    syntax: 'A > B',
+    description: 'You can select elements that are direct children of other elements. A child element is any element that is nested directly in another element.\n' +
+      '<br>' +
+      'Elements that are nested deeper than that are called descendant elements.',
+    examples: [
+      '<strong>div *</strong> selects any element inside all <strong>&lt;div&gt;</strong> elements.',
+    ],
+    answers: ['platform *'],
+    level: 14,
+    done: false,
+    code: [
+      {
+        tag: "locomotive",
+      },
+      {
+        tag: "platform",
+        id: "brown",
+        child: [
+          {
+            tag: "rocks",
+            id: "volcanо"
+          }
+        ]
+      },
+      {
+        tag: "wagon",
+        child: [
+          {
+            tag: "coal",
+          }
+        ]
+      },
+      {
+        tag: "platform",
+        id: "light",
+        classes: ['green'],
+        child: [
+          {
+            tag: "wood",
+            id: "oak"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    mission: 'Select the first goods on platforms',
+    title: 'First Child Pseudo-selector',
+    subtitle: 'Select a first child element inside of another element',
+    syntax: ':first-child',
+    description: 'You can select the first child element. A child element is any element that is directly nested in another element. You can combine this pseudo-selector with other selectors.',
+    examples: [
+      '<strong>:first-child</strong> selects all first child elements.',
+      '<strong>p:first-child</strong> selects all first child <strong>&lt;p&gt;</strong> elements.',
+      '<strong>div p:first-child</strong> selects all first child <strong>&lt;p&gt;</strong> elements that are in a <strong>&lt;div&gt;</strong>.'
+    ],
+    answers: ['platform :first-child'],
+    level: 15,
+    done: false,
+    code: [
+      {
+        tag: "locomotive",
+      },
+      {
+        tag: "platform",
+        classes: ['red'],
+        child: [
+          {
+            tag: "rocks",
+            classes: ['small']
+          },
+          {
+            tag: "rocks",
+            classes: ['small']
+          }
+        ]
+      },
+      {
+        tag: "platform",
+        classes: ['blue'],
+        child: [
+          {
+            tag: "tank",
+            classes: ['small']
+          },
+          {
+            tag: "tank",
+            classes: ['small']
+          }
+        ]
+      },
+      {
+        tag: "platform",
+        classes: ['green'],
+        child: [
+          {
+            tag: "wood",
+            classes: ['small']
+          },
+          {
+            tag: "wood",
+            classes: ['small']
           }
         ]
       }

@@ -1,5 +1,4 @@
 import setTitleMessage from "../utils/setTitleMessage";
-// import Statistics from "./Statistics";
 
 export default class Sidebar {
   constructor(obj) {

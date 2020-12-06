@@ -1,7 +1,6 @@
 import CodeMirror from "codemirror/lib/codemirror";
 import 'codemirror/mode/css/css';
 
-
 export default class CSS {
   constructor(obj) {
     this.elements = {
@@ -37,7 +36,6 @@ export default class CSS {
       lineNumbers: true,
       matchBrackets: true,
     });
-
 
     const elements = {
       node,

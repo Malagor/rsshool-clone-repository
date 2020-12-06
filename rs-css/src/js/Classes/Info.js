@@ -16,15 +16,14 @@ export default class Info {
       menuToggle: props.menuToggle,
     };
 
+    // handlers
     this.changeTask = null;
     this.toggleMenu = null;
-
 
     this.events.call(this);
   }
 
   static create(el) {
-
     const node = document.querySelector(el);
     node.innerHTML = '';
     node.insertAdjacentHTML("afterbegin", `

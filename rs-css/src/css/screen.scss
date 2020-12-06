@@ -1,28 +1,29 @@
 .screen {
   position: relative;
-  grid-area: screen;
   display: flex;
-  align-items: center;
   flex-direction: column;
-  padding-top: 1.5rem;
-  background: #FCEBB6;
+  align-items: center;
   width: 100%;
+  padding-top: 1.5rem;
   overflow: hidden;
+  background: #fcebb6;
+
+  grid-area: screen;
 
   &:before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url(../img/textures/bg-day.png);
-    background-size: cover;
+    background-image: url("../img/textures/bg-day.png");
     background-position: bottom right;
+    background-size: cover;
     transition: 0.3s;
 
     .night & {
-      background-image: url(../img/textures/bg-night.png);
+      background-image: url("../img/textures/bg-night.png");
     }
   }
 
@@ -33,28 +34,27 @@
 
   &__inner {
     position: relative;
+    z-index: 1;
     display: flex;
     justify-content: center;
     align-items: flex-end;
     width: 100%;
     height: 100%;
-    z-index: 1;
-
     padding-bottom: 3rem;
 
     &:after {
-      content: '';
+      content: "";
       position: absolute;
       bottom: 0;
       left: 0;
-      height: 3rem;
-      width: 100%;
-      border-top: 4px solid rgb(95, 97, 102);
-      background-image: url("../img/textures/rw-day.png");
-      background-position: bottom center;
-      background-repeat: no-repeat;
-      background-size: cover;
       box-sizing: border-box;
+      width: 100%;
+      height: 3rem;
+      background-image: url("../img/textures/rw-day.png");
+      background-repeat: no-repeat;
+      background-position: bottom center;
+      background-size: cover;
+      border-top: 4px solid rgb(95, 97, 102);
       transition: 0.3s;
 
       .night & {
@@ -65,14 +65,14 @@
 
   .tooltip {
     position: absolute;
-    padding: 0.5em;
-    border: 3px solid #f07818;
-    background: #5E412F;
-    //background: #fcebb6;
-    transition: 0.3s;
-    opacity: 0;
     z-index: 3;
+    padding: 0.5em;
+    background: #5e412f;
+    border: 3px solid #f07818;
+    opacity: 0;
 
+//background: #fcebb6;
+    transition: 0.3s;
     &.open {
       opacity: 1;
     }

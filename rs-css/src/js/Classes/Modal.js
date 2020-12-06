@@ -15,11 +15,7 @@ export default class Modal {
       <div class="overlay hide">
       <div class="modal">
         <div class="modal__close">&#128938;</div>
-        <div class="modal__inner">
-        Вы успешно прошли симулятор.
-        Выполнив все 10 заданий.
-        <div>При этом ниразу не воспользовались подсказкой. Это отличный разультат!</div>
-        <div>Из них 3 решены с подсказкой.</div>        
+        <div class="modal__inner">          
         </div>
       </div>
     </div>

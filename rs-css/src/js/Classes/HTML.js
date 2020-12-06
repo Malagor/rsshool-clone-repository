@@ -14,11 +14,9 @@ export default class HTML {
 
   static create(el) {
     const node = document.querySelector(el);
-
     const config = {
       node
     };
-
     return new HTML(config);
   }
 
@@ -44,7 +42,6 @@ export default class HTML {
         ${formatTag}
       </div>
       `;
-
   }
 
   printTaskCode(code) {

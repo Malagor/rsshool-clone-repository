@@ -4,12 +4,12 @@ import Sidebar from "./Sidebar";
 import Screen from "./Screen";
 import CSS from "./CSS";
 import HTML from "./HTML";
+import Modal from "./Modal";
+import TaskList from "./TaskList";
 
 import getNewIndexCurrentTask from "../utils/getNewIndexCurrentTask"
 import typingText from "../utils/typingText";
 import saveLoadLocalStorage from "../utils/saveLoadLocalStorage";
-import Modal from "./Modal";
-import TaskList from "./TaskList";
 
 import school from '../../img/rs_school_js.svg';
 import github from '../../img/GitHub-Mark.svg';
@@ -39,10 +39,10 @@ export default class App {
 
     // handlers component`s events
     this.components.info.changeTask = this.changeTask.bind(this);
-    this.components.sidebar.changeTask = this.changeTask.bind(this);
     this.components.info.toggleMenu = this.toggleMenu.bind(this);
     this.components.css.checkAnswer = this.checkAnswer.bind(this);
     this.components.css.typeCorrectAnswer = this.typeCorrectAnswer.bind(this);
+    this.components.sidebar.changeTask = this.changeTask.bind(this);
     this.components.html.toggleHighlight = this.toggleHighlight.bind(this);
     this.components.screen.toggleHighlightScreen = this.toggleHighlightScreen.bind(this);
     this.components.statistics.reset = this.reset.bind(this);
@@ -176,7 +176,6 @@ export default class App {
       if (this.tasksList.isAllDone()) {
         this.finish();
       }
-
     }, 1000);
   }
 
@@ -222,12 +221,9 @@ export default class App {
     css.clear();
 
     hljs.highlightBlock(html.elements.node);
-    // hljs.highlightBlock(css.elements.textarea);
   }
 
   toggleHighlight(target) {
-    // const {target} = event;
-    // const target = event;
     if (target.classList.contains('html-code')) return;
 
     const screenElements = this.components.screen.elements.innerBox.querySelectorAll('*');
@@ -301,9 +297,6 @@ export default class App {
     } else {
       this.components.sidebar.elements.node.classList.toggle('open');
     }
-
       this.components.info.elements.menuToggle.classList.toggle('open');
-
-
   }
 }

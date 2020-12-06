@@ -55,7 +55,6 @@ export default class TaskList {
     }, 0)
   }
 
-
   saveArray(){
     const data = [];
     this.tasksArray.forEach(task => {

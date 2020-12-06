@@ -1,18 +1,17 @@
 .info-panel {
-  grid-area: info;
-
   width: 100%;
   height: 100%;
-
   padding: 0 1rem;
+
+  grid-area: info;
 }
 
 .info {
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
 
-  @media screen and (max-width: 768px){
+  @media screen and (max-width: 768px) {
     justify-content: flex-start;
   }
 }
@@ -24,13 +23,14 @@
 
 .info__task-check {
   width: 2em;
+
   fill: rgba(0, 0, 0, 0.4);
 
   .night & {
     fill: rgba(255, 255, 255, 0.4);
   }
 
-  @media screen and (max-width: 768px){
+  @media screen and (max-width: 768px) {
     margin-right: 1rem;
   }
 }
@@ -40,7 +40,6 @@
   justify-content: space-between;
   align-items: center;
   width: 4rem;
-
 }
 
 .arrow {
@@ -86,10 +85,9 @@
   position: relative;
   width: 2.5rem;
   height: 2rem;
-
   cursor: pointer;
 
-  @media screen and (max-width: 768px){
+  @media screen and (max-width: 768px) {
     position: absolute;
     right: 1rem;
   }

@@ -82,9 +82,7 @@ export default class Screen {
 
     const formatTag = convertTagForScreenBlock(tag, formatIdAndClasses, formatChild).trim();
 
-    return `
-        ${formatTag}
-      `;
+    return `${formatTag}`;
   }
 
   events() {

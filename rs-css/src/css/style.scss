@@ -1,16 +1,16 @@
-$color-main: #5E412F;
-$color-accent: #F7BC05;
-$color-bg: #FCEBB6;
+$color-main: #5e412f;
+$color-accent: #f7bc05;
+$color-bg: #fcebb6;
 $gradient: linear-gradient(135deg, #5f876c, #89af89);
 $gradient-night: linear-gradient(135deg, #47435d, #6a6582);
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;700&display=swap");
 
 // highlight
-@import '../../node_modules/highlight.js/scss/monokai-sublime';
+@import "../../node_modules/highlight.js/scss/monokai-sublime";
 // codemirror
-@import '../../node_modules/codemirror/lib/codemirror.css';
-@import '../../node_modules/codemirror/theme/monokai.css';
+@import "../../node_modules/codemirror/lib/codemirror.css";
+@import "../../node_modules/codemirror/theme/monokai.css";
 
 // layouts
 @import "global";
@@ -27,4 +27,3 @@ $gradient-night: linear-gradient(135deg, #47435d, #6a6582);
 
 // last styles
 @import "correct-styles";
-

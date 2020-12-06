@@ -1,12 +1,12 @@
 .sidebar {
-  grid-area: sidebar;
   position: relative;
   display: flex;
   flex-direction: column;
   padding: 0 1rem;
   overflow-x: hidden;
-
   transition: 0.3s;
+
+  grid-area: sidebar;
 
   &.mobile-open {
     right: 0;
@@ -14,52 +14,44 @@
 
   &.open {
     left: 0;
-
   }
 
-  @media screen and (max-width: 768px){
+  @media screen and (max-width: 768px) {
     position: absolute;
     top: 8rem;
     left: 100%;
-
+    z-index: 1;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-
     height: calc(100% - 19rem);
-
     background: #89af89;
-    z-index: 1;
   }
 }
 
 // Style of task elements
 .task {
-  font-size: 1rem;
-  max-height: 100vh;
   height: 100%;
+  max-height: 100vh;
+  font-size: 1rem;
 
-  @media screen and (max-width: 768px){
-    padding-top: 1rem;
+  @media screen and (max-width: 768px) {
     width: 50%;
+    padding-top: 1rem;
   }
 
   strong,
   &__syntax {
-    font-weight: normal;
     padding: 0 1em;
+    font-weight: normal;
     background: rgba(0, 0, 0, 0.2);
-  }
-
-  &__subtitle {
-    //font-weight: 200;
   }
 
   &__syntax {
     display: inline-flex;
     margin: 0.5em 0;
-    font-size: 2em;
     font-weight: bold;
+    font-size: 2em;
   }
 
   &__examples-list {
@@ -72,22 +64,20 @@
     }
 
     &:before {
+      content: "Examples";
       display: block;
-      content: 'Examples';
+      margin-top: 1rem;
       margin-bottom: 1em;
       font-weight: bold;
-      margin-top: 1rem;
     }
   }
 
   &__example-item {
-    //border-bottom: 1px solid black;
-    //padding-bottom: 1em;
     margin-bottom: 1em;
 
     &:last-child {
-      border: none;
       margin-bottom: 0;
+      border: none;
     }
   }
 }

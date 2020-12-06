@@ -13,19 +13,26 @@
   }
 
   &.open {
-    left: 0;
+    transform: scaleX(1);
+  }
+
+  .night & {
+    background: #47435d;
   }
 
   @media screen and (max-width: 768px) {
     position: absolute;
     top: 8rem;
-    left: 100%;
+    left: 0;
     z-index: 1;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     height: calc(100% - 19rem);
+    padding-right: 0;
     background: #89af89;
+    transform: scaleX(0);
+    transform-origin: right;
   }
 }
 

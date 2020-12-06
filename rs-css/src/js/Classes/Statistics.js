@@ -23,6 +23,9 @@ export default class Statistics {
 
   static create(obj) {
 
+
+
+
     const config = {
       allTaskCount: 0,
       doneTaskCount: 0,

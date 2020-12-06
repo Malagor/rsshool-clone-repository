@@ -1,12 +1,6 @@
 import setTitleMessage from "../utils/setTitleMessage";
 import Statistics from "./Statistics";
 
-// const arrow = require('../../img/next-arrow.svg');
-
-import arrow from '../../img/next-arrow.svg';
-
-console.log(arrow);
-
 export default class Sidebar {
   constructor(obj) {
     this.elements = {
@@ -42,61 +36,37 @@ export default class Sidebar {
     const node = document.querySelector(el);
     node.innerHTML = '';
     node.insertAdjacentHTML('afterbegin', `
-    <div id="info" class="info">
-    <div class="info__task-check task-done-check">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M504.502 75.496c-9.997-9.998-26.205-9.998-36.204 0L161.594 382.203 43.702 264.311c-9.997-9.998-26.205-9.997-36.204 0-9.998 9.997-9.998 26.205 0 36.203l135.994 135.992c9.994 9.997 26.214 9.99 36.204 0L504.502 111.7c9.998-9.997 9.997-26.206 0-36.204z"/></svg>
-    </div>
-    <div class="levels">Level <span id="current-task"></span> of <span id="all-tasks-count"></span></div>
-    <div class="controls">
-      <button class="arrow arrow__left">${arrow}</button>
-      <button class="arrow arrow__right">${arrow}</button>
-    </div>
-    <div id="menuToggle" class="menu__toggle">
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-  </div>
-  <nav id="nav" class="nav">
-    <ul id="navList" class="nav__list">
-    </ul>
-  </nav>
-  <div id="task" class="task"></div>
-  <div class="statistics">
-    <div class="statistics__wrapper">
-    <h3 class="statistics__title">Statistics</h3>
-      <div class="statistics__progress">
-        <div id="progressBar" class="statistics__progress-bar" title="Completed without/with hints"></div>
-      </div>      
-      <div class="statistics__item">
-        <div class="statistics__title">All tasks</div>
-        <div id="countAllTask" class="statistics__value">10</div>
+    <nav id="nav" class="nav">
+      <ul id="navList" class="nav__list">
+      </ul>
+    </nav>
+    <div id="task" class="task"></div>
+    <div class="statistics">
+      <div class="statistics__wrapper">
+      <h3 class="statistics__title">Statistics</h3>
+        <div class="statistics__progress">
+          <div id="progressBar" class="statistics__progress-bar" title="Completed without/with hints"></div>
+        </div>      
+        <div class="statistics__item">
+          <div class="statistics__title">All tasks</div>
+          <div id="countAllTask" class="statistics__value">10</div>
+        </div>
+        <div class="statistics__item">
+          <div class="statistics__title">Done</div>
+          <div id="countDoneTask" class="statistics__value">5</div>
+        </div>
+        <div class="statistics__item">
+          <div class="statistics__title">Hint</div>
+          <div id="countHintTask" class="statistics__value">3</div>
+        </div>  
       </div>
-      <div class="statistics__item">
-        <div class="statistics__title">Done</div>
-        <div id="countDoneTask" class="statistics__value">5</div>
-      </div>
-      <div class="statistics__item">
-        <div class="statistics__title">Hint</div>
-        <div id="countHintTask" class="statistics__value">3</div>
-      </div>  
-    </div>
-    <button id="reset" class="btn btn__reset">Reset</button>
-  </div>
-
+      <button id="reset" class="btn btn__reset">Reset</button>
+    </div>  
     `);
 
-    const infoBlock = document.querySelector('#info');
-    const arrowLeft = document.querySelector('.arrow.arrow__left');
-    const arrowRight = document.querySelector('.arrow.arrow__right');
-    const currentLevel = document.querySelector('#current-task');
-    const allCountLevels = document.querySelector('#all-tasks-count');
-    const menuToggle = document.querySelector('#menuToggle');
     const nav = document.querySelector('#nav');
     const navList = document.querySelector('#navList');
     const taskText = document.querySelector('#task');
-    const taskDoneCheckbox = document.querySelector('.info__task-check');
 
     const resetBtn = document.querySelector('#reset');
     const allTask = document.querySelector('#countAllTask');
@@ -115,55 +85,27 @@ export default class Sidebar {
     const statistics = Statistics.create(statisticsConfig);
     const elements = {
       node,
-      infoBlock,
-      arrowLeft,
-      arrowRight,
-      currentLevel,
-      allCountLevels,
-      menuToggle,
       nav,
       navList,
       taskText,
-      taskDoneCheckbox,
       statistics
     };
 
     return new Sidebar(elements);
   }
 
-  init(taskArray, curentTaskIndex) {
-    // console.log(taskArray);
+  init(taskArray, currentTaskIndex) {
     this.createTaskListInMenu(taskArray);
-    this.setCountAllTasksInInfoBlock(taskArray.length);
-    this.setCurrentTaskLevel(taskArray[curentTaskIndex].level);
-    this.printTaskText(taskArray[curentTaskIndex]);
+    this.printTaskText(taskArray[currentTaskIndex]);
   }
 
   events() {
     this.elements.node.addEventListener('click', e => {
       const {target} = e;
-
-      // Change tasks
-      if (target.closest('.arrow__left')) {
-        this.changeTask('left');
-      }
-      if (target.closest('.arrow__right')) {
-        this.changeTask('right');
-      }
       if (target.closest('.nav__item')) {
         this.changeTask(target.closest('.nav__item'));
       }
-
-      // Close-open task menu
-      if (target.closest('#menuToggle')) {
-        this.toggleMenu();
-      }
     });
-  }
-
-  toggleMenu() {
-    this.elements.menuToggle.classList.toggle('open');
-    this.elements.nav.navWrapper.classList.toggle('open');
   }
 
   createTaskListInMenu(taskArray) {
@@ -192,14 +134,6 @@ export default class Sidebar {
   `;
   }
 
-  setCurrentTaskLevel(cur) {
-    this.elements.levels.currentLevel.textContent = cur;
-  }
-
-  setCountAllTasksInInfoBlock(num) {
-    this.elements.levels.allCountLevels.textContent = num;
-  }
-
   printTaskText(taskObj) {
     const {examples, title, subtitle, syntax, description} = taskObj;
     let examplesHtml = '';
@@ -218,20 +152,6 @@ export default class Sidebar {
           ${examplesHtml}
           </ul>
       `;
-  }
-
-  setDoneCheckboxInHeader(isDone = true, isHint = false) {
-    if (isDone) {
-      this.elements.taskDoneCheckbox.classList.add('task-done-check');
-    } else {
-      this.elements.taskDoneCheckbox.classList.remove('task-done-check');
-    }
-
-    if (isHint) {
-      this.elements.taskDoneCheckbox.classList.add('task-hint');
-    } else {
-      this.elements.taskDoneCheckbox.classList.remove('task-hint');
-    }
   }
 
   setCurrentTaskInMenu(id) {

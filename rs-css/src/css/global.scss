@@ -14,17 +14,21 @@ html {
     font-size: 15px;
   }
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 992px) {
     font-size: 14px;
+  }
+
+  @media screen and (max-width: 768px) {
+    font-size: 13px;
   }
 }
 
 body {
   position: relative;
   display: grid;
-  grid-template-areas: "header header header" "screen screen sidebar" "css html sidebar" "footer footer footer";
+  grid-template-areas: "header header header" "screen screen info" "screen screen sidebar" "css html sidebar" "footer footer footer";
   grid-template-columns: 1fr 1fr 25rem;
-  grid-template-rows: 4.6rem 18rem 1fr 4.6rem;
+  grid-template-rows: 4.6rem 3.5rem 18rem 1fr 4.6rem;
 
   height: 100%;
   width: 100%;
@@ -42,25 +46,21 @@ body {
   }
 
   @media screen and (max-width: 1024px) {
-    //display: grid;
-    grid-template-areas: "header header header" "screen screen screen" "css html sidebar" "footer footer footer";
+    grid-template-areas: "header header header" "screen screen info" "screen screen sidebar" "css html sidebar" "footer footer footer";
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 4.6rem 18rem fit-content(50%) 4.6rem;
-
+    grid-template-rows: 4.6rem 3.5rem 18rem fit-content(50%) 4.6rem;
   }
 
   @media screen and (max-width: 992px) {
-    //display: grid;
-    grid-template-areas: "header header header" "screen screen screen" "css css sidebar" "html html sidebar" "footer footer footer";
+    grid-template-areas: "header header header" "screen screen screen" "css css info" "css css sidebar" "html html sidebar" "footer footer footer";
     grid-template-columns: 1fr 1fr 25rem;
-    grid-template-rows: 4.6rem 18rem 13rem auto 4.6rem;
+    grid-template-rows: 4.6rem 18rem 3.5rem 9.5rem auto 4.6rem;
   }
 
   @media screen and (max-width: 768px) {
-    //display: grid;
-    grid-template-areas: "header header header" "screen screen screen" "css css sidebar" "html html sidebar" "footer footer footer";
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 4.6rem 18rem 13rem auto 4.6rem;
+    grid-template-areas: "header" "info" "screen" "css" "html" "footer";
+    grid-template-columns: 1fr;
+    grid-template-rows: 4.6rem 3.5rem 18rem 13rem auto 4.6rem;
   }
 }
 
@@ -155,6 +155,15 @@ h1 {
     color: #ffffff;
   }
 
+  @media screen and (max-width: 768px) {
+    width: auto;
+  }
+
+  &__text {
+    @media screen and (max-width: 768px) {
+      display: none;
+    }
+  }
 
   &__toggle {
     position: relative;

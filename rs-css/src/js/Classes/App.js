@@ -13,9 +13,9 @@ import TaskList from "./TaskList";
 
 import school from '../../img/rs_school_js.svg';
 import github from '../../img/GitHub-Mark.svg';
+import Info from "./Info";
 
 const taskRawData = require('../Data/data');
-
 
 export default class App {
   constructor(obj) {
@@ -31,15 +31,17 @@ export default class App {
       screen: obj.screen,
       css: obj.css,
       html: obj.html,
-      modal: obj.modal
+      modal: obj.modal,
+      info: obj.info
     };
 
     // handlers component`s events
-    this.components.sidebar.changeTask = this.changeTask.bind(this);
+    this.components.info.changeTask = this.changeTask.bind(this);
+    this.components.info.toggleMenu = this.toggleMenu.bind(this);
     this.components.css.checkAnswer = this.checkAnswer.bind(this);
+    this.components.css.typeCorrectAnswer = this.typeCorrectAnswer.bind(this);
     this.components.html.toggleHighlight = this.toggleHighlight.bind(this);
     this.components.screen.toggleHighlightScreen = this.toggleHighlightScreen.bind(this);
-    this.components.css.typeCorrectAnswer = this.typeCorrectAnswer.bind(this);
     this.components.sidebar.statistics.reset = this.reset.bind(this);
 
     this.init();
@@ -84,6 +86,7 @@ export default class App {
     }
 
     const screen = Screen.create('.screen');
+    const info = Info.create('.info-panel');
     const sidebar = Sidebar.create('.sidebar');
     const css = CSS.create('.style-css');
     const html = HTML.create('.html-code__inner');
@@ -91,10 +94,13 @@ export default class App {
 
     const tasks = tasksList.tasksArray;
 
+    info.setDoneCheckboxInHeader(tasks[indexCurrentTask].done, tasks[indexCurrentTask].hint);
+    info.setCountAllTasksInInfoBlock(TASKS_COUNT);
+    info.setCurrentTaskLevel(tasks[indexCurrentTask].level);
+
     sidebar.init(tasks, indexCurrentTask);
-    sidebar.printTaskText(tasks[indexCurrentTask]);
+    // sidebar.printTaskText(tasks[indexCurrentTask]);
     sidebar.setCurrentTaskInMenu(tasks[indexCurrentTask].id);
-    sidebar.setDoneCheckboxInHeader(tasks[indexCurrentTask].done, tasks[indexCurrentTask].hint);
     sidebar.statistics.setStatictics(TASKS_COUNT, tasksList.countDoneTask(), tasksList.countHintTask());
 
     screen.setTitleText(tasks[indexCurrentTask].mission);
@@ -113,7 +119,8 @@ export default class App {
       sidebar,
       css,
       html,
-      modal
+      modal,
+      info
     };
 
     return new App(config);
@@ -192,12 +199,13 @@ export default class App {
   }
 
   printTaskOnScreen(index) {
-    const {sidebar, css, html, screen} = this.components;
+    const {sidebar, css, html, screen, info} = this.components;
     const task = this.tasksList.tasksArray[index];
 
-    sidebar.setCurrentTaskLevel(task.level);
+    info.setCurrentTaskLevel(task.level);
+    info.setDoneCheckboxInHeader(task.done, task.hint);
+
     sidebar.printTaskText(task);
-    sidebar.setDoneCheckboxInHeader(task.done, task.hint);
     sidebar.setCurrentTaskInMenu(task.id);
 
     screen.setTitleText(task.mission);
@@ -278,5 +286,10 @@ export default class App {
     this.tasksList.reset();
     saveLoadLocalStorage('reset');
     this.newChalenge();
+  }
+
+  toggleMenu() {
+    this.components.info.elements.menuToggle.classList.toggle('open');
+    this.components.sidebar.elements.nav.navWrapper.classList.toggle('open');
   }
 }

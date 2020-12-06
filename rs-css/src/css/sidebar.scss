@@ -5,12 +5,31 @@
   flex-direction: column;
   padding: 0 1rem;
   overflow-x: hidden;
+
+  transition: 0.3s;
+
+  &.mobile-open {
+    right: -140%;
+  }
+
+  @media screen and (max-width: 768px){
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: #89af89;
+    z-index: 1;
+    //height: calc(100vh - 2rem);
+    height: 100vh;
+  }
 }
 
 // Style of task elements
 .task {
   font-size: 1rem;
 
+  @media screen and (max-width: 768px){
+    width: 45%;
+  }
 
   strong,
   &__syntax {
@@ -59,72 +78,5 @@
     }
   }
 }
-
-.info {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.levels {
-  width: 13rem;
-  font-size: 2rem;
-}
-
-.info__task-check {
-  width: 2em;
-  fill: rgba(0, 0, 0, 0.4);
-
-  .night & {
-    fill: rgba(255, 255, 255, 0.4);
-  }
-}
-
-.controls {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 4rem;
-}
-
-.arrow {
-  width: 2rem;
-  height: 2rem;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  transition: 0.3s;
-
-  .night & {
-    fill: #ffffff;
-  }
-
-  &__left {
-    transform: rotate(180deg);
-
-    &:hover {
-      animation: slide-left 1s ease-in-out infinite;
-    }
-  }
-
-  &__right {
-    &:hover {
-      animation: slide-right 1s ease-in-out infinite;
-    }
-  }
-}
-
-@keyframes slide-right {
-  50% {
-    transform: translateX(0.3rem);
-  }
-}
-
-@keyframes slide-left {
-  50% {
-    transform: rotate(180deg) translateX(0.3rem);
-  }
-}
-
 
 

@@ -9,26 +9,39 @@
   transition: 0.3s;
 
   &.mobile-open {
-    right: -140%;
+    right: 0;
+  }
+
+  &.open {
+    left: 0;
+
   }
 
   @media screen and (max-width: 768px){
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 8rem;
+    left: 100%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    height: calc(100% - 19rem);
+
     background: #89af89;
     z-index: 1;
-    //height: calc(100vh - 2rem);
-    height: 100vh;
   }
 }
 
 // Style of task elements
 .task {
   font-size: 1rem;
+  max-height: 100vh;
+  height: 100%;
 
   @media screen and (max-width: 768px){
-    width: 45%;
+    padding-top: 1rem;
+    width: 50%;
   }
 
   strong,

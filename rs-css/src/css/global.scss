@@ -26,11 +26,17 @@ html {
 body {
   position: relative;
   display: grid;
-  grid-template-areas: "header header header" "screen screen info" "screen screen sidebar" "css html sidebar" "footer footer footer";
+  grid-template-areas:
+          "header header header"
+          "screen screen info"
+          "screen screen sidebar"
+          "css html sidebar"
+          "css html statistics"
+          "footer footer footer";
   grid-template-columns: 1fr 1fr 25rem;
-  grid-template-rows: 4.6rem 3.5rem 18rem 1fr 4.6rem;
+  grid-template-rows: 4.6rem 3.5rem 18rem minmax(max-content, 1fr) 10rem 4.6rem;
 
-  height: 100%;
+  height: 100vh;
   width: 100%;
 
   font-family: 'Poppins', sans-serif;
@@ -40,27 +46,48 @@ body {
 
   transition: 0.3s;
 
+  overflow: hidden;
+
   &.night {
     background: $gradient-night;
     color: white;
   }
 
   @media screen and (max-width: 1024px) {
-    grid-template-areas: "header header header" "screen screen info" "screen screen sidebar" "css html sidebar" "footer footer footer";
+    grid-template-areas:
+            "header header header"
+            "screen screen info"
+            "screen screen sidebar"
+            "css html sidebar"
+            "css html statistics"
+            "footer footer footer";
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 4.6rem 3.5rem 18rem fit-content(50%) 4.6rem;
+    grid-template-rows: 4.6rem 3.5rem 18rem minmax(max-content, 1fr) 10rem 4.6rem;
   }
 
   @media screen and (max-width: 992px) {
-    grid-template-areas: "header header header" "screen screen screen" "css css info" "css css sidebar" "html html sidebar" "footer footer footer";
+    grid-template-areas:
+            "header header header"
+            "screen screen screen"
+            "css css info"
+            "css css sidebar"
+            "html html sidebar"
+            "html html statistics"
+            "footer footer footer";
     grid-template-columns: 1fr 1fr 25rem;
-    grid-template-rows: 4.6rem 18rem 3.5rem 9.5rem auto 4.6rem;
+    grid-template-rows: 4.6rem 18rem 3.5rem 9.5rem minmax(max-content, 2fr) 10rem 4.6rem;
   }
 
   @media screen and (max-width: 768px) {
-    grid-template-areas: "header" "info" "screen" "css" "html" "footer";
-    grid-template-columns: 1fr;
-    grid-template-rows: 4.6rem 3.5rem 18rem 13rem auto 4.6rem;
+    grid-template-areas:
+            "header header"
+            "info info"
+            "screen screen"
+            "css html"
+            "statistics statistics"
+            "footer footer";
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 4.6rem 3.5rem 18rem minmax(max-content, 1fr) 6.5rem 4.6rem;
   }
 }
 

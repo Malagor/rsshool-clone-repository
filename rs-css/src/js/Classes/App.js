@@ -14,6 +14,7 @@ import TaskList from "./TaskList";
 import school from '../../img/rs_school_js.svg';
 import github from '../../img/GitHub-Mark.svg';
 import Info from "./Info";
+import Statistics from "./Statistics";
 
 const taskRawData = require('../Data/data');
 
@@ -32,17 +33,19 @@ export default class App {
       css: obj.css,
       html: obj.html,
       modal: obj.modal,
-      info: obj.info
+      info: obj.info,
+      statistics: obj.statistics
     };
 
     // handlers component`s events
     this.components.info.changeTask = this.changeTask.bind(this);
+    this.components.sidebar.changeTask = this.changeTask.bind(this);
     this.components.info.toggleMenu = this.toggleMenu.bind(this);
     this.components.css.checkAnswer = this.checkAnswer.bind(this);
     this.components.css.typeCorrectAnswer = this.typeCorrectAnswer.bind(this);
     this.components.html.toggleHighlight = this.toggleHighlight.bind(this);
     this.components.screen.toggleHighlightScreen = this.toggleHighlightScreen.bind(this);
-    this.components.sidebar.statistics.reset = this.reset.bind(this);
+    this.components.statistics.reset = this.reset.bind(this);
 
     this.init();
   }
@@ -91,6 +94,7 @@ export default class App {
     const css = CSS.create('.style-css');
     const html = HTML.create('.html-code__inner');
     const modal = Modal.create();
+    const statistics = Statistics.create('.statistics-panel');
 
     const tasks = tasksList.tasksArray;
 
@@ -101,7 +105,7 @@ export default class App {
     sidebar.init(tasks, indexCurrentTask);
     // sidebar.printTaskText(tasks[indexCurrentTask]);
     sidebar.setCurrentTaskInMenu(tasks[indexCurrentTask].id);
-    sidebar.statistics.setStatictics(TASKS_COUNT, tasksList.countDoneTask(), tasksList.countHintTask());
+    statistics.setStatictics(TASKS_COUNT, tasksList.countDoneTask(), tasksList.countHintTask());
 
     screen.setTitleText(tasks[indexCurrentTask].mission);
     screen.printTask(tasks[indexCurrentTask].code);
@@ -120,7 +124,8 @@ export default class App {
       css,
       html,
       modal,
-      info
+      info,
+      statistics
     };
 
     return new App(config);
@@ -166,7 +171,7 @@ export default class App {
       this.printTaskOnScreen(this.propertes.indexCurrentTask);
       this.components.sidebar.createTaskListInMenu(this.tasksList.tasksArray);
       this.saveData();
-      this.components.sidebar.statistics.setStatictics(this.propertes.TASKS_COUNT, this.tasksList.countDoneTask(), this.tasksList.countHintTask());
+      this.components.statistics.setStatictics(this.propertes.TASKS_COUNT, this.tasksList.countDoneTask(), this.tasksList.countHintTask());
 
       if (this.tasksList.isAllDone()) {
         this.finish();
@@ -193,7 +198,7 @@ export default class App {
       this.propertes.indexCurrentTask = getNewIndexCurrentTask(this.propertes.indexCurrentTask, this.propertes.TASKS_COUNT);
     } else { // here target is element of a menu item
       this.propertes.indexCurrentTask = parseInt(target.dataset.index, 10);
-      this.components.sidebar.toggleMenu();
+      this.components.info.toggleMenu();
     }
     this.printTaskOnScreen(this.propertes.indexCurrentTask);
   }
@@ -289,7 +294,16 @@ export default class App {
   }
 
   toggleMenu() {
-    this.components.info.elements.menuToggle.classList.toggle('open');
-    this.components.sidebar.elements.nav.navWrapper.classList.toggle('open');
+    const width = window.innerWidth;
+
+    if (width >= 768) {
+      this.components.sidebar.elements.nav.navWrapper.classList.toggle('open');
+    } else {
+      this.components.sidebar.elements.node.classList.toggle('open');
+    }
+
+      this.components.info.elements.menuToggle.classList.toggle('open');
+
+
   }
 }

@@ -1,5 +1,5 @@
 import setTitleMessage from "../utils/setTitleMessage";
-import Statistics from "./Statistics";
+// import Statistics from "./Statistics";
 
 export default class Sidebar {
   constructor(obj) {
@@ -24,8 +24,6 @@ export default class Sidebar {
       resetBtn: obj.resetBtn
     };
 
-    this.statistics = obj.statistics;
-
     this.changeTask = null;
 
     this.init.bind(this);
@@ -41,54 +39,17 @@ export default class Sidebar {
       </ul>
     </nav>
     <div id="task" class="task"></div>
-    <div class="statistics">
-      <div class="statistics__wrapper">
-      <h3 class="statistics__title">Statistics</h3>
-        <div class="statistics__progress">
-          <div id="progressBar" class="statistics__progress-bar" title="Completed without/with hints"></div>
-        </div>      
-        <div class="statistics__item">
-          <div class="statistics__title">All tasks</div>
-          <div id="countAllTask" class="statistics__value">10</div>
-        </div>
-        <div class="statistics__item">
-          <div class="statistics__title">Done</div>
-          <div id="countDoneTask" class="statistics__value">5</div>
-        </div>
-        <div class="statistics__item">
-          <div class="statistics__title">Hint</div>
-          <div id="countHintTask" class="statistics__value">3</div>
-        </div>  
-      </div>
-      <button id="reset" class="btn btn__reset">Reset</button>
-    </div>  
     `);
 
     const nav = document.querySelector('#nav');
     const navList = document.querySelector('#navList');
     const taskText = document.querySelector('#task');
 
-    const resetBtn = document.querySelector('#reset');
-    const allTask = document.querySelector('#countAllTask');
-    const doneTask = document.querySelector('#countDoneTask');
-    const hintTask = document.querySelector('#countHintTask');
-    const progress = document.querySelector('#progressBar');
-
-    const statisticsConfig = {
-      allTask,
-      doneTask,
-      hintTask,
-      progress,
-      resetBtn
-    };
-
-    const statistics = Statistics.create(statisticsConfig);
     const elements = {
       node,
       nav,
       navList,
       taskText,
-      statistics
     };
 
     return new Sidebar(elements);

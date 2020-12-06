@@ -21,20 +21,48 @@ export default class Statistics {
     this.events.call(this);
   }
 
-  static create(obj) {
+  static create(el) {
+    const node = document.querySelector(el);
 
+    node.insertAdjacentHTML('afterbegin', `
+    <div class="statistics">
+      <div class="statistics__wrapper">
+      <h3 class="statistics__title">Statistics</h3>
+        <div class="statistics__progress">
+          <div id="progressBar" class="statistics__progress-bar" title="Completed without/with hints"></div>
+        </div>      
+        <div class="statistics__item">
+          <div class="statistics__title">All tasks</div>
+          <div id="countAllTask" class="statistics__value">10</div>
+        </div>
+        <div class="statistics__item">
+          <div class="statistics__title">Done</div>
+          <div id="countDoneTask" class="statistics__value">5</div>
+        </div>
+        <div class="statistics__item">
+          <div class="statistics__title">Hint</div>
+          <div id="countHintTask" class="statistics__value">3</div>
+        </div>  
+      </div>
+      <button id="reset" class="btn btn__reset">Reset</button>
+    </div>
+  `);
 
-
+    const resetBtn = document.querySelector('#reset');
+    const allTask = document.querySelector('#countAllTask');
+    const doneTask = document.querySelector('#countDoneTask');
+    const hintTask = document.querySelector('#countHintTask');
+    const progress = document.querySelector('#progressBar');
 
     const config = {
       allTaskCount: 0,
       doneTaskCount: 0,
       hintTaskCount: 0,
-      resetBtn: null,
-      allTask: null,
-      doneTask: null,
-      hintTask: null,
-      ...obj
+      allTask,
+      doneTask,
+      hintTask,
+      progress,
+      resetBtn
     };
 
     return new Statistics(config);
@@ -80,11 +108,11 @@ export default class Statistics {
 
   renderProgress() {
     let width = this.property.doneTaskCount * 100 / this.property.allTaskCount;
-    if (Number.isNaN(width) || width === Infinity){
+    if (Number.isNaN(width) || width === Infinity) {
       width = 0;
     }
     let hintWidth = this.property.hintTaskCount * 100 / this.property.doneTaskCount;
-    if (Number.isNaN(hintWidth) || hintWidth === Infinity){
+    if (Number.isNaN(hintWidth) || hintWidth === Infinity) {
       hintWidth = 0;
     }
     const doneWidth = 100 - hintWidth;

@@ -1,6 +1,12 @@
 import setTitleMessage from "../utils/setTitleMessage";
 import Statistics from "./Statistics";
 
+// const arrow = require('../../img/next-arrow.svg');
+
+import arrow from '../../img/next-arrow.svg';
+
+console.log(arrow);
+
 export default class Sidebar {
   constructor(obj) {
     this.elements = {
@@ -42,8 +48,8 @@ export default class Sidebar {
     </div>
     <div class="levels">Level <span id="current-task"></span> of <span id="all-tasks-count"></span></div>
     <div class="controls">
-      <button class="arrow arrow__left"></button>
-      <button class="arrow arrow__right"></button>
+      <button class="arrow arrow__left">${arrow}</button>
+      <button class="arrow arrow__right">${arrow}</button>
     </div>
     <div id="menuToggle" class="menu__toggle">
       <span></span>

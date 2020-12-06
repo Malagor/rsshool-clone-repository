@@ -11,7 +11,11 @@ import saveLoadLocalStorage from "../utils/saveLoadLocalStorage";
 import Modal from "./Modal";
 import TaskList from "./TaskList";
 
+import school from '../../img/rs_school_js.svg';
+import github from '../../img/GitHub-Mark.svg';
+
 const taskRawData = require('../Data/data');
+
 
 export default class App {
   constructor(obj) {
@@ -59,6 +63,14 @@ export default class App {
       </div>
       <div class="html-code__inner code language-html"></div>
     </section>    
+    `);
+
+    document.querySelector('.school').insertAdjacentHTML('afterbegin', `
+      <a href="https://rs.school/js/">${school} JavaScript course at RS SCHOOL</a>
+    `);
+
+    document.querySelector('.author').insertAdjacentHTML('afterbegin', `
+      <a href="https://github.com/Malagor">Author: Alex Malagor ${github}</a>
     `);
 
     const tasksList = TaskList.create(taskRawData);
@@ -110,7 +122,7 @@ export default class App {
   init() {
     hljs.highlightBlock(this.components.html.elements.node);
 
-    document.querySelector('.mode').addEventListener('click', ()=> {
+    document.querySelector('.mode').addEventListener('click', () => {
       document.body.classList.toggle('night');
     })
   }

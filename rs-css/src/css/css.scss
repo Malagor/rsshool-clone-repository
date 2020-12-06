@@ -12,9 +12,13 @@
     justify-content: space-between;
 
     align-items: center;
-    background-image: linear-gradient(135deg,#959595,#70655f);
-    color: #eaf2bb;
+    background-image: linear-gradient(135deg,#fbd4ac,#fbf0e7);
+    color: #000000;
     border-bottom: 2px solid #000000;
+
+    .night & {
+      background-image: linear-gradient(135deg, #8ca894, #c7d4cb);
+    }
   }
 
   &__left,
@@ -33,7 +37,6 @@
     width: 100%;
     height: 100%;
     resize: none;
-    //padding: 0.2em;
     font-size: 1em;
     font-family: 'Poppins', sans-serif;
 

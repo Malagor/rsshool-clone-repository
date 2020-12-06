@@ -11,8 +11,12 @@
     display: block;
     width: 100%;
     height: 3px;
-    background: #000;
+    background: #000000;
     transition: 0.3s;
+
+    .night & {
+      background: #ffffff;
+    }
 
     &:nth-child(1) {
       top: 0;
@@ -132,8 +136,16 @@
 // styles done and hint checker
 .task-done-check {
   fill: #12ff00;
+
+  .night & {
+    fill: #12ff00;
+  }
 }
 
 .task-hint {
   fill: #fcebb6;
+
+  .night & {
+    fill: #fcebb6;
+  }
 }

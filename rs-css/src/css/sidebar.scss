@@ -20,35 +20,42 @@
   }
 
   &__subtitle {
-    font-weight: 200;
+    //font-weight: 200;
   }
 
   &__syntax {
     display: inline-flex;
-    margin: 1em 0;
+    margin: 0.5em 0;
     font-size: 2em;
     font-weight: bold;
   }
 
   &__examples-list {
-    margin-top: 2em;
+    margin-top: 1em;
     list-style: none;
+    border-top: 2px solid black;
+
+    .night & {
+      border-color: white;
+    }
 
     &:before {
       display: block;
       content: 'Examples';
       margin-bottom: 1em;
       font-weight: bold;
+      margin-top: 1rem;
     }
   }
 
   &__example-item {
-    border-bottom: 1px solid black;
-    padding-bottom: 1em;
+    //border-bottom: 1px solid black;
+    //padding-bottom: 1em;
     margin-bottom: 1em;
 
     &:last-child {
       border: none;
+      margin-bottom: 0;
     }
   }
 }
@@ -66,6 +73,11 @@
 
 .info__task-check {
   width: 2em;
+  fill: rgba(0, 0, 0, 0.4);
+
+  .night & {
+    fill: rgba(255, 255, 255, 0.4);
+  }
 }
 
 .controls {
@@ -78,9 +90,14 @@
 .arrow {
   width: 2rem;
   height: 2rem;
-  background: transparent url(../img/next-arrow.svg);
+  background: transparent;
   border: none;
   cursor: pointer;
+  transition: 0.3s;
+
+  .night & {
+    fill: #ffffff;
+  }
 
   &__left {
     transform: rotate(180deg);

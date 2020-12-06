@@ -7,4 +7,9 @@
 .CodeMirror {
   font: inherit;
   height: 100%;
+  background: #fbf0e5;
+
+  .night & {
+    background: #d9dfd6;
+  }
 }

@@ -14,18 +14,18 @@ const data = [
     hint: false,
     code: [
       {
-        tag: "locomotive",
+        tag: 'locomotive',
       },
       {
-        tag: "wagon",
+        tag: 'wagon',
       },
       {
-        tag: "platform",
+        tag: 'platform',
       },
       {
-        tag: "wagon",
-      }
-    ]
+        tag: 'wagon',
+      },
+    ],
   },
   {
     mission: 'Select the platform',
@@ -41,18 +41,18 @@ const data = [
     done: false,
     code: [
       {
-        tag: "locomotive",
+        tag: 'locomotive',
       },
       {
-        tag: "platform",
+        tag: 'platform',
       },
       {
-        tag: "wagon",
+        tag: 'wagon',
       },
       {
-        tag: "wagon",
+        tag: 'wagon',
       },
-    ]
+    ],
   },
   {
     mission: 'Select the moving wagon',
@@ -68,16 +68,16 @@ const data = [
     done: false,
     code: [
       {
-        tag: "locomotive",
+        tag: 'locomotive',
       },
       {
-        tag: "wagon"
+        tag: 'wagon',
       },
       {
-        tag: "wagon",
-        id: "moving"
-      }
-    ]
+        tag: 'wagon',
+        id: 'moving',
+      },
+    ],
   },
   {
     mission: 'Select the coal in the wagon',
@@ -93,25 +93,25 @@ const data = [
     done: false,
     code: [
       {
-        tag: "locomotive",
+        tag: 'locomotive',
       },
       {
-        tag: "wagon",
+        tag: 'wagon',
         child: [
           {
-            tag: 'coal'
-          }
-        ]
+            tag: 'coal',
+          },
+        ],
       },
       {
-        tag: "platform",
+        tag: 'platform',
         child: [
           {
-            tag: "coal"
-          }
-        ]
-      }
-    ]
+            tag: 'coal',
+          },
+        ],
+      },
+    ],
   },
   {
     mission: 'Select rocks on the moving platform',
@@ -126,37 +126,37 @@ const data = [
     done: false,
     code: [
       {
-        tag: "locomotive",
-      },
-      {
-        tag: "platform",
-        child: [
-          {
-            tag: "rocks",
-          },
-        ]
-      },
-      {
-        tag: "platform",
-        id: "moving",
-        child: [
-          {
-            tag: "rocks",
-          }
-        ]
+        tag: 'locomotive',
       },
       {
         tag: 'platform',
         child: [
           {
-            tag: "wood",
-          }
-        ]
-      }
-    ]
+            tag: 'rocks',
+          },
+        ],
+      },
+      {
+        tag: 'platform',
+        id: 'moving',
+        child: [
+          {
+            tag: 'rocks',
+          },
+        ],
+      },
+      {
+        tag: 'platform',
+        child: [
+          {
+            tag: 'wood',
+          },
+        ],
+      },
+    ],
   },
   {
-    mission: 'Select the small goods',
+    mission: 'Select all small goods',
     title: 'Class Selector',
     subtitle: 'Select elements by their class',
     syntax: '.classname',
@@ -168,46 +168,46 @@ const data = [
     done: false,
     code: [
       {
-        tag: "locomotive",
+        tag: 'locomotive',
       },
       {
-        tag: "wagon",
+        tag: 'wagon',
         child: [
           {
-            tag: "coal",
-            classes: ["small"]
+            tag: 'coal',
+            classes: ['small'],
           },
           {
-            tag: "coal",
-            classes: ["small"]
+            tag: 'coal',
+            classes: ['small'],
           },
-        ]
+        ],
       },
       {
-        tag: "wagon",
-        id: "moving",
+        tag: 'wagon',
+        id: 'moving',
         child: [
           {
-            tag: "wood",
-            classes: ["small"]
+            tag: 'wood',
+            classes: ['small'],
           },
           {
-            tag: "rocks",
-            classes: ["small"]
-          }
-        ]
+            tag: 'rocks',
+            classes: ['small'],
+          },
+        ],
       },
       {
-        tag: "wagon",
-        id: "brown",
+        tag: 'wagon',
+        id: 'brown',
         child: [
           {
-            tag: "rocks",
-            id: "gravel"
-          }
-        ]
-      }
-    ]
+            tag: 'rocks',
+            id: 'gravel',
+          },
+        ],
+      },
+    ],
   },
   {
     mission: 'Select small tanks',
@@ -217,49 +217,54 @@ const data = [
     description: 'You can combine the class selector with other selectors, like the type selector.',
     examples: [
       '<strong>ul.important</strong> selects all <strong>&lt;ul&gt;</strong> elements that have <strong>class="important"</strong>',
-      '<strong>#big.wide</strong> selects all elements with <strong>id="big"</strong> that also have <strong>class="wide"</strong>'
+      '<strong>#big.wide</strong> selects all elements with <strong>id="big"</strong> that also have <strong>class="wide"</strong>',
     ],
     answers: ['tank.small'],
     level: 7,
     done: false,
     code: [
       {
-        tag: "locomotive",
+        tag: 'locomotive',
       },
       {
-        tag: "platform",
+        tag: 'platform',
 
         child: [
           {
-            tag: "tank",
-          }
-        ]
+            tag: 'tank',
+          },
+        ],
       },
       {
-        tag: "platform",
+        tag: 'platform',
         child: [
           {
-            tag: "tank",
-            classes: ["small"]
+            tag: 'tank',
+            classes: ['small'],
           },
           {
-            tag: "tank",
-            classes: ["small"]
-          }
-        ]
+            tag: 'tank',
+            classes: ['small'],
+          },
+        ],
       },
       {
-        tag: "platform",
+        tag: 'platform',
         child: [
           {
-            tag: "wood"
-          }
-        ]
-      }
-    ]
+            tag: 'wood',
+            classes: ['small'],
+          },
+          {
+            tag: 'rocks',
+            classes: ['small'],
+          },
+        ],
+      },
+    ],
   },
   {
-    mission: 'Select small oranges tanks on in the platform',
+    mission: 'Select small tanks on in the platform',
     title: '',
     subtitle: 'You can do it...',
     syntax: 'Put your back into it!',
@@ -270,62 +275,62 @@ const data = [
     done: false,
     code: [
       {
-        tag: "locomotive",
+        tag: 'locomotive',
       },
       {
-        tag: "platform",
-        classes: ["blue"],
-        child: [
-          {
-            tag: "tank",
-            classes: ["small"]
-          },
-          {
-            tag: "rocks",
-            classes: ["small"]
-          }
-        ]
-      },
-      {
-        tag: "platform",
-        classes: ["green"],
-        id: "light",
-        child: [
-          {
-            tag: "tank",
-            classes: ["small"]
-          },
-          {
-            tag: "tank",
-            classes: ["small"]
-          }
-        ]
-      },
-      {
-        tag: "platform",
+        tag: 'platform',
         classes: ['blue'],
-        id: "light",
         child: [
           {
-            tag: "tank",
-            classes: ["small"]
+            tag: 'tank',
+            classes: ['small'],
           },
           {
-            tag: "tank",
-            classes: ["small"]
-          }
-        ]
+            tag: 'rocks',
+            classes: ['small'],
+          },
+        ],
       },
       {
-        tag: "platform",
-        classes: ["blue"],
+        tag: 'platform',
+        classes: ['green'],
+        id: 'light',
         child: [
           {
-            tag: "tank"
-          }
-        ]
+            tag: 'tank',
+            classes: ['small'],
+          },
+          {
+            tag: 'tank',
+            classes: ['small'],
+          },
+        ],
       },
-    ]
+      {
+        tag: 'platform',
+        classes: ['blue'],
+        id: 'light',
+        child: [
+          {
+            tag: 'tank',
+            classes: ['small'],
+          },
+          {
+            tag: 'tank',
+            classes: ['small'],
+          },
+        ],
+      },
+      {
+        tag: 'platform',
+        classes: ['blue'],
+        child: [
+          {
+            tag: 'tank',
+          },
+        ],
+      },
+    ],
   },
   {
     mission: 'Select all the tanks and woods',
@@ -335,46 +340,46 @@ const data = [
     description: 'Thanks to Shatner technology, this selects all <stong>A</stong> and <stong>B</stong> elements. You can combine any selectors this way, and you can specify more than two.',
     examples: [
       '<strong>p, .fun</strong> selects all <strong>&lt;p&gt;</strong> elements as well as all elements with <strong>class="fun"</strong>',
-      '<strong>a, p, div</strong> selects all <strong>&lt;a&gt;</strong>, <strong>&lt;p&gt;</strong> and <strong>&lt;div&gt;</strong> elements'
+      '<strong>a, p, div</strong> selects all <strong>&lt;a&gt;</strong>, <strong>&lt;p&gt;</strong> and <strong>&lt;div&gt;</strong> elements',
     ],
     answers: ['wood, tank', 'tank, wood'],
     level: 9,
     done: false,
     code: [
       {
-        tag: "locomotive",
+        tag: 'locomotive',
       },
       {
-        tag: "platform",
+        tag: 'platform',
         child: [
           {
             tag: 'wood',
-            classes: ['small']
+            classes: ['small'],
           },
           {
             tag: 'tank',
-            classes: ['small']
-          }
-        ]
+            classes: ['small'],
+          },
+        ],
       },
       {
-        tag: "wagon",
+        tag: 'wagon',
         classes: ['green'],
         child: [
           {
             tag: 'wood',
-          }
-        ]
+          },
+        ],
       },
       {
-        tag: "platform",
+        tag: 'platform',
         classes: ['yellow'],
         child: [
           {
             tag: 'tank',
-          }
-        ]
-      }
+          },
+        ],
+      },
     ],
   },
   {
@@ -391,49 +396,49 @@ const data = [
     done: false,
     code: [
       {
-        tag: "locomotive",
+        tag: 'locomotive',
       },
       {
-        tag: "platform",
-        id: "brown",
+        tag: 'platform',
+        id: 'brown',
         child: [
           {
-            tag: "wood",
-            id: "pine"
-          }
-        ]
+            tag: 'wood',
+            id: 'pine',
+          },
+        ],
       },
       {
-        tag: "wagon",
-        id: "brown",
+        tag: 'wagon',
+        id: 'brown',
         child: [
           {
-            tag: "wood",
-            id: "searocks"
-          }
-        ]
+            tag: 'wood',
+            id: 'searocks',
+          },
+        ],
       },
       {
-        tag: "platform",
-        id: "brown",
+        tag: 'platform',
+        id: 'brown',
         child: [
           {
-            tag: "rocks",
-            id: "searocks"
-          }
-        ]
+            tag: 'rocks',
+            id: 'searocks',
+          },
+        ],
       },
       {
-        tag: "wagon",
-        id: "brown",
+        tag: 'wagon',
+        id: 'brown',
         child: [
           {
-            tag: "wood",
-            id: "searocks"
-          }
-        ]
-      }
-    ]
+            tag: 'wood',
+            id: 'searocks',
+          },
+        ],
+      },
+    ],
   },
 
   {
@@ -450,38 +455,38 @@ const data = [
     done: false,
     code: [
       {
-        tag: "locomotive",
+        tag: 'locomotive',
       },
       {
-        tag: "platform",
-        id: "brown",
+        tag: 'platform',
+        id: 'brown',
         child: [
           {
-            tag: "rocks",
-            id: "volcanо"
-          }
-        ]
+            tag: 'rocks',
+            id: 'volcanо',
+          },
+        ],
       },
       {
-        tag: "wagon",
+        tag: 'wagon',
         child: [
           {
-            tag: "coal",
-          }
-        ]
+            tag: 'coal',
+          },
+        ],
       },
       {
-        tag: "platform",
-        id: "light",
+        tag: 'platform',
+        id: 'light',
         classes: ['green'],
         child: [
           {
-            tag: "wood",
-            id: "oak"
-          }
-        ]
-      }
-    ]
+            tag: 'wood',
+            id: 'oak',
+          },
+        ],
+      },
+    ],
   },
   {
     mission: 'Select every tank that\'s next to the coal',
@@ -491,116 +496,118 @@ const data = [
     description: 'This selects all <strong>B</strong> elements that directly follow <strong>A</strong>. In the HTML markup for this level, elements that have the same indentation are siblings.',
     examples: [
       '<strong>p + .intro</strong> selects every element with <strong>class="intro"</strong> that directly follows a <strong>&lt;p&gt;</strong>',
-      '<strong>div + a</strong> selects every <strong>&lg;a&gt;</strong> element that directly follows a <strong>&lt;div&gt;</strong>'
+      '<strong>div + a</strong> selects every <strong>&lg;a&gt;</strong> element that directly follows a <strong>&lt;div&gt;</strong>',
     ],
     answers: ['coal + tank'],
     level: 12,
     done: false,
     code: [
       {
-        tag: "locomotive",
+        tag: 'locomotive',
       },
       {
-        tag: "platform",
+        tag: 'platform',
         classes: ['red'],
         child: [
           {
             tag: 'wood',
-            classes: ['small']
+            classes: ['small'],
           },
           {
             tag: 'tank',
-            classes: ['small']
-          }
-        ]
+            classes: ['small'],
+          },
+        ],
       },
       {
-        tag: "platform",
+        tag: 'platform',
         classes: ['blue'],
         child: [
           {
             tag: 'coal',
-            classes: ['small']
+            classes: ['small'],
           },
           {
             tag: 'tank',
-            classes: ['small']
-          }
-        ]
+            classes: ['small'],
+          },
+        ],
       },
 
       {
-        tag: "platform",
+        tag: 'platform',
         classes: ['green'],
         child: [
           {
             tag: 'rocks',
-            classes: ['small']
+            classes: ['small'],
           },
           {
             tag: 'tank',
-            classes: ['small']
-          }
-        ]
-      }
-    ]
+            classes: ['small'],
+          },
+        ],
+      },
+    ],
   },
   {
-    mission: 'Select the pickles beside the bento',
+    mission: 'Select the woods beside the rocks',
     title: 'General Sibling Selector',
     subtitle: 'Select elements that follows another element',
     syntax: 'A ~ B',
     description: 'You can select all siblings of an element that follow it. This is like the Adjacent Selector (A + B) except it gets all of the following elements instead of one.',
     examples: [
       '<strong>div ~ p</strong> selects all <strong>&lt;p&gt;</strong> that follow a <strong>&lt;div&gt;</strong>',
-      '<strong>.light ~ span</strong> selects all <strong>&lt;span&gt;</strong> that follow a element with<strong>class="light"</strong>'
+      '<strong>.light ~ span</strong> selects all <strong>&lt;span&gt;</strong> that follow a element with<strong>class="light"</strong>',
     ],
-    answers: ['rocks ~ coal'],
+    answers: ['rocks ~ wood'],
     level: 13,
     done: false,
     code: [
       {
-        tag: "locomotive",
+        tag: 'locomotive',
       },
       {
-        tag: "platform",
-        id: "brown",
+        tag: 'platform',
+        id: 'brown',
         child: [
           {
-            tag: "rocks",
-            id: "volcanо",
-            classes: ['small']
+            tag: 'rocks',
+            classes: ['extra-small'],
           },
           {
-            tag: "coal",
-            id: "volcanо",
-            classes: ['small']
-          }
-        ]
+            tag: 'wood',
+            classes: ['extra-small'],
+          }, {
+            tag: 'wood',
+            classes: ['extra-small'],
+          },
+
+        ],
       },
       {
-        tag: "wagon",
+        tag: 'wagon',
         child: [
           {
-            tag: "coal",
-          }
-        ]
+            tag: 'rocks',
+          },
+        ],
       },
       {
-        tag: "platform",
-        id: "light",
+        tag: 'platform',
+        id: 'light',
         classes: ['green'],
         child: [
           {
-            tag: "wood",
-            id: "oak"
-          }
-        ]
-      }
-    ]
+            tag: 'wood',
+            id: 'oak',
+          },
+        ],
+      },
+    ],
   },
   {
-    mission: 'Select the apple directly on a plate',
+    mission: 'Select the coal poured directly on the platform',
     title: 'Child Selector',
     subtitle: 'Select direct children of an element',
     syntax: 'A > B',
@@ -610,43 +617,46 @@ const data = [
     examples: [
       '<strong>div *</strong> selects any element inside all <strong>&lt;div&gt;</strong> elements.',
     ],
-    answers: ['platform *'],
+    answers: ['platform > coal'],
     level: 14,
     done: false,
     code: [
       {
-        tag: "locomotive",
+        tag: 'locomotive',
       },
       {
-        tag: "platform",
-        id: "brown",
+        tag: 'platform',
+        classes: ['blue'],
         child: [
           {
-            tag: "rocks",
-            id: "volcanо"
-          }
-        ]
+            tag: 'wood',
+            child: [
+              {
+                tag: 'coal',
+                classes: ['small'],
+              },
+              {
+                tag: 'coal',
+                classes: ['small'],
+              },
+            ],
+          },
+        ],
       },
       {
-        tag: "wagon",
+        tag: 'platform',
+        id: 'light',
+        classes: ['yellow'],
         child: [
           {
-            tag: "coal",
-          }
-        ]
+            tag: 'coal',
+          },
+        ],
       },
       {
-        tag: "platform",
-        id: "light",
-        classes: ['green'],
-        child: [
-          {
-            tag: "wood",
-            id: "oak"
-          }
-        ]
-      }
-    ]
+        tag: 'coal',
+      },
+    ],
   },
   {
     mission: 'Select the first goods on platforms',
@@ -657,58 +667,296 @@ const data = [
     examples: [
       '<strong>:first-child</strong> selects all first child elements.',
       '<strong>p:first-child</strong> selects all first child <strong>&lt;p&gt;</strong> elements.',
-      '<strong>div p:first-child</strong> selects all first child <strong>&lt;p&gt;</strong> elements that are in a <strong>&lt;div&gt;</strong>.'
+      '<strong>div p:first-child</strong> selects all first child <strong>&lt;p&gt;</strong> elements that are in a <strong>&lt;div&gt;</strong>.',
     ],
     answers: ['platform :first-child'],
     level: 15,
     done: false,
     code: [
       {
-        tag: "locomotive",
+        tag: 'locomotive',
       },
       {
-        tag: "platform",
+        tag: 'platform',
         classes: ['red'],
         child: [
           {
-            tag: "rocks",
-            classes: ['small']
+            tag: 'rocks',
+            classes: ['extra-small'],
           },
           {
-            tag: "rocks",
-            classes: ['small']
-          }
-        ]
+            tag: 'rocks',
+            classes: ['extra-small'],
+          },
+          {
+            tag: 'rocks',
+            classes: ['extra-small'],
+          },
+        ],
       },
       {
-        tag: "platform",
+        tag: 'platform',
         classes: ['blue'],
         child: [
           {
-            tag: "tank",
-            classes: ['small']
+            tag: 'tank',
+            classes: ['small'],
           },
           {
-            tag: "tank",
-            classes: ['small']
-          }
-        ]
+            tag: 'tank',
+            classes: ['small'],
+          },
+        ],
       },
       {
-        tag: "platform",
+        tag: 'platform',
         classes: ['green'],
         child: [
           {
-            tag: "wood",
-            classes: ['small']
+            tag: 'wood',
+            classes: ['small'],
           },
           {
-            tag: "wood",
-            classes: ['small']
-          }
-        ]
+            tag: 'wood',
+            classes: ['small'],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    mission: 'Select the tanks and the coal on the green platform and wagon',
+    title: 'Only Child Pseudo-selector',
+    subtitle: 'Select an element that are the only one element inside of another one.',
+    syntax: ':only-child',
+    description: 'You can select any element that is the only element inside of another one.',
+    examples: [
+      '<strong>span:only-child</strong> selects the <strong>&lt;span&gt;</strong> elements that are the only child of some other element.',
+      '<strong>ul li:only-child</strong> selects the only <strong>&lt;li&gt;</strong> element that are in a <strong>&lt;ul&gt;</strong>.',
+    ],
+    answers: ['.green tank:only-child, .green coal:only-child', '.green coal:only-child, .green tank:only-child'],
+    level: 16,
+    done: false,
+    code: [
+      {
+        tag: 'locomotive',
+      },
+      {
+        tag: 'platform',
+        classes: ['green'],
+        child: [
+          {
+            tag: 'rocks',
+            classes: ['small'],
+          },
+        ],
+      },
+      {
+        tag: 'platform',
+        classes: ['green'],
+        child: [
+          {
+            tag: 'tank',
+          },
+        ],
+      },
+      {
+        tag: 'platform',
+        classes: ['green'],
+        child: [
+          {
+            tag: 'coal',
+            classes: ['small'],
+          },
+          {
+            tag: 'tank',
+            classes: ['small'],
+          },
+        ],
+      },
+      {
+        tag: 'wagon',
+        classes: ['green'],
+        child: [
+          {
+            tag: 'coal',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    mission: 'Select the last tank and coal no the platform',
+    title: 'Last Child Pseudo-selector',
+    subtitle: 'Select the last element inside of another element',
+    syntax: ':last-child',
+    description: 'You can use this selector to select an element that is the last child element inside of another element.\n' +
+      '<br>' +
+      'Pro Tip → In cases where there is only one element, that element counts as the first-child, only-child and last-child!',
+    examples: [
+      '<strong>:last-child</strong> selects all last child elements.',
+      '<strong>p:last-child</strong> selects all last child <strong>&lt;p&gt;</strong> elements.',
+      '<strong>div p:last-child</strong> selects all last child <strong>&lt;p&gt;</strong> elements that are in a <strong>&lt;div&gt;</strong>.',
+    ],
+    answers: ['tank:last-child, coal:last-child', 'coal:last-child, tank:last-child'],
+    level: 17,
+    done: false,
+    code: [
+      {
+        tag: 'locomotive',
+      },
+      {
+        tag: 'platform',
+        classes: ['red'],
+        child: [
+          {
+            tag: 'rocks',
+            classes: ['small'],
+          },
+          {
+            tag: 'tank',
+            classes: ['small'],
+          },
+        ],
+      },
+      {
+        tag: 'platform',
+        classes: ['blue'],
+        child: [
+          {
+            tag: 'tank',
+            classes: ['small'],
+          },
+
+          {
+            tag: 'rocks',
+            classes: ['small'],
+          },
+        ],
+      },
+      {
+        tag: 'platform',
+        classes: ['green'],
+        child: [
+          {
+            tag: 'coal',
+            classes: ['small'],
+          },
+          {
+            tag: 'coal',
+            classes: ['small'],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    mission: 'Select the 2rd wood',
+    title: 'Nth Child Pseudo-selector',
+    subtitle: 'Select an element by its order in another element',
+    syntax: ':nth-child(A)',
+    description: 'Selects the <strong>nth</strong> (Ex: 1st, 3rd, 12th etc.) child element in another element.',
+    examples: [
+      '<strong>:nth-child(8)</strong> selects every element that is the 8th child of another element.',
+      '<strong>div p:nth-child(2)</strong> selects the second <strong>&lt;p&gt;</strong> in every <strong>&lt;div&gt;</strong>',
+    ],
+    answers: ['wood:nth-child(2)'],
+    level: 18,
+    done: false,
+    code: [
+      {
+        tag: 'locomotive',
+      },
+      {
+        tag: 'platform',
+        child: [
+          {
+            tag: 'wood',
+            classes: ['extra-small'],
+          },
+          {
+            tag: 'wood',
+            classes: ['extra-small'],
+          },
+          {
+            tag: 'wood',
+            classes: ['extra-small'],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    mission: 'Select the 1st rocks',
+    title: 'Nth Last Child Selector',
+    subtitle: 'Select an element by its order in another element, counting from the back',
+    syntax: ':nth-last-child(A)',
+    description: 'Selects the children from the bottom of the parent. This is like nth-child, but counting from the back!',
+    examples: [
+      '<strong>:nth-last-child(2)</strong> selects all second-to-last child elements.',
+    ],
+    answers: ['rocks:nth-last-child(3)'],
+    level: 19,
+    done: false,
+    code: [
+      {
+        tag: 'locomotive',
+      },
+      {
+        tag: 'platform',
+        classes: ['red'],
+        child: [
+          {
+            tag: 'rocks',
+            classes: ['extra-small'],
+          },
+          {
+            tag: 'rocks',
+            classes: ['extra-small'],
+          },
+          {
+            tag: 'rocks',
+            classes: ['extra-small'],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    mission: 'Select first wood',
+    title: 'First of Type Selector',
+    subtitle: 'Select the first element of a specific type',
+    syntax: ':first-of-type',
+    description: 'Selects the first element of that type within another element.',
+    examples: [
+      '<strong>span:first-of-type</strong> selects the first span in any element.'
+    ],
+    answers: ['wood:first-of-type'],
+    level: 20,
+    done: false,
+    code: [
+      {
+        tag: 'locomotive',
+      },
+      {
+        tag: 'platform',
+        classes: ['red'],
+        child: [
+          {
+            tag: 'rocks',
+            classes: ['extra-small'],
+          },
+          {
+            tag: 'wood',
+            classes: ['extra-small'],
+          },
+          {
+            tag: 'wood',
+            classes: ['extra-small'],
+          },
+        ],
       }
-    ]
+    ],
   },
 ];
 

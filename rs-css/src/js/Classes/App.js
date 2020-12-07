@@ -224,7 +224,7 @@ export default class App {
   }
 
   toggleHighlight(target) {
-    if (target.classList.contains('html-code')) return;
+    if (target.classList.contains('html-code__inner')) return;
 
     const screenElements = this.components.screen.elements.innerBox.querySelectorAll('*');
 

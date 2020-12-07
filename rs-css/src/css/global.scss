@@ -70,14 +70,28 @@ body {
   }
 
   @media screen and (max-width: 768px) {
-    grid-template-areas: "header header"
-    "info info"
-    "screen screen"
-    "css html"
-    "statistics statistics"
-    "footer footer";
+    grid-template-areas:
+            "header header"
+            "info info"
+            "screen screen"
+            "css html"
+            "statistics statistics"
+            "footer footer";
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 4.6rem 3.5rem 18rem minmax(max-content, 1fr) 6.5rem 4.6rem;
+    grid-template-rows: 4.6rem 3.5rem 18rem minmax(max-content, 1fr) max-content 4.6rem;
+  }
+
+  @media screen and (max-width: 480px) {
+    grid-template-areas:
+            "header"
+            "info"
+            "screen"
+            "html"
+            "css"
+            "statistics"
+            "footer";
+    grid-template-columns: 1fr;
+    grid-template-rows: 4.6rem 3.5rem 18rem minmax(max-content, 1fr) 12rem max-content 4.6rem;
   }
 }
 

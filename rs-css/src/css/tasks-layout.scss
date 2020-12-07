@@ -1,4 +1,5 @@
 .tag-wrapper {
+  position: relative;
   width: 100%;
   max-width: 300px;
   margin: 0 2px;
@@ -88,9 +89,15 @@ coal {
 
 wood {
   background-image: url("../img/textures/wood_big.png");
+  padding-top: 21%;
 
   &.small {
     padding-top: 21%;
+    background-image: url("../img/textures/wood_small.png");
+  }
+
+  &.extra-small {
+    padding-top: 14%;
     background-image: url("../img/textures/wood_small.png");
   }
 }
@@ -121,11 +128,12 @@ tank {
     padding-top: 21%;
     background-image: url("../img/textures/tank_small.png");
   }
-}
 
-wagon > * {
-  bottom: 70%;
-  z-index: -1;
+  &.extra-small {
+    bottom: 100%;
+    padding-top: 14%;
+    background-image: url("../img/textures/tank_small.png");
+  }
 }
 
 .small {
@@ -142,6 +150,36 @@ wagon > * {
     left: auto;
   }
 }
+
+.extra-small {
+  bottom: 100%;
+  width: 27%;
+  padding-top: 12%;
+
+  &:nth-child(1) {
+    left: 6%;
+  }
+
+  &:nth-child(2) {
+    right: 36%;
+    left: auto;
+  }
+
+  &:nth-child(3) {
+    right: 6%;
+    left: auto;
+  }
+}
+
+wagon > * {
+  bottom: 70%;
+  z-index: -1;
+}
+
+wood > * {
+  bottom: 90%;
+}
+
 
 locomotive,
 wagon,

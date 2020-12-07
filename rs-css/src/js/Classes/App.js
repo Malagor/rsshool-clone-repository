@@ -103,7 +103,6 @@ export default class App {
     info.setCurrentTaskLevel(tasks[indexCurrentTask].level);
 
     sidebar.init(tasks, indexCurrentTask);
-    // sidebar.printTaskText(tasks[indexCurrentTask]);
     sidebar.setCurrentTaskInMenu(tasks[indexCurrentTask].id);
     statistics.setStatictics(TASKS_COUNT, tasksList.countDoneTask(), tasksList.countHintTask());
 

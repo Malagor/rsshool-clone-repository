@@ -38,7 +38,7 @@ body {
   "css html sidebar"
   "css html statistics"
   "footer footer footer";
-  grid-template-columns: 1fr 1fr 25rem;
+  grid-template-columns: 1fr 1fr 26rem;
   grid-template-rows: 4.6rem 3.5rem 18rem minmax(max-content, 1fr) 10rem 4.6rem;
 
   &.night {
@@ -53,7 +53,7 @@ body {
     "css html sidebar"
     "css html statistics"
     "footer footer footer";
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 26rem;
     grid-template-rows: 4.6rem 3.5rem 18rem minmax(max-content, 1fr) 10rem 4.6rem;
   }
 

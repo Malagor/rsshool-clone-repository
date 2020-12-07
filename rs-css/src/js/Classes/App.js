@@ -1,20 +1,20 @@
 import hljs from 'highlight.js';
 
-import Sidebar from "./Sidebar";
-import Screen from "./Screen";
-import CSS from "./CSS";
-import HTML from "./HTML";
-import Modal from "./Modal";
-import TaskList from "./TaskList";
+import Sidebar from './Sidebar';
+import Screen from './Screen';
+import CSS from './CSS';
+import HTML from './HTML';
+import Modal from './Modal';
+import TaskList from './TaskList';
 
-import getNewIndexCurrentTask from "../utils/getNewIndexCurrentTask"
-import typingText from "../utils/typingText";
-import saveLoadLocalStorage from "../utils/saveLoadLocalStorage";
+import getNewIndexCurrentTask from '../utils/getNewIndexCurrentTask';
+import typingText from '../utils/typingText';
+import saveLoadLocalStorage from '../utils/saveLoadLocalStorage';
 
 import school from '../../img/rs_school_js.svg';
 import github from '../../img/GitHub-Mark.svg';
-import Info from "./Info";
-import Statistics from "./Statistics";
+import Info from './Info';
+import Statistics from './Statistics';
 
 const taskRawData = require('../Data/data');
 
@@ -22,7 +22,7 @@ export default class App {
   constructor(obj) {
     this.propertes = {
       indexCurrentTask: obj.indexCurrentTask,
-      TASKS_COUNT: obj.TASKS_COUNT
+      TASKS_COUNT: obj.TASKS_COUNT,
     };
 
     this.tasksList = obj.tasksList;
@@ -34,7 +34,7 @@ export default class App {
       html: obj.html,
       modal: obj.modal,
       info: obj.info,
-      statistics: obj.statistics
+      statistics: obj.statistics,
     };
 
     // handlers component`s events
@@ -125,7 +125,7 @@ export default class App {
       html,
       modal,
       info,
-      statistics
+      statistics,
     };
 
     return new App(config);
@@ -136,7 +136,7 @@ export default class App {
 
     document.querySelector('.mode').addEventListener('click', () => {
       document.body.classList.toggle('night');
-    })
+    });
   }
 
 
@@ -152,12 +152,12 @@ export default class App {
   }
 
   answerIsWrong() {
-    const {css} = this.components;
+    const { css } = this.components;
 
     css.elements.textarea.classList.add('shake');
     css.elements.textarea.addEventListener('animationend', () => {
       css.elements.textarea.classList.remove('shake');
-    })
+    });
   }
 
   answerIsCorrect() {
@@ -203,7 +203,7 @@ export default class App {
   }
 
   printTaskOnScreen(index) {
-    const {sidebar, css, html, screen, info} = this.components;
+    const { sidebar, css, html, screen, info } = this.components;
     const task = this.tasksList.tasksArray[index];
 
     info.setCurrentTaskLevel(task.level);
@@ -240,7 +240,7 @@ export default class App {
   }
 
   toggleHighlightScreen(event) {
-    const {target} = event;
+    const { target } = event;
     if (target.classList.contains('screen__inner')) return;
 
     // mark an item on the HTML-block
@@ -297,6 +297,6 @@ export default class App {
     } else {
       this.components.sidebar.elements.node.classList.toggle('open');
     }
-      this.components.info.elements.menuToggle.classList.toggle('open');
+    this.components.info.elements.menuToggle.classList.toggle('open');
   }
 }

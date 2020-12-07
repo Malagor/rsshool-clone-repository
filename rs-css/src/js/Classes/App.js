@@ -187,7 +187,7 @@ export default class App {
     this.propertes.indexCurrentTask = 0;
     this.printTaskOnScreen(this.propertes.indexCurrentTask);
     this.components.sidebar.createTaskListInMenu(this.tasksList.tasksArray);
-    this.components.sidebar.statistics.setStatictics(this.propertes.TASKS_COUNT, this.tasksList.countDoneTask(), this.tasksList.countHintTask());
+    this.components.statistics.setStatictics(this.propertes.TASKS_COUNT, this.tasksList.countDoneTask(), this.tasksList.countHintTask());
   }
 
   changeTask(target) {

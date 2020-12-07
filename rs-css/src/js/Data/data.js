@@ -1,13 +1,14 @@
 const data = [
   {
-    mission: 'Select the wagons',
+    mission: 'Select wagons',
     title: 'Type Selector',
     subtitle: 'Select elements by their type',
     syntax: 'A',
-    description: 'Selects all elements of type <strong>A</strong>. Type refers to the type of tag, so <strong>&lt;div&gt;</strong>, <strong>&lt;p&gt;</strong> and <strong>&lt;ul&gt;</strong> are all different element types.',
+    description: 'Selects all elements relating to the type <strong>A</strong>. Type refers to the type of tag, so <strong>&lt;div&gt;</strong>, <strong>&lt;p&gt;</strong> and <strong>&lt;ul&gt;</strong> are all different types.',
     examples: [
       '<strong>div</strong> selects all <strong>&lt;div&gt;</strong> elements.',
-      '<strong>p</strong> selects all <strong>&lt;p&gt;</strong> elements.'],
+      '<strong>p</strong> selects all <strong>&lt;p&gt;</strong> elements.'
+    ],
     answers: ['wagon'],
     level: 1,
     done: false,
@@ -32,10 +33,11 @@ const data = [
     title: 'Type Selector',
     subtitle: 'Select elements by their type',
     syntax: 'A',
-    description: 'Selects all elements of type <strong>A</strong>. Type refers to the type of tag, so <strong>&lt;div&gt;</strong>, <strong>&lt;p&gt;</strong> and <strong>&lt;ul&gt;</strong> are all different element types.',
+    description: 'Selects all elements relating to the type <strong>A</strong>. Type refers to the type of tag, so <strong>&lt;div&gt;</strong>, <strong>&lt;p&gt;</strong> and <strong>&lt;ul&gt;</strong> are all different types.',
     examples: [
       '<strong>div</strong> selects all <strong>&lt;div&gt;</strong> elements.',
-      '<strong>p</strong> selects all <strong>&lt;p&gt;</strong> elements.'],
+      '<strong>p</strong> selects all <strong>&lt;p&gt;</strong> elements.'
+    ],
     answers: ['platform'],
     level: 2,
     done: false,
@@ -62,7 +64,8 @@ const data = [
     description: 'Selects the element with a specific <strong>id</strong>. You can also combine the ID selector with the type selector.',
     examples: [
       '<strong>#cool</strong> selects any element with <strong>id="cool"</strong>',
-      '<strong>ul#long</strong> selects <strong>&lt;ul id="long"&gt;</strong>'],
+      '<strong>ul#long</strong> selects <strong>&lt;ul id="long"&gt;</strong>'
+    ],
     answers: ['#moving', 'wagon#moving'],
     level: 3,
     done: false,
@@ -80,14 +83,14 @@ const data = [
     ],
   },
   {
-    mission: 'Select the coal in the wagon',
+    mission: 'Select coal in the wagon',
     title: 'Descendant Selector',
     subtitle: 'Select an element inside another element',
     syntax: 'A B',
     description: 'Selects all <strong>B</strong> inside of <strong>A</strong>. <strong>B</strong> is called a descendant because it is inside of another element.',
     examples: [
       '<strong>p  strong</strong> selects all <strong>&lt;strong&gt;</strong> elements that are inside of any <strong>&lt;p&gt;</strong>',
-      '<strong>#fancy  span</strong> selects any <strong>&lt;span&gt;</strong> elements that are inside of the element with <strong>id="fancy"</strong>'],
+      '<strong>#fancy  span</strong> selects any <strong>&lt;span&gt;</strong> elements that are inside of an element with <strong>id="fancy"</strong>'],
     answers: ['wagon coal'],
     level: 4,
     done: false,
@@ -156,7 +159,7 @@ const data = [
     ],
   },
   {
-    mission: 'Select all small goods',
+    mission: 'Select all small articles',
     title: 'Class Selector',
     subtitle: 'Select elements by their class',
     syntax: '.classname',
@@ -264,11 +267,11 @@ const data = [
     ],
   },
   {
-    mission: 'Select small tanks on in the platform',
+    mission: 'Select small tanks on a platform',
     title: '',
     subtitle: 'You can do it...',
     syntax: 'Put your back into it!',
-    description: 'Combine what you learned in the last few levels to solve this one!',
+    description: 'Use what you have learned within the last few levels to complete this task!',
     examples: [],
     answers: ['platform#light.blue tank.small'],
     level: 8,
@@ -333,11 +336,11 @@ const data = [
     ],
   },
   {
-    mission: 'Select all the tanks and woods',
+    mission: 'Select all the tanks and wood',
     title: 'Comma Combinator',
-    subtitle: 'Combine, selectors, with... commas!',
+    subtitle: 'Combine selectors with... commas!',
     syntax: 'A, B',
-    description: 'Thanks to Shatner technology, this selects all <stong>A</stong> and <stong>B</stong> elements. You can combine any selectors this way, and you can specify more than two.',
+    description: 'This method selects all <strong>A</strong> and <strong>B</strong> elements. You can combine any selectors this way, and you can specify more than two.',
     examples: [
       '<strong>p, .fun</strong> selects all <strong>&lt;p&gt;</strong> elements as well as all elements with <strong>class="fun"</strong>',
       '<strong>a, p, div</strong> selects all <strong>&lt;a&gt;</strong>, <strong>&lt;p&gt;</strong> and <strong>&lt;div&gt;</strong> elements',
@@ -383,7 +386,7 @@ const data = [
     ],
   },
   {
-    mission: 'Select all train!',
+    mission: 'Select the whole train!',
     title: 'The Universal Selector',
     subtitle: 'You can select everything!',
     syntax: '*',
@@ -442,7 +445,7 @@ const data = [
   },
 
   {
-    mission: 'Select everything on platforms',
+    mission: 'Select everything that is on platforms',
     title: 'Combine the Universal Selector',
     subtitle: '',
     syntax: 'A *',
@@ -489,11 +492,11 @@ const data = [
     ],
   },
   {
-    mission: 'Select every tank that\'s next to the coal',
+    mission: 'Select a tank that\'s next to the coal',
     title: 'Adjacent Sibling Selector',
     subtitle: 'Select an element that directly follows another element',
     syntax: 'A + B',
-    description: 'This selects all <strong>B</strong> elements that directly follow <strong>A</strong>. In the HTML markup for this level, elements that have the same indentation are siblings.',
+    description: 'This selects all <strong>B</strong> elements that directly follow <strong>A</strong>. In the HTML markup for this level elements that have the same indentation are considered to be siblings.',
     examples: [
       '<strong>p + .intro</strong> selects every element with <strong>class="intro"</strong> that directly follows a <strong>&lt;p&gt;</strong>',
       '<strong>div + a</strong> selects every <strong>&lg;a&gt;</strong> element that directly follows a <strong>&lt;div&gt;</strong>',
@@ -551,14 +554,14 @@ const data = [
     ],
   },
   {
-    mission: 'Select the woods beside the rocks',
+    mission: 'Select all the wood next to the rocks',
     title: 'General Sibling Selector',
-    subtitle: 'Select elements that follows another element',
+    subtitle: 'Select elements that follow other elements',
     syntax: 'A ~ B',
-    description: 'You can select all siblings of an element that follow it. This is like the Adjacent Selector (A + B) except it gets all of the following elements instead of one.',
+    description: 'You can select all siblings of an element that follow it. This is like the Adjacent Selector (A + B) except it selects all of the following elements instead of just one.',
     examples: [
-      '<strong>div ~ p</strong> selects all <strong>&lt;p&gt;</strong> that follow a <strong>&lt;div&gt;</strong>',
-      '<strong>.light ~ span</strong> selects all <strong>&lt;span&gt;</strong> that follow a element with<strong>class="light"</strong>',
+      '<strong>div ~ p</strong> selects all <strong>&lt;p&gt;</strong> that follow <strong>&lt;div&gt;</strong>',
+      '<strong>.light ~ span</strong> selects all <strong>&lt;span&gt;</strong> that follow an element with<strong>class="light"</strong>',
     ],
     answers: ['rocks ~ wood'],
     level: 13,
@@ -607,7 +610,7 @@ const data = [
     ],
   },
   {
-    mission: 'Select the coal poured directly on the platform',
+    mission: 'Select the coal that was placed directly on the platform',
     title: 'Child Selector',
     subtitle: 'Select direct children of an element',
     syntax: 'A > B',
@@ -659,7 +662,7 @@ const data = [
     ],
   },
   {
-    mission: 'Select the first goods on platforms',
+    mission: 'Select the first article on each platform',
     title: 'First Child Pseudo-selector',
     subtitle: 'Select a first child element inside of another element',
     syntax: ':first-child',
@@ -667,7 +670,7 @@ const data = [
     examples: [
       '<strong>:first-child</strong> selects all first child elements.',
       '<strong>p:first-child</strong> selects all first child <strong>&lt;p&gt;</strong> elements.',
-      '<strong>div p:first-child</strong> selects all first child <strong>&lt;p&gt;</strong> elements that are in a <strong>&lt;div&gt;</strong>.',
+      '<strong>div p:first-child</strong> selects all first child <strong>&lt;p&gt;</strong> elements that are in the tag <strong>&lt;div&gt;</strong>.',
     ],
     answers: ['platform :first-child'],
     level: 15,
@@ -725,14 +728,14 @@ const data = [
     ],
   },
   {
-    mission: 'Select the tanks and the coal on the green platform and wagon',
+    mission: 'Select the tanks and coal that are on the green platform and green wagon',
     title: 'Only Child Pseudo-selector',
-    subtitle: 'Select an element that are the only one element inside of another one.',
+    subtitle: 'Select the element that is the only  element inside of another one.',
     syntax: ':only-child',
     description: 'You can select any element that is the only element inside of another one.',
     examples: [
       '<strong>span:only-child</strong> selects the <strong>&lt;span&gt;</strong> elements that are the only child of some other element.',
-      '<strong>ul li:only-child</strong> selects the only <strong>&lt;li&gt;</strong> element that are in a <strong>&lt;ul&gt;</strong>.',
+      '<strong>ul li:only-child</strong> selects the only <strong>&lt;li&gt;</strong> element that are in <strong>&lt;ul&gt;</strong>.',
     ],
     answers: ['.green tank:only-child, .green coal:only-child', '.green coal:only-child, .green tank:only-child'],
     level: 16,
@@ -786,7 +789,7 @@ const data = [
     ],
   },
   {
-    mission: 'Select the last tank and coal no the platform',
+    mission: 'Select the last tank and coal no the platforms',
     title: 'Last Child Pseudo-selector',
     subtitle: 'Select the last element inside of another element',
     syntax: ':last-child',
@@ -796,7 +799,7 @@ const data = [
     examples: [
       '<strong>:last-child</strong> selects all last child elements.',
       '<strong>p:last-child</strong> selects all last child <strong>&lt;p&gt;</strong> elements.',
-      '<strong>div p:last-child</strong> selects all last child <strong>&lt;p&gt;</strong> elements that are in a <strong>&lt;div&gt;</strong>.',
+      '<strong>div p:last-child</strong> selects all last child <strong>&lt;p&gt;</strong> elements that are in <strong>&lt;div&gt;</strong>.',
     ],
     answers: ['tank:last-child, coal:last-child', 'coal:last-child, tank:last-child'],
     level: 17,
@@ -851,7 +854,7 @@ const data = [
     ],
   },
   {
-    mission: 'Select the 2rd wood',
+    mission: 'Select the 2nd block of wood',
     title: 'Nth Child Pseudo-selector',
     subtitle: 'Select an element by its order in another element',
     syntax: ':nth-child(A)',
@@ -887,7 +890,7 @@ const data = [
     ],
   },
   {
-    mission: 'Select the 1st rocks',
+    mission: 'Select the 1st block of rocks',
     title: 'Nth Last Child Selector',
     subtitle: 'Select an element by its order in another element, counting from the back',
     syntax: ':nth-last-child(A)',
@@ -923,7 +926,7 @@ const data = [
     ],
   },
   {
-    mission: 'Select first wood',
+    mission: 'Select the first block of wood',
     title: 'First of Type Selector',
     subtitle: 'Select the first element of a specific type',
     syntax: ':first-of-type',

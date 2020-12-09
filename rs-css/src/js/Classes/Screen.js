@@ -1,5 +1,5 @@
-import {convertClasses, convertId, convertTagForScreenBlock} from '../utils/converterHTML';
-import {showTooltip, calculateTooltipsPosition} from "../utils/showTooltip";
+import { convertClasses, convertId, convertTagForScreenBlock } from '../utils/converterHTML';
+import { showTooltip, calculateTooltipsPosition } from '../utils/showTooltip';
 
 export default class Screen {
   constructor(obj) {
@@ -7,7 +7,7 @@ export default class Screen {
       node: obj.node,
       title: obj.title,
       innerBox: obj.innerBox,
-      tooltip: obj.tooltip
+      tooltip: obj.tooltip,
     };
 
     this.events.call(this);
@@ -32,7 +32,7 @@ export default class Screen {
       main: node,
       title,
       innerBox,
-      tooltip
+      tooltip,
     };
 
     return new Screen(config);
@@ -51,10 +51,12 @@ export default class Screen {
     }
 
     code.forEach((node) => {
-      this.elements.innerBox.innerHTML += `<div class="tag-wrapper">${Screen.nodeToHTML(node)}</div>`
+      // this.elements.innerBox.innerHTML += `<div class="tag-wrapper">${Screen.nodeToHTML(node)}</div>`
+      this.elements.innerBox.innerHTML += `${Screen.nodeToHTML(node)}`;
     });
 
     this.setIndexesForNodes();
+    Screen.setWagonsHeight();
   }
 
   setIndexesForNodes() {
@@ -67,7 +69,7 @@ export default class Screen {
 
   static nodeToHTML(code) {
 
-    const {tag, id, classes, child} = code;
+    const { tag, id, classes, child } = code;
 
     const formatIdAndClasses = `
       ${convertId(id)} ${convertClasses(classes)}
@@ -77,7 +79,7 @@ export default class Screen {
     if (child) {
       child.forEach(el => {
         formatChild += Screen.nodeToHTML(el);
-      })
+      });
     }
 
     const formatTag = convertTagForScreenBlock(tag, formatIdAndClasses, formatChild).trim();
@@ -92,10 +94,14 @@ export default class Screen {
     this.elements.innerBox.addEventListener('mouseout', event => {
       this.toggleHighlightScreen(event);
     });
+
+    window.addEventListener('resize', () => {
+      Screen.setWagonsHeight();
+    });
   }
 
   printTooltip(node, text) {
-    const {tooltip} = this.elements;
+    const { tooltip } = this.elements;
     tooltip.textContent = text;
 
     const posTooltip = calculateTooltipsPosition(node);
@@ -105,13 +111,38 @@ export default class Screen {
   markRightAnswerElements(sel) {
     this.elements.innerBox.querySelectorAll(sel).forEach(el => {
       el.classList.add('right-answer-element');
-    })
+    });
   }
 
-  correctAnswerAnimation(){
+  correctAnswerAnimation() {
     const rightAnswerElements = this.elements.innerBox.querySelectorAll('.right-answer-element');
     rightAnswerElements.forEach(el => {
       el.classList.add('animation-correct-answer');
-    })
+    });
+  }
+
+  static setWagonsHeight() {
+    const wagons = document.querySelectorAll(`.screen__inner > *`);
+    const classesPlatforms = ['red', 'blue', 'yellow', 'green'];
+    wagons.forEach(el => {
+      const { localName, clientWidth, className } = el;
+      switch (localName) {
+        case 'locomotive':
+          el.style.height = `${clientWidth * 0.39}px`;
+          break;
+        case 'platform':
+          if (className && classesPlatforms.indexOf(className)) {
+            el.style.height = `${clientWidth * 0.165}px`;
+          } else {
+            el.style.height = `${clientWidth * 0.092}px`;
+          }
+          break;
+        case 'wagon':
+          el.style.height = `${clientWidth * 0.29}px`;
+          break;
+        default:
+          break;
+      }
+    });
   }
 }

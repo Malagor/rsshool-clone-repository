@@ -13,7 +13,7 @@
     "type": "git",
     "url": "git+https://git@github.com/rolling-scopes-school/malagor-JS2020Q3.git"
   },
-  "author": "Alex Malagor",
+  "author": "Alex Malagor <seo.dnja@gmail.com>",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.6.0",

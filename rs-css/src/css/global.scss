@@ -243,3 +243,58 @@ h1 {
     }
   }
 }
+
+.right-answer-element {
+  transform-origin: bottom center;
+  animation: swing 1s ease-in-out infinite;
+}
+
+@keyframes swing {
+  0% {
+    transform: skewX(3deg);
+  }
+  50% {
+    transform: skewX(-3deg);
+  }
+  100% {
+    transform: skewX(3deg);
+  }
+}
+
+.animation-correct-answer {
+  animation: slideLeft 1s ease-in-out;
+}
+
+@keyframes slideLeft {
+  20% {
+    transform: translateX(100px);
+  }
+  100% {
+    transform: translateX(-1000px);
+  }
+}
+
+.shake {
+  animation: shake 200ms linear;
+}
+
+@keyframes shake {
+  0% {
+    transform: translate(0);
+  }
+  20% {
+    transform: translate(-5px);
+  }
+  40% {
+    transform: translate(5px);
+  }
+  60% {
+    transform: translate(-5px);
+  }
+  80% {
+    transform: translate(5px);
+  }
+  100% {
+    transform: translate(0);
+  }
+}

@@ -141,17 +141,27 @@ export default class App {
 
   checkAnswer() {
     const answer = this.components.css.codeMirror.getValue().trim();
-    const isAnswersMatch = this.tasksList.checkAnswer(this.propertes.indexCurrentTask, answer);
+    const selectElements = this.components.screen.elements.innerBox.querySelectorAll(answer);
 
+    const isAnswersMatch = Array.prototype.every.bind(selectElements)((el) => el.classList.contains('right-answer-element'));
     if (isAnswersMatch) {
       this.answerIsCorrect();
     } else {
-      this.answerIsWrong();
+      this.answerIsWrong(selectElements);
     }
   }
 
-  answerIsWrong() {
+  answerIsWrong(selectElements) {
     const { css } = this.components;
+
+    console.log('selectElements', selectElements);
+
+    selectElements.forEach(el => {
+      el.classList.add('shake');
+      el.addEventListener('animationend', () => {
+        el.classList.remove('shake');
+      });
+    });
 
     css.elements.textarea.classList.add('shake');
     css.elements.textarea.addEventListener('animationend', () => {

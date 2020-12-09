@@ -24,12 +24,10 @@ locomotive {
 }
 
 locomotive {
-  padding-top: 39%;
   background-image: url("../img/textures/locomotive.png");
 }
 
 wagon {
-  padding-top: 29%;
   background-image: url("../img/textures/wagon_yellow.png");
 
   &.blue {
@@ -47,26 +45,21 @@ wagon {
 
 
 platform {
-  padding-top: 9.2%;
   background-image: url("../img/textures/platform.png");
 
   &.blue {
-    padding-top: 16.5%;
     background-image: url("../img/textures/platform_blue.png");
   }
 
   &.green {
-    padding-top: 16.5%;
     background-image: url("../img/textures/platform_green.png");
   }
 
   &.yellow {
-    padding-top: 16.5%;
     background-image: url("../img/textures/platform_yellow.png");
   }
 
   &.red {
-    padding-top: 16.5%;
     background-image: url("../img/textures/platform_red.png");
   }
 }
@@ -193,33 +186,3 @@ coal {
   }
 }
 // ./Style of task elements
-
-.right-answer-element {
-  transform-origin: bottom center;
-  animation: swing 1s ease-in-out infinite;
-}
-
-@keyframes swing {
-  0% {
-    transform: skewX(3deg);
-  }
-  50% {
-    transform: skewX(-3deg);
-  }
-  100% {
-    transform: skewX(3deg);
-  }
-}
-
-.animation-correct-answer {
-  animation: slideLeft 1s ease-in-out;
-}
-
-@keyframes slideLeft {
-  20% {
-    transform: translateX(100px);
-  }
-  100% {
-    transform: translateX(-1000px);
-  }
-}

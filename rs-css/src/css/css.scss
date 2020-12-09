@@ -38,31 +38,6 @@
     font-size: 1em;
     font-family: "Poppins", sans-serif;
     resize: none;
-
-    &.shake {
-      animation: shake 200ms linear;
-    }
-  }
-}
-
-@keyframes shake {
-  0% {
-    transform: translate(0);
-  }
-  20% {
-    transform: translate(-5px);
-  }
-  40% {
-    transform: translate(5px);
-  }
-  60% {
-    transform: translate(-5px);
-  }
-  80% {
-    transform: translate(5px);
-  }
-  100% {
-    transform: translate(0);
   }
 }
 

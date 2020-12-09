@@ -140,7 +140,11 @@ export default class Screen {
         case 'wagon':
           el.style.height = `${clientWidth * 0.29}px`;
           break;
+        case 'wood':
+          el.style.height = `${clientWidth * 0.21}px`;
+          break;
         default:
+          el.style.height = `${clientWidth * 0.24}px`;
           break;
       }
     });

@@ -23,9 +23,9 @@ export function calculateTooltipsPosition(node) {
       const parent = n.parentNode;
       getPosition(parent);
     } else {
-      const tagWrapper = n.parentNode;
-      top = tagWrapper.offsetTop;
-      left = tagWrapper.offsetLeft;
+      // const tagWrapper = n.parentNode;
+      top = n.offsetTop;
+      left = n.offsetLeft;
     }
   }
 

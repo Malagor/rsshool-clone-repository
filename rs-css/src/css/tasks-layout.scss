@@ -1,3 +1,12 @@
+.screen__inner > * {
+  max-width: 300px;
+  position: relative;
+  bottom: 0;
+  height: 40%;
+  left: 0;
+  padding-top: 0;
+}
+
 .tag-wrapper {
   position: relative;
   width: 100%;
@@ -16,8 +25,7 @@ locomotive {
   display: block;
   width: 100%;
   max-width: 300px;
-  background-repeat: no-repeat;
-  background-position: bottom;
+  background: bottom no-repeat;
   background-size: contain;
   transform-origin: bottom center;
   transition: 0.2s;
@@ -75,8 +83,7 @@ coal {
   z-index: -1;
   width: 85%;
   padding-top: 24%;
-  background-repeat: no-repeat;
-  background-position: bottom;
+  background: bottom no-repeat;
   background-size: contain;
 }
 
@@ -133,6 +140,10 @@ tank {
   bottom: 100%;
   width: 40%;
   padding-top: 12%;
+
+  wood & {
+    bottom: 90%;
+  }
 
   &:nth-child(1) {
     left: 6%;

@@ -29,7 +29,7 @@ body {
   overflow-x: hidden;
   line-height: 1.6;
   font-family: "Poppins", sans-serif;
-  background: $gradient;
+  background-image: $gradient;
   transition: 0.3s;
 
   grid-template-areas: "header header header"
@@ -43,7 +43,7 @@ body {
 
   &.night {
     color: white;
-    background: $gradient-night;
+    background-image: $gradient-night;
   }
 
   @media screen and (max-width: 1024px) {
@@ -218,7 +218,7 @@ h1 {
       top: 1px;
       width: 20px;
       height: 20px;
-      background: #000000;
+      background-color: #000000;
       border-radius: 50%;
       transition: 0.3s;
     }
@@ -234,7 +234,7 @@ h1 {
 
     &:after {
       right: 1px;
-      background: white;
+      background-color: #ffffff;
       transform: translateX(120%);
 
       .night & {

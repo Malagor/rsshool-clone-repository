@@ -1,6 +1,6 @@
 .html-code {
   background: #5e412f;
-  background: rgba(0,0,0,0.3);
+  background-color: rgba(0,0,0,0.3);
 
   grid-area: html;
 
@@ -31,7 +31,7 @@
   &__inner {
     padding: 0.2em;
     color: #eaf2bb;
-    background: transparent;
+    background-color: transparent;
 
     div {
       align-self: flex-start;

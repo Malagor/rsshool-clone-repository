@@ -3,7 +3,7 @@
   display: flex;
   flex-direction: column;
   color: #eaf2bb;
-  background: #5e412f;
+  background-color: #5e412f;
 
   grid-area: css;
 
@@ -49,7 +49,7 @@
   height: 3rem;
   font-size: 1.5rem;
   color: #f07818;
-  background: transparent;
+  background-color: transparent;
   border: 2px solid #f07818;
   border-radius: 50%;
   cursor: pointer;
@@ -69,7 +69,7 @@
   padding: 1rem;
   font-size: 0.9em;
   color: #000000;
-  background: #ffffff;
+  background-color: #ffffff;
   border: 2px solid #f07818;
   border-radius: 5px;
   transform: scale(0);

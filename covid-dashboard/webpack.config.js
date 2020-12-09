@@ -26,7 +26,7 @@ function setDMode() {
 
 const config = {
   target: "web",
-  entry: {index: './src/js/index.js'},
+  entry: {index: './src/index.js'},
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].js'
@@ -99,7 +99,8 @@ const config = {
             options: {
               outputPath: 'assets/img',
               name: '[name].[ext]'
-            }},
+            }
+            },
           {
             loader: 'image-webpack-loader',
             options: {

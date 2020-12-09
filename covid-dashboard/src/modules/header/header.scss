@@ -8,7 +8,9 @@ header.header {
 
 .header__icon {
   height: 100%;
-  //background-image: url(../../assets/img/virus.png);
+  width: 3rem;
+  background: black url('../../assets/img/virus.png');
+  background-size: contain;
 }
 
 .toggle-menu {

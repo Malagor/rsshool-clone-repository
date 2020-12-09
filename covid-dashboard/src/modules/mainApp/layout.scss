@@ -1,5 +1,3 @@
-//@import "../_misc/fonts";
-
 * {
   padding: 0;
   margin: 0;
@@ -21,6 +19,11 @@ body {
   color: #ffffff;
   background-color: #000000;
 }
+
+img {
+  max-width: 100%;
+}
+
 
 #app {
   display: grid;

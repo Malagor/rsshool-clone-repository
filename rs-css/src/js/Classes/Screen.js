@@ -131,7 +131,7 @@ export default class Screen {
           el.style.height = `${clientWidth * 0.39}px`;
           break;
         case 'platform':
-          if (className && classesPlatforms.indexOf(className)) {
+          if (className && classesPlatforms.includes(className)) {
             el.style.height = `${clientWidth * 0.165}px`;
           } else {
             el.style.height = `${clientWidth * 0.092}px`;

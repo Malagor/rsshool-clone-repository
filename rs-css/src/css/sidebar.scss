@@ -17,7 +17,7 @@
   }
 
   .night & {
-    background: #47435d;
+    background-color: #47435d;
   }
 
   @media screen and (max-width: 768px) {
@@ -30,7 +30,7 @@
     justify-content: space-between;
     height: calc(100% - 19rem);
     padding-right: 0;
-    background: #89af89;
+    background-color: #89af89;
     transform: scaleX(0);
     transform-origin: right;
   }
@@ -51,7 +51,7 @@
   &__syntax {
     padding: 0 1em;
     font-weight: normal;
-    background: rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.2);
   }
 
   &__syntax {

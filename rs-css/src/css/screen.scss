@@ -6,7 +6,7 @@
   width: 100%;
   padding-top: 1.5rem;
   overflow: hidden;
-  background: #fcebb6;
+  background-color: #fcebb6;
 
   grid-area: screen;
 
@@ -17,8 +17,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url("../img/textures/bg-day.png");
-    background-position: bottom right;
+    background: url("../img/textures/bg-day.png") bottom right ;
     background-size: cover;
     transition: 0.3s;
 
@@ -50,9 +49,7 @@
       box-sizing: border-box;
       width: 100%;
       height: 3rem;
-      background-image: url("../img/textures/rw-day.png");
-      background-repeat: no-repeat;
-      background-position: top center;
+      background: url("../img/textures/rw-day.png") top center no-repeat;
       background-size: cover;
       border-top: 4px solid rgb(95, 97, 102);
       transition: 0.3s;
@@ -67,11 +64,10 @@
     position: absolute;
     z-index: 3;
     padding: 0.5em;
-    background: #5e412f;
+    background-color: #5e412f;
     border: 3px solid #f07818;
     opacity: 0;
 
-//background: #fcebb6;
     transition: 0.3s;
     &.open {
       opacity: 1;

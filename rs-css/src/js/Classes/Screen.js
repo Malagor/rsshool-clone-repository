@@ -60,7 +60,7 @@ export default class Screen {
   }
 
   setIndexesForNodes() {
-    const nodes = this.elements.innerBox.querySelectorAll(':scope div *');
+    const nodes = this.elements.innerBox.querySelectorAll('*');
 
     nodes.forEach((el, i) => {
       el.dataset.index = i.toString(10);

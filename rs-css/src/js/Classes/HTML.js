@@ -1,28 +1,29 @@
-import {convertClasses, convertId, convertTagForHtmlBlock} from '../utils/converterHTML';
+import { convertClasses, convertId, convertTagForHtmlBlock } from '../utils/converterHTML';
 
 export default class HTML {
   constructor(obj) {
     this.elements = {
       node: obj.node,
-      blocks: null
+      blocks: null,
     };
 
     this.toggleHighlight = null;
 
     this.events.call(this);
+    // this.events();
   }
 
   static create(el) {
     const node = document.querySelector(el);
     const config = {
-      node
+      node,
     };
     return new HTML(config);
   }
 
   static nodeToHTML(code) {
 
-    const {tag, id, classes, child} = code;
+    const { tag, id, classes, child } = code;
 
     const formatIdAndClasses = `
       ${convertId(id)} ${convertClasses(classes)}
@@ -32,7 +33,7 @@ export default class HTML {
     if (child) {
       child.forEach(el => {
         formatChild += HTML.nodeToHTML(el);
-      })
+      });
     }
 
     const formatTag = convertTagForHtmlBlock(tag, formatIdAndClasses, formatChild).trim();
@@ -51,13 +52,13 @@ export default class HTML {
       throw new Error('Received is not correct data for print task code');
     }
     code.forEach((node) => {
-      this.elements.node.innerHTML += HTML.nodeToHTML(node)
+      this.elements.node.innerHTML += HTML.nodeToHTML(node);
     });
     this.createArrayOfNodes();
   }
 
   createArrayOfNodes() {
-    this.elements.blocks = this.elements.node.getElementsByTagName("div");
+    this.elements.blocks = this.elements.node.getElementsByTagName('div');
 
     this.elements.blocks.forEach((el, i) => {
       el.dataset.index = i.toString();
@@ -66,12 +67,14 @@ export default class HTML {
 
   events() {
     this.elements.node.onmouseover = (event) => {
-      const target = event.target.closest("div");
+      const target = event.target.closest('div');
+      if (target.classList.contains('screen__inner')) return;
       this.toggleHighlight(target);
     };
 
     this.elements.node.onmouseout = (event) => {
-      const target = event.target.closest("div");
+      const target = event.target.closest('div');
+      if (target.classList.contains('screen__inner')) return;
       this.toggleHighlight(target);
     };
   }

@@ -1,4 +1,4 @@
-import "./mainApp/layout.scss";
+import "./mainApp/mainApp.scss";
 import "./header/header.scss";
 import "./cases/cases.scss";
 import "./chart/chart.scss";

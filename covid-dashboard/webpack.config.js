@@ -8,11 +8,13 @@ const ENV = process.env.npm_lifecycle_event;
 const isDev = ENV === 'dev';
 const isProd = ENV === 'build';
 
+const filename = ext => isDev ? `[name].${ext}` : `[name].[hash].${ext}`;
+
 function setDevTool() {
   if (isDev) {
-    return 'cheap-module-eval-source-map';
+    return 'source-map';
   } else {
-    return 'none';
+    return '';
   }
 }
 
@@ -24,15 +26,84 @@ function setDMode() {
   }
 }
 
+const babelOptions = preset => {
+  const opts = {
+    presets: [
+      '@babel/preset-env'
+    ],
+    plugins: [
+      '@babel/plugin-proposal-class-properties'
+    ]
+  };
+
+  if (preset) {
+    opts.presets.push(preset)
+  }
+
+  return opts
+};
+
+const jsLoaders = () => {
+  const loaders = [{
+    loader: 'babel-loader',
+    options: babelOptions()
+  }];
+
+  if (isDev) {
+    loaders.push('eslint-loader')
+  }
+
+  return loaders
+};
+
+const cssLoaders = extra => {
+  const loaders = [
+    {
+      loader: MiniCssExtractPlugin.loader,
+      options: {
+        hmr: isDev,
+        reloadAll: true
+      },
+    },
+    'css-loader',
+    {
+      loader: 'postcss-loader',
+      options: {config: { path: './postcss.config.js' } }
+    }
+  ];
+
+  if (extra) {
+    loaders.push(extra)
+  }
+
+  return loaders
+};
+
+const optimization = () => {
+  return {
+    splitChunks: {
+      chunks: 'all'
+    }
+  };
+};
+
 const config = {
   target: "web",
   entry: {index: './src/index.js'},
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: '[name].js'
+    filename: filename('js')
   },
   mode: setDMode(),
   devtool: setDevTool(),
+  optimization: optimization(),
+  resolve: {
+    extensions: ['.js', '.json', '.ts'],
+    // alias: {
+    //   '@models': path.resolve(__dirname, 'src/models'),
+    //   '@': path.resolve(__dirname, 'src'),
+    // }
+  },
   module: {
     rules: [{
         test: /\.html$/,
@@ -45,47 +116,27 @@ const config = {
       },
       {
         test: /\.js$/,
-        use: ['babel-loader', 'eslint-loader'],
+        // use: ['babel-loader', 'eslint-loader'],
+        use: jsLoaders(),
         exclude: [
           /node_modules/
         ]
       },
       {
+        test: /\.ts$/,
+        exclude: /node_modules/,
+        loader: {
+          loader: 'babel-loader',
+          options: babelOptions('@babel/preset-typescript')
+        }
+      },
+      {
         test: /\.css$/,
-        use: [
-          'style-loader',
-          MiniCssExtractPlugin.loader,
-          {
-            loader: 'css-loader',
-            options: {
-              sourceMap: true
-            }
-          }, {
-            loader: 'postcss-loader',
-            options: { sourceMap: true, config: { path: './postcss.config.js' } }
-          }
-        ]
+        use: cssLoaders()
       },
       {
         test: /\.scss$/,
-        use: [
-          'style-loader',
-          MiniCssExtractPlugin.loader,
-          {
-            loader: 'css-loader',
-            options: {
-              sourceMap: true
-            }
-          }, {
-            loader: 'postcss-loader',
-            options: { sourceMap: true, config: { path: './postcss.config.js' } }
-          }, {
-            loader: 'sass-loader',
-            options: {
-              sourceMap: true
-            }
-          }
-        ]
+        use: cssLoaders('sass-loader')
       },
       {
         test: /\.svg$/,
@@ -153,11 +204,14 @@ const config = {
 
   plugins: [
     new MiniCssExtractPlugin({
-      filename: 'style.css',
+      filename: filename('css')
     }),
     new HtmlWebPackPlugin({
       template: './src/index.html',
-      filename: './index.html'
+      filename: './index.html',
+      minify: {
+        collapseWhitespace: isProd
+      }
     }),
     new CopyWebpackPlugin([
       {from: './src/favicon.ico', to: './favicon.ico'},

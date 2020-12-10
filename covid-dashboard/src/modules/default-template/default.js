@@ -23,7 +23,6 @@
  */
 
 
-
 //  подключаем испорты и прочие штуки
 // import initLayout from '../../js/initLayout';
 
@@ -81,7 +80,7 @@ export default function DefaultTemplate(el) {
     // Навешиваем слушатели
     title.addEventListener('click', (event) => {
       // Делаем предварительную обработку, если требуется
-      const { target } = event;
+      const {target} = event;
       if (target === el) return;
 
       // В данном случае просто получаем текст заголовка
@@ -94,7 +93,7 @@ export default function DefaultTemplate(el) {
     });
 
     image.addEventListener('click', (event) => {
-      const { target } = event;
+      const {target} = event;
       if (target === el) return;
 
       clickImg();
@@ -102,6 +101,24 @@ export default function DefaultTemplate(el) {
   }
 
   events();
+
+  /**
+   * ТЕСТИРОВАНИЕ
+   * Тут получаем нужные данные из API, модифицируем их как нужно и вызываем свои собственные функции для тестирования
+  */
+  function getTestData() {
+    const url = 'https://corona.lmao.ninja/v2/countries';
+
+    fetch(url)
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        getTitle();
+      });
+  }
+  getTestData();
 
   // и по итогу возвращаем набор функций/интерфейс/API работы с этим модулем.
   return {

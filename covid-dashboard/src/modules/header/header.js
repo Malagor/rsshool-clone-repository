@@ -1,5 +1,24 @@
-const toggle = document.querySelector('.toggle-menu');
+export default function Header(el) {
+  const toggle = el.querySelector('.toggle-menu');
 
-toggle.addEventListener('click', () => {
-  console.log('Нажата кнопка меню');
-});
+  let showSettings = null;
+
+  function setShowSettings(fn) {
+    showSettings = fn;
+  }
+
+  toggle.addEventListener('click', (ev) => {
+    const { offsetLeft, offsetTop, clientHeight } = ev.target.closest('.toggle-menu');
+        showSettings(offsetTop + clientHeight, offsetLeft);
+  });
+
+  return {
+    setHandler: {
+      setShowSettings,
+    },
+  };
+
+}
+
+
+

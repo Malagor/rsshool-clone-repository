@@ -4,14 +4,14 @@
 *
 * */
 
-import initLayout from '../../js/initLayout';
+import mainHtml from './mainHTML';
 import Map from '../map/map';
 import MyChar from '../chart/chart';
 import Countries from '../countries/countries';
 import DefaultTemplate from '../default-template/default';
 import Status from '../status/Status';
 
-const elementsDOM = initLayout();
+const elementsDOM = mainHtml();
 
 const map = Map(elementsDOM['map']);
 const chart = MyChar(elementsDOM['chart']);

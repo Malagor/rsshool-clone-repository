@@ -1,5 +1,4 @@
 export default function DefaultTemplate(el) {
-  console.log(el);
   el.innerHTML =
     '<div class="status__date">10.11.2020</div>' +
     '<div class="status__country">All World</div>' +

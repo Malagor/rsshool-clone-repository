@@ -9,6 +9,7 @@ export default function Header(el) {
 
   toggle.addEventListener('click', (ev) => {
     const { offsetLeft, offsetTop, clientHeight } = ev.target.closest('.toggle-menu');
+
         showSettings(offsetTop + clientHeight, offsetLeft);
   });
 

@@ -32,6 +32,7 @@ export default function mainHTML() {
   const map = document.querySelector('#map');
   const chart = document.querySelector('#chart');
   const status = document.querySelector('#status');
+  const header = document.querySelector('header.header');
 
   return {
     app,
@@ -40,6 +41,7 @@ export default function mainHTML() {
     countries,
     map,
     chart,
-    status
+    status,
+    header
   };
 }

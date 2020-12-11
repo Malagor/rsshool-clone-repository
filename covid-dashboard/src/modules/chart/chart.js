@@ -1,23 +1,16 @@
 import Chart from 'chart.js';
 import './chart.scss';
-import leftButton from '../../assets/img/left_button.svg';
-import rightButton from '../../assets/img/right_button.svg';
+import chartHTML from './chartHTML';
 
 export default function MyChar(el) {
-  el.insertAdjacentHTML(
-    'afterbegin',
-    `<canvas id="myChart" height="80%"></canvas>
-  <div class="cart__buttons">
-    <button type="button" class="button">${leftButton}</button>
-    <button type="button" class="button">${rightButton}</button>
-  </div>`,
-  );
+  el.insertAdjacentHTML('afterbegin', chartHTML);
   // eslint-disable-next-line no-unused-vars
   let chart = null;
 
   const ctx = document.getElementById('myChart').getContext('2d');
 
   function showRecovered(lbls, dt, title) {
+    console.log(lbls);
     chart = new Chart(ctx, {
       type: 'line',
       data: {

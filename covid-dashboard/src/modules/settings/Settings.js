@@ -8,12 +8,13 @@
 
 import settingsHTML from './settingsHTML';
 
+
 export default function DefaultTemplate() {
   document.body.insertAdjacentHTML('beforeend', settingsHTML());
 
   // Заносим в переменные нужные элементы верстки
   const popup = document.querySelector('#popup');
-  const form = document.querySelector('#settings-form');
+  const form = document.forms.settings;
   // const population = el.querySelector('#setting-population');
 
   // Объявляем переменные-заглушки обработчиков событий
@@ -25,12 +26,22 @@ export default function DefaultTemplate() {
   }
 
   function getFormData() {
-    const data = {};
+    const country = form.country.value;
+    const population = form.population.checked;
+    const period = form.period.checked;
+    const type = form.type.value;
+
+    const data = {
+      country,
+      population,
+      period,
+      type,
+    };
     sendForm(data);
   }
 
   function popupClick() {
-    console.log('Popup click');
+    // console.log('Popup click');
   }
 
   function showPopup(top = 0, left = 0) {
@@ -48,7 +59,11 @@ export default function DefaultTemplate() {
       popupClick();
     });
 
-    form.onsubmit = getFormData;
+    form.addEventListener('submit', event => {
+      event.preventDefault();
+      getFormData();
+      // showPopup();
+    })
   })();
 
 

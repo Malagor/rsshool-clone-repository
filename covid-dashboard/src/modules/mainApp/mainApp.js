@@ -11,7 +11,9 @@ import Countries from '../countries/countries';
 import DefaultTemplate from '../default-template/default';
 import Status from '../status/Status';
 import Settings from '../settings/Settings';
-import Header from '../header/header';
+import Header from '../header/Header';
+import Queries from '../queries/Queries';
+import { setPropertis } from '../Properties/Properties';
 
 const elementsDOM = initLayout();
 
@@ -22,6 +24,7 @@ const defBlock = DefaultTemplate(elementsDOM.table);
 const status = Status(elementsDOM.status);
 const settings = Settings();
 const header = Header(elementsDOM.header);
+const query = Queries();
 
 function clickTitle() {
   console.log('click title Default Block');
@@ -31,41 +34,46 @@ function clickImg() {
   console.log('click img Default Block');
 }
 
-function renderChart(country = 'All World') {
-  let urlHistorical;
+function renderChart(country = 'All World', day = 'all', type = 'cases') {
+  // console.log(country);
+  let url;
   if (country === 'All World') {
-    urlHistorical = 'https://disease.sh/v3/covid-19/historical/all?lastdays=30';
+    url = query.allWorldPerPeriod(day);
   } else if (country) {
-    urlHistorical = `https://disease.sh/v3/covid-19/historical/${country}?lastdays=30`;
+    url = query.countryDataPerPeriod(country, day);
   }
-  fetch(urlHistorical)
+
+  fetch(url)
     .then((response) => {
       return response.json();
     })
     .then((data) => {
-      let recovered = null;
-      if (country && country === 'All World') {
-        recovered = data.recovered;
-      } else {
-        recovered = data.timeline.recovered;
-      }
+      console.log('data', data);
+      console.log('type', type);
 
-      const label = Object.keys(recovered);
+      let typeData = null;
+      if (country && country === 'All World') {
+        typeData = data[type];
+      } else {
+        typeData = data.timeline[type];
+      }
+      console.log('typeData', typeData);
+      const label = Object.keys(typeData);
       const arrData = [];
 
       label.forEach(key => {
-        arrData.push(recovered[key]);
+        arrData.push(typeData[key]);
       });
-      chart.showRecovered(label, arrData, country || 'All World');
+      chart.showRecovered(label, arrData, `${(country || 'All World')} - ${type}`);
     });
 }
 
-function changeCountry(country) {
+function changeCountry(country, days, type) {
   if (!country) return;
 
   status.setCountry(country);
 
-  renderChart(country);
+  renderChart(country, days, type);
 }
 
 function renderMap() {
@@ -101,9 +109,31 @@ function showSettings(top, left) {
   settings.showPopup(top, left);
 }
 
+function sendFormSettings(data) {
+  let { country, period /* population */ } = data;
+  const { type } = data;
+  country = country || 'All World';
+  period = period ? 'all' : 30;
+
+  status.setCountry(country);
+  status.setPeriod(period);
+  status.setType(type);
+
+  const prop = {
+    country,
+    period,
+    type,
+    count: 'all'
+  };
+  setPropertis(prop);
+
+  changeCountry(country, period, type);
+}
+
 
 countryComponent.hendlers.setClick(changeCountry);
 header.setHandler.setShowSettings(showSettings);
+settings.setHandler.setSendForm(sendFormSettings);
 
 defBlock.setHandler.setClickTitle(clickTitle);
 defBlock.setHandler.setClickImg(clickImg);

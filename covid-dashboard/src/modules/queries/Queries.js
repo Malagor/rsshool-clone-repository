@@ -3,7 +3,7 @@ export default function Queries() {
   /**
    * @param day :string === 'all' || :number
    */
-  function allWorldPerPeriod(day = 'all'): string {
+  function allWorldPerPeriod(day = 'all') {
     return `https://disease.sh/v3/covid-19/historical/all?lastdays=${day}`;
   }
 
@@ -11,7 +11,7 @@ export default function Queries() {
   /**
    * @return url :string
    */
-  function allWorldDisease(): string {
+  function allWorldDisease() {
     return 'https://disease.sh/v3/covid-19/all';
   }
 
@@ -22,7 +22,7 @@ export default function Queries() {
    *
    * @return url :string
    */
-  function countryDataPerPeriod(country :string, day:string|number = 'all'): string {
+  function countryDataPerPeriod(country, day = 'all') {
     if (country) {
       return `https://disease.sh/v3/covid-19/historical/${country}?lastdays=${day}`;
     }
@@ -31,9 +31,8 @@ export default function Queries() {
   }
 
   function getPopulation() {
-    return 'https://restcountries.eu/rest/v2/all?fields=name;population;flag'
+    return 'https://restcountries.eu/rest/v2/all?fields=name;population;flag';
   }
-
 
 
   return {

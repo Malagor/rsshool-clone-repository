@@ -2,7 +2,7 @@
   position: absolute;
   top: 0;
   right: 0;
-  width: 10rem;
+  width: 15rem;
   border: 1px solid white;
   border-radius: 5px;
   padding: 1rem;
@@ -16,5 +16,40 @@
 
   &.open {
     transform: scale(1);
+    z-index: 1000;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+
+  }
+
+  label {
+    margin-bottom: 0.5rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  fieldset {
+    margin-bottom: 1rem;
+  }
+
+  .setting__country {
+    padding: 0.5rem;
+    flex-basis: 100%;
+    width: 100%;
+  }
+
+  .setting__population,
+  .setting__period {
+    margin-right: 0.5rem;
+  }
+
+  input[type="submit"] {
+    display: inline-flex;
+    width: 5rem;
   }
 }

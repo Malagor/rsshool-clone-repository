@@ -1,18 +1,18 @@
 import callbacksToolTips from './chartDataForConfig';
 
-export default function getChartConfig(lbls, dt, title) {
+export default function getChartConfig(data, title, type) {
+  console.log(data);
   return {
     type: 'line',
     data: {
-      labels: lbls,
+      labels: Object.keys(data[0][1]),
       datasets: [
         {
           label: title,
-          data: dt,
-          backgroundColor: 'rgba(255, 0, 0, 0.2)',
+          data: Object.values(data[0][1]),
           borderColor: 'rgba(255, 0, 0, 1)',
           pointBackgroundColor: 'rgba(255, 0, 0, 1)',
-          pointRadius: 2,
+          pointRadius: 0.5,
           pointHoverRadius: 5,
           borderWidth: 0.5,
         },
@@ -35,6 +35,9 @@ export default function getChartConfig(lbls, dt, title) {
               displayFormats: {
                 month: 'MMM YYYY',
               },
+            },
+            ticks: {
+              maxTicksLimit: 11,
             },
           },
         ],
@@ -66,7 +69,7 @@ export default function getChartConfig(lbls, dt, title) {
         titleAlign: 'center',
         footerAlign: 'center',
         displayColors: false,
-        callbacks: callbacksToolTips(),
+        callbacks: callbacksToolTips(type),
       },
       hover: {
         mode: 'nearest',

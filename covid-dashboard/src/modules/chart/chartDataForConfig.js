@@ -13,7 +13,7 @@ const months = [
   'December',
 ];
 
-export default function callbacksToolTips() {
+export default function callbacksToolTips(type) {
   return {
     title(toolTipItems) {
       const titleT = toolTipItems[0].label;
@@ -39,8 +39,8 @@ export default function callbacksToolTips() {
       return `Count: ${val}`;
     },
     footer() {
-      const titleT = 'Cases';
-      return titleT;
+      const foot = type;
+      return foot;
     },
   };
 }

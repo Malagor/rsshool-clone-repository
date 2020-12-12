@@ -19,6 +19,8 @@ export default function getChartConfig(lbls, dt, title) {
       ],
     },
     options: {
+      responsive: true,
+      maintainAspectRatio: false,
       scales: {
         xAxes: [
           {
@@ -66,7 +68,6 @@ export default function getChartConfig(lbls, dt, title) {
         mode: 'nearest',
         intersect: true,
       },
-      maintainAspectRatio: false,
       legend: {
         onClick: () => {
           return null;

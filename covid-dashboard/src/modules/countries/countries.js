@@ -5,7 +5,7 @@ export default function Countries(el) {
   //   const { target } = event;
   //   if (target === el) return;
 
-  //   getCounrty(target.textContent);
+  //   getCounrty(target.textContent, 30);
   // });
 
   // function setClick(fn) {

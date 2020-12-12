@@ -133,7 +133,9 @@ export default function MyChar(el) {
         },
         maintainAspectRatio: false,
         legend: {
-          display: false,
+          onClick: () => {
+            return null;
+          },
           labels: {
             boxWidth: 0,
           },

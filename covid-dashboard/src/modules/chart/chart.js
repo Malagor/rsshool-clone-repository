@@ -23,7 +23,7 @@ export default function MyChar(el) {
             backgroundColor: 'rgba(255, 0, 0, 0.2)',
             borderColor: 'rgba(255, 0, 0, 1)',
             pointBackgroundColor: 'rgba(255, 0, 0, 1)',
-            pointRadius: 1,
+            pointRadius: 2,
             pointHoverRadius: 5,
             borderWidth: 0.5,
           },
@@ -43,6 +43,10 @@ export default function MyChar(el) {
                 },
               },
               // ticks: {},
+              scaleLabel: {
+                display: true,
+                labelString: 'Time',
+              },
             },
           ],
           yAxes: [
@@ -68,23 +72,24 @@ export default function MyChar(el) {
         },
         tooltips: {
           mode: 'index',
+          intersect: false,
           backgroundColor: 'rgba(0, 0, 0, 0.7)',
           borderWidth: 1,
           borderColor: 'rgba(255, 255, 255, 1)',
           caretSize: 0,
           titleAlign: 'center',
-          callbacks: {
-            title(context) {
-              const titleT =
-                document.querySelector('.chart__category').textContent ||
-                context.datasets.label;
-              return titleT;
-            },
-          },
+          // callbacks: {
+          //   title(context) {
+          //     const titleT =
+          //       document.querySelector('.chart__category').textContent ||
+          //       context.datasets.label;
+          //     return titleT;
+          //   },
+          // },
         },
         hover: {
           mode: 'nearest',
-          intersect: false,
+          intersect: true,
         },
         maintainAspectRatio: false,
         legend: {

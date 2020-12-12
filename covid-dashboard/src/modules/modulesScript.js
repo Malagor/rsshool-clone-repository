@@ -1,2 +1,1 @@
-import './mainApp/mainApp.ts';
-import './header/header';
+import './mainApp/mainApp';

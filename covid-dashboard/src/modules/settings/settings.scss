@@ -1,0 +1,55 @@
+.popup {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 15rem;
+  border: 1px solid white;
+  border-radius: 5px;
+  padding: 1rem;
+  font-size: 0.8rem;
+  background-color: rgba(0, 0, 0, 0.8);
+
+  transform-origin: top right;
+  transform: scale(0);
+
+  transition: 0.3s;
+
+  &.open {
+    transform: scale(1);
+    z-index: 1000;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+
+  }
+
+  label {
+    margin-bottom: 0.5rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  fieldset {
+    margin-bottom: 1rem;
+  }
+
+  .setting__country {
+    padding: 0.5rem;
+    flex-basis: 100%;
+    width: 100%;
+  }
+
+  .setting__population,
+  .setting__period {
+    margin-right: 0.5rem;
+  }
+
+  input[type="submit"] {
+    display: inline-flex;
+    width: 5rem;
+  }
+}

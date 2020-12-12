@@ -1,4 +1,4 @@
-export default function initLayout() {
+export default function mainHTML() {
   document.body.insertAdjacentHTML('afterbegin', `
   <div id="app">
   <header class="header">
@@ -11,6 +11,7 @@ export default function initLayout() {
       <div></div>
     </div>
   </header>
+  <div id="status" class="status">Status</div>
   <div id="cases" class="cases">cases</div>
   <div id="table" class="table"></div>
   <div id ="countries" class="countries">
@@ -30,6 +31,8 @@ export default function initLayout() {
   const countries = document.querySelector('#countries');
   const map = document.querySelector('#map');
   const chart = document.querySelector('#chart');
+  const status = document.querySelector('#status');
+  const header = document.querySelector('header.header');
 
   return {
     app,
@@ -38,5 +41,7 @@ export default function initLayout() {
     countries,
     map,
     chart,
+    status,
+    header
   };
 }

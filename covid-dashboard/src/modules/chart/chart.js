@@ -10,6 +10,11 @@ export default function MyChar(el) {
 
   const ctx = document.getElementById('myChart').getContext('2d');
 
+  // function setChart(lbls, dt, title) {
+  //   chart = new Chart(ctx, getChartConfig(lbls, dt, title));
+  //   return chart;
+  // }
+
   function showRecovered(lbls, dt, title) {
     chart = new Chart(ctx, getChartConfig(lbls, dt, title));
     return chart;

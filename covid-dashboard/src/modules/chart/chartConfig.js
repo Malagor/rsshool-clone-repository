@@ -21,6 +21,10 @@ export default function getChartConfig(lbls, dt, title) {
     options: {
       responsive: true,
       maintainAspectRatio: false,
+      title: {
+        display: true,
+        text: title,
+      },
       scales: {
         xAxes: [
           {
@@ -29,7 +33,7 @@ export default function getChartConfig(lbls, dt, title) {
               unit: 'month',
               unitStepSize: 1,
               displayFormats: {
-                month: 'MMM YY',
+                month: 'MMM YYYY',
               },
             },
           },
@@ -69,12 +73,7 @@ export default function getChartConfig(lbls, dt, title) {
         intersect: true,
       },
       legend: {
-        onClick: () => {
-          return null;
-        },
-        labels: {
-          boxWidth: 0,
-        },
+        display: false,
       },
     },
   };

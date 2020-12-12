@@ -39,7 +39,7 @@ export default function callbacksToolTips() {
       return `Count: ${val}`;
     },
     footer() {
-      const titleT = document.querySelector('.chart__category').textContent;
+      const titleT = 'Cases';
       return titleT;
     },
   };

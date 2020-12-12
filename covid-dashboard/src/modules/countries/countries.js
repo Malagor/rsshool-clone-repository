@@ -1,3 +1,5 @@
+import Queries from '../queries/Queries';
+
 export default function Countries(el) {
   // let getCounrty = null;
 
@@ -17,6 +19,28 @@ export default function Countries(el) {
   //     setClick
   //   },
   // };
+  const query = Queries();
+
+  function renderCountries(data) {
+    console.log(data);
+  }
+
+
+  function getTestData() {
+    const url = query.allWorldPerPeriod(5);
+    // console.log(url);
+
+    fetch(url)
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        // console.log(data);
+        renderCountries(data);
+      });
+  }
+  getTestData();
+
   el.innerHTML = `<div class="wrapper">
   <div class="title">Cases by country</div>
   <input type="text" class="input">
@@ -37,4 +61,9 @@ export default function Countries(el) {
     <button class="btn-time arrow-right"></button>
   </div>
 </div>`;
+
+  return  {
+    renderCountries
+  }
+
 }

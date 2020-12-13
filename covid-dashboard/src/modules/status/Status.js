@@ -1,4 +1,4 @@
-import {properties} from '../Properties/Properties';
+import { properties } from '../Properties/Properties';
 
 export default function DefaultTemplate(el) {
   el.innerHTML =
@@ -65,22 +65,23 @@ export default function DefaultTemplate(el) {
     type.textContent = typeData.charAt(0).toUpperCase() + typeData.slice(1);
   }
 
-  function setStatistics(nameCountry = 'All World', allPeriod = true, allPopulation = true) {
-    setCountry(nameCountry);
-    setCount(allPopulation);
-    setPeriod(allPeriod);
+  function updateStatusBar() {
+    setCountry(properties.country);
+    setCount(properties.count);
+    setPeriod(properties.period);
+    setType(properties.type);
   }
 
-  setStatistics();
+  updateStatusBar();
 
   return {
     properties,
-    setData,
-    setCountry,
-    setPeriod,
-    setCount,
-    setStatistics,
-    setType,
+    // setData,
+    // setCountry,
+    // setPeriod,
+    // setCount,
+    updateStatusBar,
+    // setType,
     setHandler: {},
   };
 }

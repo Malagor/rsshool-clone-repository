@@ -21,6 +21,7 @@ const map = Map(elementsDOM.map);
 const chart = MyChar(elementsDOM.chart);
 const countryComponent = Countries(elementsDOM.countries);
 const defBlock = DefaultTemplate(elementsDOM.table);
+
 const status = Status(elementsDOM.status);
 const settings = Settings();
 const header = Header(elementsDOM.header);

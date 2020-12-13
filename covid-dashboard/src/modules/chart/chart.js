@@ -1,68 +1,69 @@
 import Chart from 'chart.js';
 import './chart.scss';
-
+import chartHTML from './chartHTML';
+import getChartConfig from './chartConfig';
+import checkChart from './checkChart';
+import { addData } from './addDataToChart';
+// import { properties } from '../Properties';
+import Queries from '../queries/Queries';
 
 export default function MyChar(el) {
-  el.insertAdjacentHTML('afterbegin', '<canvas id="myChart" height="100%"></canvas>');
-  // eslint-disable-next-line no-unused-vars
+  el.insertAdjacentHTML('afterbegin', chartHTML);
   let chart = null;
-
+  let dataCorrect = null;
+  let titleForLabel = null;
+  const chartProps = {
+    cases: true,
+    deaths: false,
+    recovered: false,
+  };
   const ctx = document.getElementById('myChart').getContext('2d');
+  const checkboxes = document.querySelectorAll('.chart__label');
 
-  function showRecovered(lbls, dt, title) {
-    chart = new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: lbls,
-        datasets: [
-          {
-          label: title,
-          data: dt,
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
+  checkboxes.forEach(item => {
 
-          ],
-          borderColor: [
-            'rgba(255, 99, 132, 1)',
-          ],
-          borderWidth: 1
-        },
-          {
-            label: "title",
-            data: dt,
-            backgroundColor: [
-              'rgba(40,255,138,0.2)',
+      item.addEventListener('click', () => {
+        const checkProps = JSON.stringify(Object.values(chartProps));
 
-            ],
-            borderColor: [
-              'rgb(22,70,255)',
-            ],
-            borderWidth: 1
-          }
+        checkChart(chartProps, item);
 
+        if (checkProps !== JSON.stringify(Object.values(chartProps))) {
 
-        ]
-      },
-      options: {
-        scales: {
-          yAxes: [{
-            ticks: {
-              beginAtZero: true,
-            },
-          }],
-        },
-        tooltips: {
-          mode: 'index',
-        },
+          addData(
+            item.firstElementChild.textContent.toLowerCase(),
+            dataCorrect,
+            chartProps,
+            titleForLabel,
+            chart,
+          );
 
-      },
+        }
+      });
     });
 
-    // console.log(chart);
+  function showRecovered(data, title, type) {
+    chart = new Chart(ctx, getChartConfig(data, title, type));
+    dataCorrect = data;
+    titleForLabel = title;
+    return chart;
   }
+
+  function getTestData() {
+    const url = Queries();
+
+    fetch(url.allWorldPerPeriod())
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        const allData = Object.entries(data);
+        showRecovered(allData, 'All World', 'cases');
+      });
+  }
+
+  getTestData();
 
   return {
     showRecovered,
   };
 }
-

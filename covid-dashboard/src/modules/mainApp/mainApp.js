@@ -7,6 +7,7 @@
 import initLayout from './mainHTML';
 import Map from '../map/map';
 import MyChar from '../chart/chart';
+
 // import Countries from '../countries/countries';
 import Status from '../status/Status';
 import Settings from '../settings/Settings';

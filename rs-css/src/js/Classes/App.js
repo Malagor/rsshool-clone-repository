@@ -144,7 +144,7 @@ export default class App {
     const selectElements = this.components.screen.elements.innerBox.querySelectorAll(answer);
 
     const isAnswersMatch = Array.prototype.every.bind(selectElements)((el) => el.classList.contains('right-answer-element'));
-    if (isAnswersMatch) {
+    if (isAnswersMatch.length) {
       this.answerIsCorrect();
     } else {
       this.answerIsWrong(selectElements);

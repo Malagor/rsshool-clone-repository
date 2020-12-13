@@ -8,39 +8,35 @@ import initLayout from './mainHTML';
 import Map from '../map/map';
 import MyChar from '../chart/chart';
 import Countries from '../countries/countries';
-import DefaultTemplate from '../default-template/default';
 import Status from '../status/Status';
 import Settings from '../settings/Settings';
 import Header from '../header/Header';
 import Queries from '../queries/Queries';
-import { setPropertis } from '../Properties/Properties';
+import { properties, setPropertis } from '../Properties/Properties';
 
 const elementsDOM = initLayout();
 
 const map = Map(elementsDOM.map);
 const chart = MyChar(elementsDOM.chart);
 const countryComponent = Countries(elementsDOM.countries);
-const defBlock = DefaultTemplate(elementsDOM.table);
 const status = Status(elementsDOM.status);
 const settings = Settings();
 const header = Header(elementsDOM.header);
 const query = Queries();
 
-function clickTitle() {
-  console.log('click title Default Block');
-}
 
-function clickImg() {
-  console.log('click img Default Block');
-}
+// function updateApp(properties) {
+//   const { country, period, count, type } = properties;
+// }
 
-function renderChart(country = 'All World', day = 'all', type = 'cases') {
-  // console.log(country);
+function renderChart(country = false, day = 'all', type = 'cases') {
   let url;
-  if (country === 'All World') {
-    url = query.allWorldPerPeriod(day);
-  } else if (country) {
+  console.log('country - begin', country);
+
+  if (country) {
     url = query.countryDataPerPeriod(country, day);
+  } else {
+    url = query.allWorldPerPeriod(day);
   }
 
   fetch(url)
@@ -48,16 +44,13 @@ function renderChart(country = 'All World', day = 'all', type = 'cases') {
       return response.json();
     })
     .then((data) => {
-      console.log('data', data);
-      console.log('type', type);
-
       let typeData = null;
-      if (country && country === 'All World') {
-        typeData = data[type];
-      } else {
+      console.log('country - in fetch', country);
+      if (country) {
         typeData = data.timeline[type];
+      } else {
+        typeData = data[type];
       }
-      console.log('typeData', typeData);
       const label = Object.keys(typeData);
       const arrData = [];
 
@@ -68,8 +61,10 @@ function renderChart(country = 'All World', day = 'all', type = 'cases') {
     });
 }
 
-function changeCountry(country, days, type) {
-  if (!country) return;
+function changeCountry() {
+  // if (!country) return;
+
+  const { country, days, type } = properties;
 
   status.setCountry(country);
 
@@ -110,9 +105,9 @@ function showSettings(top, left) {
 }
 
 function sendFormSettings(data) {
-  let { country, period /* population */ } = data;
-  const { type } = data;
-  country = country || 'All World';
+  let { period /* population */ } = data;
+  const { country, type } = data;
+  // country = country;
   period = period ? 'all' : 30;
 
   status.setCountry(country);
@@ -123,21 +118,16 @@ function sendFormSettings(data) {
     country,
     period,
     type,
-    count: 'all'
+    count: 'all',
   };
   setPropertis(prop);
 
-  changeCountry(country, period, type);
+  changeCountry();
 }
-
 
 countryComponent.hendlers.setClick(changeCountry);
 header.setHandler.setShowSettings(showSettings);
 settings.setHandler.setSendForm(sendFormSettings);
-
-defBlock.setHandler.setClickTitle(clickTitle);
-defBlock.setHandler.setClickImg(clickImg);
-
 
 renderMap();
 renderChart();

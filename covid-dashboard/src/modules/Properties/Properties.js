@@ -1,6 +1,6 @@
 // eslint-disable-next-line import/prefer-default-export
 export const properties = {
-  country: 'All World',
+  country: false,
   period: 'all',
   count: 'all',
   type: 'cases'

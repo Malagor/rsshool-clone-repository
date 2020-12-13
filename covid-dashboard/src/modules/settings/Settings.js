@@ -26,7 +26,7 @@ export default function DefaultTemplate() {
   }
 
   function getFormData() {
-    const country = form.country.value;
+    const country = form.country.value || false;
     const population = form.population.checked;
     const period = form.period.checked;
     const type = form.type.value;
@@ -63,7 +63,7 @@ export default function DefaultTemplate() {
       event.preventDefault();
       getFormData();
       // showPopup();
-    })
+    });
   })();
 
 

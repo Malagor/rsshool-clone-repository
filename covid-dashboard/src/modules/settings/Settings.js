@@ -7,6 +7,7 @@
  * */
 
 import settingsHTML from './settingsHTML';
+import { setPropertis } from '../Properties/Properties';
 
 
 export default function DefaultTemplate() {
@@ -18,18 +19,21 @@ export default function DefaultTemplate() {
   // const population = el.querySelector('#setting-population');
 
   // Объявляем переменные-заглушки обработчиков событий
-  let sendForm = null;
+  let sendEventUpdateData = null;
 
   // И прописываем методы присваивания функций обработчиков к нашим переменным
   function setSendForm(fn) {
-    sendForm = fn;
+    sendEventUpdateData = fn;
   }
 
   function getFormData() {
-    const country = form.country.value;
+    let country = form.country.value;
     const population = form.population.checked;
-    const period = form.period.checked;
+    let period = form.period.checked;
     const type = form.type.value;
+
+    country = (country === 'All World' || '') ? false: country;
+    period = period ? 'all': 30;
 
     const data = {
       country,
@@ -37,17 +41,23 @@ export default function DefaultTemplate() {
       period,
       type,
     };
-    sendForm(data);
+
+    setPropertis(data);
+    sendEventUpdateData();
   }
 
   function popupClick() {
     // console.log('Popup click');
   }
 
-  function showPopup(top = 0, left = 0) {
+  function showPopup(el) {
+    // getting the size and position of the calling element
+    const { offsetLeft, offsetTop, clientHeight } = el;
+    // getting the Width of the popup window
     const popupWidth = popup.clientWidth;
-    popup.style.top = `${top}px`;
-    popup.style.left = `${left - popupWidth}px`;
+
+    popup.style.top = `${offsetTop + clientHeight}px`;
+    popup.style.left = `${offsetLeft - popupWidth}px`;
     popup.classList.toggle('open');
   }
 
@@ -62,10 +72,8 @@ export default function DefaultTemplate() {
     form.addEventListener('submit', event => {
       event.preventDefault();
       getFormData();
-      // showPopup();
-    })
+    });
   })();
-
 
   // и по итогу возвращаем набор функций/интерфейс/API работы с этим модулем.
   return {

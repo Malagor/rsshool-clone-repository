@@ -21,12 +21,10 @@ export default function callbacksToolTips(type) {
       const month = titleT[1] === '/' ? titleT.slice(0, 1) : titleT.slice(0, 2);
       const data = titleT[1] === '/' ? titleT.slice(2) : titleT.slice(3);
       const day = data[1] === '/' ? data.slice(0, 1) : data.slice(0, 2);
-      const result = `${day}, ${months[+month - 1]} ${year}`;
-      return result;
+      return `${day}, ${months[+month - 1]} ${year}`;
     },
     label(_, data) {
-      const result = `Where: ${data.datasets[0].label}`;
-      return result;
+      return `Where: ${data.datasets[0].label}`;
     },
     afterLabel(toolTipItems) {
       const val = toolTipItems.value;
@@ -39,8 +37,7 @@ export default function callbacksToolTips(type) {
       return `Count: ${val}`;
     },
     footer() {
-      const foot = type;
-      return foot;
+      return type;
     },
   };
 }

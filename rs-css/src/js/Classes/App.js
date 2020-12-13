@@ -142,8 +142,12 @@ export default class App {
   checkAnswer() {
     const answer = this.components.css.codeMirror.getValue().trim();
     const selectElements = this.components.screen.elements.innerBox.querySelectorAll(answer);
+    const rightElement = this.components.screen.elements.innerBox.querySelectorAll('.right-answer-element');
+    let isAnswersMatch = false;
+    if (selectElements.length === rightElement.length) {
+      isAnswersMatch = Array.prototype.every.bind(selectElements)((el) => el.classList.contains('right-answer-element'));
+    }
 
-    const isAnswersMatch = Array.prototype.every.bind(selectElements)((el) => el.classList.contains('right-answer-element'));
     if (isAnswersMatch) {
       this.answerIsCorrect();
     } else {

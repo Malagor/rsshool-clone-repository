@@ -12,9 +12,11 @@ import Status from '../status/Status';
 import Settings from '../settings/Settings';
 import Header from '../header/Header';
 import Queries from '../queries/Queries';
-// import { properties, setPropertis } from '../Properties/Properties';
+import { properties, loadProperties } from '../Properties/Properties';
 
 const elementsDOM = initLayout();
+
+loadProperties();
 
 const map = Map(elementsDOM.map);
 const chart = MyChar(elementsDOM.chart);
@@ -25,13 +27,8 @@ const header = Header(elementsDOM.header);
 const query = Queries();
 
 
-// function updateApp(properties) {
-//   const { country, period, count, type } = properties;
-// }
-
 function renderChart(country = false, day = 'all', type = 'cases') {
   let url;
-  console.log('country - begin', country);
 
   if (country) {
     url = query.countryDataPerPeriod(country, day);
@@ -45,7 +42,6 @@ function renderChart(country = false, day = 'all', type = 'cases') {
     })
     .then((data) => {
       let typeData = null;
-      console.log('country - in fetch', country);
       if (country) {
         typeData = data.timeline[type];
       } else {
@@ -60,16 +56,6 @@ function renderChart(country = false, day = 'all', type = 'cases') {
       chart.showRecovered(label, arrData, `${(country || 'All World')} - ${type}`);
     });
 }
-
-// function changeCountry() {
-//   // if (!country) return;
-//
-//   const { country, days, type } = properties;
-//
-//   status.setCountry(country);
-//
-//   renderChart(country, days, type);
-// }
 
 function renderMap() {
   const url = 'https://corona.lmao.ninja/v2/countries';
@@ -105,30 +91,15 @@ function showSettings(top, left) {
 }
 
 function updateApp() {
-  // const {country, count, type} = properties;
-  // let {period} = properties;
-
   status.updateStatusBar();
 
-  // period = period ? 'all' : 30;
-  //
-  //
-  // const prop = {
-  //   country: country || false,
-  //   period,
-  //   type,
-  //   count: 'all',
-  // };
-  // setPropertis(prop);
-  // console.log('prop', prop);
-  // status.updateStatusBar();
+  const { country, type, period } = properties;
 
-  // changeCountry();
+  renderChart(country, period, type);
+  renderMap();
 }
 
-// countryComponent.hendlers.setClick(changeCountry);
 header.setHandler.setShowSettings(showSettings);
 settings.setHandler.setSendForm(updateApp);
 
-renderMap();
-renderChart();
+updateApp();

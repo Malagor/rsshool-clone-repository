@@ -35,9 +35,8 @@ export default function DefaultTemplate(el) {
 
   setData(new Date());
 
-  function setCountry(nameCountry = 'All World') {
-    properties.country = nameCountry;
-    country.textContent = properties.country;
+  function setCountry(nameCountry = false) {
+    country.textContent = nameCountry || 'All World';
   }
 
   function setPeriod(allPeriod = true) {
@@ -76,12 +75,7 @@ export default function DefaultTemplate(el) {
 
   return {
     properties,
-    // setData,
-    // setCountry,
-    // setPeriod,
-    // setCount,
     updateStatusBar,
-    // setType,
     setHandler: {},
   };
 }

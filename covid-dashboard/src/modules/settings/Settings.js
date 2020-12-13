@@ -29,10 +29,11 @@ export default function DefaultTemplate() {
   function getFormData() {
     let country = form.country.value;
     const population = form.population.checked;
-    const period = form.period.checked;
+    let period = form.period.checked;
     const type = form.type.value;
 
     country = (country === 'All World' || '') ? false: country;
+    period = period ? 'all': 30;
 
     const data = {
       country,

@@ -144,7 +144,7 @@ export default class App {
     const selectElements = this.components.screen.elements.innerBox.querySelectorAll(answer);
 
     const isAnswersMatch = Array.prototype.every.bind(selectElements)((el) => el.classList.contains('right-answer-element'));
-    if (isAnswersMatch.length) {
+    if (isAnswersMatch) {
       this.answerIsCorrect();
     } else {
       this.answerIsWrong(selectElements);
@@ -153,8 +153,6 @@ export default class App {
 
   answerIsWrong(selectElements) {
     const { css } = this.components;
-
-    console.log('selectElements', selectElements);
 
     selectElements.forEach(el => {
       el.classList.add('shake');

@@ -4,11 +4,13 @@ import chartHTML from './chartHTML';
 import getChartConfig from './chartConfig';
 import checkChart from './checkChart';
 import { addData } from './addDataToChart';
+import Settings from '../settings/Settings';
 // import { properties } from '../Properties';
 import Queries from '../queries/Queries';
 
 export default function MyChar(el) {
   el.insertAdjacentHTML('afterbegin', chartHTML);
+  const settings = Settings();
   let chart = null;
   let dataCorrect = null;
   let titleForLabel = null;
@@ -19,6 +21,21 @@ export default function MyChar(el) {
   };
   const ctx = document.getElementById('myChart').getContext('2d');
   const checkboxes = document.querySelectorAll('.chart__label');
+  const settingsButton = document.querySelector('.chart__buttons_changeData');
+
+  settingsButton.addEventListener('click', () => {
+    const elem = {
+      offsetLeft:
+        document.querySelector('.chart__buttons_changeData').offsetLeft +
+        document.querySelector('.chart').offsetLeft,
+      offsetTop:
+        document.querySelector('.chart__buttons_changeData').offsetTop +
+        document.querySelector('.chart').offsetTop,
+      clientHeight: document.querySelector('.chart__buttons_changeData')
+        .clientHeight,
+    };
+    settings.showPopup(elem);
+  });
 
   checkboxes.forEach((item) => {
     item.addEventListener('click', () => {

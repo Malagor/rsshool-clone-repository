@@ -8,7 +8,7 @@ import initLayout from './mainHTML';
 import Map from '../map/map';
 import MyChar from '../chart/chart';
 
-// import Countries from '../countries/countries';
+import Countries from '../countries/countries';
 import Status from '../status/Status';
 import Settings from '../settings/Settings';
 import Header from '../header/Header';
@@ -21,7 +21,7 @@ loadProperties();
 
 const map = Map(elementsDOM.map);
 const chart = MyChar(elementsDOM.chart);
-// const countryComponent = Countries(elementsDOM.countries);
+const countries = Countries(elementsDOM.countries);
 const status = Status(elementsDOM.status);
 const settings = Settings();
 const header = Header(elementsDOM.header);
@@ -66,14 +66,16 @@ function renderMap() {
       return response.json();
     })
     .then((data) => {
-      const infoForMap = [];
+      const dataForMap = [];
+      const dataForCountriesTable = [];
 
       data.forEach(el => {
+        console.log(el);
 
-        const { active, country, population } = el;
+        const { active, country, population, cases } = el;
         const { lat, long, flag } = el.countryInfo;
 
-        infoForMap.push({
+        dataForMap.push({
           active,
           country,
           population,
@@ -81,9 +83,16 @@ function renderMap() {
           long,
           flag,
         });
+
+        dataForCountriesTable.push({
+          flag,
+          country,
+          arrData: cases
+        })
       });
 
-      map.setMarks(infoForMap);
+      map.setMarks(dataForMap);
+      countries.renderCountries(dataForCountriesTable);
     });
 }
 

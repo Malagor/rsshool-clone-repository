@@ -37,6 +37,7 @@ export default function MyChar(el) {
   );
 
   function showRecovered(data, title, type) {
+    console.log('data', data);
     chart = new Chart(ctx, getChartConfig(data, title, type));
     dataCorrect = data;
     titleForLabel = title;
@@ -57,7 +58,7 @@ export default function MyChar(el) {
   }
   getTestData();
 
-  return {
-    showRecovered,
-  };
+  // return {
+  //   showRecovered,
+  // };
 }

@@ -13,7 +13,7 @@ const months = [
   'December',
 ];
 
-export default function callbacksToolTips(type) {
+export default function callbacksToolTips(/* type */) {
   return {
     title(toolTipItems) {
       const titleT = toolTipItems[0].label;
@@ -24,10 +24,10 @@ export default function callbacksToolTips(type) {
       const result = `${day}, ${months[+month - 1]} ${year}`;
       return result;
     },
-    label(_, data) {
-      const result = `Where: ${data.datasets[0].label}`;
-      return result;
-    },
+    // label(_, data) {
+    //   const result = `Where: ${data.datasets[0].label}`;
+    //   return result;
+    // },
     afterLabel(toolTipItems) {
       const val = toolTipItems.value;
       if (val > 1000000) {
@@ -38,8 +38,8 @@ export default function callbacksToolTips(type) {
       }
       return `Count: ${val}`;
     },
-    footer() {
-      const foot = type;
+    footer(_, data) {
+      const foot = data.datasets[0].label;
       return foot;
     },
   };

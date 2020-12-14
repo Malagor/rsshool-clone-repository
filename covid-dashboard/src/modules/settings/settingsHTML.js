@@ -2,11 +2,12 @@ import { properties } from '../Properties/Properties';
 
 export default function settingsHTML() {
 
-  let { period, count } = properties;
+  let { country, period, count } = properties;
 
-  const { country, type } = properties;
+  const { type } = properties;
   period = period === 'all' ? 'checked' : '';
   count = count === 'all' ? 'checked' : '';
+  country = country || 'All World';
 
   return '<div id="popup" class="popup">' +
     '<div class="settings">' +

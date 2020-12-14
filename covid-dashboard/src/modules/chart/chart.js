@@ -20,21 +20,26 @@ export default function MyChar(el) {
   const ctx = document.getElementById('myChart').getContext('2d');
   const checkboxes = document.querySelectorAll('.chart__label');
 
-  checkboxes.forEach((item) =>
-    item.addEventListener('click', () => {
-      const checkProps = JSON.stringify(Object.values(chartProps));
-      checkChart(chartProps, item);
-      if (checkProps !== JSON.stringify(Object.values(chartProps))) {
-        addData(
-          item.firstElementChild.textContent.toLowerCase(),
-          dataCorrect,
-          chartProps,
-          titleForLabel,
-          chart,
-        );
-      }
-    }),
-  );
+  checkboxes.forEach(item => {
+
+      item.addEventListener('click', () => {
+        const checkProps = JSON.stringify(Object.values(chartProps));
+
+        checkChart(chartProps, item);
+
+        if (checkProps !== JSON.stringify(Object.values(chartProps))) {
+
+          addData(
+            item.firstElementChild.textContent.toLowerCase(),
+            dataCorrect,
+            chartProps,
+            titleForLabel,
+            chart,
+          );
+
+        }
+      });
+    });
 
   function showRecovered(data, title, type) {
     console.log('data', data);
@@ -56,6 +61,7 @@ export default function MyChar(el) {
         showRecovered(allData, 'All World', 'cases');
       });
   }
+
   getTestData();
 
   // return {

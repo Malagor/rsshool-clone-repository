@@ -1,11 +1,15 @@
+import { properties } from '../Properties/Properties';
+
 export default function Countries(el) {
   let getCounrty = null;
 
   el.addEventListener('click', (event) => {
     const { target } = event;
     if (target === el) return;
+    const country = target.textContent;
 
-    getCounrty(target.textContent, 30);
+    properties.country = country === 'All World' ? false : country;
+    getCounrty();
   });
 
   function setClick(fn) {
@@ -14,7 +18,7 @@ export default function Countries(el) {
 
   return {
     hendlers: {
-      setClick
+      setClick,
     },
   };
 }

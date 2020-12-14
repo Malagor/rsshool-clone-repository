@@ -56,7 +56,7 @@
   width: 20px;
   height: 20px;
   opacity: 0.7;
-  
+
   &:hover {
     opacity: 1;
   }
@@ -66,13 +66,13 @@
   font-size: 14px;
 }
 
-.chart__checkbox:checked, 
+.chart__checkbox:checked,
 .chart__checkbox:not(:checked) {
     position: absolute;
     left: -9999px;
 }
 
-.chart__checkbox:checked + .chart__label, 
+.chart__checkbox:checked + .chart__label,
 .chart__checkbox:not(:checked) + .chart__label {
     display: inline-block;
     position: relative;
@@ -81,11 +81,11 @@
     cursor: pointer;
 }
 
-.chart__checkbox:checked + .chart__label:before, 
+.chart__checkbox:checked + .chart__label:before,
 .chart__checkbox:not(:checked) + .chart__label:before {
   content: "";
     position: absolute;
-    left: 0px;
+    left: 0;
     top: calc(50% - 8px);
     width: 14px;
     height: 14px;
@@ -93,19 +93,19 @@
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-.chart__checkbox:checked + .chart__label:before, 
+.chart__checkbox:checked + .chart__label:before,
 .chart__checkbox:not(:checked) + .chart__label:before {
     border-radius: 50%;
 }
 
-.chart__checkbox:checked + .chart__label:after, 
+.chart__checkbox:checked + .chart__label:after,
 .chart__checkbox:not(:checked) + .chart__label:after {
     content: "";
     position: absolute;
     transition: all 0.2s ease;
 }
 
-.chart__checkbox:checked + .chart__label:after, 
+.chart__checkbox:checked + .chart__label:after,
 .chart__checkbox:not(:checked) + .chart__label:after {
     left: 3px;
     top: 2px;
@@ -115,19 +115,19 @@
     transform: rotate(-45deg);
 }
 
-#diseased:checked + .chart__label:after, 
+#diseased:checked + .chart__label:after,
 #diseased:not(:checked) + .chart__label:after {
   border-left: 4px solid rgb(255, 0, 0);
   border-bottom: 4px solid rgb(255, 0, 0);
 }
 
-#recovered:checked + .chart__label:after, 
+#recovered:checked + .chart__label:after,
 #recovered:not(:checked) + .chart__label:after {
   border-left: 4px solid rgb(0, 134, 11);
   border-bottom: 4px solid rgb(0, 134, 11);
 }
 
-#deaths:checked + .chart__label:after, 
+#deaths:checked + .chart__label:after,
 #deaths:not(:checked) + .chart__label:after {
   border-left: 4px solid rgb(255, 174, 0);
   border-bottom: 4px solid rgb(255, 174, 0);

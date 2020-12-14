@@ -27,20 +27,20 @@ export default function Table(el) {
     table.numbOfDeaths.innerText = deaths;
   }
 
-  function getTestData() {
-    const url = 'https://disease.sh/v3/covid-19/countries/Belarus';
-    // const url = 'https://disease.sh/v3/covid-19/all';
-    fetch(url)
-      .then((response) => {
-        return response.json();
-      })   
-      .then((data) => {
-        const {country, cases, recovered, deaths} = data;
-        renderTable(country, cases, recovered, deaths);
-      });
-  }
+  // function getTestData() {
+  //   const url = 'https://disease.sh/v3/covid-19/countries/Belarus';
+  //   // const url = 'https://disease.sh/v3/covid-19/all';
+  //   fetch(url)
+  //     .then((response) => {
+  //       return response.json();
+  //     })   
+  //     .then((data) => {
+  //       const {country, cases, recovered, deaths} = data;
+  //       renderTable(country, cases, recovered, deaths);
+  //     });
+  // }
 
-  getTestData();
+  // getTestData();
 
   return  {
     setHandler: {

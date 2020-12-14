@@ -44,27 +44,27 @@ export default function Countries(el) {
     })
   }
 
-  function getTestData() {
-    const url = 'https://disease.sh/v3/covid-19/countries';
-    fetch(url)
-      .then((response) => {
-        return response.json();
-      }) 
-      .then((data) => {
-        return data.map((elem) => {
-          return {
-            country: elem.country,
-            arrData: elem.cases,
-            flag: elem.countryInfo.flag,
-          };
-        });
-      })
-      .then((countriesArray) => {
-        renderCountries(countriesArray);
-      });
-  }
+  // function getTestData() {
+  //   const url = 'https://disease.sh/v3/covid-19/countries';
+  //   fetch(url)
+  //     .then((response) => {
+  //       return response.json();
+  //     }) 
+  //     .then((data) => {
+  //       return data.map((elem) => {
+  //         return {
+  //           country: elem.country,
+  //           arrData: elem.cases,
+  //           flag: elem.countryInfo.flag,
+  //         };
+  //       });
+  //     })
+  //     .then((countriesArray) => {
+  //       renderCountries(countriesArray);
+  //     });
+  // }
 
-  getTestData();
+  // getTestData();
 
   return  {
     setHandler: {

@@ -20,51 +20,43 @@ export default function MyChar(el) {
   const ctx = document.getElementById('myChart').getContext('2d');
   const checkboxes = document.querySelectorAll('.chart__label');
 
-  checkboxes.forEach(item => {
-
-      item.addEventListener('click', () => {
-        const checkProps = JSON.stringify(Object.values(chartProps));
-
-        checkChart(chartProps, item);
-
-        if (checkProps !== JSON.stringify(Object.values(chartProps))) {
-
-          addData(
-            item.firstElementChild.textContent.toLowerCase(),
-            dataCorrect,
-            chartProps,
-            titleForLabel,
-            chart,
-          );
-
-        }
-      });
+  checkboxes.forEach((item) => {
+    item.addEventListener('click', () => {
+      const checkProps = JSON.stringify(Object.values(chartProps));
+      checkChart(chartProps, item);
+      if (checkProps !== JSON.stringify(Object.values(chartProps))) {
+        addData(
+          item.firstElementChild.textContent.toLowerCase(),
+          dataCorrect,
+          chartProps,
+          titleForLabel,
+          chart,
+        );
+      }
     });
+  });
 
-  function showRecovered(data, title, type) {
+  function setChart(data, title) {
     console.log('data', data);
-    chart = new Chart(ctx, getChartConfig(data, title, type));
+    chart = new Chart(ctx, getChartConfig(data, title));
     dataCorrect = data;
     titleForLabel = title;
     return chart;
   }
 
-  function getTestData() {
+  (function getDataForSetChart() {
     const url = Queries();
-
     fetch(url.allWorldPerPeriod())
       .then((response) => {
         return response.json();
       })
       .then((data) => {
         const allData = Object.entries(data);
-        showRecovered(allData, 'All World', 'cases');
+        setChart(allData, 'All World');
       });
-  }
-
-  getTestData();
+  })();
 
   // return {
-  //   showRecovered,
+  //   nameOfFunctions,
   // };
 }

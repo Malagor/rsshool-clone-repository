@@ -1,14 +1,13 @@
 import callbacksToolTips from './chartDataForConfig';
 
-export default function getChartConfig(data, title, type) {
-  console.log(data);
+export default function getChartConfig(data, title) {
   return {
     type: 'line',
     data: {
       labels: Object.keys(data[0][1]),
       datasets: [
         {
-          label: title,
+          label: data[0][0][0].toUpperCase() + data[0][0].slice(1),
           data: Object.values(data[0][1]),
           borderColor: 'rgba(255, 0, 0, 1)',
           pointBackgroundColor: 'rgba(255, 0, 0, 1)',
@@ -69,7 +68,7 @@ export default function getChartConfig(data, title, type) {
         titleAlign: 'center',
         footerAlign: 'center',
         displayColors: false,
-        callbacks: callbacksToolTips(type),
+        callbacks: callbacksToolTips(title),
       },
       hover: {
         mode: 'nearest',

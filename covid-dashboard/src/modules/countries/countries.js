@@ -21,13 +21,14 @@ export default function Countries(el) {
     changeView = fn;
   }
 
-  function createCountryDOMElement(cases, name, flag) {
+  function createCountryDOMElement(data) {
+    const {arrData, country, flag} = data;
     const countryDOMelem = document.createElement('div');
     countryDOMelem.classList.add('country-item');
     countryDOMelem.innerHTML = `
       <div class="country-text">
-        <div class="country-cases">${cases}</div>
-        <div class="country-name">${name}</div>
+        <div class="country-cases">${arrData}</div>
+        <div class="country-name">${country}</div>
       </div>
       <img src=${flag} alt="flag" class="country-flag" width="30px" height="20px">
     `; 
@@ -35,10 +36,10 @@ export default function Countries(el) {
   }
 
   function renderCountries(countries) {
-    countries.sort((a,b) => b.numbOfCases - a.numbOfCases);
+    countries.sort((a,b) => b.arrData - a.arrData);
     countriesElements.list.innerHTML = '';
     countries.forEach((country) => {
-      const elem = createCountryDOMElement(country.numbOfCases, country.countryName, country.flag)   
+      const elem = createCountryDOMElement(country);   
       countriesElements.list.append(elem);  
     })
   }
@@ -51,12 +52,11 @@ export default function Countries(el) {
       }) 
       .then((data) => {
         return data.map((elem) => {
-          const obj ={
-            countryName: elem.country,
-            numbOfCases: elem.cases,
+          return {
+            country: elem.country,
+            arrData: elem.cases,
             flag: elem.countryInfo.flag,
           };
-          return obj;
         });
       })
       .then((countriesArray) => {

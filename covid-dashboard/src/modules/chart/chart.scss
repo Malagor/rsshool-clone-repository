@@ -15,8 +15,9 @@
 }
 
 .chart__header {
+  position: relative;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   width: 100%;
   height: 10%;
@@ -30,36 +31,36 @@
   height: 100%;
 }
 
-.chart__buttons_changeData {
-  align-self: start;
-  width: auto;
-  height: auto;
-  padding: 4px;
-  border: 1px solid white;
-  border-radius: 25px;
-  background-color: rgb(128, 128, 128);
+.chart__settings {
+  position: absolute;
+  top: -3px;
+  right: -3px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 6%;
+  height: 100%;
+}
 
+.chart__buttons_changeData,
+.chart__buttons_fullScreen {
+  width: 22px;
+  height: 22px;
+  border: none;
+  background: none;
   font-size: 12px;
   opacity: 0.7;
+  cursor: pointer;
+  outline: none;
   &:hover {
     transform: scale(1.05);
     opacity: 1;
   }
 }
 
-.chart__buttons_fullScreen {
-  align-self: start;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  width: 20px;
-  height: 20px;
-  opacity: 0.7;
-
-  &:hover {
-    opacity: 1;
-  }
+.chart__buttons_changeData > svg,
+.chart__buttons_fullScreen > svg {
+  fill: rgb(128, 128, 128);
 }
 
 .chart__label {
@@ -89,7 +90,7 @@
     top: calc(50% - 8px);
     width: 14px;
     height: 14px;
-    border: 1px solid rgb(0, 0, 0);
+    border: 1px solid rgb(189, 189, 189);
     background-color: rgba(255, 255, 255, 0.2);
 }
 
@@ -117,20 +118,20 @@
 
 #diseased:checked + .chart__label:after,
 #diseased:not(:checked) + .chart__label:after {
-  border-left: 4px solid rgb(255, 0, 0);
-  border-bottom: 4px solid rgb(255, 0, 0);
+  border-left: 3px solid rgb(255, 0, 0);
+  border-bottom: 3px solid rgb(255, 0, 0);
 }
 
 #recovered:checked + .chart__label:after,
 #recovered:not(:checked) + .chart__label:after {
-  border-left: 4px solid rgb(0, 134, 11);
-  border-bottom: 4px solid rgb(0, 134, 11);
+  border-left: 3px solid rgb(0, 134, 11);
+  border-bottom: 3px solid rgb(0, 134, 11);
 }
 
 #deaths:checked + .chart__label:after,
 #deaths:not(:checked) + .chart__label:after {
-  border-left: 4px solid rgb(255, 174, 0);
-  border-bottom: 4px solid rgb(255, 174, 0);
+  border-left: 3px solid rgb(255, 174, 0);
+  border-bottom: 3px solid rgb(255, 174, 0);
 }
 
 .chart__checkbox:not(:checked) + .chart__label:after {

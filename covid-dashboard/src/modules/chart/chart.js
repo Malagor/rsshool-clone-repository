@@ -24,13 +24,12 @@ export default function MyChar(el) {
   const settingsButton = document.querySelector('.chart__buttons_changeData');
 
   settingsButton.addEventListener('click', () => {
+    const params = document
+      .querySelector('.chart__settings')
+      .getBoundingClientRect();
     const elem = {
-      offsetLeft:
-        document.querySelector('.chart__buttons_changeData').offsetLeft +
-        document.querySelector('.chart').offsetLeft,
-      offsetTop:
-        document.querySelector('.chart__buttons_changeData').offsetTop +
-        document.querySelector('.chart').offsetTop,
+      offsetLeft: params.x + window.pageXOffset,
+      offsetTop: params.y + window.pageYOffset,
       clientHeight: document.querySelector('.chart__buttons_changeData')
         .clientHeight,
     };

@@ -37,24 +37,27 @@ export default function MyChar(el) {
     settings.showPopup(elem);
   });
 
-  checkboxes.forEach((item) => {
-    item.addEventListener('click', () => {
-      const checkProps = JSON.stringify(Object.values(chartProps));
-      checkChart(chartProps, item);
-      if (checkProps !== JSON.stringify(Object.values(chartProps))) {
-        addData(
-          item.firstElementChild.textContent.toLowerCase(),
-          dataCorrect,
-          chartProps,
-          titleForLabel,
-          chart,
-        );
-      }
+  const checkboxesEvents = () => {
+    checkboxes.forEach((item) => {
+      item.onclick = null;
+      item.onclick = () => {
+        const checkProps = JSON.stringify(Object.values(chartProps));
+        checkChart(chartProps, item);
+        if (checkProps !== JSON.stringify(Object.values(chartProps))) {
+          addData(
+            item.firstElementChild.textContent.toLowerCase(),
+            dataCorrect,
+            chartProps,
+            titleForLabel,
+            chart,
+          );
+        }
+        return item;
+      };
     });
-  });
+  };
 
   function setChart(data, title) {
-    console.log('data', data);
     chart = new Chart(ctx, getChartConfig(data, title));
     dataCorrect = data;
     titleForLabel = title;
@@ -70,6 +73,7 @@ export default function MyChar(el) {
       .then((data) => {
         const allData = Object.entries(data);
         setChart(allData, 'All World');
+        checkboxesEvents();
       });
   })();
 

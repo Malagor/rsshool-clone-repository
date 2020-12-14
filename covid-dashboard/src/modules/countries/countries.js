@@ -1,11 +1,12 @@
 // import Queries from '../queries/Queries';
-import { createCountriesHTML, createCountriesDOMEelements } from './countriesHTML';
+import { createCountriesHTML, getCountriesDomElement } from './countriesHTML';
+import createCountryDOMElement from './createCountryDOMElement';
 // import { properties } from '../Properties/Properties';
 
 
 export default function Countries(el) {
   createCountriesHTML(el);
-  const countriesElements = createCountriesDOMEelements(el);
+  const countriesElements = getCountriesDomElement(el);
   // console.log('countriesElements', countriesElements);
   let changeView = null;
   // const query = Queries();
@@ -19,20 +20,6 @@ export default function Countries(el) {
 
   function setChangeView(fn) {
     changeView = fn;
-  }
-
-  function createCountryDOMElement(data) {
-    const {arrData, country, flag} = data;
-    const countryDOMelem = document.createElement('div');
-    countryDOMelem.classList.add('country-item');
-    countryDOMelem.innerHTML = `
-      <div class="country-text">
-        <div class="country-cases">${arrData}</div>
-        <div class="country-name">${country}</div>
-      </div>
-      <img src=${flag} alt="flag" class="country-flag" width="30px" height="20px">
-    `; 
-    return countryDOMelem;
   }
 
   function renderCountries(countries) {

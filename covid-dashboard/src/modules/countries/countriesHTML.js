@@ -11,7 +11,7 @@ export function createCountriesHTML(el) {
 </div>`;
 }
 
-export function createCountriesDOMEelements(el) {
+export function getCountriesDomElement(el) {
   const wrapper = el.querySelector('.countries-wrapper');
   const title = el.querySelector('.countries-title');
   const input = el.querySelector('.countries-input');

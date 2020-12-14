@@ -20,7 +20,6 @@ export default function Table(el) {
     changeView = fn;
   }
 
-
   function renderTable(country, cases, recovered, deaths) {
     table.country.innerText = country;
     table.numbOfCases.innerText = cases;
@@ -34,26 +33,10 @@ export default function Table(el) {
     fetch(url)
       .then((response) => {
         return response.json();
-      }) 
-      // .then((data) => {
-      //   return {
-      //     country: "All World",
-      //     cases: data.cases,
-      //     recovered: data.recovered,
-      //     deaths: data.deaths,
-      //   }
-      // }) 
+      })   
       .then((data) => {
-        return {
-          country: data.country,
-          cases: data.cases,
-          recovered: data.recovered,
-          deaths: data.deaths,
-        }
-      })    
-      .then((data) => {
-        console.log ('data', data);
-        renderTable(data.country, data.cases, data.recovered, data.deaths);
+        const {country, cases, recovered, deaths} = data;
+        renderTable(country, cases, recovered, deaths);
       });
   }
 
@@ -65,5 +48,4 @@ export default function Table(el) {
     },
     renderTable
   }
-
 }

@@ -1,3 +1,57 @@
 .countries {
   grid-area: countries;
+
+  .countries-wrapper {
+    width: 100%;
+    height: 100%;
+
+    .countries-title {
+      width: 100%;
+      height: 2rem;
+      font-size: 20px;
+      text-align: center;
+    }
+
+    .countries-input {
+      width: 100%;
+    }
+
+    .countries-list {
+      width: 100%;
+      height: 370px;
+      margin-top: 10px;
+      overflow-y: scroll;
+
+      .country-item {
+        display: flex;
+        justify-content: space-between;
+        height: 30px;
+
+        .country-text {
+          display: flex;
+
+          .country-cases {
+            margin-left: 10px;
+            // font-size: 20px;
+          }
+
+          .country-name {
+            margin-left: 10px;
+          }
+        }
+
+        .country-flag {
+          margin-right: 10px;
+        }
+      }
+    }
+
+    .toggle-cases {
+      display: flex;
+
+      .btn-cases {
+        width: 33.33%;
+      }
+    }
+  }
 }

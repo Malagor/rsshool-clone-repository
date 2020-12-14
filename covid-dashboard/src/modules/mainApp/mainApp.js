@@ -7,41 +7,34 @@
 import initLayout from './mainHTML';
 import Map from '../map/map';
 import MyChar from '../chart/chart';
+
 import Countries from '../countries/countries';
-import DefaultTemplate from '../default-template/default';
 import Status from '../status/Status';
 import Settings from '../settings/Settings';
 import Header from '../header/Header';
 import Queries from '../queries/Queries';
-import { setPropertis } from '../Properties/Properties';
+import { properties, loadProperties } from '../Properties/Properties';
 
 const elementsDOM = initLayout();
 
+loadProperties();
+
 const map = Map(elementsDOM.map);
 const chart = MyChar(elementsDOM.chart);
-const countryComponent = Countries(elementsDOM.countries);
-const defBlock = DefaultTemplate(elementsDOM.table);
-
+const countries = Countries(elementsDOM.countries);
 const status = Status(elementsDOM.status);
 const settings = Settings();
 const header = Header(elementsDOM.header);
 const query = Queries();
 
-function clickTitle() {
-  console.log('click title Default Block');
-}
 
-function clickImg() {
-  console.log('click img Default Block');
-}
-
-function renderChart(country = 'All World', day = 'all', type = 'cases') {
-  // console.log(country);
+function renderChart(country = false, day = 'all', type = 'cases') {
   let url;
-  if (country === 'All World') {
-    url = query.allWorldPerPeriod(day);
-  } else if (country) {
+
+  if (country) {
     url = query.countryDataPerPeriod(country, day);
+  } else {
+    url = query.allWorldPerPeriod(day);
   }
 
   fetch(url)
@@ -49,16 +42,12 @@ function renderChart(country = 'All World', day = 'all', type = 'cases') {
       return response.json();
     })
     .then((data) => {
-      console.log('data', data);
-      console.log('type', type);
-
       let typeData = null;
-      if (country && country === 'All World') {
-        typeData = data[type];
-      } else {
+      if (country) {
         typeData = data.timeline[type];
+      } else {
+        typeData = data[type];
       }
-      console.log('typeData', typeData);
       const label = Object.keys(typeData);
       const arrData = [];
 
@@ -69,14 +58,6 @@ function renderChart(country = 'All World', day = 'all', type = 'cases') {
     });
 }
 
-function changeCountry(country, days, type) {
-  if (!country) return;
-
-  status.setCountry(country);
-
-  renderChart(country, days, type);
-}
-
 function renderMap() {
   const url = 'https://corona.lmao.ninja/v2/countries';
 
@@ -85,14 +66,16 @@ function renderMap() {
       return response.json();
     })
     .then((data) => {
-      const infoForMap = [];
+      const dataForMap = [];
+      const dataForCountriesTable = [];
 
       data.forEach(el => {
+        console.log(el);
 
-        const { active, country, population } = el;
+        const { active, country, population, cases } = el;
         const { lat, long, flag } = el.countryInfo;
 
-        infoForMap.push({
+        dataForMap.push({
           active,
           country,
           population,
@@ -100,9 +83,16 @@ function renderMap() {
           long,
           flag,
         });
+
+        dataForCountriesTable.push({
+          flag,
+          country,
+          arrData: cases
+        })
       });
 
-      map.setMarks(infoForMap);
+      map.setMarks(dataForMap);
+      countries.renderCountries(dataForCountriesTable);
     });
 }
 
@@ -110,35 +100,16 @@ function showSettings(top, left) {
   settings.showPopup(top, left);
 }
 
-function sendFormSettings(data) {
-  let { country, period /* population */ } = data;
-  const { type } = data;
-  country = country || 'All World';
-  period = period ? 'all' : 30;
+function updateApp() {
+  status.updateStatusBar();
 
-  status.setCountry(country);
-  status.setPeriod(period);
-  status.setType(type);
+  const { country, type, period } = properties;
 
-  const prop = {
-    country,
-    period,
-    type,
-    count: 'all'
-  };
-  setPropertis(prop);
-
-  changeCountry(country, period, type);
+  renderChart(country, period, type);
+  renderMap();
 }
 
-
-countryComponent.hendlers.setClick(changeCountry);
 header.setHandler.setShowSettings(showSettings);
-settings.setHandler.setSendForm(sendFormSettings);
+settings.setHandler.setSendForm(updateApp);
 
-defBlock.setHandler.setClickTitle(clickTitle);
-defBlock.setHandler.setClickImg(clickImg);
-
-
-renderMap();
-renderChart();
+updateApp();

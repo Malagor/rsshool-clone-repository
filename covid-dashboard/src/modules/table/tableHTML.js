@@ -16,7 +16,7 @@ export function createTableHTML(el) {
 </div>`;
 }
 
-export function createTableDOMEelements(el) {
+export function getTableDOMEelements(el) {
   const wrapper = el.querySelector('.table-wrapper');
   const country = el.querySelector('.table-country');
   const numbOfCases = el.querySelector('.cases-number');

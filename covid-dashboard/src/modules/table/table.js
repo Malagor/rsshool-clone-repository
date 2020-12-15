@@ -1,6 +1,6 @@
 import { createTableHTML, getTableDOMEelements } from './tableHTML';
 
-export default function Table(el) {
+const createTable = (el) => {
   createTableHTML(el);
   const table = getTableDOMEelements(el);
   let changeView = null;
@@ -29,3 +29,5 @@ export default function Table(el) {
     renderTable
   }
 }
+
+export {createTable};

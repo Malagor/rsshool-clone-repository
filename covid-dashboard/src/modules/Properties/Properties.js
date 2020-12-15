@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/prefer-default-export
 const properties = {
   country: false,
   period: 'all',

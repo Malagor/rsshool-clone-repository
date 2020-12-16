@@ -8,18 +8,12 @@
 
 import settingsHTML from './settingsHTML';
 import { setPropertis } from '../Properties/Properties';
-// import { updateApp } from '../onEvents/onEvents';
+import { updateApp } from '../mainApp/updataApp';
 
+let popup;
+let form;
 
-document.body.insertAdjacentHTML('beforeend', settingsHTML());
-const popup = document.querySelector('#popup');
-const form = document.forms.settings;
-
-
-// handler
-let onUpdateData = null;
-
-const showSettingsPopup = (el) => {
+function showPopup(el) {
   // getting the size and position of the calling element
   const { offsetLeft, offsetTop, clientHeight } = el;
   // getting the Width of the popup window
@@ -28,16 +22,16 @@ const showSettingsPopup = (el) => {
   popup.style.top = `${offsetTop + clientHeight}px`;
   popup.style.left = `${offsetLeft - popupWidth}px`;
   popup.classList.toggle('open');
-};
+}
 
-const getFormData = () => {
+function getFormData() {
   let country = form.country.value;
   const population = form.population.checked;
   let period = form.period.checked;
   const type = form.type.value;
 
-  country = (country === 'All World' || '') ? false : country;
-  period = period ? 'all' : 30;
+  country = (country === 'All World' || '') ? false: country;
+  period = period ? 'all': 30;
 
   const data = {
     country,
@@ -47,32 +41,31 @@ const getFormData = () => {
   };
 
   setPropertis(data);
-  // onUpdateData();
-  onUpdateData();
-};
+  updateApp();
+}
 
-const setSendFormHandler = (fn) => {
-  onUpdateData = fn;
-};
 
-const popupClick = () => {
-  // console.log('Popup click');
-};
+const createSettings = () => {
+  document.body.insertAdjacentHTML('beforeend', settingsHTML());
 
-(() =>{
-  popup.addEventListener('click', (event) => {
-    const { target } = event;
-    if (target === popup) return;
-    popupClick();
-  });
+  // Заносим в переменные нужные элементы верстки
+  popup = document.querySelector('#popup');
+  form = document.forms.settings;
 
   form.addEventListener('submit', event => {
     event.preventDefault();
     getFormData();
   });
-})();
+};
+
+const setSettingToggleElement = (el) => {
+  el.addEventListener('click', () => {
+    showPopup(el);
+  });
+};
 
 export {
-  showSettingsPopup,
-  setSendFormHandler,
-};
+  // showPopup,
+  createSettings,
+  setSettingToggleElement
+}

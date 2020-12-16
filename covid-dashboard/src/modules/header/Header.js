@@ -1,22 +1,6 @@
-// import { showSettingsPopup } from '../settings/Settings';
+import { setSettingToggleElement } from '../settings/Settings';
 
-let toggle = null;
-let onShowSettingPopup = null;
-
-const getHeaderTogglePopupButton = (el) => {
-  toggle = el.querySelector('.toggle-menu');
-
-  toggle.addEventListener('click', (ev) => {
-    onShowSettingPopup(ev.target.closest('.toggle-menu'));
-  });
+export const setHeaderSettingsToggle = (el) => {
+  const toggle = el.querySelector('.toggle-menu');
+  setSettingToggleElement(toggle);
 };
-
-const setHeaderToggleButtonHandler = (fn) => {
-  onShowSettingPopup = fn;
-};
-
-export {
-  getHeaderTogglePopupButton,
-  setHeaderToggleButtonHandler
-}
-

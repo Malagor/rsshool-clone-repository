@@ -1,4 +1,4 @@
-export function createTableHTML(el) {
+export const createTableHTML = (el) => {
   el.innerHTML = `<div class="table-wrapper">
   <div class="table-country"></div>
   <div class="table-cases">
@@ -14,9 +14,9 @@ export function createTableHTML(el) {
     <div class="deaths-number"></div> 
   </div>
 </div>`;
-}
+};
 
-export function getTableDOMEelements(el) {
+export const getTableDOMEelements = (el) => {
   const wrapper = el.querySelector('.table-wrapper');
   const country = el.querySelector('.table-country');
   const numbOfCases = el.querySelector('.cases-number');
@@ -30,4 +30,4 @@ export function getTableDOMEelements(el) {
     numbOfRecovered,
     numbOfDeaths,
   };
-}
+};

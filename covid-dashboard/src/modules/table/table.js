@@ -16,11 +16,11 @@ const createTable = (el) => {
   });
 }
  
-const renderTable = (country, cases, recovered, deaths) => {
-  tableElements.country.innerText = country;
-  tableElements.numbOfCases.innerText = cases;
-  tableElements.numbOfRecovered.innerText = recovered;
-  tableElements.numbOfDeaths.innerText = deaths;
+const renderTable = (currentCountry)=> {
+  tableElements.country.innerText = currentCountry.country;
+  tableElements.numbOfCases.innerText = currentCountry.cases;
+  tableElements.numbOfRecovered.innerText = currentCountry.recovered;
+  tableElements.numbOfDeaths.innerText = currentCountry.deaths;
 }
 
 const setChangeViewTable = (fn) => {

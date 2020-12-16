@@ -1,4 +1,4 @@
-import { createCountriesHTML, getCountriesDomElement } from './countriesHTML';
+import { createCountriesHTML, getCountriesDOMElements } from './countriesHTML';
 import createCountryDOMElement from './createCountryDOMElement';
 
 
@@ -8,7 +8,7 @@ let changeView = null;
 const createTableCountries = (el) => {
 
   createCountriesHTML(el);
-  countriesElements = getCountriesDomElement(el);
+  countriesElements = getCountriesDOMElements(el);
 
   el.addEventListener('click', (event) => {
     const { target } = event;

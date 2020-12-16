@@ -1,3 +1,4 @@
+@import "../../scss/_misc/mixins";
 * {
   padding: 0;
   margin: 0;
@@ -36,18 +37,18 @@ img {
           "footer footer footer";
   grid-template-columns: minmax(20%, 10rem) 1fr minmax(20%, 15rem);
   grid-template-rows: 4rem 3rem 10rem 1fr 20rem 4rem;
-  grid-gap: 10px;
+  grid-gap: rem(10px);
 
   width: 100%;
   min-height: 100vh;
   height: 100%;
 
-  padding: 10px;
+  padding: rem(10px);
   transition: 0.3s;
 }
 
 header.header,
-.cases,
+.cases:not(#status__type),
 .table,
 .map,
 .chart,
@@ -57,7 +58,7 @@ footer.footer {
   width: 100%;
   height: 100%;
   padding: 0.5rem;
-  border-radius: 5px;
+  border-radius: rem(5px);
   background-color: rgba(255, 255, 255, 0.2);
 }
 

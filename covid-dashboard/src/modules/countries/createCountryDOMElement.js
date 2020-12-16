@@ -1,4 +1,4 @@
-export default function createCountryDOMElement(data) {
+export const createCountryDOMElement = (data) => {
   const {arrData, country, flag} = data;
   const countryDOMelem = document.createElement('div');
   countryDOMelem.classList.add('country-item');

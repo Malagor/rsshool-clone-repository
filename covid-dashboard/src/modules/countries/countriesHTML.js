@@ -1,4 +1,4 @@
-export function createCountriesHTML(el) {
+export const createCountriesHTML = (el) => {
   el.innerHTML = `<div class="countries-wrapper">
   <div class="countries-title">Cases by country</div>
   <input type="text" class="countries-input">
@@ -11,7 +11,7 @@ export function createCountriesHTML(el) {
 </div>`;
 }
 
-export function getCountriesDomElement(el) {
+export const getCountriesDomElement = (el) => {
   const wrapper = el.querySelector('.countries-wrapper');
   const title = el.querySelector('.countries-title');
   const input = el.querySelector('.countries-input');

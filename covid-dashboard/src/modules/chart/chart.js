@@ -3,14 +3,12 @@ import './chart.scss';
 import chartHTML from './chartHTML';
 import getChartConfig from './chartConfig';
 import checkChart from './checkChart';
-import { addData } from './addDataToChart';
+import addData from './addDataToChart';
 import Queries from '../queries/Queries';
 
 export default function MyChar(el) {
   el.insertAdjacentHTML('afterbegin', chartHTML);
   let chart = null;
-  let dataCorrect = null;
-  let titleForLabel = null;
   const chartProps = {
     cases: true,
     deaths: false,
@@ -19,7 +17,7 @@ export default function MyChar(el) {
   const ctx = document.getElementById('myChart').getContext('2d');
   const checkboxes = document.querySelectorAll('.chart__label');
 
-  const checkboxesEvents = () => {
+  const checkboxesEvents = (dt) => {
     checkboxes.forEach((item) => {
       item.onclick = null;
       item.onclick = () => {
@@ -28,9 +26,8 @@ export default function MyChar(el) {
         if (checkProps !== JSON.stringify(Object.values(chartProps))) {
           addData(
             item.firstElementChild.textContent.toLowerCase(),
-            dataCorrect,
+            dt,
             chartProps,
-            titleForLabel,
             chart,
           );
         }
@@ -41,12 +38,11 @@ export default function MyChar(el) {
 
   function setChart(data, title) {
     chart = new Chart(ctx, getChartConfig(data, title));
-    dataCorrect = data;
-    titleForLabel = title;
+    checkboxesEvents(data);
     return chart;
   }
 
-  (function getDataForSetChart() {
+  function getDataForSetChart() {
     const url = Queries();
     fetch(url.allWorldPerPeriod())
       .then((response) => {
@@ -55,9 +51,10 @@ export default function MyChar(el) {
       .then((data) => {
         const allData = Object.entries(data);
         setChart(allData, 'All World');
-        checkboxesEvents();
       });
-  })();
+  }
+
+  getDataForSetChart();
 
   // return {
   //   setChart,

@@ -7,7 +7,7 @@
  * */
 
 import settingsHTML from './settingsHTML';
-import { setPropertis } from '../Properties/Properties';
+import { setProperties } from '../Properties/Properties';
 import { updateApp } from '../mainApp/updataApp';
 
 let popup;
@@ -40,7 +40,7 @@ function getFormData() {
     type,
   };
 
-  setPropertis(data);
+  setProperties(data);
   updateApp();
 }
 

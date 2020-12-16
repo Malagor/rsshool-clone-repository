@@ -1,7 +1,7 @@
 const properties = {
   country: false,
-  period: 'all',
-  count: 'all',
+  period: false,
+  count: false,
   type: 'cases'
 };
 
@@ -19,7 +19,7 @@ const loadProperties = () => {
   }
 };
 
-const setPropertis = (obj) => {
+const setProperties = (obj) => {
   properties.country = obj.country;
   properties.period = obj.period;
   properties.count = obj.count;
@@ -30,7 +30,7 @@ const setPropertis = (obj) => {
 
 export {
   properties,
-  setPropertis,
+  setProperties,
   saveProperties,
   loadProperties
 };

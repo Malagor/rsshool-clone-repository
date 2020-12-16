@@ -48,7 +48,7 @@ img {
 }
 
 header.header,
-.cases,
+.cases:not(#status__type),
 .table,
 .map,
 .chart,

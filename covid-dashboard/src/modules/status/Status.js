@@ -14,14 +14,15 @@ const setCurrentDate = (date) => {
 
 const setCount = (allPopulation = true) => {
   if (allPopulation) {
-    elementsDOM.count.textContent = 'Entire population';
-  } else {
     elementsDOM.count.textContent = 'Per 100k inhabitants';
+  } else {
+    elementsDOM.count.textContent = 'All population';
   }
 };
 
 const setType = (typeData) => {
   elementsDOM.type.textContent = typeData.charAt(0).toUpperCase() + typeData.slice(1);
+  elementsDOM.type.className = `${typeData}`;
 };
 
 const setCountry = (country) => {
@@ -29,7 +30,7 @@ const setCountry = (country) => {
 };
 
 const setPeriod = (period) => {
-  elementsDOM.period.textContent = period === 'all' ? 'For all period' : `${period} day(s)` ;
+  elementsDOM.period.textContent = period === false ? 'For all period' : `30 days` ;
 };
 
 const updateStatusBar = () => {
@@ -44,7 +45,7 @@ const createStatusBar = (el) => {
     '<div class="status__date"></div>' +
     '<div class="status__country"></div>' +
     '<div class ="status__period"></div>' +
-    '<div class ="status__type"></div>' +
+    '<div id ="status__type"></div>' +
     '<div class="status__count"></div>';
 
   // Заносим в переменные нужные элементы верстки
@@ -52,7 +53,7 @@ const createStatusBar = (el) => {
   const country = el.querySelector('.status__country');
   const period = el.querySelector('.status__period');
   const count = el.querySelector('.status__count');
-  const type = el.querySelector('.status__type');
+  const type = el.querySelector('#status__type');
 
   elementsDOM = {
     date,

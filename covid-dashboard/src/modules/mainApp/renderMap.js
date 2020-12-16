@@ -1,18 +1,7 @@
-import { updateStatusBar } from '../status/Status';
-import { properties } from '../Properties/Properties';
-import { renderChart } from './renderChart';
 import { setMarksToMap } from '../map/map';
 import { renderCountries } from '../countries/countries';
 
-export const updateApp = () => {
-  const { country, /* count , */ period, type } = properties;
-  // console.log(country, count, period, type);
-
-  updateStatusBar();
-  // renderCountries();
-  renderChart(country, period, type);
-  // setMarksToMap();
-
+export function renderMap() {
   const url = 'https://corona.lmao.ninja/v2/countries';
 
   fetch(url)
@@ -25,12 +14,12 @@ export const updateApp = () => {
 
       data.forEach(el => {
 
-        const { active, country: cntr, population, cases } = el;
+        const { active, country, population, cases } = el;
         const { lat, long, flag } = el.countryInfo;
 
         dataForMap.push({
           active,
-          country: cntr,
+          country,
           population,
           lat,
           long,
@@ -39,7 +28,7 @@ export const updateApp = () => {
 
         dataForCountriesTable.push({
           flag,
-          country: cntr,
+          country,
           arrData: cases,
         });
       });
@@ -47,6 +36,4 @@ export const updateApp = () => {
       setMarksToMap(dataForMap);
       renderCountries(dataForCountriesTable);
     });
-
-
-};
+}

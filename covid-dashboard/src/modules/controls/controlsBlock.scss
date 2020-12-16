@@ -1,0 +1,30 @@
+@import "../../scss/_misc/mixins.scss";
+
+.controls-block {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: rem(75px);
+  height: 100%;
+}
+
+.controls-block_params,
+.controls-block_fullscreen {
+  width: rem(22px);
+  height: rem(22px);
+  border: none;
+  background: none;
+  font-size: rem(12px);
+  opacity: 0.7;
+  cursor: pointer;
+  outline: none;
+  &:hover {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+}
+
+.controls-block_params > svg,
+.controls-block_fullscreen > svg {
+  fill: rgba(128, 128, 128, 1);
+}

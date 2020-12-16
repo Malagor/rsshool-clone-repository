@@ -1,23 +1,22 @@
-export default function Header(el) {
-  const toggle = el.querySelector('.toggle-menu');
+// import { showSettingsPopup } from '../settings/Settings';
 
-  let showSettings = null;
+let toggle = null;
+let onShowSettingPopup = null;
 
-  function setShowSettings(fn) {
-    showSettings = fn;
-  }
+const getHeaderTogglePopupButton = (el) => {
+  toggle = el.querySelector('.toggle-menu');
 
   toggle.addEventListener('click', (ev) => {
-        showSettings(ev.target.closest('.toggle-menu'));
+    onShowSettingPopup(ev.target.closest('.toggle-menu'));
   });
+};
 
-  return {
-    setHandler: {
-      setShowSettings,
-    },
-  };
+const setHeaderToggleButtonHandler = (fn) => {
+  onShowSettingPopup = fn;
+};
 
+export {
+  getHeaderTogglePopupButton,
+  setHeaderToggleButtonHandler
 }
-
-
 

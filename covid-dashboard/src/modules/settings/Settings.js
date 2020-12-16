@@ -8,78 +8,71 @@
 
 import settingsHTML from './settingsHTML';
 import { setPropertis } from '../Properties/Properties';
+// import { updateApp } from '../onEvents/onEvents';
 
 
-export default function DefaultTemplate() {
-  document.body.insertAdjacentHTML('beforeend', settingsHTML());
+document.body.insertAdjacentHTML('beforeend', settingsHTML());
+const popup = document.querySelector('#popup');
+const form = document.forms.settings;
 
-  // Заносим в переменные нужные элементы верстки
-  const popup = document.querySelector('#popup');
-  const form = document.forms.settings;
-  // const population = el.querySelector('#setting-population');
 
-  // Объявляем переменные-заглушки обработчиков событий
-  let sendEventUpdateData = null;
+// handler
+let onUpdateData = null;
 
-  // И прописываем методы присваивания функций обработчиков к нашим переменным
-  function setSendForm(fn) {
-    sendEventUpdateData = fn;
-  }
+const showSettingsPopup = (el) => {
+  // getting the size and position of the calling element
+  const { offsetLeft, offsetTop, clientHeight } = el;
+  // getting the Width of the popup window
+  const popupWidth = popup.clientWidth;
 
-  function getFormData() {
-    let country = form.country.value;
-    const population = form.population.checked;
-    let period = form.period.checked;
-    const type = form.type.value;
+  popup.style.top = `${offsetTop + clientHeight}px`;
+  popup.style.left = `${offsetLeft - popupWidth}px`;
+  popup.classList.toggle('open');
+};
 
-    country = (country === 'All World' || '') ? false: country;
-    period = period ? 'all': 30;
+const getFormData = () => {
+  let country = form.country.value;
+  const population = form.population.checked;
+  let period = form.period.checked;
+  const type = form.type.value;
 
-    const data = {
-      country,
-      population,
-      period,
-      type,
-    };
+  country = (country === 'All World' || '') ? false : country;
+  period = period ? 'all' : 30;
 
-    setPropertis(data);
-    sendEventUpdateData();
-  }
-
-  function popupClick() {
-    // console.log('Popup click');
-  }
-
-  function showPopup(el) {
-    // getting the size and position of the calling element
-    const { offsetLeft, offsetTop, clientHeight } = el;
-    // getting the Width of the popup window
-    const popupWidth = popup.clientWidth;
-
-    popup.style.top = `${offsetTop + clientHeight}px`;
-    popup.style.left = `${offsetLeft - popupWidth}px`;
-    popup.classList.toggle('open');
-  }
-
-  // Add Events Listeners
-  (function events() {
-    popup.addEventListener('click', (event) => {
-      const { target } = event;
-      if (target === popup) return;
-      popupClick();
-    });
-
-    form.addEventListener('submit', event => {
-      event.preventDefault();
-      getFormData();
-    });
-  })();
-
-  // и по итогу возвращаем набор функций/интерфейс/API работы с этим модулем.
-  return {
-    showPopup,
-    setHandler: {
-      setSendForm,
-    },
+  const data = {
+    country,
+    population,
+    period,
+    type,
   };
-}
+
+  setPropertis(data);
+  // onUpdateData();
+  onUpdateData();
+};
+
+const setSendFormHandler = (fn) => {
+  onUpdateData = fn;
+};
+
+const popupClick = () => {
+  // console.log('Popup click');
+};
+
+(() =>{
+  popup.addEventListener('click', (event) => {
+    const { target } = event;
+    if (target === popup) return;
+    popupClick();
+  });
+
+  form.addEventListener('submit', event => {
+    event.preventDefault();
+    getFormData();
+  });
+})();
+
+export {
+  showSettingsPopup,
+  setSendFormHandler,
+};

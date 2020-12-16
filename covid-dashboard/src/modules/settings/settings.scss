@@ -1,4 +1,5 @@
-@import "src/scss/_misc/mixins";
+@import "../../scss/_misc/mixins";
+
 
 .popup {
   position: absolute;
@@ -14,7 +15,7 @@
   transform-origin: top right;
   transform: scale(0);
 
-  transition: 0.3s;
+  transition: transform 0.3s;
 
   &.open {
     transform: scale(1);

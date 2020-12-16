@@ -1,5 +1,5 @@
 import { createCountriesHTML, getCountriesDOMElements } from './countriesHTML';
-import createCountryDOMElement from './createCountryDOMElement';
+import { createCountryDOMElement } from './createCountryDOMElement';
 
 
 let countriesElements = null;
@@ -17,7 +17,6 @@ const createTableCountries = (el) => {
   });
 };
 
-
 const renderCountries = (countries) => {
   countries.sort((a,b) => b.arrData - a.arrData);
   countriesElements.list.innerHTML = '';
@@ -25,11 +24,11 @@ const renderCountries = (countries) => {
     const elem = createCountryDOMElement(country);
     countriesElements.list.append(elem);
   })
-}
+};
 
 const setChangeViewCountryTable = (fn) => {
   changeView = fn;
-}
+};
 
 export {
   createTableCountries,

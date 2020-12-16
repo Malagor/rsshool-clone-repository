@@ -1,4 +1,4 @@
-@import "src/scss/_misc/mixins";
+@import "../../scss/_misc/mixins";
 
 * {
   padding: 0;
@@ -44,12 +44,12 @@ img {
   min-height: 100vh;
   height: 100%;
 
-  padding: 10px;
+  padding: rem(10px);
   transition: 0.3s;
 }
 
 header.header,
-.cases,
+.cases:not(#status__type),
 .table,
 .map,
 .chart,

@@ -23,12 +23,12 @@ const renderTable = (country, cases, recovered, deaths) => {
   tableElements.numbOfDeaths.innerText = deaths;
 }
 
-const setChangeView = (fn) => {
+const setChangeViewTable = (fn) => {
   changeView = fn;
 }  
 
 export {
   createTable,
   renderTable,
-  setChangeView
+  setChangeViewTable
 }

@@ -27,13 +27,13 @@ const renderCountries = (countries) => {
   })
 }
 
-const setChangeViewListener = (fn) => {
+const setChangeViewCountryTable = (fn) => {
   changeView = fn;
 }
 
 export {
   createTableCountries,
   renderCountries,
-  setChangeViewListener
+  setChangeViewCountryTable
 }
 

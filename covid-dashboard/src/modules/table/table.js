@@ -1,33 +1,34 @@
 import { createTableHTML, getTableDOMEelements } from './tableHTML';
 
+let tableElements = null;
+let changeView = null;
+
 const createTable = (el) => {
+
   createTableHTML(el);
-  const table = getTableDOMEelements(el);
-  let changeView = null;
+  tableElements = getTableDOMEelements(el);
+
 
   el.addEventListener('click', (event) => {
     const { target } = event;
     if (target === el) return;
     changeView();
   });
+};
 
-  function setChangeView(fn) {
-    changeView = fn;
-  }
+const renderTable = (currentCountry)=> {
+  tableElements.country.innerText = currentCountry.country;
+  tableElements.numbOfCases.innerText = currentCountry.cases;
+  tableElements.numbOfRecovered.innerText = currentCountry.recovered;
+  tableElements.numbOfDeaths.innerText = currentCountry.deaths;
+};
 
-  function renderTable(country, cases, recovered, deaths) {
-    table.country.innerText = country;
-    table.numbOfCases.innerText = cases;
-    table.numbOfRecovered.innerText = recovered;
-    table.numbOfDeaths.innerText = deaths;
-  }
+const setChangeViewTable = (fn) => {
+  changeView = fn;
+};
 
-  return  {
-    setHandler: {
-      setChangeView,
-    },
-    renderTable
-  }
+export {
+  createTable,
+  renderTable,
+  setChangeViewTable
 }
-
-export {createTable};

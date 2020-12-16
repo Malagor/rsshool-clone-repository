@@ -14,6 +14,7 @@ import { loadProperties } from '../Properties/Properties';
 import { updateApp } from './updataApp';
 import { createTable } from '../table/table';
 import { createTableCountries } from '../countries/countries';
+import { createCasesBlock } from '../cases/cases';
 
 const elementsDOM = mainHTML();
 loadProperties();
@@ -22,6 +23,7 @@ createSettings();
 setHeaderSettingsToggle(elementsDOM.header);
 createTable(elementsDOM.table);
 createTableCountries(elementsDOM.countries);
+createCasesBlock(elementsDOM.cases);
 
 createMap(elementsDOM.map);
 createChart(elementsDOM.chart);

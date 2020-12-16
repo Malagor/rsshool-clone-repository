@@ -6,12 +6,9 @@ import { renderCountries } from '../countries/countries';
 
 export const updateApp = () => {
   const { country, /* count , */ period, type } = properties;
-  // console.log(country, count, period, type);
 
   updateStatusBar();
-  // renderCountries();
   renderChart(country, period, type);
-  // setMarksToMap();
 
   const url = 'https://corona.lmao.ninja/v2/countries';
 

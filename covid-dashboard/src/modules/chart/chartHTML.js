@@ -18,8 +18,8 @@ const chartHTML = `
   </p>
 </form>
 <div class="chart__settings">
-  <button type="button" class="button chart__buttons_changeData">params</button>
-  <button type="button" class="button chart__buttons_fullScreen">fullScreen</button>
+  <button type="button" class="button chart__buttons_changeData">par</button>
+  <button type="button" class="button chart__buttons_fullScreen">full</button>
 </div>
 </div>
 <div class="chart__wrapper"><canvas id="myChart" style="position: relative; width: 100%; height: 100%;"></canvas></div>

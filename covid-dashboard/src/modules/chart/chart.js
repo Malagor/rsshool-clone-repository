@@ -24,16 +24,7 @@ export default function MyChar(el) {
   const settingsButton = document.querySelector('.chart__buttons_changeData');
 
   settingsButton.addEventListener('click', () => {
-    const params = document
-      .querySelector('.chart__settings')
-      .getBoundingClientRect();
-    const elem = {
-      offsetLeft: params.x + window.pageXOffset,
-      offsetTop: params.y + window.pageYOffset,
-      clientHeight: document.querySelector('.chart__buttons_changeData')
-        .clientHeight,
-    };
-    settings.showPopup(elem);
+    settings.showPopup(document.querySelector('.chart__settings'));
   });
 
   const checkboxesEvents = () => {
@@ -77,6 +68,6 @@ export default function MyChar(el) {
   })();
 
   // return {
-  //   nameOfFunctions,
+  //   setChart,
   // };
 }

@@ -1,5 +1,4 @@
 .chart {
-  position: relative;
   grid-area: chart;
   display: flex;
   justify-content: space-between;
@@ -15,9 +14,8 @@
 }
 
 .chart__header {
-  position: relative;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   width: 100%;
   height: 10%;
@@ -25,16 +23,14 @@
 
 .chart__checkboxes {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  width: 45%;
+  align-items: center;
+  width: 94%;
   height: 100%;
+  padding: 0 23% 0 33%;
 }
 
 .chart__settings {
-  position: absolute;
-  top: -3px;
-  right: -3px;
   display: flex;
   justify-content: space-around;
   align-items: center;

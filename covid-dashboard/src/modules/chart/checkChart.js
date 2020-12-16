@@ -1,4 +1,4 @@
-export default function checkChart(chartProps, item) {
+export function checkChart(chartProps, item) {
   item.previousElementSibling.removeAttribute('disabled');
   const el = item.firstElementChild.textContent.toLowerCase();
   chartProps[`${el}`] = !chartProps[`${el}`];

@@ -1,6 +1,6 @@
-import callbacksToolTips from './chartDataForConfig';
+import { callbacksToolTips } from './chartDataForConfig';
 
-export default function getChartConfig(data, title) {
+export function getChartConfig(data, title) {
   return {
     type: 'line',
     data: {

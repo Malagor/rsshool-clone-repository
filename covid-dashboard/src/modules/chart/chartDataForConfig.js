@@ -13,7 +13,7 @@ const months = [
   'December',
 ];
 
-export default function callbacksToolTips(title) {
+export function callbacksToolTips(title) {
   return {
     title(toolTipItems) {
       const titleT = toolTipItems[0].label;

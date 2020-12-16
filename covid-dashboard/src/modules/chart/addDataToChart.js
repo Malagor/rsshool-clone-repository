@@ -1,4 +1,4 @@
-export default function addData(el, data, chartProps, chart) {
+export function addData(el, data, chartProps, chart) {
   const colors = [
     'rgba(255, 0, 0, 1)',
     'rgba(255, 174, 0, 1)',

@@ -1,9 +1,9 @@
 import Chart from 'chart.js';
 import './chart.scss';
-import chartHTML from './chartHTML';
-import getChartConfig from './chartConfig';
-import checkChart from './checkChart';
-import addData from './addDataToChart';
+import { chartHTML } from './chartHTML';
+import { getChartConfig } from './chartConfig';
+import { checkChart } from './checkChart';
+import { addData } from './addDataToChart';
 import Queries from '../queries/Queries';
 
 export default function MyChar(el) {

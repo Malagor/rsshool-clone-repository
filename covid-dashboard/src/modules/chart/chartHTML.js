@@ -1,4 +1,4 @@
-const chartHTML = `
+export const chartHTML = `
 <div class="chart__header">
 <form action="#" class="chart__checkboxes">
   <p>    
@@ -17,5 +17,3 @@ const chartHTML = `
 </div>
 <div class="chart__wrapper"><canvas id="myChart" style="position: relative; width: 100%; height: 100%;"></canvas></div>
 `;
-
-export default chartHTML;

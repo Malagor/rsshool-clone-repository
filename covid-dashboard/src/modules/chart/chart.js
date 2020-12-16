@@ -20,7 +20,7 @@ function showRecovered(data, title, type) {
 }
 
 function getTestData() {
-  const url = allWorldPerPeriod;
+  const url = allWorldPerPeriod();
 
   fetch(url)
     .then((response) => {

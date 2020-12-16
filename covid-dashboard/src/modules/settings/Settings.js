@@ -13,7 +13,7 @@ import { updateApp } from '../mainApp/updataApp';
 let popup;
 let form;
 
-function showPopup(el) {
+const showPopup = (el) => {
   // getting the size and position of the calling element
   const { offsetLeft, offsetTop, clientHeight } = el;
   // getting the Width of the popup window
@@ -22,9 +22,9 @@ function showPopup(el) {
   popup.style.top = `${offsetTop + clientHeight}px`;
   popup.style.left = `${offsetLeft - popupWidth}px`;
   popup.classList.toggle('open');
-}
+};
 
-function getFormData() {
+const getFormData = () => {
   let country = form.country.value;
   const population = form.population.checked;
   let period = form.period.checked;
@@ -42,7 +42,7 @@ function getFormData() {
 
   setProperties(data);
   updateApp();
-}
+};
 
 
 const createSettings = () => {

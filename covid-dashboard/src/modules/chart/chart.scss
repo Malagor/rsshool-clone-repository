@@ -30,35 +30,6 @@
   padding: 0 23% 0 33%;
 }
 
-.chart__settings {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  width: 6%;
-  height: 100%;
-}
-
-.chart__buttons_changeData,
-.chart__buttons_fullScreen {
-  width: 22px;
-  height: 22px;
-  border: none;
-  background: none;
-  font-size: 12px;
-  opacity: 0.7;
-  cursor: pointer;
-  outline: none;
-  &:hover {
-    transform: scale(1.05);
-    opacity: 1;
-  }
-}
-
-.chart__buttons_changeData > svg,
-.chart__buttons_fullScreen > svg {
-  fill: rgb(128, 128, 128);
-}
-
 .chart__label {
   font-size: 14px;
 }

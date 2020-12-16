@@ -1,6 +1,3 @@
-// import params from '../../assets/img/params.svg';
-// import fullScreen from '../../assets/img/screen-full.svg';
-
 const chartHTML = `
 <div class="chart__header">
 <form action="#" class="chart__checkboxes">
@@ -17,10 +14,6 @@ const chartHTML = `
     <label for="recovered" class="chart__label"><span>Recovered</span></label>
   </p>
 </form>
-<div class="chart__settings">
-  <button type="button" class="button chart__buttons_changeData">par</button>
-  <button type="button" class="button chart__buttons_fullScreen">full</button>
-</div>
 </div>
 <div class="chart__wrapper"><canvas id="myChart" style="position: relative; width: 100%; height: 100%;"></canvas></div>
 `;

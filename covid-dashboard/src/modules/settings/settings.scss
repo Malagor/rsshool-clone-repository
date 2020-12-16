@@ -1,10 +1,13 @@
+@import "../../scss/_misc/mixins";
+
+
 .popup {
   position: absolute;
   top: 0;
   right: 0;
   width: 15rem;
   border: 1px solid white;
-  border-radius: 5px;
+  border-radius: rem(5px);
   padding: 1rem;
   font-size: 0.8rem;
   background-color: rgba(0, 0, 0, 0.8);
@@ -12,7 +15,7 @@
   transform-origin: top right;
   transform: scale(0);
 
-  transition: 0.3s;
+  transition: transform 0.3s;
 
   &.open {
     transform: scale(1);

@@ -14,7 +14,7 @@ export const createTableHTML = (el) => {
     <div class="deaths-number"></div> 
   </div>
 </div>`;
-}
+};
 
 export const getTableDOMEelements = (el) => {
   const wrapper = el.querySelector('.table-wrapper');
@@ -30,4 +30,4 @@ export const getTableDOMEelements = (el) => {
     numbOfRecovered,
     numbOfDeaths,
   };
-}
+};

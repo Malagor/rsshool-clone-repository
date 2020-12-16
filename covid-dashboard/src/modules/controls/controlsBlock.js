@@ -14,7 +14,7 @@ const getControlsBlockHTML = (el) => {
   <button type="button" class="controls-block_params">${params}</button>
   <button type="button" class="controls-block_fullscreen">${fullScreen}</button>
 </div>`;
-  const toggle = el.querySelector('.controls-block-params');
+  const toggle = el.querySelector('.controls-block_params');
   setSettingToggleElement(toggle);
   el.addEventListener('click', (ev) => {
     const { target } = ev;

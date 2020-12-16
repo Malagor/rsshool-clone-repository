@@ -1,4 +1,4 @@
-export default function mainHTML() {
+const mainHTML = () => {
   document.body.insertAdjacentHTML('afterbegin', `
   <div id="app">
   <header class="header">
@@ -44,4 +44,8 @@ export default function mainHTML() {
     status,
     header
   };
+};
+
+export {
+  mainHTML
 }

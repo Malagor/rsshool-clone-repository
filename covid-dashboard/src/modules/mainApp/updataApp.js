@@ -1,74 +1,52 @@
-// import { updateStatusBar } from '../status/Status';
 import { properties } from '../Properties/Properties';
-// import { renderChart } from './renderChart';
 // import { setMarksToMap } from '../map/map';
 // import { renderCountries } from '../countries/countries';
-import { allWorldPerPeriod, countryDataPerPeriod, getPopulation } from '../queries/Queries';
+import {
+  // urlAllTimeByCountries,
+  urlAllWorldPerPeriod,
+  urlCountryDataPerPeriod,
+  urlFlagAndPopulation,
+} from '../queries/Queries';
+import { changeChartData } from '../chart/chart';
 
 export const updateApp = () => {
-  const { country, period, /* population, type */ } = properties;
+  const { country, period, /* population, */ type } = properties;
 
   let url;
-  const urlGeneralInfo = getPopulation();
+  const urlGeneralInfo = urlFlagAndPopulation();
+  const locPeriod = period ? 30 : 'all';
 
   if (country) {
-    url = countryDataPerPeriod(period);
+    url = urlCountryDataPerPeriod(country, locPeriod);
   } else {
-    url = allWorldPerPeriod(period);
+    url = urlAllWorldPerPeriod(locPeriod);
   }
 
   Promise.all([
     fetch(url),
     fetch(urlGeneralInfo)
-  ]).then(async([aa, bb]) => {
-    const a = await aa.json();
-    const b = await bb.json();
-    return [a, b]
+  ]).then(async ([covidData, generalInfo]) => {
+    return {
+      covidData: await covidData.json(),
+      generalInfo: await generalInfo.json()
+    };
   })
-    .then((responseText) => {
-      console.log(responseText);
+    .then((data) => {
+      let arrData;
+      let locCountry;
+
+      if (country) {
+        const additionalArr = Object.entries(data.covidData);
+        arrData = Object.entries(additionalArr[2][1]);
+        locCountry = country;
+      } else {
+        locCountry = 'All World';
+        arrData = Object.entries(data.covidData);
+      }
+
+      changeChartData(arrData, locCountry, type, period);
 
     }).catch((err) => {
-    console.log(err);
+    console.log('Error updating information in the app!', err);
   });
-
-  // updateStatusBar();
-  // renderChart(country, period, type);
-  //
-  // const url = 'https://corona.lmao.ninja/v2/countries';
-  //
-  // fetch(url)
-  //   .then((response) => {
-  //     return response.json();
-  //   })
-  //   .then((data) => {
-  //     const dataForMap = [];
-  //     const dataForCountriesTable = [];
-  //
-  //     data.forEach(el => {
-  //
-  //       const { active, country: cntr, population, cases } = el;
-  //       const { lat, long, flag } = el.countryInfo;
-  //
-  //       dataForMap.push({
-  //         active,
-  //         country: cntr,
-  //         population,
-  //         lat,
-  //         long,
-  //         flag,
-  //       });
-  //
-  //       dataForCountriesTable.push({
-  //         flag,
-  //         country: cntr,
-  //         arrData: cases,
-  //       });
-  //     });
-  //
-  //     setMarksToMap(dataForMap);
-  //     renderCountries(dataForCountriesTable);
-  //   });
-
-
 };

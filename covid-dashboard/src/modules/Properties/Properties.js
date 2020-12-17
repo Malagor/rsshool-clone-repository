@@ -6,7 +6,6 @@ const properties = {
 };
 
 const saveProperties = () => {
-  console.log(properties);
   localStorage.setItem('covid-dashboard', JSON.stringify(properties));
 };
 

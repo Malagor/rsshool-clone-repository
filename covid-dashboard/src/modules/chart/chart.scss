@@ -1,3 +1,5 @@
+@import "../../scss/_misc/mixins.scss";
+
 .chart {
   grid-area: chart;
   display: flex;
@@ -31,7 +33,7 @@
 }
 
 .chart__label {
-  font-size: 14px;
+  font-size: rem(14px);
 }
 
 .chart__checkbox:checked,
@@ -44,8 +46,8 @@
 .chart__checkbox:not(:checked) + .chart__label {
     display: inline-block;
     position: relative;
-    padding-left: 28px;
-    line-height: 20px;
+    padding-left: rem(28px);
+    line-height: rem(20px);
     cursor: pointer;
 }
 
@@ -54,10 +56,10 @@
   content: "";
     position: absolute;
     left: 0;
-    top: calc(50% - 8px);
-    width: 14px;
-    height: 14px;
-    border: 1px solid rgb(189, 189, 189);
+    top: calc(50% - rem(8px));
+    width: rem(14px);
+    height: rem(14px);
+    border: rem(1px) solid rgb(189, 189, 189);
     background-color: rgba(255, 255, 255, 0.2);
 }
 
@@ -75,30 +77,30 @@
 
 .chart__checkbox:checked + .chart__label:after,
 .chart__checkbox:not(:checked) + .chart__label:after {
-    left: 3px;
-    top: 2px;
-    width: 10px;
-    height: 5px;
-    border-radius: 1px;
+    left: rem(3px);
+    top: rem(1px);
+    width: rem(10px);
+    height: rem(5px);
+    border-radius: rem(1px);
     transform: rotate(-45deg);
 }
 
 #diseased:checked + .chart__label:after,
 #diseased:not(:checked) + .chart__label:after {
-  border-left: 3px solid rgba(113, 113, 255, 1);
-  border-bottom: 3px solid rgba(113, 113, 255, 1);
+  border-left: rem(3px) solid rgba(113, 113, 255, 1);
+  border-bottom: rem(3px) solid rgba(113, 113, 255, 1);
 }
 
 #recovered:checked + .chart__label:after,
 #recovered:not(:checked) + .chart__label:after {
-  border-left: 3px solid rgba(0, 255, 0, 1);
-  border-bottom: 3px solid rgba(0, 255, 0, 1);
+  border-left: rem(3px) solid rgba(0, 255, 0, 1);
+  border-bottom: rem(3px) solid rgba(0, 255, 0, 1);
 }
 
 #deaths:checked + .chart__label:after,
 #deaths:not(:checked) + .chart__label:after {
-  border-left: 3px solid  rgba(255, 0, 0, 1);
-  border-bottom: 3px solid  rgba(255, 0, 0, 1);
+  border-left: rem(3px) solid  rgba(255, 0, 0, 1);
+  border-bottom: rem(3px) solid  rgba(255, 0, 0, 1);
 }
 
 .chart__checkbox:not(:checked) + .chart__label:after {

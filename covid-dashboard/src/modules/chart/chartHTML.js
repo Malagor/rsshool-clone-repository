@@ -2,7 +2,7 @@ export const chartHTML = `
 <div class="chart__header">
 <form action="#" class="chart__checkboxes">
   <p>    
-    <input type="checkbox" id="diseased" checked="checked" class="chart__checkbox">
+    <input type="checkbox" id="diseased" class="chart__checkbox">
     <label for="diseased" class="chart__label"><span>Cases</span></label>
   </p>
   <p>

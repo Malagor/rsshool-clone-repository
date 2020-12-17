@@ -5,10 +5,13 @@ import { getChartConfig } from './chartConfig';
 import { checkChart } from './checkChart';
 import { addData } from './addDataToChart';
 import { callbacksToolTips } from './chartDataForConfig';
+// eslint-disable-next-line import/no-cycle
+import { getControlsBlockHTML } from '../controls/controlsBlock';
 
 let chart = null;
 let ctx = null;
 let checkboxes;
+let chartHeader;
 let chartProps = {
   cases: false,
   deaths: false,
@@ -75,6 +78,8 @@ const createChart = (el) => {
   el.insertAdjacentHTML('afterbegin', chartHTML);
   ctx = document.getElementById('myChart').getContext('2d');
   checkboxes = document.querySelectorAll('.chart__label');
+  chartHeader = document.querySelector('.chart__header');
+  getControlsBlockHTML(chartHeader);
   chart = new Chart(ctx, getChartConfig());
   return chart;
 };

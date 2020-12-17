@@ -28,10 +28,12 @@
       height: rem(370px);
       margin-top: rem(10px);
       overflow-y: scroll;
+
       .country-item {
         display: flex;
         justify-content: flex-start;
         margin-bottom: 0.5rem;
+
 
         .country-flag {
           width: rem(50px);
@@ -65,7 +67,13 @@
           color: $color-recovered;
         }
       }
+
+      .country-item:hover {
+        cursor: pointer;
+      }
     }
+
+
 
     .countries-list::-webkit-scrollbar {
       width: 10px;
@@ -92,6 +100,7 @@
         text-align: center;
         background-color: $color-background-light;
         border: 1px solid $color-background-dark;
+        cursor: pointer;
       }
 
       .btn-enabled {

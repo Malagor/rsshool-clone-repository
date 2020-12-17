@@ -1,11 +1,12 @@
 const properties = {
   country: false,
   period: false,
-  count: false,
+  population: false,
   type: 'cases'
 };
 
 const saveProperties = () => {
+  console.log(properties);
   localStorage.setItem('covid-dashboard', JSON.stringify(properties));
 };
 
@@ -14,7 +15,7 @@ const loadProperties = () => {
   if (loadData) {
     properties.period = loadData.period;
     properties.country = loadData.country;
-    properties.count = loadData.count;
+    properties.population = loadData.population;
     properties.type = loadData.type;
   }
 };
@@ -22,7 +23,7 @@ const loadProperties = () => {
 const setProperties = (obj) => {
   properties.country = obj.country;
   properties.period = obj.period;
-  properties.count = obj.count;
+  properties.population = obj.population;
   properties.type = obj.type;
 
   saveProperties();

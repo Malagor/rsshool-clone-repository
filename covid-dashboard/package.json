@@ -8,7 +8,7 @@
     "build": "npm run clear -s && webpack --progress",
     "lint": "eslint ./**/*.js",
     "clear": "del-cli dist",
-    "comb": "csscomb ./src/modules/mainApp/"
+    "comb": "csscomb ./src/modules/mainApp/ ./src/modules/header/ ./src/modules/footer/ ./src/modules/Properties/ ./src/modules/settings/ ./src/modules/status/"
   },
   "repository": {
     "type": "git",

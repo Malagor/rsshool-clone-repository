@@ -14,7 +14,7 @@ export default function settingsHTML() {
     '<form name="settings" id="settings-form" class="settings__form">' +
     `<label for="setting-country">Country<input id="setting-country" class="setting__country" type="text" name="country" value="${country}"></label>` +
     `<label for="setting-population"><input id="setting-population" class="setting__population" type="checkbox" name="population" ${population}>Per 100k population</label>` +
-    `<label for="setting-period"><input id="setting-period" class="setting__period" type="checkbox" name="period" ${period}>Fzor last 30 days</label>` +
+    `<label for="setting-period"><input id="setting-period" class="setting__period" type="checkbox" name="period" ${period}>For last 30 days</label>` +
     '<fieldset>' +
     '<legend>Type of data</legend>' +
     `<label for="setting-case"><input id="setting-case" class="setting__case" type="radio" name="type" value="cases" ${type === "cases"? "checked": ''}>Cases</label>` +

@@ -1,11 +1,11 @@
 @import "../../scss/_misc/variables";
 
 .status {
-  grid-area: status;
-
   display: flex;
   justify-content: space-around;
   align-items: center;
+
+  grid-area: status;
 }
 
 #status__type,
@@ -14,10 +14,9 @@
 .status__period,
 .status__count {
   width: 20%;
-  box-shadow: inset 0 0 5px black;
   margin: 0 5px;
   padding: 8px 10px;
-
+  box-shadow: inset 0 0 5px black;
 }
 
 #status__type {
@@ -27,7 +26,7 @@
   &.deaths {
     color: $color-deaths;
   }
-  &.recovered{
+  &.recovered {
     color: $color-recovered;
   }
 }

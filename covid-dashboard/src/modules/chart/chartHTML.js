@@ -1,9 +1,8 @@
-const chartHTML = `
+export const chartHTML = `
 <div class="chart__header">
-<button type="button" class="button chart__buttons_changeData">Change data</button>
 <form action="#" class="chart__checkboxes">
   <p>    
-    <input type="checkbox" id="diseased" checked="checked" class="chart__checkbox">
+    <input type="checkbox" id="diseased" class="chart__checkbox">
     <label for="diseased" class="chart__label"><span>Cases</span></label>
   </p>
   <p>
@@ -15,9 +14,6 @@ const chartHTML = `
     <label for="recovered" class="chart__label"><span>Recovered</span></label>
   </p>
 </form>
-<button type="button" class="button chart__buttons_fullScreen">Full</button>
 </div>
 <div class="chart__wrapper"><canvas id="myChart" style="position: relative; width: 100%; height: 100%;"></canvas></div>
 `;
-
-export default chartHTML;

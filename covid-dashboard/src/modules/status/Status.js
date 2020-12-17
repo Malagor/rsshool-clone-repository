@@ -14,7 +14,7 @@ const setCurrentDate = (date) => {
 
 const setCount = (allPopulation = true) => {
   if (allPopulation) {
-    elementsDOM.count.textContent = 'Per 100k inhabitants';
+    elementsDOM.count.textContent = 'Per 100k population';
   } else {
     elementsDOM.count.textContent = 'All population';
   }
@@ -35,7 +35,7 @@ const setPeriod = (period) => {
 
 const updateStatusBar = () => {
   setCountry(properties.country);
-  setCount(properties.count);
+  setCount(properties.population);
   setPeriod(properties.period);
   setType(properties.type);
 };

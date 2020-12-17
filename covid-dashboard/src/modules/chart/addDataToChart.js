@@ -1,8 +1,8 @@
 export function addData(el, data, chartProps, chart) {
   const colors = [
+    'rgba(113, 113, 255, 1)',
     'rgba(255, 0, 0, 1)',
-    'rgba(255, 174, 0, 1)',
-    'rgba(0, 134, 11, 1)',
+    'rgba(0, 255, 0, 1)',
   ];
   const names = [];
   data.map((it) => names.push(it[0]));

@@ -1,42 +1,19 @@
-import { callbacksToolTips } from './chartDataForConfig';
-
-export function getChartConfig(data, title) {
+export function getChartConfig() {
   return {
     type: 'line',
-    data: {
-      labels: Object.keys(data[0][1]),
-      datasets: [
-        {
-          label: data[0][0][0].toUpperCase() + data[0][0].slice(1),
-          data: Object.values(data[0][1]),
-          borderColor: 'rgba(255, 0, 0, 1)',
-          pointBackgroundColor: 'rgba(255, 0, 0, 1)',
-          pointRadius: 0.5,
-          pointHoverRadius: 5,
-          borderWidth: 0.5,
-        },
-      ],
-    },
     options: {
       responsive: true,
       maintainAspectRatio: false,
       title: {
         display: true,
-        text: title,
       },
       scales: {
         xAxes: [
           {
             type: 'time',
             time: {
-              unit: 'month',
               unitStepSize: 1,
-              displayFormats: {
-                month: 'MMM YYYY',
-              },
-            },
-            ticks: {
-              maxTicksLimit: 11,
+              displayFormats: {},
             },
           },
         ],
@@ -68,7 +45,6 @@ export function getChartConfig(data, title) {
         titleAlign: 'center',
         footerAlign: 'center',
         displayColors: false,
-        callbacks: callbacksToolTips(title),
       },
       hover: {
         mode: 'nearest',

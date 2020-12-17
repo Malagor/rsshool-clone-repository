@@ -85,20 +85,20 @@
 
 #diseased:checked + .chart__label:after,
 #diseased:not(:checked) + .chart__label:after {
-  border-left: 3px solid rgb(255, 0, 0);
-  border-bottom: 3px solid rgb(255, 0, 0);
+  border-left: 3px solid rgba(113, 113, 255, 1);
+  border-bottom: 3px solid rgba(113, 113, 255, 1);
 }
 
 #recovered:checked + .chart__label:after,
 #recovered:not(:checked) + .chart__label:after {
-  border-left: 3px solid rgb(0, 134, 11);
-  border-bottom: 3px solid rgb(0, 134, 11);
+  border-left: 3px solid rgba(0, 255, 0, 1);
+  border-bottom: 3px solid rgba(0, 255, 0, 1);
 }
 
 #deaths:checked + .chart__label:after,
 #deaths:not(:checked) + .chart__label:after {
-  border-left: 3px solid rgb(255, 174, 0);
-  border-bottom: 3px solid rgb(255, 174, 0);
+  border-left: 3px solid  rgba(255, 0, 0, 1);
+  border-bottom: 3px solid  rgba(255, 0, 0, 1);
 }
 
 .chart__checkbox:not(:checked) + .chart__label:after {

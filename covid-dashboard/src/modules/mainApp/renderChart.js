@@ -1,7 +1,7 @@
 import { allWorldPerPeriod, countryDataPerPeriod } from '../queries/Queries';
-import { showRecovered } from '../chart/chart';
+import { changeChartData } from '../chart/chart';
 
-export function renderChart(country = false, day = 'all', type = 'cases') {
+export function renderChart(country = false, day = false, type = 'cases') {
   let url;
 
   if (country) {
@@ -15,18 +15,14 @@ export function renderChart(country = false, day = 'all', type = 'cases') {
       return response.json();
     })
     .then((data) => {
-      let typeData = null;
-      if (country) {
-        typeData = data.timeline[type];
-      } else {
-        typeData = data[type];
-      }
-      const label = Object.keys(typeData);
-      const arrData = [];
+      let arrData;
 
-      label.forEach(key => {
-        arrData.push(typeData[key]);
-      });
-      showRecovered(label, arrData, `${(country || 'All World')} - ${type}`);
+      if (country) {
+        const additionalArr = Object.entries(data);
+        arrData = Object.entries(additionalArr[2][1]);
+      } else {
+        arrData = Object.entries(data);
+      }
+      changeChartData(arrData, country || 'All World', type, day);
     });
 }

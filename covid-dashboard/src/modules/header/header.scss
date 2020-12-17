@@ -1,95 +1,68 @@
-@import '../../scss/_misc/mixins';
+@import "../../scss/_misc/mixins";
 
-header.header
-{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+header.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
-    grid-area: header;
+  grid-area: header;
 }
 
-.header__icon
-{
-    width: 3rem;
-    height: 100%;
-
-    background: black url('../../assets/img/virus.png');
-    background-size: contain;
+.header__icon {
+  width: 3rem;
+  height: 100%;
+  background: black url("../../assets/img/virus.png");
+  background-size: contain;
 }
 
-.toggle-menu
-{
-    position: relative;
+.toggle-menu {
+  position: relative;
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
 
-    width: 2rem;
-    height: 2rem;
+  div {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: rem(3px);
+    background-color: #ffffff;
+    transition: 0.3s;
+  }
 
-    cursor: pointer;
+  div:nth-child(1) {
+    top: 0;
+    opacity: 1;
+  }
+  div:nth-child(2) {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  div:nth-child(3) {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  div:nth-child(4) {
+    bottom: 0;
+    opacity: 1;
+  }
 
-    div
-    {
-        position: absolute;
-        left: 0;
-
-        width: 100%;
-        height: rem(3px);
-
-        transition: .3s;
-
-        background-color: #fff;
+  &:hover {
+    div:nth-child(1) {
+      top: -1rem;
+      opacity: 0;
     }
-
-    div:nth-child(1)
-    {
-        top: 0;
-
-        opacity: 1;
+    div:nth-child(2) {
+      top: 50%;
+      transform: translateY(-50%) rotate(45deg);
     }
-    div:nth-child(2)
-    {
-        top: 50%;
-
-        transform: translateY(-50%);
+    div:nth-child(3) {
+      top: 50%;
+      transform: translateY(-50%) rotate(-45deg);
     }
-    div:nth-child(3)
-    {
-        top: 50%;
-
-        transform: translateY(-50%);
+    div:nth-child(4) {
+      bottom: -1rem;
+      opacity: 0;
     }
-    div:nth-child(4)
-    {
-        bottom: 0;
-
-        opacity: 1;
-    }
-
-    &:hover
-    {
-        div:nth-child(1)
-        {
-            top: -1rem;
-
-            opacity: 0;
-        }
-        div:nth-child(2)
-        {
-            top: 50%;
-
-            transform: translateY(-50%) rotate(45deg);
-        }
-        div:nth-child(3)
-        {
-            top: 50%;
-
-            transform: translateY(-50%) rotate(-45deg);
-        }
-        div:nth-child(4)
-        {
-            bottom: -1rem;
-
-            opacity: 0;
-        }
-    }
+  }
 }

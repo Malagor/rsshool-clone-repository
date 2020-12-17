@@ -1,39 +1,32 @@
-@import '../../scss/_misc/variables';
+@import "../../scss/_misc/variables";
 
-.status
-{
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
+.status {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 
-    grid-area: status;
+  grid-area: status;
 }
 
 #status__type,
 .status__date,
 .status__country,
 .status__period,
-.status__count
-{
-    width: 20%;
-    margin: 0 5px;
-    padding: 8px 10px;
-
-    box-shadow: inset 0 0 5px black;
+.status__count {
+  width: 20%;
+  margin: 0 5px;
+  padding: 8px 10px;
+  box-shadow: inset 0 0 5px black;
 }
 
-#status__type
-{
-    &.cases
-    {
-        color: $color-cases;
-    }
-    &.deaths
-    {
-        color: $color-deaths;
-    }
-    &.recovered
-    {
-        color: $color-recovered;
-    }
+#status__type {
+  &.cases {
+    color: $color-cases;
+  }
+  &.deaths {
+    color: $color-deaths;
+  }
+  &.recovered {
+    color: $color-recovered;
+  }
 }

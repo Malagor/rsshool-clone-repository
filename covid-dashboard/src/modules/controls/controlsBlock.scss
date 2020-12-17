@@ -12,12 +12,12 @@
 .controls-block_fullscreen {
   width: rem(22px);
   height: rem(22px);
-  border: none;
-  background: none;
   font-size: rem(12px);
-  opacity: 0.7;
-  cursor: pointer;
+  background: none;
+  border: none;
   outline: none;
+  cursor: pointer;
+  opacity: 0.7;
   &:hover {
     transform: scale(1.05);
     opacity: 1;

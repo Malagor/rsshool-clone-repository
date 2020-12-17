@@ -1,71 +1,55 @@
-@import '../../scss/_misc/mixins';
+@import "../../scss/_misc/mixins";
 
 
-.popup
-{
-    font-size: .8rem;
+.popup {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 12rem;
+  padding: 1rem;
+  font-size: 0.8rem;
+  background-color: rgba(0, 0, 0, 0.8);
+  border: 1px solid white;
+  border-radius: rem(5px);
+  transform: scale(0);
+  transform-origin: top right;
+  transition: transform 0.3s;
 
-    position: absolute;
-    top: 0;
-    right: 0;
+  &.open {
+    z-index: 1000;
+    transform: scale(1);
+  }
 
-    width: 12rem;
-    padding: 1rem;
+  form {
+    display: flex;
+    flex-direction: column;
+  }
 
-    transition: transform .3s;
-    transform: scale(0);
-    transform-origin: top right;
+  label {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
 
-    border: 1px solid white;
-    border-radius: rem(5px);
-    background-color: rgba(0, 0, 0, .8);
+  fieldset {
+    margin-bottom: 1rem;
+  }
 
-    &.open
-    {
-        z-index: 1000;
+  .setting__country {
+    flex-basis: 100%;
+    width: 100%;
+    padding: 0.5rem;
+  }
 
-        transform: scale(1);
-    }
+  .setting__population,
+  .setting__period {
+    margin-right: 0.5rem;
+  }
 
-    form
-    {
-        display: flex;
-        flex-direction: column;
-    }
-
-    label
-    {
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
-        justify-content: flex-start;
-
-        margin-bottom: .5rem;
-    }
-
-    fieldset
-    {
-        margin-bottom: 1rem;
-    }
-
-    .setting__country
-    {
-        flex-basis: 100%;
-
-        width: 100%;
-        padding: .5rem;
-    }
-
-    .setting__population,
-    .setting__period
-    {
-        margin-right: .5rem;
-    }
-
-    input[type='submit']
-    {
-        display: inline-flex;
-
-        width: 5rem;
-    }
+  input[type="submit"] {
+    display: inline-flex;
+    width: 5rem;
+  }
 }

@@ -5,7 +5,7 @@ export const createCountryDOMElement = (data) => {
   countryDOMelem.innerHTML = `
     <div class="country-flag"><img src=${flag} alt="flag"></div>
     <div class="country-name">${country}</div>  
-    <div class="country-cases">${arrData}</div> 
+    <div class="country-number number-cases">${arrData}</div> 
   `; 
   return countryDOMelem;
 }

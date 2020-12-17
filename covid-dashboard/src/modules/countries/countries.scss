@@ -1,7 +1,6 @@
 @import "../../scss/_misc/mixins";
 @import  "../../scss/_misc/fonts";
-// @import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500;600;700&display=swap");
-// @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap");
+@import  "../../scss/_misc/variables";
 
 
 .countries {
@@ -14,7 +13,6 @@
     .countries-title {
       width: 100%;
       height: rem(30px);
-      // font-weight: 700;
       font-size: rem(20px);
       text-align: center;
 
@@ -37,7 +35,7 @@
 
         .country-flag {
           width: rem(50px);
-          height: rem(20px);
+          height: rem(25px);
           margin-right: rem(10px);
 
           object-fit: cover;
@@ -45,29 +43,38 @@
 
         .country-name {
           width: 100%;
-          // font-weight: 400;
 
           @include Roboto($style: regular);
         }
 
-        .country-cases {
+        .country-number {
           margin-right: rem(10px);
           font-size: rem(18px);
-          color: red;
 
           @include Roboto($style: mono-bold);
+        }
+        .number-cases {
+          color: $color-cases;
+        }
+
+        .number-deaths {
+          color: $color-deaths;
+        }
+
+        .number-recovered {
+          color: $color-recovered;
         }
       }
     }
 
     .countries-list::-webkit-scrollbar {
       width: 10px;
-      background-color: rgb(80,80,80);
+      background-color: $color-background-light;
     }
 
     .countries-list::-webkit-scrollbar-thumb {
       height: 20px;
-      background-color: rgb(50, 50, 50);
+      background-color: $color-background-dark;
       border-radius: 3px;
     }
 
@@ -75,8 +82,7 @@
 
     .toggle-cases {
       display: flex;
-      margin-top: 10px ;
-      // font-weight: 300;
+      margin-top: 10px;
 
       @include Roboto($style: light);
 
@@ -84,12 +90,12 @@
         width: 33.33%;
         line-height: 2rem;
         text-align: center;
-        background-color: rgb(80,80,80);
-        border: 1px solid rgb(50, 50, 50);
+        background-color: $color-background-light;
+        border: 1px solid $color-background-dark;
       }
 
       .btn-enabled {
-        background-color: rgb(50, 50, 50);
+        background-color: $color-background-dark;
         border: none;
       }
     }

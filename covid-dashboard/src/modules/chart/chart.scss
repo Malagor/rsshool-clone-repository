@@ -1,4 +1,5 @@
 @import "../../scss/_misc/mixins.scss";
+@import "../../scss/_misc/variables";
 
 .chart {
   grid-area: chart;
@@ -87,20 +88,20 @@
 
 #diseased:checked + .chart__label:after,
 #diseased:not(:checked) + .chart__label:after {
-  border-left: rem(3px) solid rgba(113, 113, 255, 1);
-  border-bottom: rem(3px) solid rgba(113, 113, 255, 1);
+  border-left: rem(3px) solid $color-cases;
+  border-bottom: rem(3px) solid $color-cases;
 }
 
 #recovered:checked + .chart__label:after,
 #recovered:not(:checked) + .chart__label:after {
-  border-left: rem(3px) solid rgba(0, 255, 0, 1);
-  border-bottom: rem(3px) solid rgba(0, 255, 0, 1);
+  border-left: rem(3px) solid $color-recovered;
+  border-bottom: rem(3px) solid $color-recovered;
 }
 
 #deaths:checked + .chart__label:after,
 #deaths:not(:checked) + .chart__label:after {
-  border-left: rem(3px) solid  rgba(255, 0, 0, 1);
-  border-bottom: rem(3px) solid  rgba(255, 0, 0, 1);
+  border-left: rem(3px) solid $color-deaths;
+  border-bottom: rem(3px) solid  $color-deaths;
 }
 
 .chart__checkbox:not(:checked) + .chart__label:after {

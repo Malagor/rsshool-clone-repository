@@ -9,6 +9,7 @@
 import settingsHTML from './settingsHTML';
 import { setProperties } from '../Properties/Properties';
 import { updateApp } from '../mainApp/updataApp';
+import { updateStatusBar } from '../status/Status';
 
 let popup;
 let form;
@@ -27,11 +28,10 @@ const showPopup = (el) => {
 const getFormData = () => {
   let country = form.country.value;
   const population = form.population.checked;
-  let period = form.period.checked;
+  const period = form.period.checked;
   const type = form.type.value;
 
-  country = (country === 'All World' || '') ? false: country;
-  period = period ? 'all': 30;
+  country = (country === 'All World' || '') ? false : country;
 
   const data = {
     country,
@@ -41,6 +41,7 @@ const getFormData = () => {
   };
 
   setProperties(data);
+  updateStatusBar();
   updateApp();
 };
 
@@ -67,5 +68,5 @@ const setSettingToggleElement = (el) => {
 export {
   // showPopup,
   createSettings,
-  setSettingToggleElement
-}
+  setSettingToggleElement,
+};

@@ -1,7 +1,9 @@
+/* eslint-disable import/no-cycle */
 // import { defineProperties } from 'core-js/fn/object';
 import { createCountriesHTML, getCountriesDOMElements } from './countriesHTML';
 import { createCountryDOMElement } from './createCountryDOMElement';
 import { properties } from '../Properties/Properties';
+import { getControlsBlockHTML } from '../controls/controlsBlock';
 
 
 let countriesElements = null;
@@ -21,10 +23,12 @@ const createTableCountries = (el) => {
 
   createCountriesHTML(el);
   countriesElements = getCountriesDOMElements(el);
+  getControlsBlockHTML(countriesElements.countriesControl);
+
   
   const btns = document.querySelectorAll('.btn-cases');
-  const numbers = document.querySelectorAll('.country-number');
-  console.log ('numbers', numbers);
+  
+ 
 
   const filterInput = () => {
     const filter = countriesElements.input.value.toUpperCase();
@@ -40,24 +44,25 @@ const createTableCountries = (el) => {
   }
   
   countriesElements.input.addEventListener('keyup', (e) => {
-     filterInput();
-     if (e.code === 'Enter') {
-       const countryNamesHTML = document.querySelectorAll('.country-name'); 
-       countryNamesHTML.forEach((countryName) => {
-         if(countryName.innerText.toUpperCase() === countriesElements.input.value.toUpperCase()) {
-           properties.country = countryName.innerText;
-           console.log (properties);
-           changeView();
-         }
-       });
-       const listOfCountries = document.querySelectorAll('.country-item');  
-       listOfCountries.forEach((item) => {item.style.display = ''});
-       countriesElements.input.value = '';
+    filterInput();
+    if (e.code === 'Enter') {
+      const countryNamesHTML = document.querySelectorAll('.country-name'); 
+      countryNamesHTML.forEach((countryName) => {
+        if(countryName.innerText.toUpperCase() === countriesElements.input.value.toUpperCase()) {
+          properties.country = countryName.innerText;
+          console.log (properties);
+          changeView();
+        }
+      });
+      const listOfCountries = document.querySelectorAll('.country-item');  
+      listOfCountries.forEach((item) => {item.style.display = ''});
+      countriesElements.input.value = '';
   
-     }
+    }
   });
 
   el.addEventListener('click', (event) => {
+    const numbers = document.querySelectorAll('.country-number');
     const { target } = event;
     if (target === el) return;
     if (target.closest('.country-item')) {
@@ -89,13 +94,10 @@ const createTableCountries = (el) => {
       });
       countriesElements.btnRecovered.classList.add('btn-enabled');
     }
-    console.log (properties);
-    
-  
     changeView();
     const listOfCountries = document.querySelectorAll('.country-item');  
-       listOfCountries.forEach((item) => {item.style.display = ''});
-       countriesElements.input.value = '';
+    listOfCountries.forEach((item) => {item.style.display = ''});
+    countriesElements.input.value = '';
   });
 };
 

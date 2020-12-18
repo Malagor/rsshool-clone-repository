@@ -1,5 +1,6 @@
 export const createCountriesHTML = (el) => {
-  el.innerHTML = `<div class="countries-wrapper">
+  el.innerHTML = `<div class="countries-control"></div>
+  <div class="countries-wrapper">
   <div class="countries-title">Cases by country</div>
   <input type="text" placeholder="Search..." class="countries-input">
   <div class="countries-list"></div>
@@ -12,6 +13,7 @@ export const createCountriesHTML = (el) => {
 }
 
 export const getCountriesDOMElements = (el) => {
+  const countriesControl = el.querySelector('.countries-control');
   const wrapper = el.querySelector('.countries-wrapper');
   const title = el.querySelector('.countries-title');
   const input = el.querySelector('.countries-input');
@@ -21,6 +23,7 @@ export const getCountriesDOMElements = (el) => {
   const btnRecovered = el.querySelector('.btn-recovered');
 
   return {
+    countriesControl,
     wrapper,
     title,
     input,

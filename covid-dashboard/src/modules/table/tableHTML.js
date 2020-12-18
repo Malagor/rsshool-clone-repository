@@ -1,6 +1,7 @@
 export const createTableHTML = (el) => {
-  el.innerHTML = `<div class="table-wrapper">
-  <div class="table-country"></div>
+  el.innerHTML = `<div class="table-control"></div>
+  <div class="table-wrapper">
+  <div class="table-country">All World</div>
   <div class="table-cases">
     <div class="cases-title">Cases</div>
     <div class="cases-number"></div> 
@@ -17,6 +18,7 @@ export const createTableHTML = (el) => {
 };
 
 export const getTableDOMEelements = (el) => {
+  const tableControl = el.querySelector('.table-control');
   const wrapper = el.querySelector('.table-wrapper');
   const country = el.querySelector('.table-country');
   const numbOfCases = el.querySelector('.cases-number');
@@ -24,6 +26,7 @@ export const getTableDOMEelements = (el) => {
   const numbOfDeaths = el.querySelector('.deaths-number');
 
   return {
+    tableControl,
     wrapper,
     country,
     numbOfCases,

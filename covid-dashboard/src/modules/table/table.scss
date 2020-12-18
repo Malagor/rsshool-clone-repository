@@ -1,5 +1,15 @@
+@import "../../scss/_misc/mixins";
+@import  "../../scss/_misc/fonts";
+@import  "../../scss/_misc/variables";
+
 .table {
   grid-area: table;
+}
+
+.table-control {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
 
 .table-wrapper {
@@ -8,4 +18,32 @@
   justify-content: space-evenly;
   width: 100%;
   height: 100%;
+  padding-bottom: rem(15px);
+  text-align: center;
+
+  .table-country {
+    font-size: rem(30px);
+
+    @include Roboto($style: medium);
+  }
+
+  .table-cases,
+  .table-recovered,
+  .table-deaths {
+    font-size: rem(25px);
+
+    @include Roboto($style: medium);
+
+    .cases-number {
+      color: $color-cases;
+    }
+
+    .recovered-number {
+      color: $color-recovered;
+    }
+
+    .deaths-number {
+      color: $color-deaths;
+    }
+  }
 }

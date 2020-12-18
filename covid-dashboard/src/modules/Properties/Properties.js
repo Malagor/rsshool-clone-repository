@@ -2,7 +2,7 @@ const properties = {
   country: false,
   period: false,
   population: false,
-  type: 'cases'
+  type: 'cases',
 };
 
 const saveProperties = () => {

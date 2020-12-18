@@ -12,18 +12,19 @@ export const processingDataForChart = (data, country, population) => {
   }
 
   if (population) {
-    const oneHundredThousand = 100000;
-    const worldPopulation = data.flagAndPop.reduce(
+    const ONE_HUNDRED_THOUSAND = 100000;
+    const WORLD_POPULATION = data.flagAndPop.reduce(
       (a, b) => a + b.population,
       0,
     );
     let arr = arrData.map((it) => [it[0], Object.entries(it[1])]);
+
     if (locCountry === 'All World') {
       arr = arr.map((it) => [
         it[0],
         it[1].map((item) => [
           item[0],
-          Math.trunc((item[1] * oneHundredThousand) / worldPopulation),
+          Math.trunc((item[1] * ONE_HUNDRED_THOUSAND) / WORLD_POPULATION),
         ]),
       ]);
     } else {
@@ -34,7 +35,7 @@ export const processingDataForChart = (data, country, population) => {
         it[0],
         it[1].map((item) => [
           item[0],
-          Math.trunc((item[1] * oneHundredThousand) / countryPopulation),
+          Math.trunc((item[1] * ONE_HUNDRED_THOUSAND) / countryPopulation),
         ]),
       ]);
     }

@@ -4,7 +4,7 @@ export const createTableHTML = (el) => {
   <div class="table-country">All World</div>
   <div class="table-cases">
     <div class="cases-title">Cases</div>
-    <div class="cases-number">12345</div> 
+    <div class="cases-number"></div> 
   </div>
   <div class="table-recovered">
     <div class="recovered-title">Recovered</div>

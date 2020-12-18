@@ -1,7 +1,7 @@
 export const createCountriesHTML = (el) => {
   el.innerHTML = `<div class="countries-wrapper">
   <div class="countries-title">Cases by country</div>
-  <input type="text" class="countries-input">
+  <input type="text" placeholder="Search..." class="countries-input">
   <div class="countries-list"></div>
   <div class="toggle-cases">
     <div class="btn-cases btn-all btn-enabled ">All Cases</div>

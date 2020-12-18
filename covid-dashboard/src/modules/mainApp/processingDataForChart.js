@@ -1,7 +1,6 @@
 export const processingDataForChart = (data, country, population) => {
   let arrData;
   let locCountry;
-  console.log(population);
 
   if (country) {
     const additionalArr = Object.entries(data.covidData);

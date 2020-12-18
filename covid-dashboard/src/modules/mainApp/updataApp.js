@@ -1,39 +1,50 @@
 import { properties } from '../Properties/Properties';
-// import { setMarksToMap } from '../map/map';
-// import { renderCountries } from '../countries/countries';
 import {
-  // urlAllTimeByCountries,
-  urlAllWorldPerPeriod,
-  urlCountryDataPerPeriod,
-  urlFlagAndPopulation,
+  allWorldPerPeriod,
+  allCountriesPerPeriod,
+  countryPerPeriod,
+  flagAndPopulation
 } from '../queries/Queries';
 import { changeChartData } from '../chart/chart';
 
 export const updateApp = () => {
-  const { country, period, /* population, */ type } = properties;
+  const { country, /* population, */ type } = properties;
+  let { period } = properties;
 
-  let url;
-  const urlGeneralInfo = urlFlagAndPopulation();
-  const locPeriod = period ? 30 : 'all';
+  if ( typeof period === 'boolean') {
+    period = period ? 2 : false;
+  }
+
+  const urlForFlagAndPopulation = flagAndPopulation();
+  const urlAllCountry = allCountriesPerPeriod(period);
+  let urlCurrentData;
 
   if (country) {
-    url = urlCountryDataPerPeriod(country, locPeriod);
+    urlCurrentData = countryPerPeriod(country, period);
   } else {
-    url = urlAllWorldPerPeriod(locPeriod);
+    urlCurrentData = allWorldPerPeriod(period);
   }
 
   Promise.all([
-    fetch(url),
-    fetch(urlGeneralInfo)
-  ]).then(async ([covidData, generalInfo]) => {
+    fetch(urlForFlagAndPopulation),
+    fetch(urlAllCountry),
+    fetch(urlCurrentData)
+  ]).then(async ([flagAndPop, allCountry, currentData]) => {
     return {
-      covidData: await covidData.json(),
-      generalInfo: await generalInfo.json()
+      flagAndPop: await flagAndPop.json(),
+      allCountriesInfo: await allCountry.json(),
+      covidData: await currentData.json(),
     };
   })
     .then((data) => {
+      console.log('Data form Promise :=>\n', data);
       let arrData;
       let locCountry;
+
+      // Все данные в трех массивах в data.
+      // Нужно их обработать в зависимости от Страны и периода.
+      // Сами данные отобраны нормально, нужно просто их подготовить для передачи в модули отрисовки
+      // Для жтого сделайте функцию внешнюю, в которую заберите нужные данные, а верните из нее уже подготовленные данные.
 
       if (country) {
         const additionalArr = Object.entries(data.covidData);
@@ -44,6 +55,7 @@ export const updateApp = () => {
         arrData = Object.entries(data.covidData);
       }
 
+      // Вот вызов отрисовки Графика для примера
       changeChartData(arrData, locCountry, type, period);
 
     }).catch((err) => {

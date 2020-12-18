@@ -8,11 +8,11 @@ export const createTableHTML = (el) => {
   </div>
   <div class="table-recovered">
     <div class="recovered-title">Recovered</div>
-    <div class="recovered-number">12345</div> 
+    <div class="recovered-number"></div> 
   </div>
   <div class="table-deaths">
     <div class="deaths-title">Deaths</div>
-    <div class="deaths-number">12345</div> 
+    <div class="deaths-number"></div> 
   </div>
 </div>`;
 };

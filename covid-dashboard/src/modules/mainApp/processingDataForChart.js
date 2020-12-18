@@ -13,9 +13,11 @@ export const processingDataForChart = (data, country, population) => {
 
   if (population) {
     const oneHundredThousand = 100000;
-    const worldPopulation = 7827000000;
+    const worldPopulation = data.flagAndPop.reduce(
+      (a, b) => a + b.population,
+      0,
+    );
     let arr = arrData.map((it) => [it[0], Object.entries(it[1])]);
-
     if (locCountry === 'All World') {
       arr = arr.map((it) => [
         it[0],

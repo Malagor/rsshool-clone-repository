@@ -9,7 +9,7 @@ import { changeChartData } from '../chart/chart';
 import { processingDataForChart } from './processingDataForChart';
 
 export const updateApp = () => {
-  const { country, /* population, */ type } = properties;
+  const { country, population, type } = properties;
   let { period } = properties;
 
   if (typeof period === 'boolean') {
@@ -46,9 +46,13 @@ export const updateApp = () => {
       // Сами данные отобраны нормально, нужно просто их подготовить для передачи в модули отрисовки
       // Для жтого сделайте функцию внешнюю, в которую заберите нужные данные, а верните из нее уже подготовленные данные.
 
-      const { arrData, locCountry } = processingDataForChart(data, country);
+      const { arrData, locCountry } = processingDataForChart(
+        data,
+        country,
+        population,
+      );
       // Вот вызов отрисовки Графика для примера
-      changeChartData(arrData, locCountry, type, period);
+      changeChartData(arrData, locCountry, type, period, population);
     })
     .catch((err) => {
       console.log('Error updating information in the app!', err);

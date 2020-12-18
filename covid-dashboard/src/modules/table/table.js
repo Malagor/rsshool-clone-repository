@@ -1,4 +1,6 @@
 import { createTableHTML, getTableDOMEelements } from './tableHTML';
+import { getControlsBlockHTML } from '../controls/controlsBlock';
+
 
 let tableElements = null;
 let changeView = null;
@@ -7,7 +9,7 @@ const createTable = (el) => {
 
   createTableHTML(el);
   tableElements = getTableDOMEelements(el);
-
+  getControlsBlockHTML(tableElements.tableControl);
 
   el.addEventListener('click', (event) => {
     const { target } = event;
@@ -15,6 +17,7 @@ const createTable = (el) => {
     changeView();
   });
 };
+
 
 const renderTable = (currentCountry)=> {
   tableElements.country.innerText = currentCountry.country;

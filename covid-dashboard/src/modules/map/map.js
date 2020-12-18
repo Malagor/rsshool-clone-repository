@@ -26,18 +26,20 @@ const renderMap = (coordCenter, zoomRate) => {
 const setMarksToMap = (arr) => {
   console.log('Data to map', arr);
   arr.forEach(data => {
-    const {active, country, population, lat, long, flag } = data;
+    const {name: country, population: count, flag } = data;
+    const [lat, long] = data.latlng;
+    console.log(lat, long);
 
     const circle = L.circle([lat, long], {
       color: 'red',
       fillColor: '#f03',
       fillOpacity: 0.5,
-      radius: active / 10,
+      radius: count / 1000,
       weight: 1,
       opacity: 1,
     }).addTo(map);
 
-    circle.bindPopup(`<img class="flag" src="${flag}" alt="${country}-flag"><div><b>${country}</b></div><div>${population}`);
+    circle.bindPopup(`<img class="flag" src="${flag}" alt="${country}-flag"><div><b>${country}</b></div><div>${count}`);
   });
 };
 

@@ -6,6 +6,8 @@ import {
   flagAndPopulation
 } from '../queries/Queries';
 import { changeChartData } from '../chart/chart';
+import { processingDataForMap } from './processingDataForMap';
+import { setMarksToMap } from '../map/map';
 
 export const updateApp = () => {
   const { country, /* population, */ type } = properties;
@@ -55,6 +57,8 @@ export const updateApp = () => {
         arrData = Object.entries(data.covidData);
       }
 
+      const dataForMap = processingDataForMap(data.flagAndPop);
+      setMarksToMap(dataForMap);
       // Вот вызов отрисовки Графика для примера
       changeChartData(arrData, locCountry, type, period);
 

@@ -1,14 +1,7 @@
-import { allWorldPerPeriod, countryDataPerPeriod } from '../queries/Queries';
 import { changeChartData } from '../chart/chart';
 
 export function renderChart(country = false, day = false, type = 'cases') {
   let url;
-
-  if (country) {
-    url = countryDataPerPeriod(country, day);
-  } else {
-    url = allWorldPerPeriod(day);
-  }
 
   fetch(url)
     .then((response) => {

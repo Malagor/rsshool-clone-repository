@@ -1,3 +1,8 @@
+@import "../../scss/_misc/mixins";
+@import  "../../scss/_misc/fonts";
+@import  "../../scss/_misc/variables";
+
+
 .countries {
   grid-area: countries;
 
@@ -7,9 +12,11 @@
 
     .countries-title {
       width: 100%;
-      height: 2rem;
-      font-size: 20px;
+      height: rem(30px);
+      font-size: rem(20px);
       text-align: center;
+
+      @include Roboto($style: bold);
     }
 
     .countries-input {
@@ -18,39 +25,87 @@
 
     .countries-list {
       width: 100%;
-      height: 370px;
-      margin-top: 10px;
+      height: rem(370px);
+      margin-top: rem(10px);
       overflow-y: scroll;
 
       .country-item {
         display: flex;
-        justify-content: space-between;
-        height: 30px;
+        justify-content: flex-start;
+        margin-bottom: 0.5rem;
 
-        .country-text {
-          display: flex;
-
-          .country-cases {
-            margin-left: 10px;
-            // font-size: 20px;
-          }
-
-          .country-name {
-            margin-left: 10px;
-          }
-        }
 
         .country-flag {
-          margin-right: 10px;
+          width: rem(50px);
+          height: rem(25px);
+          margin-right: rem(10px);
+
+          object-fit: cover;
         }
+
+        .country-name {
+          width: 100%;
+
+          @include Roboto($style: regular);
+        }
+
+        .country-number {
+          margin-right: rem(10px);
+          font-size: rem(18px);
+
+          @include Roboto($style: mono-bold);
+        }
+        .number-cases {
+          color: $color-cases;
+        }
+
+        .number-deaths {
+          color: $color-deaths;
+        }
+
+        .number-recovered {
+          color: $color-recovered;
+        }
+      }
+
+      .country-item:hover {
+        cursor: pointer;
       }
     }
 
+
+
+    .countries-list::-webkit-scrollbar {
+      width: 10px;
+      background-color: $color-background-light;
+    }
+
+    .countries-list::-webkit-scrollbar-thumb {
+      height: 20px;
+      background-color: $color-background-dark;
+      border-radius: 3px;
+    }
+
+
+
     .toggle-cases {
       display: flex;
+      margin-top: 10px;
+
+      @include Roboto($style: light);
 
       .btn-cases {
         width: 33.33%;
+        line-height: 2rem;
+        text-align: center;
+        background-color: $color-background-light;
+        border: 1px solid $color-background-dark;
+        cursor: pointer;
+      }
+
+      .btn-enabled {
+        background-color: $color-background-dark;
+        border: none;
       }
     }
   }

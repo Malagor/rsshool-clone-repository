@@ -4,7 +4,7 @@ export const createCountriesHTML = (el) => {
   <input type="text" class="countries-input">
   <div class="countries-list"></div>
   <div class="toggle-cases">
-    <div class="btn-cases btn-all">All Cases</div>
+    <div class="btn-cases btn-all btn-enabled ">All Cases</div>
     <div class="btn-cases btn-deaths">Deaths</div>
     <div class="btn-cases btn-recovered">Recovered</div>
   </div>

@@ -176,7 +176,7 @@ export const countryPerPeriod = (country, period) => {
 ]
  */
 export const allCountriesPerPeriod = (period) => {
-  return `https://disease.sh/v3/covid-19/historical?lastdays=${period || 'all'}`
+  return `https://disease.sh/v3/covid-19/historical?lastdays=${period || 'all'}`;
 };
 
 /*
@@ -190,5 +190,5 @@ export const allCountriesPerPeriod = (period) => {
 ]
  */
 export const flagAndPopulation = () => {
-  return 'https://restcountries.eu/rest/v2/all?fields=name;population;flag'
+  return 'https://restcountries.eu/rest/v2/all?fields=name;population;flag';
 };

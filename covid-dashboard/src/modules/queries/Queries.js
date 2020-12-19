@@ -1,135 +1,51 @@
 /*
-answer
+All countries population, flags, iso
 [
-{
-  "country": "string",
-  "county": "string",
-  "updatedAt": "string",
-  "stats": {
-    "confirmed": 0,
+  {
+    "updated": 0,
+    "country": "string",
+    "countryInfo": {
+      "_id": 0,
+      "iso2": "string",
+      "iso3": "string",
+      "lat": 0,
+      "long": 0,
+      "flag": "string"
+    },
+    "cases": 0,
+    "todayCases": 0,
     "deaths": 0,
-    "recovered": 0
-  },
-  "coordinates": {
-    "latitude": "string",
-    "longitude": "string"
-  },
-  "province": "string"
-}
-]
- */
-// export const urlAllTimeByCountries = () => {
-//   return 'https://disease.sh/v3/covid-19/jhucsse'
-// };
-//
-// /*
-//  answer
-// {
-//   "cases": {
-//     "date": 0
-//   },
-//   "deaths": {
-//     "date": 0
-//   },
-//   "recovered": {
-//     "date": 0
-//   }
-// }
-//  */
-// export const urlAllWorldPerPeriod = (day) => {
-//   return `https://disease.sh/v3/covid-19/historical/all?lastdays=${day || 'all'}`;
-// };
-//
-// /*
-//  answer
-// {
-//   "country": "string",
-//   "province": [
-//     "string"
-//   ],
-//   "timeline": {
-//     "cases": {
-//       "date": 0
-//     },
-//     "deaths": {
-//       "date": 0
-//     },
-//     "recovered": {
-//       "date": 0
-//     }
-//   }
-// }
-//  */
-// export const getUrlAPICountryPerPeriod = (country, day) => {
-//   if (country) {
-//     return `https://disease.sh/v3/covid-19/historical/${country}?lastdays=${day || 'all'}`;
-//   }
-//
-//   throw new Error('Not received the name of the country');
-// };
-//
-// /*
-//  answer
-// [
-// {
-// "flag": string,
-// "name":string,
-// "population":number
-// }
-// ]
-//  */
-// export const getUrlAPIFlagAndPopulation = () => {
-//   return 'https://restcountries.eu/rest/v2/all?fields=name;population;flag'
-// };
-//
-// /*
-//  answer
-//  [
-//   {
-//     "country": "string",
-//     "province": "string",
-//     "timeline": {
-//       "cases": {
-//         "date": 0
-//       },
-//       "deaths": {
-//         "date": 0
-//       },
-//       "recovered": {
-//         "date": 0
-//       }
-//     }
-//   }
-// ]
-//  */
-// export const gerUrlAPIAllCountriesPerPeriod = (day) => {
-//   return `https://disease.sh/v3/covid-19/historical?lastdays=${day || 'all'}`;
-// };
-//
-
-/*
-Данные за весь мир без разбиения на страны по датам
-{
-  "cases": {
-    "12/16/20": 74219546,
-    "12/17/20": 74952221
-  },
-  "deaths": {
-    "12/16/20": 1648956,
-    "12/17/20": 1662127
-  },
-  "recovered": {
-    "12/16/20": 41977327,
-    "12/17/20": 42349997
+    "todayDeaths": 0,
+    "recovered": 0,
+    "todayRecovered": 0,
+    "active": 0,
+    "critical": 0,
+    "casesPerOneMillion": 0,
+    "deathsPerOneMillion": 0,
+    "tests": 0,
+    "testsPerOneMillion": 0,
+    "population": 0,
+    "continent": 0,
+    "oneCasePerPeople": 0,
+    "oneDeathPerPeople": 0,
+    "oneTestPerPeople": 0,
+    "activePerOneMillion": 0,
+    "recoveredPerOneMillion": 0,
+    "criticalPerOneMillion": 0
   }
-}
+]
+*/
+/**
+ *
+ * @return {string} - url API
+ *
  */
-export const allWorldPerPeriod = (period) => {
-  return `https://disease.sh/v3/covid-19/historical/all?lastdays=${period || 'all'}`;
+export const allCountriesGeneralData = () => {
+  return 'https://disease.sh/v3/covid-19/countries';
 };
 
 /*
-Данные по конкретной стране по датам
+Time data per countries
 {
   "country": "string",
   "province": [
@@ -148,47 +64,23 @@ export const allWorldPerPeriod = (period) => {
   }
 }
  */
-export const countryPerPeriod = (country, period) => {
-  if (country) {
-    return `https://disease.sh/v3/covid-19/historical/${country}?lastdays=${period || 'all'}`;
-  }
-  throw new Error('Not received the name of the country.');
-};
+/**
+ *
+ * @param country - name country: string or false: boolean - All world
+ * @param period - days: number, false: boolean - all period or true: boolean - last 2 days
+ * @return {string} - url API
+ *
+ */
+export const countriesPerPeriod = (country, period) => {
+  let locPeriod = period;
 
-/*
-Данные по каждой стране по датам
-[
-  {
-    "country": "string",
-    "province": "string",
-    "timeline": {
-      "cases": {
-        "date": 0
-      },
-      "deaths": {
-        "date": 0
-      },
-      "recovered": {
-        "date": 0
-      }
+  if (typeof locPeriod === 'boolean') {
+    if (locPeriod) {
+      locPeriod = 2;
+    } else {
+      locPeriod = 'all';
     }
   }
-]
- */
-export const allCountriesPerPeriod = (period) => {
-  return `https://disease.sh/v3/covid-19/historical?lastdays=${period || 'all'}`;
-};
 
-/*
- Данные о названии страны, популяции и ссылка на флаг
-[
-{
-"flag": string,
-"name":string,
-"population":number
-}
-]
- */
-export const flagAndPopulation = () => {
-  return 'https://restcountries.eu/rest/v2/all?fields=name;population;flag';
+  return `https://disease.sh/v3/covid-19/historical/${country || 'all'}?lastdays=${locPeriod}`;
 };

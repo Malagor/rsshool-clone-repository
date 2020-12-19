@@ -3,6 +3,7 @@ import { allCountriesGeneralData, countriesPerPeriod } from '../queries/Queries'
 import { countPer100k } from './countPer100k';
 import { getLastDayData } from './getLastDayData';
 // import { changeChartData } from '../chart/chart';
+// import { processingDataForChart } from './processingDataForChart';
 
 export const updateApp = () => {
   const { country, population, type } = properties;
@@ -50,16 +51,17 @@ export const updateApp = () => {
                 el.todayRecovered = getLastDayData(recoveredTime);
               }
 
-              el.todayCasesPer100k = countPer100k(el.todayCases, pops);
-              el.todayRecoveredPer100k = countPer100k(el.todayDeaths, pops);
-              el.todayDeathsPer100k = countPer100k(el.todayRecovered, pops);
-
               el.cases = cases;
               el.deaths = deaths;
               el.recovered = recovered;
+
               el.casesPer100k = countPer100k(cases, pops);
               el.deathsPer100k = countPer100k(deaths, pops);
               el.recoveredPer100k = countPer100k(recovered, pops);
+
+              el.todayCasesPer100k = countPer100k(el.todayCases, pops);
+              el.todayRecoveredPer100k = countPer100k(el.todayDeaths, pops);
+              el.todayDeathsPer100k = countPer100k(el.todayRecovered, pops);
               el.timeData = {
                 cases: casesTime,
                 deaths: deathsTime,
@@ -75,15 +77,20 @@ export const updateApp = () => {
           console.log(fullArrayCountries);
 
           // Тут раздербанивайте входящий массив на составляющие и вызывайте свои функции
-          //   changeChartData(arrData, locCountry, type, period);
+
+          // const { arrData, locCountry } = processingDataForChart(
+          //   data,
+          //   country,
+          //   population,
+          // );
+          // changeChartData(arrData, locCountry, type, period, population);
+
         })
         .catch(err => {
           console.log('I can\'t convert country data', err);
         });
-
     })
     .catch((err) => {
       console.log('Can\'t get general data about countries!', err);
     });
-
 };

@@ -1,6 +1,6 @@
 @import "../../scss/_misc/mixins";
-@import  "../../scss/_misc/fonts";
-@import  "../../scss/_misc/variables";
+@import "../../scss/_misc/fonts";
+@import "../../scss/_misc/variables";
 
 
 .countries {
@@ -34,13 +34,17 @@
         justify-content: flex-start;
         margin-bottom: 0.5rem;
 
-
         .country-flag {
-          width: rem(50px);
-          height: rem(25px);
+          width: 3rem;
+          height: 1.2rem;
           margin-right: rem(10px);
 
-          object-fit: cover;
+          img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+          }
         }
 
         .country-name {
@@ -55,6 +59,7 @@
 
           @include Roboto($style: mono-bold);
         }
+
         .number-cases {
           color: $color-cases;
         }
@@ -74,7 +79,6 @@
     }
 
 
-
     .countries-list::-webkit-scrollbar {
       width: 10px;
       background-color: $color-background-light;
@@ -85,7 +89,6 @@
       background-color: $color-background-dark;
       border-radius: 3px;
     }
-
 
 
     .toggle-cases {

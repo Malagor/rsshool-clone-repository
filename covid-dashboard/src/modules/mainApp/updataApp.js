@@ -1,68 +1,96 @@
 import { properties } from '../Properties/Properties';
-import {
-  allWorldPerPeriod,
-  allCountriesPerPeriod,
-  countryPerPeriod,
-  flagAndPopulation
-} from '../queries/Queries';
-import { changeChartData } from '../chart/chart';
-import { processingDataForMap } from './processingDataForMap';
-import { setMarksToMap } from '../map/map';
+import { allCountriesGeneralData, countriesPerPeriod } from '../queries/Queries';
+import { countPer100k } from './countPer100k';
+import { getLastDayData } from './getLastDayData';
+// import { changeChartData } from '../chart/chart';
+// import { processingDataForChart } from './processingDataForChart';
 
 export const updateApp = () => {
-  const { country, /* population, */ type } = properties;
+  const { country, population, type } = properties;
+  console.log(country, population, type);
   let { period } = properties;
 
-  if ( typeof period === 'boolean') {
+  if (typeof period === 'boolean') {
     period = period ? 2 : false;
   }
 
-  const urlForFlagAndPopulation = flagAndPopulation();
-  const urlAllCountry = allCountriesPerPeriod(period);
-  let urlCurrentData;
+  const urlGeneralData = allCountriesGeneralData();
+  // const urlCountriesData = countriesPerPeriod(country, period);
 
-  if (country) {
-    urlCurrentData = countryPerPeriod(country, period);
-  } else {
-    urlCurrentData = allWorldPerPeriod(period);
-  }
 
-  Promise.all([
-    fetch(urlForFlagAndPopulation),
-    fetch(urlAllCountry),
-    fetch(urlCurrentData)
-  ]).then(async ([flagAndPop, allCountry, currentData]) => {
-    return {
-      flagAndPop: await flagAndPop.json(),
-      allCountriesInfo: await allCountry.json(),
-      covidData: await currentData.json(),
-    };
-  })
-    .then((data) => {
-      console.log('Data form Promise :=>\n', data);
-      let arrData;
-      let locCountry;
+  fetch(urlGeneralData)
+    .then((response) => {
+      return response.json();
+    })
+    .then(data => {
+      const generalData = data;
+      const codesCountries = data.map(el => el.countryInfo.iso3);
 
-      // Все данные в трех массивах в data.
-      // Нужно их обработать в зависимости от Страны и периода.
-      // Сами данные отобраны нормально, нужно просто их подготовить для передачи в модули отрисовки
-      // Для жтого сделайте функцию внешнюю, в которую заберите нужные данные, а верните из нее уже подготовленные данные.
+      const urlCountriesData = countriesPerPeriod(codesCountries, period);
 
-      if (country) {
-        const additionalArr = Object.entries(data.covidData);
-        arrData = Object.entries(additionalArr[2][1]);
-        locCountry = country;
-      } else {
-        locCountry = 'All World';
-        arrData = Object.entries(data.covidData);
-      }
+      fetch(urlCountriesData)
+        .then(response => {
+          return response.json();
+        })
+        .then(countriesData => {
+          const compileData = generalData.map((el, idx) => {
+            if (countriesData[idx]) {
+              const casesTime = Object.entries(countriesData[idx].timeline.cases);
+              const deathsTime = Object.entries(countriesData[idx].timeline.deaths);
+              const recoveredTime = Object.entries(countriesData[idx].timeline.recovered);
+              const cases = casesTime[casesTime.length - 1][1];
+              const deaths = deathsTime[deathsTime.length - 1][1];
+              const recovered = recoveredTime[recoveredTime.length - 1][1];
 
-      const dataForMap = processingDataForMap(data.flagAndPop);
-      setMarksToMap(dataForMap);
-      // Вот вызов отрисовки Графика для примера
-      changeChartData(arrData, locCountry, type, period);
+              const { population: pops } = el;
+              const { length } = casesTime;
 
-    }).catch((err) => {
-    console.log('Error updating information in the app!', err);
-  });
+              if (length) {
+                el.todayCases = getLastDayData(casesTime);
+                el.todayDeaths = getLastDayData(deathsTime);
+                el.todayRecovered = getLastDayData(recoveredTime);
+              }
+
+              el.cases = cases;
+              el.deaths = deaths;
+              el.recovered = recovered;
+
+              el.casesPer100k = countPer100k(cases, pops);
+              el.deathsPer100k = countPer100k(deaths, pops);
+              el.recoveredPer100k = countPer100k(recovered, pops);
+
+              el.todayCasesPer100k = countPer100k(el.todayCases, pops);
+              el.todayRecoveredPer100k = countPer100k(el.todayDeaths, pops);
+              el.todayDeathsPer100k = countPer100k(el.todayRecovered, pops);
+              el.timeData = {
+                cases: casesTime,
+                deaths: deathsTime,
+                recovered: recoveredTime,
+              };
+              return el;
+            }
+            return null;
+          });
+          return compileData.filter(el => el !== null);
+        })
+        .then(fullArrayCountries => {
+          console.log(fullArrayCountries);
+
+          // Тут раздербанивайте входящий массив на составляющие и вызывайте свои функции
+
+          // const { arrData, locCountry } = processingDataForChart(
+          //   data,
+          //   country,
+          //   population,
+          // );
+          // changeChartData(arrData, locCountry, type, period, population);
+
+        })
+        .catch(err => {
+          console.log('I can\'t convert country data', err);
+        });
+    })
+    .catch((err) => {
+      console.log('Can\'t get general data about countries!', err);
+    });
 };

@@ -21,6 +21,7 @@ const createTableCountries = (el) => {
     if (target === el) return;
     if (target.closest('.country-item')) {
       properties.country = target.closest('.country-item').querySelector('.country-name').innerText;
+      Keyboard.properties.value = ''; 
     } else if (target.closest('.btn-all')) {
       properties.type = 'cases';    
     } else if (target.closest('.btn-deaths')) {
@@ -29,12 +30,12 @@ const createTableCountries = (el) => {
       properties.type = 'recovered';
     }
     changeStylesOfCountries(countriesElements, properties.type);
-    updateListOfCountries(countriesElements);
+    updateListOfCountries(countriesElements.input);
     changeView();   
   });
 
   countriesElements.input.addEventListener('keyup', (e) => {
-    filterInput(countriesElements);
+    filterInput(countriesElements.input);
     if (e.code === 'Enter') {
       const countryNamesHTML = document.querySelectorAll('.country-name'); 
       countryNamesHTML.forEach((countryName) => {
@@ -43,7 +44,7 @@ const createTableCountries = (el) => {
           changeView();
         }
       });
-      updateListOfCountries(countriesElements);
+      updateListOfCountries(countriesElements.input);
     }
   });
 };

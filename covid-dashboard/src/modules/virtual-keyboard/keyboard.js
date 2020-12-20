@@ -1,51 +1,13 @@
-export const keyLayout1 = [ "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "backspace",
-":)","q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "[", "]","(:",
-"caps", "a", "s", "d", "f", "g", "h", "j", "k", "l", ";", "'", "\\", 
-"shift", "z", "x", "c", "v", "b", "n", "m", ",", ".", "/", "enter",
-"done","lang","space","voice","sound","arrowleft","arrowright"];
-
-export const keyLayout2 = [ "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "+", "backspace",
-":)","q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "{", "}","(:",
-"caps", "a", "s", "d", "f", "g", "h", "j", "k", "l", ":", " \" ", "|", 
-"shift", "z", "x", "c", "v", "b", "n", "m", "<", ">", "?", "enter",
-"done","lang","space","voice","sound","arrowleft","arrowright"];
-
-export const keyLayout3 = [ "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "backspace",
-":)","й", "ц", "у", "к", "е", "н", "г", "ш", "щ", "з", "х", "ъ","(:",
-"caps", "ф", "ы", "в", "а", "п", "р", "о", "л", "д", "ж", "э", "ё", 
-"shift", "я", "ч", "с", "м", "и", "т", "ь", "б", "ю", "/", "enter",
-"done","lang","space","voice","sound","arrowleft","arrowright"];
-
-export const keyLayout4 = [ "!", '"', "№", "%", ":", ",", ".", ";", "(", ")", "_", "+", "backspace",
-":)","й", "ц", "у", "к", "е", "н", "г", "ш", "щ", "з", "х", "ъ","(:",
-"caps", "ф", "ы", "в", "а", "п", "р", "о", "л", "д", "ж", "э", "ё", 
-"shift", "я", "ч", "с", "м", "и", "т", "ь", "б", "ю", "?", "enter",
-"done","lang","space","voice","sound","arrowleft","arrowright"];
-
-export const functionalButtons = ['Tab', 'CapsLock', 'Shift', 'Control', 'Alt', 'Meta', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Enter', 'Backspace', ''];
-
-// window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-// const recognition = new SpeechRecognition();
-// recognition.interimResults = true; 
-
-// let left = '';
-// let right = '';
-
-
+/* eslint-disable no-restricted-syntax */
+import { filterInput } from '../countries/filterInput';
+import { updateListOfCountries }  from '../countries/updateListOfCountries';
+import { properties } from '../Properties/Properties';
 
 export const Keyboard = {
-
-  left: '',
-  right: '',
-
   elements: {
     main: null,
     keysContainer: null,
-    keys: [],
-    shiftBtn: null,
-    capsBtn: null,
-    langBtn: null,
-    soundBtn: null,
+    keys: []
   },
 
   eventHandlers: {
@@ -55,641 +17,184 @@ export const Keyboard = {
 
   properties: {
     value: "",
-    capsLock: false,
-    shift: false,
-    lang: "en",
-    sound: false,
-    voice: false,
-
+    capsLock: false
   },
 
   init() {
-    
-    // create main elements
-    this.elements.main = document.createElement('div');
-    this.elements.keysContainer = document.createElement('div');
+    // Create main elements
+    this.elements.main = document.createElement("div");
+    this.elements.keysContainer = document.createElement("div");
 
-    // setup main elements
+    // Setup main elements
     this.elements.main.classList.add("keyboard", "keyboard--hidden");
     this.elements.keysContainer.classList.add("keyboard__keys");
-    this.elements.keysContainer.appendChild(this._createKeys()); 
+    this.elements.keysContainer.appendChild(this._createKeys());
 
-   
+    this.elements.keys = this.elements.keysContainer.querySelectorAll(".keyboard__key");
 
-    this.elements.keys = this.elements.keysContainer.querySelectorAll('.keyboard__key');
- 
+    // Add to DOM
     this.elements.main.appendChild(this.elements.keysContainer);
     document.body.appendChild(this.elements.main);
 
-    document.querySelectorAll('input').forEach(element => {
-      element.addEventListener('focus', () => {
+    // Automatically use keyboard for elements with .use-keyboard-input
+    document.querySelectorAll("input").forEach(element => {
+      element.addEventListener("focus", () => {
         this.open(element.value, currentValue => {
           element.value = currentValue;
-        })
+        });
       });
     });
-   
-    
-    
-    document.querySelector('.countries-input').addEventListener('keydown', (e) => {
-      if (functionalButtons.indexOf(e.key) === -1) {
-        this.left += e.key;
-        this.properties.value = this.left + this.right;
-       ;
-      }
-      
-    this.elements.keys.forEach((key) => {
-      if ((key.innerText.toLowerCase() === e.key.toLowerCase()) && functionalButtons.indexOf(e.key) === -1) {
-        key.classList.add('light');
-        setTimeout(() => key.classList.remove('light'), 500);
-
-      } else if (key.innerText === 'backspace' && e.key === 'Backspace'){
-        key.classList.add('light');
-
-        this.left = this.left.substring(0, this.left.length - 1);
-        this.properties.value = this.left + this.right;
-    
-      
-        document.querySelector('.countries-input').focus();
-        setTimeout(() => key.classList.remove('light'), 500);
-
-      } else if (key.innerText === 'keyboard_capslock' && e.key === 'CapsLock') {
-     
-        key.classList.add('light');
-        this._toggleCapsLock();     
-        this.elements.capsBtn.classList.toggle("keyboard__key--active");      
-        document.querySelector('.countries-input').focus();
-        setTimeout(() => key.classList.remove('light'), 500);
-
-      } else if (key.innerText === 'keyboard_return' && e.key === 'Enter') {
-        key.classList.add('light');
-
-        this.left += '\n';
-        this.properties.value = this.left + this.right;
-    
-        document.querySelector('.countries-input').focus();
-        setTimeout(() => key.classList.remove('light'), 500);
-
-      } else if (key.innerText === 'Shift' && e.key === 'Shift') {
-        key.classList.add('light');
-        this._toggleShift();
-        this.elements.shiftBtn.classList.toggle("keyboard__key--active");
-        document.querySelector('.countries-input').focus();
-        setTimeout(() => key.classList.remove('light'), 500);
-
-      } else if (key.innerText === 'space_bar' && e.code === 'Space') {
-        key.classList.add('light');
-     
-        this.properties.value += '';
- 
-        document.querySelector('.countries-input').focus();
-        setTimeout(() => key.classList.remove('light'), 500);
-
-      } else if ((key.innerText === 'keyboard_arrow_left' && e.key === 'ArrowLeft') || (key.innerText === 'keyboard_arrow_right' && e.key === 'ArrowRight') ) {
-        key.classList.add('light');
-        setTimeout(() => key.classList.remove('light'), 500);
-
-      } 
-
-    });
-    
-
-
-
-
-
-
-
-      // for (const key of this.elements.keys) {
-      //   if ((key.innerText.toLowerCase() === e.key.toLowerCase()) && functionalButtons.indexOf(e.key) === -1) {
-      //     key.classList.add('light');
-      //     setTimeout(() => key.classList.remove('light'), 500);
-
-      //   } else if (key.innerText === 'backspace' && e.key === 'Backspace'){
-      //     key.classList.add('light');
-
-      //     left = left.substring(0, left.length - 1);
-      //     this.properties.value = left + right;
-      
-        
-      //     document.querySelector('.use-keyboard-input').focus();
-      //     setTimeout(() => key.classList.remove('light'), 500);
-
-      //   } else if (key.innerText === 'keyboard_capslock' && e.key === 'CapsLock') {
-      //     // console.log (e.key);
-      //     key.classList.add('light');
-      //     this._toggleCapsLock();     
-      //     this.elements.capsBtn.classList.toggle("keyboard__key--active");      
-      //     document.querySelector('.use-keyboard-input').focus();
-      //     setTimeout(() => key.classList.remove('light'), 500);
-
-      //   } else if (key.innerText === 'keyboard_return' && e.key === 'Enter') {
-      //     key.classList.add('light');
-
-      //     left += '\n';
-      //     this.properties.value = left + right;
-      
-      //     document.querySelector('.use-keyboard-input').focus();
-      //     setTimeout(() => key.classList.remove('light'), 500);
-
-      //   } else if (key.innerText === 'Shift' && e.key === 'Shift') {
-      //     key.classList.add('light');
-      //     this._toggleShift();
-      //     this.elements.shiftBtn.classList.toggle("keyboard__key--active");
-      //     document.querySelector('.use-keyboard-input').focus();
-      //     setTimeout(() => key.classList.remove('light'), 500);
-
-      //   } else if (key.innerText === 'space_bar' && e.code === 'Space') {
-      //     key.classList.add('light');
-      //     // console.log (this.properties.value);
-      //     this.properties.value += '';
-      //     // this._triggerEvent('oninput');
-      //     // console.log (left.length);
-      //     document.querySelector('.use-keyboard-input').focus();
-      //     setTimeout(() => key.classList.remove('light'), 500);
-
-      //   } else if ((key.innerText === 'keyboard_arrow_left' && e.key === 'ArrowLeft') || (key.innerText === 'keyboard_arrow_right' && e.key === 'ArrowRight') ) {
-      //     key.classList.add('light');
-      //     setTimeout(() => key.classList.remove('light'), 500);
-
-      //   } 
-
-
-
-      // }      
-    });
-
-
   },
 
   _createKeys() {
+    const input = document.querySelector('.countries-input');
     const fragment = document.createDocumentFragment();
+    const keyLayout = [
+      "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "backspace",
+      "q", "w", "e", "r", "t", "y", "u", "i", "o", "p",
+      "caps", "a", "s", "d", "f", "g", "h", "j", "k", "l", "enter",
+      "done", "z", "x", "c", "v", "b", "n", "m", ",", ".", "?",
+      "space"
+    ];
 
-   
-    // create html for an icon
+    // Creates HTML for an icon
     const createIconHTML = (iconName) => {
       return `<i class="material-icons">${iconName}</i>`;
-    }
+    };
 
-    keyLayout1.forEach((key, index) => {
+    keyLayout.forEach(key => {
+      const keyElement = document.createElement("button");
+      const insertLineBreak = ["backspace", "p", "enter", "?"].indexOf(key) !== -1;
 
-      const keyElement = document.createElement('button');
-      const insertLineBreak = ["backspace", "(:", "\\", "enter" ].indexOf(key) !== -1;
-
-
-      keyElement.setAttribute('type', 'button');
+      // Add attributes/classes
+      keyElement.setAttribute("type", "button");
       keyElement.classList.add("keyboard__key");
 
       switch (key) {
         case "backspace":
           keyElement.classList.add("keyboard__key--wide");
           keyElement.innerHTML = createIconHTML("backspace");
-          keyElement.addEventListener('click', () => {
 
-            this.left = this.left.substring(0, this.left.length - 1);
-            this.properties.value = this.left + this.right;
-
-
-
-
-            if (this.properties.sound) {
-              this._playSound("backspace");
-            }
-
-            this._triggerEvent('oninput');
-
-            document.querySelector('.countries-input').selectionStart = this.left.length;
-            document.querySelector('.countries-input').selectionEnd = document.querySelector('.countries-input').selectionStart;
-            document.querySelector('.countries-input').focus();
+          keyElement.addEventListener("click", () => {
+            this.properties.value = this.properties.value.substring(0, this.properties.value.length - 1);
+            this._triggerEvent("oninput");
           });
+
           break;
-        
+
         case "caps":
           keyElement.classList.add("keyboard__key--wide", "keyboard__key--activatable");
           keyElement.innerHTML = createIconHTML("keyboard_capslock");
-          this.elements.capsBtn = keyElement;
-          this.elements.capsBtn.addEventListener('click', () => {
-           
+
+          keyElement.addEventListener("click", () => {
             this._toggleCapsLock();
-
-
-            if (this.properties.sound) {
-              this._playSound("caps");
-            }
-         
-            this.elements.capsBtn.classList.toggle("keyboard__key--active");
-          
-            document.querySelector('.countries-input').focus();
+            keyElement.classList.toggle("keyboard__key--active", this.properties.capsLock);
           });
-          break; 
-          
+
+          break;
+
         case "enter":
           keyElement.classList.add("keyboard__key--wide");
           keyElement.innerHTML = createIconHTML("keyboard_return");
-          keyElement.addEventListener('click', () => {
 
-            this.left += '\n';
-            this.properties.value  = this.left + this.right;
-         
+          keyElement.addEventListener("click", () => {
+            const countryNamesHTML = document.querySelectorAll('.country-name'); 
+            countryNamesHTML.forEach((countryName) => {
+              if(countryName.innerText.toUpperCase() === input.value.toUpperCase()) {
+                properties.country = countryName.innerText;
+                // changeView();
+              }
+            });
 
-            if (this.properties.sound) {
-              this._playSound("enter");
-            }
-            this._triggerEvent('oninput');
-            document.querySelector('.countries-input').selectionStart = this.left.length;
-            document.querySelector('.countries-input').selectionEnd = document.querySelector('.countries-input').selectionStart;
-            document.querySelector('.countries-input').focus();
 
+            updateListOfCountries(input);
+            this.properties.value = '';
+            // this.properties.value += "\n";
+            // this._triggerEvent("oninput");
           });
+
           break;
 
         case "space":
           keyElement.classList.add("keyboard__key--extra-wide");
           keyElement.innerHTML = createIconHTML("space_bar");
-          keyElement.addEventListener('click', () => {
 
-            this.left += ' ';
-            this.properties.value = this.left + this.right;
-
-           
-
-            if (this.properties.sound) {
-              if (this.elements.langBtn.innerHTML === `<span>en</span>`) {
-                this._playSound("eng");
-              } else {
-                this._playSound("ru");
-              }             
-            }
-
-
-            this._triggerEvent('oninput');
-
-            document.querySelector('.countries-input').selectionStart = this.left.length;
-            document.querySelector('.countries-input').selectionEnd = document.querySelector('.countries-input').selectionStart; 
-
-            document.querySelector('.countries-input').focus();
+          keyElement.addEventListener("click", () => {
+            this.properties.value += " ";
+            this._triggerEvent("oninput");
+            input.focus();
           });
+
           break;
 
         case "done":
           keyElement.classList.add("keyboard__key--wide", "keyboard__key--dark");
           keyElement.innerHTML = createIconHTML("check_circle");
-          keyElement.addEventListener('click', () => {
+
+          keyElement.addEventListener("click", () => {
             this.close();
-            this._triggerEvent('onclose');
+            this._triggerEvent("onclose");
           });
-          break;
-
-        case "shift":
-          keyElement.classList.add("keyboard__key--wide", "keyboard__key--activatable");
-          keyElement.innerHTML = "<span>Shift</span>";
-          this.elements.shiftBtn = keyElement;
-
-          this.elements.shiftBtn.addEventListener('click', () => {
-   
-            this._toggleShift();
-
-            if (this.properties.sound) {
-              this._playSound("shift");
-            }
-            this.elements.shiftBtn.classList.toggle("keyboard__key--active");
-            document.querySelector('.countries-input').focus();
-          })
-          break;
-        
-        case "lang":
-          keyElement.innerHTML = `<span>en</span>`;
-          this.elements.langBtn = keyElement;
-          this.elements.langBtn.addEventListener('click', () => {
-            
-          
-            this._toggleLang();
-
-
-
-            if (this.properties.sound) {
-              if (this.elements.langBtn.innerHTML === `<span>en</span>`) {
-                this._playSound("eng");
-              } else {
-                this._playSound("ru");
-              }             
-            }
-            document.querySelector('.countries-input').focus();
-          })
-          break;
-
-        case "voice":
-          keyElement.classList.add("keyboard__key--wide","keyboard__key--activatable");
-          keyElement.innerHTML = createIconHTML("mic");
-          
-          // keyElement.addEventListener('click', () => {
-          //   this.properties.voice = !this.properties.voice;
-            
-          //   if (this.properties.voice) {
-          //     if (this.properties.sound) {
-          //       this._playSound("voice");
-          //     }
-              
-          //     if (this.elements.langBtn.innerHTML === `<span>en</span>`) {
-          //       recognition.lang = 'en-US';
-          //     } else {
-          //       recognition.lang = 'ru';
-          //     }  
-           
-          //     recognition.start();
-           
-          //     recognition.addEventListener("result", this.recResult);
-          //     recognition.addEventListener("end", this.recEnd);
-
-             
-
-              
-          //   } else {
-          //     recognition.abort();
-          //     recognition.removeEventListener("result", this.recResult);
-          //     recognition.removeEventListener("end", this.recEnd);
-
-             
-          //   }
-          //   this.properties.value = left + right;
-          //   document.querySelector('.use-keyboard-input').selectionStart = document.querySelector('.use-keyboard-input').selectionStart + 1;
-          //   document.querySelector('.use-keyboard-input').selectionEnd = document.querySelector('.use-keyboard-input').selectionStart;
-          //   document.querySelector('.use-keyboard-input').focus();
-          //   keyElement.classList.toggle("keyboard__key--active");
-          // });
-         
-          break;
-
-
-        case "sound":
-          keyElement.classList.add("keyboard__key--wide","keyboard__key--activatable");
-          keyElement.innerHTML = createIconHTML("volume_up");
-          this.elements.soundBtn = keyElement;
-          this.elements.soundBtn.addEventListener('click', () => {
-      
-            this.properties.sound = !this.properties.sound;
-            if (this.properties.sound) {
-              this._playSound("sound");
-            }
-            this.elements.soundBtn.classList.toggle("keyboard__key--active");
-            document.querySelector('.countries-input').focus();
-          })
-
 
           break;
-
-
-        case "arrowleft":
-          keyElement.innerHTML = createIconHTML("keyboard_arrow_left");
-          
-          keyElement.addEventListener('click', () => {
-
-            if (this.properties.sound) {
-              this._playSound("arrow");
-            }
-
-            
-            
-         
-            document.querySelector('.countries-input').selectionStart = ((document.querySelector('.countries-input').selectionStart - 1) >= 0) ? 
-            (document.querySelector('.countries-input').selectionStart - 1) : 0 ;
-            document.querySelector('.countries-input').selectionEnd = document.querySelector('.countries-input').selectionStart;
-            this.left = this.properties.value.substring(0, document.querySelector('.countries-input').selectionStart);
-            this.right = this.properties.value.substring(document.querySelector('.countries-input').selectionStart, this.properties.value.length);
-     
-            document.querySelector('.countries-input').focus();
-            
-          })
-          break;
-
-        case "arrowright":
-          keyElement.innerHTML = createIconHTML("keyboard_arrow_right");
-          keyElement.addEventListener('click', () => {
-            if (this.properties.sound) {
-              this._playSound("arrow");
-            }
-            
-            document.querySelector('.countries-input').selectionStart = document.querySelector('.countries-input').selectionStart + 1;
-            document.querySelector('.countries-input').selectionEnd = document.querySelector('.countries-input').selectionStart;
-            document.querySelector('.countries-input').focus();
-            this.left = this.properties.value.substring(0, document.querySelector('.countries-input').selectionStart);
-            this.right = this.properties.value.substring(document.querySelector('.countries-input').selectionStart, this.properties.value.length);     
-          })
-
-          break;  
 
         default:
-          
           keyElement.textContent = key.toLowerCase();
-          
-          keyElement.addEventListener('click', () => {
-          
-            if (this.elements.langBtn.innerHTML === `<span>en</span>`) {
 
-              if (this.properties.sound) {
-                this._playSound("eng");
-              }
-              if (!this.properties.shift) {
-                
-                this.left += (this.properties.capsLock ? keyLayout1[index].toUpperCase() : keyLayout1[index].toLowerCase());
-                this.properties.value = this.left + this.right;
-              }
-              if (this.properties.shift) {
-                
-                this.left += (this.properties.capsLock ? keyLayout2[index].toUpperCase() : keyLayout2[index].toLowerCase());
-                this.properties.value = this.left + this.right;
-              }
-              
-
-              
-            } else if (this.elements.langBtn.innerHTML === `<span>ru</span>`){ 
-
-              if (this.properties.sound) {
-                this._playSound("ru");
-              }
-              if (!this.properties.shift) {
-                
-                this.left += (this.properties.capsLock ? keyLayout3[index].toUpperCase() : keyLayout3[index].toLowerCase());
-                this.properties.value = this.left + this.right;
-              }
-              if (this.properties.shift) {
-              
-                this.left += (this.properties.capsLock ? keyLayout4[index].toUpperCase() : keyLayout4[index].toLowerCase());
-                this.properties.value = this.left + this.right;
-                
-              }
-            }
+          keyElement.addEventListener("click", () => {
+            this.properties.value += this.properties.capsLock ? key.toUpperCase() : key.toLowerCase();
             
-            
-            this._triggerEvent('oninput');
-
-            document.querySelector('.countries-input').selectionStart = this.left.length;
-            document.querySelector('.countries-input').selectionEnd = document.querySelector('.countries-input').selectionStart;
-
-            document.querySelector('.countries-input').focus();
+            this._triggerEvent("oninput");
+            input.focus();
+            filterInput(input);
           });
+
           break;
       }
 
       fragment.appendChild(keyElement);
 
-      if(insertLineBreak) {
-        fragment.appendChild(document.createElement('br'));
+      if (insertLineBreak) {
+        fragment.appendChild(document.createElement("br"));
       }
-
     });
 
     return fragment;
   },
 
   _triggerEvent(handlerName) {
-    if (typeof this.eventHandlers[handlerName] === 'function') {
+    if (typeof this.eventHandlers[handlerName] === "function") {
       this.eventHandlers[handlerName](this.properties.value);
     }
-    
   },
 
   _toggleCapsLock() {
-   
-    if (this.properties.shift && this.elements.capsBtn.classList.contains("keyboard__key--active")) {
-      this.properties.capsLock = true;
-    } else {
-      this.properties.capsLock = !this.properties.capsLock;
-    }
-    
-    this.elements.keys.forEach((key) => {
+    this.properties.capsLock = !this.properties.capsLock;
+
+    for (const key of this.elements.keys) {
       if (key.childElementCount === 0) {
         key.textContent = this.properties.capsLock ? key.textContent.toUpperCase() : key.textContent.toLowerCase();
       }
-    });
-
-
-
-      // for (const key of this.elements.keys) {
-      //   if (key.childElementCount === 0) {
-      //     key.textContent = this.properties.capsLock ? key.textContent.toUpperCase() : key.textContent.toLowerCase();
-      //   }
-      // }
-  },
-
-  _toggleShift() {
-   
-    this.properties.shift = !this.properties.shift;
-    this.properties.capsLock = !this.properties.capsLock; 
-
-    if (this.elements.langBtn.innerHTML === "<span>en</span>") {
-      for (let i = 0; i < this.elements.keys.length; i += 1) {
-        if (keyLayout2[i] !== keyLayout1[i]) {
-          this.elements.keys[i].textContent = this.properties.shift ? keyLayout2[i] : keyLayout1[i] ;
-       
-        } else if (this.elements.keys[i].childElementCount === 0){
-          
-          this.elements.keys[i].textContent = this.properties.capsLock ? this.elements.keys[i].textContent.toUpperCase() : this.elements.keys[i].textContent.toLowerCase();
-        }
-        
-      }
-    } else if (this.elements.langBtn.innerHTML === "<span>ru</span>") {
-      for (let i = 0; i < this.elements.keys.length; i += 1 ) {
-        if (keyLayout4[i] !== keyLayout3[i]) {
-          this.elements.keys[i].textContent = this.properties.shift ? keyLayout4[i] : keyLayout3[i] ;
-          
-        } else if (this.elements.keys[i].childElementCount === 0){
-         
-          this.elements.keys[i].textContent = this.properties.capsLock ? this.elements.keys[i].textContent.toUpperCase() : this.elements.keys[i].textContent.toLowerCase();
-        }
-      }
-     
     }
-    
-   
-    
-    
-    
+
+    // this.elements.key.forEach((key) => {
+    //   if (key.childElementCount === 0) {
+    //     key.textContent = this.properties.capsLock ? key.textContent.toUpperCase() : key.textContent.toLowerCase();
+    //   }
+    // });
   },
 
-  _toggleLang() {
-   
-
-
-    if (this.elements.langBtn.innerHTML === "<span>en</span>") {
-     
-      this.elements.langBtn.innerHTML = "<span>ru</span>";
-
-      
-      for (let i = 0; i < this.elements.keys.length; i += 1) {
-        if (this.elements.keys[i].childElementCount === 0) {
-          if (this.properties.shift) {
-            this.elements.keys[i].textContent = this.properties.capsLock ? keyLayout4[i].toUpperCase() : keyLayout4[i].toLowerCase() ;
-          } else {
-            this.elements.keys[i].textContent = this.properties.capsLock ? keyLayout3[i].toUpperCase() : keyLayout3[i].toLowerCase() ;
-          }         
-        }
-      }
-      // if (this.properties.voice) {
-      //   recognition.lang = 'ru';
-      // }
-    } else {
-      this.elements.langBtn.innerHTML = "<span>en</span>";
-      for (let i = 0; i < this.elements.keys.length; i += 1) {
-        if (this.elements.keys[i].childElementCount === 0) {
-          if (this.properties.shift) {
-            this.elements.keys[i].textContent = this.properties.capsLock ? keyLayout2[i].toUpperCase() : keyLayout2[i].toLowerCase() ; 
-          } else {
-            this.elements.keys[i].textContent = this.properties.capsLock ? keyLayout1[i].toUpperCase() : keyLayout1[i].toLowerCase() ;
-          }           
-        }   
-      }
-      // if (this.properties.voice) {
-      //   recognition.lang = 'en-US';
-      // }
-    }
-  },
-
-  _playSound(soundName) {
-    const audio = document.querySelector(`audio[data-key="${soundName}"]`);
-    if (!audio) return;
-    audio.currentTime = 0;
-    audio.play();
-  },
-
-  open(initialValue, oninput, onclose) { 
+  open(initialValue, oninput, onclose) {
     this.properties.value = initialValue || "";
     this.eventHandlers.oninput = oninput;
     this.eventHandlers.onclose = onclose;
-    this.elements.main.classList.remove('keyboard--hidden');
+    this.elements.main.classList.remove("keyboard--hidden");
   },
 
   close() {
-    this.properties.value = '';
+    this.properties.value = "";
     this.eventHandlers.oninput = oninput;
     this.eventHandlers.onclose = onclose;
-    this.elements.main.classList.add('keyboard--hidden');
-  },
-
-  // recResult(e) {
-  //   console.log(`3=${recognition.lang}`); 
-
-  //   const text = Array.from(e.results)
-  //   .map(result => result[0])
-  //   .map(result => result.transcript)
-  //   .join('');
-
-  //   if (e.results[0].isFinal) {
-  //     left = `${left + text} `;
-  //     document.querySelector('body > textarea').value = left + right;   
-  //   }     
-  // },
-
-  // recEnd() {   
-      
-  //   console.log(`4=${recognition.lang}`);         
-  //   recognition.start();
-  // },
-  
+    this.elements.main.classList.add("keyboard--hidden");
+  }
 };
-
-// window.addEventListener("DOMContentLoaded", () => {
-//   Keyboard.init();
-// });
-
- 

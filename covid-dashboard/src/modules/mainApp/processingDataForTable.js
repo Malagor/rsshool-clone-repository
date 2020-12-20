@@ -30,7 +30,7 @@ export const processingDataForTable = (data) => {
     }   
   } else if (country) {
     dataForTable.country = country;
-    const countryObj = data.filter((elem) => elem.country === country);
+    const countryObj = data.find((elem) => elem.country === country);
     if (!period) {
       if (population === false) { 
         dataForTable.cases = countryObj.cases;

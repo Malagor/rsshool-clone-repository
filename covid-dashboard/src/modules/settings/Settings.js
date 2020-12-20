@@ -31,7 +31,7 @@ const getFormData = () => {
   const period = form.period.checked;
   const type = form.type.value;
 
-  country = (country === 'All World' || country === "") ? false : country;
+  country = (country === 'All World' || country === '') ? false : country;
 
   const data = {
     country,

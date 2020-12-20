@@ -1,5 +1,6 @@
 import L from 'leaflet/dist/leaflet';
 
+
 export const printBorderCountries = (map) => {
   const path = 'https://datahub.io/core/geo-countries/datapackage.json';
 
@@ -8,7 +9,6 @@ export const printBorderCountries = (map) => {
       return response.json();
     })
     .then((data) => {
-      console.log('data\n', data.resources[2].path);
       fetch(data.resources[2].path)
         .then((response) => {
           return response.json();
@@ -19,8 +19,33 @@ export const printBorderCountries = (map) => {
             style: {
               color: 'rgba(255,255,255,0.8)',
               weight: 1,
-              fill: false,
+              // fill: false,
+              fillOpacity: 0.0,
             },
+            onEachFeature: (feature, layer) => {
+              layer.on({
+                mouseover: (e) => {
+                  const l = e.target;
+
+                  layer.setStyle({
+                    weight: 5,
+                    color: '#666',
+                    dashArray: '',
+                    // fill: '#ff0000',
+                    // fillOpacity: 0.5,
+                  });
+
+                  if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+                    l.bringToFront();
+                  }
+                },
+                mouseout: (e) => {
+                  geodata.resetStyle(e.target);
+                },
+
+              });
+            },
+
           })
             // .bindPopup(layer => {
             //   // console.log('layer', layer);
@@ -42,3 +67,4 @@ export const printBorderCountries = (map) => {
         });
     });
 };
+

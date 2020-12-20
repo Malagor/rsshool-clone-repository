@@ -8,17 +8,12 @@ import { setMarksToMap } from '../map/map';
 // import { processingDataForChart } from './processingDataForChart';
 
 export const updateApp = () => {
-  const { country, population, type } = properties;
-  console.log(country, population, type);
   let { period } = properties;
-
   if (typeof period === 'boolean') {
     period = period ? 2 : false;
   }
 
   const urlGeneralData = allCountriesGeneralData();
-  // const urlCountriesData = countriesPerPeriod(country, period);
-
 
   fetch(urlGeneralData)
     .then((response) => {
@@ -73,6 +68,7 @@ export const updateApp = () => {
             }
             return null;
           });
+
           return compileData.filter(el => el !== null);
         })
         .then(fullArrayCountries => {

@@ -9,7 +9,7 @@ const createTable = (el) => {
 
   createTableHTML(el);
   tableElements = getTableDOMEelements(el);
-  getControlsBlockHTML(tableElements.tableControl);
+  getControlsBlockHTML(tableElements.tableControl, el);
 
   el.addEventListener('click', (event) => {
     const { target } = event;

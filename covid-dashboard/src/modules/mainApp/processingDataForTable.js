@@ -1,3 +1,5 @@
+import { properties } from '../Properties/Properties';
+
 const getDataforAllWorld = (data, currCases, currRecovered, currDeaths) => {
   const dataForAllWorld = {
     country: 'All World',
@@ -8,26 +10,28 @@ const getDataforAllWorld = (data, currCases, currRecovered, currDeaths) => {
   return dataForAllWorld;
 }
 
-export const processingDataForTable = (data, country, period, population) => {
+export const processingDataForTable = (data) => {
+  const { country, population, period } = properties;
   let dataForTable = {};
   if (!country) {  
-    if (period === false) {
+    if (!period) {
       if (population === false) { 
         dataForTable = getDataforAllWorld(data, 'cases', 'recovered', 'deaths');
       } else if (population === true) {
         dataForTable = getDataforAllWorld(data, 'casesPer100k', 'recoveredPer100k', 'deathsPer100k');        
       }
-    } else if (period === 2) {
+    } else if (period) {
       if (population === false) { 
-        dataForTable = getDataforAllWorld(data, 'todayCases', 'todayRecovered', 'todayDeaths');        
+        dataForTable = getDataforAllWorld(data, 'casesToday', 'recoveredToday', 'deathsToday');        
       } else if (population === true) {
-        dataForTable = getDataforAllWorld(data, 'todayCasesPer100k', 'todayRecoveredPer100k', 'todayDeathsPer100k');
+        dataForTable = getDataforAllWorld(data, 'casesTodayPer100k', 'recoveredTodayPer100k', 
+        'deathsTodayPer100k');
       } 
     }   
   } else if (country) {
     dataForTable.country = country;
     const countryObj = data.filter((elem) => elem.country === country);
-    if (period === false) {
+    if (!period) {
       if (population === false) { 
         dataForTable.cases = countryObj.cases;
         dataForTable.recovered = countryObj.recovered;
@@ -37,19 +41,17 @@ export const processingDataForTable = (data, country, period, population) => {
         dataForTable.recovered = countryObj.recoveredPer100k;
         dataForTable.deaths = countryObj.deathsPer100k;
       }
-    } else if (period === 2) {
+    } else if (period) {
       if (population === false) { 
-        dataForTable.cases = countryObj.todayCases;
-        dataForTable.recovered = countryObj.todayRecovered;
-        dataForTable.deaths = countryObj.todayDeaths;
+        dataForTable.cases = countryObj.casesToday;
+        dataForTable.recovered = countryObj.recoveredToday;
+        dataForTable.deaths = countryObj.deathsToday;
       } else if (population === true) {
-        dataForTable.cases = countryObj.todayCasesPer100k;
-        dataForTable.recovered = countryObj.todayRecoveredPer100k;
-        dataForTable.deaths = countryObj.todayDeathsPer100k;
+        dataForTable.cases = countryObj.casesTodayPer100k;
+        dataForTable.recovered = countryObj.recoveredTodayPer100k;
+        dataForTable.deaths = countryObj.deathsTodayPer100k;
       }
     }   
   } 
   return dataForTable;
 }  
-
-  

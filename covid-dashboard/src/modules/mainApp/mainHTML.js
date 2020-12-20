@@ -1,5 +1,8 @@
 const mainHTML = () => {
-  document.body.insertAdjacentHTML('afterbegin', `
+  document.body.insertAdjacentHTML(
+    'afterbegin',
+    `
+  <div class="fullScreen-overlay"></div>
   <div id="app">
   <header class="header">
     <div class="header__icon"></div>
@@ -23,7 +26,8 @@ const mainHTML = () => {
   <div id="map" class="map"></div>
   <div id="chart" class="chart"></div>
   <footer class="footer">Authors/School</footer>
-</div>`);
+</div>`,
+  );
 
   const app = document.querySelector('#app');
   const cases = document.querySelector('#cases');
@@ -42,10 +46,8 @@ const mainHTML = () => {
     map,
     chart,
     status,
-    header
+    header,
   };
 };
 
-export {
-  mainHTML
-}
+export { mainHTML };

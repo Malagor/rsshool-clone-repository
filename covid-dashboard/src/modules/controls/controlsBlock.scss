@@ -28,3 +28,22 @@
 .controls-block_fullscreen > svg {
   fill: rgba(128, 128, 128, 1);
 }
+
+.fullScreen {
+  position: fixed;
+  top: 5vh;
+  left: 2.5vw;
+  z-index: 1002;
+  width: 95vw !important;
+  height: 90vh !important;
+  background-color: rgba(44, 44, 44, 1) !important;
+  border: rem(10px) solid rgb(37, 37, 37);
+}
+
+.activeFullScreen {
+  position: fixed;
+  z-index: 1001;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+}

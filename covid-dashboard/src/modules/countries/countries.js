@@ -14,7 +14,7 @@ const createTableCountries = (el) => {
 
   createCountriesHTML(el);
   countriesElements = getCountriesDOMElements(el);
-  getControlsBlockHTML(countriesElements.countriesControl);
+  getControlsBlockHTML(countriesElements.countriesControl, el);
   
   el.addEventListener('click', (event) => {
     const { target } = event;

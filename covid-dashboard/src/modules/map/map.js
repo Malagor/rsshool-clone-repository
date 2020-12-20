@@ -1,19 +1,9 @@
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet/dist/leaflet';
-// import { onClickMap } from '../onEvents/onEvents';
-// import '../../assets/img/marker-icon-2x.png';
-// const geodata = require('../../assets/geodata/countries.geojson');
-// const { Dataset } = require('data.js');
 
 
 const TOKEN_API = 'pk.eyJ1IjoibWFsYWdvciIsImEiOiJja2loZnUwdDgwNmpyMnNwYnNwaDBnNjlmIn0.syPwz4D9ZNf8AIJ71a0aUQ';
 let map = null;
-// let clickMap = null;
-// let geoJsonLayers;
-
-// const setClickMapHandler = (fn) => {
-//   clickMap = fn;
-// };
 
 const initMap = (coordCenter, zoomRate) => {
   map.setView(coordCenter, zoomRate);
@@ -208,7 +198,7 @@ const setMarksToMap = (arr) => {
 
 const events = () => {
   map.addEventListener('click', (ev) => {
-    console.log(ev);
+    console.log('Click to map', ev);
     // clickMap();
   });
 };

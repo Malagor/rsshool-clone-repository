@@ -81,7 +81,7 @@ export const updateApp = () => {
           const dataForTable = processingDataForTable(fullArrayCountries, country, period, population);
           renderTable(dataForTable);
           
-          const dataForCountries = processingDataForCountries(fullArrayCountries, period, population, type);
+          const dataForCountries = processingDataForCountries(fullArrayCountries);
           renderCountries(dataForCountries);
           
 

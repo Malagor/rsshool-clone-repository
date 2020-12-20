@@ -1,4 +1,7 @@
-export const processingDataForCountries = (data, period, population, type) => {
+import { properties } from '../Properties/Properties';
+
+export const processingDataForCountries = (data) => {
+  const { population, type, period } = properties;
   const countries = [];
   for (let i = 0; i < data.length; i += 1) {
     const country = {

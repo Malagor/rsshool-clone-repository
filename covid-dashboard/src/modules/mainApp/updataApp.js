@@ -1,9 +1,11 @@
 import { properties } from '../Properties/Properties';
 import { allCountriesGeneralData, countriesPerPeriod } from '../queries/Queries';
+import { renderTable } from '../table/table';
+import { renderCountries } from '../countries/countries';
 import { countPer100k } from './countPer100k';
 import { getLastDayData } from './getLastDayData';
-// import { changeChartData } from '../chart/chart';
-// import { processingDataForChart } from './processingDataForChart';
+import { processingDataForTable } from './processingDataForTable';
+import { processingDataForCountries } from './processingDataForCountries';
 
 export const updateApp = () => {
   const { country, population, type } = properties;
@@ -76,14 +78,13 @@ export const updateApp = () => {
         .then(fullArrayCountries => {
           console.log(fullArrayCountries);
 
-          // Тут раздербанивайте входящий массив на составляющие и вызывайте свои функции
+          const dataForTable = processingDataForTable(fullArrayCountries, country, period, population);
+          renderTable(dataForTable);
+          
+          const dataForCountries = processingDataForCountries(fullArrayCountries, period, population, type);
+          renderCountries(dataForCountries);
+          
 
-          // const { arrData, locCountry } = processingDataForChart(
-          //   data,
-          //   country,
-          //   population,
-          // );
-          // changeChartData(arrData, locCountry, type, period, population);
 
         })
         .catch(err => {

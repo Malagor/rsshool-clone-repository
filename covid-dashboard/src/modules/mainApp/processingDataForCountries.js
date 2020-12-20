@@ -1,26 +1,54 @@
 export const processingDataForCountries = (data, period, population, type) => {
   const countries = [];
-  const arrDataOfCountries = data.allCountriesInfo;
-  const arrDataWithFlags = data.flagAndPop;
-  for (let i = 0; i < arrDataWithFlags.length; i += 1) {
-     const objOfCountry = {};
-     objOfCountry.country = arrDataWithFlags[i].name;   
-     objOfCountry.flag = arrDataWithFlags[i].flag;
-     const additionObj = arrDataOfCountries.find((elem) => elem.country === objOfCountry.country);
-     if (additionObj === undefined) {
-       objOfCountry.arrData = 0;
-     } else {
-      const arrOfCases = Object.values(additionObj.timeline[type]);
+  for (let i = 0; i < data.length; i += 1) {
+    const country = {
+      country: data[i].country,
+      flag: data[i].countryInfo.flag,
+    };
+    if (type === 'cases') {
       if (period === false) {
-       objOfCountry.arrData = arrOfCases[arrOfCases.length - 1];
-      } else {
-       objOfCountry.arrData = arrOfCases[1] - arrOfCases[0];
+        if (population === false) {
+          country.arrData = data[i].cases;
+        } else if (population === true) {
+          country.arrData = data[i].casesPer100k;
+        }
+      } else if (period === 2) {
+        if (population === false) {
+          country.arrData = data[i].todayCases;
+        } else if (population === true) {
+          country.arrData = data[i].todayCasesPer100k;
+        }
       }
-      if (population) {
-       objOfCountry.arrData = objOfCountry.arrData * 1000000 / arrDataWithFlags[i].population;
+    } else if (type === 'recovered') {
+      if (period === false) {
+        if (population === false) {
+          country.arrData = data[i].recovered;
+        } else if (population === true) {
+          country.arrData = data[i].recoveredPer100k;
+        }
+      } else if (period === 2) {
+        if (population === false) {
+          country.arrData = data[i].todayRecovered;
+        } else if (population === true) {
+          country.arrData = data[i].todayRecoveredPer100k;
+        }
       }
-    }
-    countries.push(objOfCountry);
-  }  
+    } else if (type === 'deaths') {
+      if (period === false) {
+        if (population === false) {
+          country.arrData = data[i].deaths;
+        } else if (population === true) {
+          country.arrData = data[i].deathsPer100k;
+        }
+      } else if (period === 2) {
+        if (population === false) {
+          country.arrData = data[i].todayDeaths;
+        } else if (population === true) {
+          country.arrData = data[i].todayDeathsPer100k;
+        }
+      }
+    } 
+    countries.push(country);
+  }
   return countries;
 }

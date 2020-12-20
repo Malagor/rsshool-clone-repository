@@ -1,45 +1,55 @@
-const createDataforPeriod = (countryName, arrCases, arrRecovered, arrDeaths, currPopulation, period, population) => {
-  const obj = {};
-  if (period === false) {
-    obj.country = countryName;
-    obj.cases = arrCases[arrCases.length - 1];
-    obj.recovered = arrRecovered[arrRecovered.length - 1];
-    obj.deaths = arrDeaths[arrDeaths.length - 1];
-  } else if (period === 2) {
-    obj.country = countryName;
-    obj.cases = arrCases[1] - arrCases[0];
-    obj.recovered = arrRecovered[1] - arrRecovered[0];
-    obj.deaths = arrDeaths[1] - arrDeaths[0];
-  }
-  if (population) {
-    obj.cases = obj.cases * 100000 / currPopulation;
-    obj.recovered = obj.cases * 100000 / currPopulation;
-    obj.deaths = obj.cases * 100000 / currPopulation;
-  }
-  return obj;
+const getDataforAllWorld = (data, currCases, currRecovered, currDeaths) => {
+  const dataForAllWorld = {
+    country: 'All World',
+    cases: data.map((elem) => elem[currCases]).reduce((s,elem) => s + elem, 0),
+    recovered: data.map((elem) => elem[currRecovered]).reduce((s,elem) => s + elem, 0),
+    deaths: data.map((elem) => elem[currDeaths]).reduce((s,elem) => s + elem, 0),
+  } 
+  return dataForAllWorld;
 }
 
-
 export const processingDataForTable = (data, country, period, population) => {
-let objOfCountry = {};
-let currentPopulation;
-  if (country) { 
-    const countryWithFlagAndPop = data.flagAndPop.find((elem) => elem.country === country);
-    const countryWithCases = data.allCountriesInfo.find((elem) => elem.country === country);
-    const arrCases = Object.values(countryWithCases .timeline.cases);
-    const arrRecovered = Object.values(countryWithCases .timeline.recovered);
-    const arrDeaths = Object.values(countryWithCases .timeline.deaths);
-    currentPopulation = countryWithFlagAndPop.population;
-    objOfCountry = createDataforPeriod(country, arrCases, arrRecovered, arrDeaths, currentPopulation, period, population);
-    
-  } else {
-    const arrCases  = Object.values(data.covidData.cases);
-    const arrRecovered  = Object.values(data.covidData.recovered);
-    const arrDeaths  = Object.values(data.covidData.deaths);
-    const arrayOfPopulations =  data.flagAndPop.map((elem) => elem.population);
-    currentPopulation = arrayOfPopulations.reduce((s, pop) => s + pop, 0);
-    objOfCountry = createDataforPeriod("All World", arrCases, arrRecovered, arrDeaths, currentPopulation, period, population);
-  }
+  let dataForTable = {};
+  if (!country) {  
+    if (period === false) {
+      if (population === false) { 
+        dataForTable = getDataforAllWorld(data, 'cases', 'recovered', 'deaths');
+      } else if (population === true) {
+        dataForTable = getDataforAllWorld(data, 'casesPer100k', 'recoveredPer100k', 'deathsPer100k');        
+      }
+    } else if (period === 2) {
+      if (population === false) { 
+        dataForTable = getDataforAllWorld(data, 'todayCases', 'todayRecovered', 'todayDeaths');        
+      } else if (population === true) {
+        dataForTable = getDataforAllWorld(data, 'todayCasesPer100k', 'todayRecoveredPer100k', 'todayDeathsPer100k');
+      } 
+    }   
+  } else if (country) {
+    dataForTable.country = country;
+    const countryObj = data.filter((elem) => elem.country === country);
+    if (period === false) {
+      if (population === false) { 
+        dataForTable.cases = countryObj.cases;
+        dataForTable.recovered = countryObj.recovered;
+        dataForTable.deaths = countryObj.deaths;
+      } else if (population === true) {
+        dataForTable.cases = countryObj.casesPer100k;
+        dataForTable.recovered = countryObj.recoveredPer100k;
+        dataForTable.deaths = countryObj.deathsPer100k;
+      }
+    } else if (period === 2) {
+      if (population === false) { 
+        dataForTable.cases = countryObj.todayCases;
+        dataForTable.recovered = countryObj.todayRecovered;
+        dataForTable.deaths = countryObj.todayDeaths;
+      } else if (population === true) {
+        dataForTable.cases = countryObj.todayCasesPer100k;
+        dataForTable.recovered = countryObj.todayRecoveredPer100k;
+        dataForTable.deaths = countryObj.todayDeathsPer100k;
+      }
+    }   
+  } 
+  return dataForTable;
+}  
 
-  return objOfCountry;
-};
+  

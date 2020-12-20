@@ -20,7 +20,7 @@ const showPopup = (el) => {
   const params = el.getBoundingClientRect();
   // getting the Width of the popup window
   const popupWidth = popup.clientWidth;
-  console.log(params);
+
   popup.style.top = `${params.bottom}px`;
   popup.style.left = `${params.left - popupWidth}px`;
   popup.classList.toggle('open');

@@ -1,10 +1,9 @@
-/* eslint-disable import/no-cycle */
 import { createCountriesHTML, getCountriesDOMElements } from './countriesHTML';
 import { createCountryDOMElement } from './createCountryDOMElement';
 import { properties } from '../Properties/Properties';
 import { getControlsBlockHTML } from '../controls/controlsBlock';
 import { filterInput } from './filterInput';
-import { returnListOfCountries }  from './returnListOfCountries';
+import { updateListOfCountries }  from './updateListOfCountries';
 import { changeStylesOfCountries } from './changeStylesOfCountries';
 
 let countriesElements = null;
@@ -29,7 +28,7 @@ const createTableCountries = (el) => {
       properties.type = 'recovered';
     }
     changeStylesOfCountries(countriesElements, properties.type);
-    returnListOfCountries(countriesElements);
+    updateListOfCountries(countriesElements);
     changeView();   
   });
 
@@ -43,13 +42,12 @@ const createTableCountries = (el) => {
           changeView();
         }
       });
-      returnListOfCountries(countriesElements);
+      updateListOfCountries(countriesElements);
     }
   });
 };
 
 const renderCountries = (countries) => {
-  console.log (countries);
   countries.sort((a,b) => b.arrData - a.arrData);
   countriesElements.list.innerHTML = '';
   countries.forEach((country) => {

@@ -5,22 +5,19 @@ export const changeStylesOfCountries = (countriesElements, type) => {
     btns.forEach((item) => item.classList.remove('btn-enabled'));
     countriesElements.btnAll.classList.add('btn-enabled');
     numbers.forEach((numb) => {
-      numb.classList.add('number-cases');
-      numb.classList.remove('number-deaths', 'number-recovered');
+      numb.className = 'country-number number-cases';
     });   
   } else if (type === 'deaths') { 
     btns.forEach((item) => item.classList.remove('btn-enabled'));
     countriesElements.btnDeaths.classList.add('btn-enabled');
     numbers.forEach((numb) => {
-      numb.classList.add('number-deaths');
-      numb.classList.remove('number-cases', 'number-recovered');
+      numb.className = 'country-number number-deaths';
     });   
   } else if (type === 'recovered') {
     btns.forEach((item) => item.classList.remove('btn-enabled'));
     countriesElements.btnRecovered.classList.add('btn-enabled');
     numbers.forEach((numb) => {
-      numb.classList.add('number-recovered');
-      numb.classList.remove('number-cases', 'number-deaths');
+      numb.className = 'country-number number-recovered';
     });
   }
 } 

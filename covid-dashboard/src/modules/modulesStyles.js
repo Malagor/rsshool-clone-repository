@@ -10,3 +10,4 @@ import './settings/settings.scss';
 import './controls/controlsBlock.scss';
 
 import './footer/footer.scss';
+import './virtual-keyboard/keyboard.scss';

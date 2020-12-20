@@ -1,5 +1,7 @@
 import { createCountriesHTML, getCountriesDOMElements } from './countriesHTML';
 import { createCountryDOMElement } from './createCountryDOMElement';
+import { Keyboard } from '../virtual-keyboard/keyboard';
+
 
 
 let countriesElements = null;
@@ -29,6 +31,11 @@ const renderCountries = (countries) => {
 const setChangeViewCountryTable = (fn) => {
   changeView = fn;
 };
+
+setTimeout(() => {
+  Keyboard.init()  
+}, 3000);
+
 
 export {
   createTableCountries,

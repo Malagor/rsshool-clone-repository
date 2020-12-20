@@ -76,7 +76,7 @@ export const updateApp = () => {
           return compileData.filter(el => el !== null);
         })
         .then(fullArrayCountries => {
-          console.log(fullArrayCountries);
+          // console.log(fullArrayCountries);
 
           const configForMap = processingDataForMap(fullArrayCountries);
           setMarksToMap(configForMap);

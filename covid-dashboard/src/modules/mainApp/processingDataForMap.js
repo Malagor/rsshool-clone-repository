@@ -2,7 +2,7 @@ export const processingDataForMap = (arr) => {
 
   return arr.map(obj => {
     const { countryInfo, country, cases, deaths, recovered } = obj;
-    const { flag, lat, long } = countryInfo;
+    const { flag, lat, long, iso3 } = countryInfo;
     return {
       country,
       flag,
@@ -10,7 +10,8 @@ export const processingDataForMap = (arr) => {
       deaths,
       recovered,
       lat,
-      long
+      long,
+      iso3
     }
   });
 };

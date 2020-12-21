@@ -101,10 +101,8 @@ export const Keyboard = {
               }
             });
 
-
             updateListOfCountries(input);
             this.properties.value = '';
-            // this.properties.value += "\n";
             this._triggerEvent("oninput");
           });
 
@@ -128,7 +126,7 @@ export const Keyboard = {
 
           keyElement.addEventListener("click", () => {
             this.close();
-            // this._triggerEvent("onclose");
+            this._triggerEvent("onclose");
           });
 
           break;

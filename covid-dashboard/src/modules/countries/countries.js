@@ -15,10 +15,8 @@ const createTableCountries = (el) => {
   createCountriesHTML(el);
   countriesElements = getCountriesDOMElements(el);
   getControlsBlockHTML(countriesElements.countriesControl, el);
-  
   el.addEventListener('click', (event) => {
     const { target } = event;
-    console.log ('target=', target);
     if (target.closest('.countries-keyboard')) {
       if (Keyboard.elements.main.classList.contains("keyboard--hidden")) {
         Keyboard.open(countriesElements.input.value, currentValue => {
@@ -57,10 +55,8 @@ const createTableCountries = (el) => {
       Keyboard.properties.value = ''; 
       updateListOfCountries(countriesElements.input);
     }
-  });
-  
+  }); 
 };
-
 
 const renderCountries = (countries) => {
   countries.sort((a,b) => b.arrData - a.arrData);
@@ -73,9 +69,9 @@ const renderCountries = (countries) => {
 };
 
 setTimeout(() => {
-  Keyboard.init(); 
+  Keyboard.init();
 }, 0);
-
+ 
 export {
   createTableCountries,
   renderCountries,

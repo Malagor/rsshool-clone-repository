@@ -5,9 +5,9 @@ import { getControlsBlockHTML } from '../controls/controlsBlock';
 import { filterInput } from './filterInput';
 import { updateListOfCountries }  from './updateListOfCountries';
 import { changeStylesOfCountries } from './changeStylesOfCountries';
+import { updateApp } from '../mainApp/updataApp';
 
 let countriesElements = null;
-let changeView = null;
 
 const createTableCountries = (el) => {
 
@@ -17,19 +17,18 @@ const createTableCountries = (el) => {
   
   el.addEventListener('click', (event) => {
     const { target } = event;
-    if (target === el) return;
     if (target.closest('.country-item')) {
       properties.country = target.closest('.country-item').querySelector('.country-name').innerText;
+      updateListOfCountries(countriesElements);
     } else if (target.closest('.btn-all')) {
       properties.type = 'cases';    
     } else if (target.closest('.btn-deaths')) {
       properties.type = 'deaths';     
     } else if (target.closest('.btn-recovered')) {
       properties.type = 'recovered';
-    }
+    } else return;
     changeStylesOfCountries(countriesElements, properties.type);
-    updateListOfCountries(countriesElements);
-    changeView();   
+    updateApp();   
   });
 
   countriesElements.input.addEventListener('keyup', (e) => {
@@ -39,7 +38,7 @@ const createTableCountries = (el) => {
       countryNamesHTML.forEach((countryName) => {
         if(countryName.innerText.toUpperCase() === countriesElements.input.value.toUpperCase()) {
           properties.country = countryName.innerText;
-          changeView();
+          updateApp(); 
         }
       });
       updateListOfCountries(countriesElements);
@@ -57,13 +56,7 @@ const renderCountries = (countries) => {
   changeStylesOfCountries(countriesElements, properties.type);
 };
 
-const setChangeViewCountryTable = (fn) => {
-  changeView = fn;
-};
-
 export {
   createTableCountries,
   renderCountries,
-  setChangeViewCountryTable
 }
-

@@ -88,10 +88,8 @@ export const updateApp = () => {
 
           const { resultArr, locCountry } = processingDataForChart(
             fullArrayCountries,
-            country,
-            population,
           );
-          changeChartData(resultArr, locCountry, type, period, population);
+          changeChartData(resultArr, locCountry);
         })
         .catch((err) => {
           console.log("I can't convert country data", err);

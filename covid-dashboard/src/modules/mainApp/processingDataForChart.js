@@ -1,4 +1,7 @@
-export const processingDataForChart = (data, country, population) => {
+import { properties } from '../Properties/Properties';
+
+export const processingDataForChart = (data) => {
+  const { country, population } = properties;
   let arrData;
   let locCountry;
 

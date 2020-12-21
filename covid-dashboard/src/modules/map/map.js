@@ -20,7 +20,17 @@ const initMap = (coordCenter, zoomRate) => {
     tileSize: 512,
     zoomOffset: -1,
     accessToken: TOKEN_API,
+    maxBounds: [
+      [84.89,-181.40],
+      [-85.06, 182.04]
+    ]
   }).addTo(map);
+
+  const bounds = L.latLngBounds([84.89,-200.00],[-85.06, 200.00]);
+  map.setMaxBounds(bounds);
+  map.on('drag', () => {
+    map.panInsideBounds(bounds, { animate: false });
+  });
 };
 
 
@@ -61,9 +71,9 @@ const setMarksToMap = (arr) => {
 };
 
 const events = () => {
-  // map.addEventListener('click', (ev) => {
-  //   console.log('Click to map', ev);
-  // });
+  map.addEventListener('click', (ev) => {
+    console.log('Click to map', ev);
+  });
 };
 
 const createMap = (el) => {

@@ -76,7 +76,9 @@ export const Keyboard = {
           keyElement.innerHTML = createIconHTML("backspace");
 
           keyElement.addEventListener("click", () => {
-            this.properties.value = this.properties.value.substring(0, this.properties.value.length - 1);
+            this.properties.value = this.properties.value.substring(0, 
+              this.properties.value.length - 1);
+            input.focus();  
             this._triggerEvent("oninput");
           });
 

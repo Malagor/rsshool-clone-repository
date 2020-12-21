@@ -6,9 +6,9 @@ import { getControlsBlockHTML } from '../controls/controlsBlock';
 import { filterInput } from './filterInput';
 import { updateListOfCountries }  from './updateListOfCountries';
 import { changeStylesOfCountries } from './changeStylesOfCountries';
+import { updateApp } from '../mainApp/updataApp';
 
 let countriesElements = null;
-let changeView = null;
 
 const createTableCountries = (el) => {
 
@@ -22,6 +22,7 @@ const createTableCountries = (el) => {
     if (target.closest('.country-item')) {
       properties.country = target.closest('.country-item').querySelector('.country-name').innerText;
       Keyboard.properties.value = ''; 
+      updateListOfCountries(countriesElements.input);
     } else if (target.closest('.btn-all')) {
       properties.type = 'cases';    
     } else if (target.closest('.btn-deaths')) {
@@ -30,25 +31,22 @@ const createTableCountries = (el) => {
       properties.type = 'recovered';
     }
     changeStylesOfCountries(countriesElements, properties.type);
-    updateListOfCountries(countriesElements.input);
-    changeView();   
-  });
-
-  countriesElements.input.addEventListener('focus', () => {
-    countriesElements.input.value = Keyboard.properties.value;
+    updateApp();  
   });
 
   countriesElements.input.addEventListener('keyup', (e) => {
     console.log('keyup');
     filterInput(countriesElements.input);
     if (e.code === 'Enter') {
+      console.log('keyup');
       const countryNamesHTML = document.querySelectorAll('.country-name'); 
       countryNamesHTML.forEach((countryName) => {
         if(countryName.innerText.toUpperCase() === countriesElements.input.value.toUpperCase()) {
           properties.country = countryName.innerText;
-          changeView();
+          updateApp();
         }
       });
+      Keyboard.properties.value = ''; 
       updateListOfCountries(countriesElements.input);
     }
   });
@@ -64,18 +62,12 @@ const renderCountries = (countries) => {
   changeStylesOfCountries(countriesElements, properties.type);
 };
 
-const setChangeViewCountryTable = (fn) => {
-  changeView = fn;
-};
-
 setTimeout(() => {
   Keyboard.init()  
 }, 1000);
 
-
 export {
   createTableCountries,
   renderCountries,
-  setChangeViewCountryTable
 }
 

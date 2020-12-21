@@ -1,5 +1,11 @@
+import keyboard from '../../assets/icons/keyboard.svg';
+
 export const createCountriesHTML = (el) => {
-  el.innerHTML = `<div class="countries-control"></div>
+  el.innerHTML = `
+  <div class="countries-header">
+    <div class="countries-keyboard">${keyboard}</div>
+    <div class="countries-control"></div>
+  </div> 
   <div class="countries-wrapper">
   <div class="countries-title">Cases by country</div>
   <input type="text" placeholder="Search..." class="countries-input">

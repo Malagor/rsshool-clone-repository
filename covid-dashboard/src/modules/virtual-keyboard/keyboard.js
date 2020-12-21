@@ -2,6 +2,7 @@
 import { filterInput } from '../countries/filterInput';
 import { updateListOfCountries }  from '../countries/updateListOfCountries';
 import { properties } from '../Properties/Properties';
+import { updateApp } from '../mainApp/updataApp';
 
 export const Keyboard = {
   elements: {
@@ -36,14 +37,6 @@ export const Keyboard = {
     this.elements.main.appendChild(this.elements.keysContainer);
     document.body.appendChild(this.elements.main);
 
-    // Automatically use keyboard for elements with .use-keyboard-input
-    document.querySelectorAll('.countries-input').forEach(element => {
-      element.addEventListener("focus", () => {
-        this.open(element.value, currentValue => {
-          element.value = currentValue;
-        });
-      });
-    });
   },
 
   _createKeys() {
@@ -104,7 +97,7 @@ export const Keyboard = {
             countryNamesHTML.forEach((countryName) => {
               if(countryName.innerText.toUpperCase() === input.value.toUpperCase()) {
                 properties.country = countryName.innerText;
-                // changeView();
+                updateApp();
               }
             });
 
@@ -112,7 +105,7 @@ export const Keyboard = {
             updateListOfCountries(input);
             this.properties.value = '';
             // this.properties.value += "\n";
-            // this._triggerEvent("oninput");
+            this._triggerEvent("oninput");
           });
 
           break;
@@ -135,7 +128,7 @@ export const Keyboard = {
 
           keyElement.addEventListener("click", () => {
             this.close();
-            this._triggerEvent("onclose");
+            // this._triggerEvent("onclose");
           });
 
           break;
@@ -178,12 +171,6 @@ export const Keyboard = {
         key.textContent = this.properties.capsLock ? key.textContent.toUpperCase() : key.textContent.toLowerCase();
       }
     }
-
-    // this.elements.key.forEach((key) => {
-    //   if (key.childElementCount === 0) {
-    //     key.textContent = this.properties.capsLock ? key.textContent.toUpperCase() : key.textContent.toLowerCase();
-    //   }
-    // });
   },
 
   open(initialValue, oninput, onclose) {

@@ -29,17 +29,12 @@
       fill: rgba(128, 128, 128, 1);
     }
 
-
-
-
     .countries-control {
       display: flex;
       justify-content: flex-end;
       align-items: center;
     }
   }
-
-
 
   .countries-wrapper {
     width: 100%;
@@ -117,7 +112,6 @@
       }
     }
 
-
     .countries-list::-webkit-scrollbar {
       width: 10px;
       background-color: $color-background-light;
@@ -128,7 +122,6 @@
       background-color: $color-background-dark;
       border-radius: 3px;
     }
-
 
     .toggle-cases {
       display: flex;

@@ -1,15 +1,5 @@
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
-
-// .use-keyboard-input {
-//   display: block;
-//   width: 90%;
-//   height: calc(100vh - 350px);
-//   min-height: 350px;
-//   margin: 30px auto;
-//   padding: 10px;
-//   font-size: 20px;
-//   border: 1px solid black;
-// }
+@import "../../scss/_misc/variables";
 
 .keyboard {
   position: fixed;
@@ -17,8 +7,7 @@
   left: 0;
   width: 100%;
   padding: 5px 0;
-  /* background: #004134; */
-  background: rgb(51,49,49);
+  background: $color-background-dark;
   box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
   transition: bottom 0.4s;
   user-select: none;
@@ -45,25 +34,18 @@
   font-weight: 500;
   font-size: 1.2rem;
   vertical-align: top;
-  color: #ffffff;
-  /* color: rgb(77, 73, 67); */
-  color: rgb(69, 66, 66);
-  background: rgba(255, 255, 255, 0.2);
-  background: rgb(219, 144, 46);
-  background: rgb(252, 45, 193);
-  background: rgb(237, 114, 47);
-  border: 3px solid rgb(51,49,49);
-  /* margin: 3px; */
+  color: $color-text;
+  background: $color-background-light;
+  border: 3px solid $color-background-dark;
   border-radius: 10px;
   outline: none;
   cursor: pointer;
 
   -webkit-tap-highlight-color: transparent;
-  /* margin-bottom: 2px; */
 }
 
 .keyboard__key:active {
-  background: rgba(255, 255, 255, 0.12);
+  background: $color-background-dark;
 }
 
 .keyboard__key--wide {
@@ -75,46 +57,12 @@
   max-width: 500px;
 }
 
-
-/* .keyboard__key--extra-wide {
-  width: 39%;
-  max-width: 600px;
-} */
-
-/* .keyboard__key--activatable::after {
-  content: '';
-  top: 10px;
-  right: 10px;
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  background: rgba(0, 0, 0, 0.4);
-  border-radius: 50%;
-} */
-
-/* .keyboard__key--active::after {
-  background: #08ff00;
-} */
-
 .keyboard__key--active {
-  border: 3px solid   rgb(245, 186, 49);
+  border: 3px solid $color-background-superlight;
 }
 
 .keyboard__key--dark {
-  background: rgba(255, 255, 255, 0.25);
-}
-
-.light {
-  animation: changecolor 0.7s ease-out;
-}
-
-@keyframes changecolor {
-  0% {
-    background-color: rgb(245, 186, 49);
-  }
-  100% {
-    background-color: rgb(237, 114, 47);
-  }
+  background: $color-background-superdark;
 }
 
 @media (max-width: 700px) {

@@ -18,7 +18,17 @@ const createTableCountries = (el) => {
   
   el.addEventListener('click', (event) => {
     const { target } = event;
-    if (target === el) return;
+    console.log ('target=', target);
+    if (target.closest('.countries-keyboard')) {
+      if (Keyboard.elements.main.classList.contains("keyboard--hidden")) {
+        Keyboard.open(countriesElements.input.value, currentValue => {
+          countriesElements.input.value = currentValue;
+        });
+      } else {
+        Keyboard.close();
+      }
+      return;
+    } 
     if (target.closest('.country-item')) {
       properties.country = target.closest('.country-item').querySelector('.country-name').innerText;
       Keyboard.properties.value = ''; 
@@ -29,16 +39,14 @@ const createTableCountries = (el) => {
       properties.type = 'deaths';     
     } else if (target.closest('.btn-recovered')) {
       properties.type = 'recovered';
-    }
+    } else return;
     changeStylesOfCountries(countriesElements, properties.type);
     updateApp();  
   });
 
   countriesElements.input.addEventListener('keyup', (e) => {
-    console.log('keyup');
     filterInput(countriesElements.input);
     if (e.code === 'Enter') {
-      console.log('keyup');
       const countryNamesHTML = document.querySelectorAll('.country-name'); 
       countryNamesHTML.forEach((countryName) => {
         if(countryName.innerText.toUpperCase() === countriesElements.input.value.toUpperCase()) {
@@ -50,7 +58,9 @@ const createTableCountries = (el) => {
       updateListOfCountries(countriesElements.input);
     }
   });
+  
 };
+
 
 const renderCountries = (countries) => {
   countries.sort((a,b) => b.arrData - a.arrData);
@@ -63,8 +73,8 @@ const renderCountries = (countries) => {
 };
 
 setTimeout(() => {
-  Keyboard.init()  
-}, 1000);
+  Keyboard.init(); 
+}, 0);
 
 export {
   createTableCountries,

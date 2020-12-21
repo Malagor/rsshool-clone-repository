@@ -19,6 +19,7 @@ export const createCountriesHTML = (el) => {
 }
 
 export const getCountriesDOMElements = (el) => {
+  const btnKeyboard = el.querySelector('.countries-keyboard');
   const countriesControl = el.querySelector('.countries-control');
   const wrapper = el.querySelector('.countries-wrapper');
   const title = el.querySelector('.countries-title');
@@ -29,6 +30,7 @@ export const getCountriesDOMElements = (el) => {
   const btnRecovered = el.querySelector('.btn-recovered');
 
   return {
+    btnKeyboard, 
     countriesControl,
     wrapper,
     title,

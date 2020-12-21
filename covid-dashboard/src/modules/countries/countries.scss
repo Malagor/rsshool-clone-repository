@@ -6,10 +6,34 @@
 .countries {
   grid-area: countries;
 
-  .countries-control {
+  .countries-header {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
+    width: 100%;
+
+    .countries-keyboard {
+      width: rem(35px);
+      height: rem(35px);
+      font-size: rem(12px);
+      cursor: pointer;
+      opacity: 0.7;
+      transition: all 0.3s ease-out;
+      &:hover {
+        transform: scale(1.05);
+        opacity: 1;
+      }
+    }
+
+    .countries-keyboard > svg {
+      fill: rgba(128, 128, 128, 1);
+    }
+
+    .countries-control {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
   }
 
   .countries-wrapper {
@@ -87,7 +111,6 @@
       }
     }
 
-
     .countries-list::-webkit-scrollbar {
       width: 10px;
       background-color: $color-background-light;
@@ -98,7 +121,6 @@
       background-color: $color-background-dark;
       border-radius: 3px;
     }
-
 
     .toggle-cases {
       display: flex;

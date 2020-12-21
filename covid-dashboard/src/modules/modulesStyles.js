@@ -11,3 +11,4 @@ import './controls/controlsBlock.scss';
 import './loader/loader.scss';
 
 import './footer/footer.scss';
+import './virtual-keyboard/keyboard.scss';

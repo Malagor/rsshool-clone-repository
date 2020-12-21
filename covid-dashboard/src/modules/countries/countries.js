@@ -1,5 +1,6 @@
 import { createCountriesHTML, getCountriesDOMElements } from './countriesHTML';
 import { createCountryDOMElement } from './createCountryDOMElement';
+import { Keyboard } from '../virtual-keyboard/keyboard';
 import { properties } from '../Properties/Properties';
 import { getControlsBlockHTML } from '../controls/controlsBlock';
 import { filterInput } from './filterInput';
@@ -14,12 +15,22 @@ const createTableCountries = (el) => {
   createCountriesHTML(el);
   countriesElements = getCountriesDOMElements(el);
   getControlsBlockHTML(countriesElements.countriesControl, el);
-  
   el.addEventListener('click', (event) => {
     const { target } = event;
+    if (target.closest('.countries-keyboard')) {
+      if (Keyboard.elements.main.classList.contains("keyboard--hidden")) {
+        Keyboard.open(countriesElements.input.value, currentValue => {
+          countriesElements.input.value = currentValue;
+        });
+      } else {
+        Keyboard.close();
+      }
+      return;
+    } 
     if (target.closest('.country-item')) {
       properties.country = target.closest('.country-item').querySelector('.country-name').innerText;
-      updateListOfCountries(countriesElements);
+      Keyboard.properties.value = ''; 
+      updateListOfCountries(countriesElements.input);
     } else if (target.closest('.btn-all')) {
       properties.type = 'cases';    
     } else if (target.closest('.btn-deaths')) {
@@ -28,22 +39,23 @@ const createTableCountries = (el) => {
       properties.type = 'recovered';
     } else return;
     changeStylesOfCountries(countriesElements, properties.type);
-    updateApp();   
+    updateApp();  
   });
 
   countriesElements.input.addEventListener('keyup', (e) => {
-    filterInput(countriesElements);
+    filterInput(countriesElements.input);
     if (e.code === 'Enter') {
       const countryNamesHTML = document.querySelectorAll('.country-name'); 
       countryNamesHTML.forEach((countryName) => {
         if(countryName.innerText.toUpperCase() === countriesElements.input.value.toUpperCase()) {
           properties.country = countryName.innerText;
-          updateApp(); 
+          updateApp();
         }
       });
-      updateListOfCountries(countriesElements);
+      Keyboard.properties.value = ''; 
+      updateListOfCountries(countriesElements.input);
     }
-  });
+  }); 
 };
 
 const renderCountries = (countries) => {
@@ -56,6 +68,10 @@ const renderCountries = (countries) => {
   changeStylesOfCountries(countriesElements, properties.type);
 };
 
+setTimeout(() => {
+  Keyboard.init();
+}, 0);
+ 
 export {
   createTableCountries,
   renderCountries,

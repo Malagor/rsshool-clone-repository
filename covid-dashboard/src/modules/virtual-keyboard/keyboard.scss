@@ -1,0 +1,73 @@
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+@import "../../scss/_misc/variables";
+
+.keyboard {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 5px 0;
+  background: $color-background-dark;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+  transition: bottom 0.4s;
+  user-select: none;
+}
+
+.keyboard--hidden {
+  bottom: -100%;
+}
+
+.keyboard__keys {
+  text-align: center;
+}
+
+.keyboard__key {
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  width: 7%;
+  max-width: 90px;
+  height: 50px;
+  padding: 0;
+  font-weight: 500;
+  font-size: 1.2rem;
+  vertical-align: top;
+  color: $color-text;
+  background: $color-background-light;
+  border: 3px solid $color-background-dark;
+  border-radius: 10px;
+  outline: none;
+  cursor: pointer;
+
+  -webkit-tap-highlight-color: transparent;
+}
+
+.keyboard__key:active {
+  background: $color-background-dark;
+}
+
+.keyboard__key--wide {
+  width: 14%;
+}
+
+.keyboard__key--extra-wide {
+  width: 35%;
+  max-width: 500px;
+}
+
+.keyboard__key--active {
+  border: 3px solid $color-background-superlight;
+}
+
+.keyboard__key--dark {
+  background: $color-background-superdark;
+}
+
+@media (max-width: 700px) {
+  .keyboard__key {
+    font-size: 1rem;
+    border-radius: 5px;
+  }
+}

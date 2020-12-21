@@ -8,5 +8,6 @@ import './table/table.scss';
 import './map/map.scss';
 import './settings/settings.scss';
 import './controls/controlsBlock.scss';
+import './loader/loader.scss';
 
 import './footer/footer.scss';

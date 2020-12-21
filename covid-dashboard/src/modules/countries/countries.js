@@ -17,7 +17,6 @@ const createTableCountries = (el) => {
   
   el.addEventListener('click', (event) => {
     const { target } = event;
-    // if (target === el) return;
     if (target.closest('.country-item')) {
       properties.country = target.closest('.country-item').querySelector('.country-name').innerText;
       updateListOfCountries(countriesElements);

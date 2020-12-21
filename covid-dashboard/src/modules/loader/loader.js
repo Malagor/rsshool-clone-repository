@@ -4,8 +4,7 @@ export const loaderOn = (bool) => {
   if (bool) {
     loader.classList.add('loader-in');
     wrapper.classList.add('activeFullScreen');
-  }
-  if (!bool) {
+  } else {
     loader.classList.remove('loader-in');
     wrapper.classList.remove('activeFullScreen');
   }

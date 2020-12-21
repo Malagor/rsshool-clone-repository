@@ -1,12 +1,14 @@
 import { properties } from '../Properties/Properties';
-import {
-  allCountriesGeneralData,
-  countriesPerPeriod,
-} from '../queries/Queries';
-import { countPer100k } from './countPer100k';
-import { getLastDayData } from './getLastDayData';
 import { changeChartData } from '../chart/chart';
 import { processingDataForChart } from './processingDataForChart';
+import { allCountriesGeneralData, countriesPerPeriod } from '../queries/Queries';
+import { renderTable } from '../table/table';
+import { renderCountries } from '../countries/countries';
+import { countPer100k } from './countPer100k';
+import { getLastDayData } from './getLastDayData';
+import { processingDataForTable } from './processingDataForTable';
+import { processingDataForCountries } from './processingDataForCountries';
+
 
 export const updateApp = () => {
   const { country, population, type } = properties;
@@ -54,9 +56,9 @@ export const updateApp = () => {
               const { length } = casesTime;
 
               if (length) {
-                el.todayCases = getLastDayData(casesTime);
-                el.todayDeaths = getLastDayData(deathsTime);
-                el.todayRecovered = getLastDayData(recoveredTime);
+                el.casesToday = getLastDayData(casesTime);
+                el.deathsToday = getLastDayData(deathsTime);
+                el.recoveredToday = getLastDayData(recoveredTime);
               }
 
               el.cases = cases;
@@ -67,9 +69,9 @@ export const updateApp = () => {
               el.deathsPer100k = countPer100k(deaths, pops);
               el.recoveredPer100k = countPer100k(recovered, pops);
 
-              el.todayCasesPer100k = countPer100k(el.todayCases, pops);
-              el.todayRecoveredPer100k = countPer100k(el.todayDeaths, pops);
-              el.todayDeathsPer100k = countPer100k(el.todayRecovered, pops);
+              el.casesTodayPer100k = countPer100k(el.casesToday, pops);
+              el.deathsTodayPer100k = countPer100k(el.deathsToday, pops);
+              el.recoveredTodayPer100k = countPer100k(el.recoveredToday, pops);
               el.timeData = {
                 cases: casesTime,
                 deaths: deathsTime,
@@ -84,12 +86,15 @@ export const updateApp = () => {
         .then((fullArrayCountries) => {
           console.log(fullArrayCountries);
 
-          // Тут раздербанивайте входящий массив на составляющие и вызывайте свои функции
-
-          const { resultArr, locCountry } = processingDataForChart(
-            fullArrayCountries,
-          );
+          const dataForTable = processingDataForTable(fullArrayCountries);
+          renderTable(dataForTable);
+          
+          const dataForCountries = processingDataForCountries(fullArrayCountries);
+          renderCountries(dataForCountries);
+          
+          const { resultArr, locCountry } = processingDataForChart(fullArrayCountries);
           changeChartData(resultArr, locCountry);
+
         })
         .catch((err) => {
           console.log("I can't convert country data", err);

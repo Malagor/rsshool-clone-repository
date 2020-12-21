@@ -10,7 +10,7 @@ export const processingDataForCountries = (data) => {
     };
     if (period) {
       country.arrData = population ? item[`${type}TodayPer100k`] : item[`${type}Today`];
-    } else if (!period) {
+    } else {
       country.arrData = population ? item[`${type}Per100k`] : item[type];
     }
     return country;

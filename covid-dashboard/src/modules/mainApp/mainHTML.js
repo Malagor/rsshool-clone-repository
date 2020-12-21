@@ -3,6 +3,13 @@ const mainHTML = () => {
     'afterbegin',
     `
   <div class="fullScreen-overlay"></div>
+  <div class="loader">
+    <div class="loader__lines">
+      <div class="loader__lines_one loader__line"></div>
+      <div class="loader__lines_two loader__line"></div>
+    </div>
+    <p class="loader__title">COVID-19 Dashboard</p>
+  </div>
   <div id="app">
   <header class="header">
     <div class="header__icon"></div>
@@ -26,7 +33,7 @@ const mainHTML = () => {
   <div id="map" class="map"></div>
   <div id="chart" class="chart"></div>
   <footer class="footer">Authors/School</footer>
-</div>`,
+</>`,
   );
 
   const app = document.querySelector('#app');

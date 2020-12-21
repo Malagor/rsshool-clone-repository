@@ -32,9 +32,6 @@ export const printBorderCountries = (map) => {
 
                   layer.setStyle({
                     weight: 2,
-                    // color: '#666',
-                    // dashArray: '',
-                    // fill: '#ff0000',
                     fillOpacity: 0.3,
                   });
 
@@ -47,9 +44,6 @@ export const printBorderCountries = (map) => {
 
                   layer.setStyle({
                     weight: 1,
-                    // color: '#666',
-                    // dashArray: '',
-                    // fill: '#ff0000',
                     fillOpacity: 0.0,
                   });
 
@@ -62,24 +56,11 @@ export const printBorderCountries = (map) => {
                   properties.iso3 = feature.properties.ISO_A3;
                   updateStatusBar();
                   updateApp();
-                }
+                },
 
               });
             },
           })
-            // .bindPopup(layer => {
-            //   // console.log('layer', layer);
-            //   const { properties: props } = layer.feature;
-            //   const { ISO_A3 } = props;
-            //
-            //   const arrCountry = arr.filter(c => {
-            //     // console.log('c', c);
-            //     const { iso3 } = c;
-            //     return iso3 === ISO_A3;
-            //   });
-            //
-            //   return getPopupTextHTML(arrCountry[0]);
-            // })
             .addTo(map);
         })
         .catch((e) => {

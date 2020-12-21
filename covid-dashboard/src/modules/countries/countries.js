@@ -34,7 +34,12 @@ const createTableCountries = (el) => {
     changeView();   
   });
 
+  countriesElements.input.addEventListener('focus', () => {
+    countriesElements.input.value = Keyboard.properties.value;
+  });
+
   countriesElements.input.addEventListener('keyup', (e) => {
+    console.log('keyup');
     filterInput(countriesElements.input);
     if (e.code === 'Enter') {
       const countryNamesHTML = document.querySelectorAll('.country-name'); 
@@ -65,7 +70,7 @@ const setChangeViewCountryTable = (fn) => {
 
 setTimeout(() => {
   Keyboard.init()  
-}, 3000);
+}, 1000);
 
 
 export {

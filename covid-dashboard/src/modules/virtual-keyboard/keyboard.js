@@ -37,7 +37,7 @@ export const Keyboard = {
     document.body.appendChild(this.elements.main);
 
     // Automatically use keyboard for elements with .use-keyboard-input
-    document.querySelectorAll("input").forEach(element => {
+    document.querySelectorAll('.countries-input').forEach(element => {
       element.addEventListener("focus", () => {
         this.open(element.value, currentValue => {
           element.value = currentValue;

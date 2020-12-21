@@ -1,0 +1,111 @@
+@import "../../scss/_misc/mixins";
+@import "../../scss/_misc/variables";
+
+.loader {
+  position: absolute;
+  top: -100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 4rem;
+
+  gap: 5rem;
+  &.loader-in {
+    position: fixed;
+    top: 2.5vh;
+    left: 1vw;
+    z-index: 1002;
+    width: 98vw;
+    height: 95vh;
+    background-color: rgba(44, 44, 44, 1);
+    border: rem(10px) solid rgb(37, 37, 37);
+    border-radius: 0.5rem;
+  }
+}
+
+.loader__lines {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  width: 40vw;
+  height: 35vh;
+}
+
+.loader__lines_one {
+  &::after {
+    width: 5rem;
+    height: 0.3rem;
+    background-color: $color-cases;
+    animation: bar1 1.5s linear infinite;
+  }
+}
+
+.loader__lines_two {
+  &::after {
+    width: 5rem;
+    height: 2.7rem;
+    background-color: $color-recovered;
+    animation: bar3 1.5s ease-in-out infinite;
+  }
+  &::before {
+    width: 5rem;
+    height: 1.1rem;
+    margin: 0 0.7rem;
+    background-color: $color-deaths;
+    animation: bar2 1.5s ease-in-out infinite;
+  }
+}
+
+.loader__line {
+  &::before,
+  &::after {
+    content: "";
+    display: inline-block;
+  }
+}
+
+.loader__title {
+  font-size: 2rem;
+  animation: title 2s infinite;
+}
+
+@keyframes bar1 {
+  from,
+  to {
+    height: 7rem;
+  }
+  50% {
+    height: 0.3rem;
+  }
+}
+
+@keyframes bar2 {
+  from,
+  to {
+    height: 1.1rem;
+  }
+  50% {
+    height: 10rem;
+  }
+}
+
+@keyframes bar3 {
+  from,
+  to {
+    height: 2.7rem;
+  }
+  50% {
+    height: 1.1rem;
+  }
+}
+
+@keyframes title {
+  from,
+  to {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}

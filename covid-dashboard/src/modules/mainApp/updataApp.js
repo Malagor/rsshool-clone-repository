@@ -1,4 +1,4 @@
-import { properties } from '../Properties/Properties';
+import { properties, saveProperties } from '../Properties/Properties';
 import { allCountriesGeneralData, countriesPerPeriod } from '../queries/Queries';
 import { countPer100k } from './countPer100k';
 import { getLastDayData } from './getLastDayData';
@@ -8,6 +8,7 @@ import { setMarksToMap } from '../map/map';
 // import { processingDataForChart } from './processingDataForChart';
 
 export const updateApp = () => {
+  saveProperties();
   let { period } = properties;
   if (typeof period === 'boolean') {
     period = period ? 2 : false;

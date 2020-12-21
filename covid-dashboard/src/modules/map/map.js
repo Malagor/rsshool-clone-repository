@@ -61,9 +61,9 @@ const setMarksToMap = (arr) => {
 };
 
 const events = () => {
-  map.addEventListener('click', (ev) => {
-    console.log('Click to map', ev);
-  });
+  // map.addEventListener('click', (ev) => {
+  //   console.log('Click to map', ev);
+  // });
 };
 
 const createMap = (el) => {

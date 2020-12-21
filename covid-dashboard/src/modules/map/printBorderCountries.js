@@ -1,9 +1,8 @@
 import L from 'leaflet/dist/leaflet';
-import { properties } from '../Properties/Properties';
+import { properties, saveProperties } from '../Properties/Properties';
 // eslint-disable-next-line import/no-cycle
 import { updateApp } from '../mainApp/updataApp';
-import { updateStatusBar } from '../status/Status';
-
+import { filtreCountriesFeature } from './filtreCountriesFeature';
 
 export const printBorderCountries = (map) => {
   const path = 'https://datahub.io/core/geo-countries/datapackage.json';
@@ -17,7 +16,11 @@ export const printBorderCountries = (map) => {
         .then((response) => {
           return response.json();
         })
+        .then(rawGeodata => {
+          return filtreCountriesFeature(rawGeodata);
+        })
         .then((geodata) => {
+
           L.geoJSON(geodata, {
             style: {
               color: 'rgba(255,255,255,0.5)',
@@ -54,7 +57,7 @@ export const printBorderCountries = (map) => {
                 click: () => {
                   properties.country = feature.properties.ADMIN;
                   properties.iso3 = feature.properties.ISO_A3;
-                  updateStatusBar();
+                  saveProperties();
                   updateApp();
                 },
 

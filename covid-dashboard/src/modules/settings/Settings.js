@@ -7,12 +7,13 @@
  * */
 
 import settingsHTML from './settingsHTML';
-import { setProperties } from '../Properties/Properties';
+import { properties, setProperties } from '../Properties/Properties';
+// eslint-disable-next-line import/no-cycle
 import { updateApp } from '../mainApp/updataApp';
-import { updateStatusBar } from '../status/Status';
 
 let popup;
 let form;
+let countryInput;
 
 const showPopup = (el) => {
   // getting the size and position of the calling element
@@ -41,7 +42,6 @@ const getFormData = () => {
   };
 
   setProperties(data);
-  updateStatusBar();
   updateApp();
 };
 
@@ -52,6 +52,7 @@ const createSettings = () => {
   // Заносим в переменные нужные элементы верстки
   popup = document.querySelector('#popup');
   form = document.forms.settings;
+  countryInput = form.country;
 
   form.addEventListener('submit', event => {
     event.preventDefault();
@@ -65,8 +66,14 @@ const setSettingToggleElement = (el) => {
   });
 };
 
+const updateCountryInPopupSetting = () => {
+  countryInput.value = properties.country;
+};
+
+
 export {
   // showPopup,
   createSettings,
   setSettingToggleElement,
+  updateCountryInPopupSetting
 };

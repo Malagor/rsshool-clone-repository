@@ -1,6 +1,7 @@
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet/dist/leaflet';
 import { getPopupTextHTML } from '../mainApp/getPopupTextHTML';
+// eslint-disable-next-line import/no-cycle
 import { printBorderCountries } from './printBorderCountries';
 
 
@@ -36,7 +37,6 @@ const initMap = (coordCenter, zoomRate) => {
 
 const setMarksToMap = (arr) => {
 
-
   const geoJson = {
     type: 'FeatureCollection',
     features: arr.map((country = {}) => {
@@ -70,11 +70,11 @@ const setMarksToMap = (arr) => {
   geoJsonLayers.addTo(map);
 };
 
-const events = () => {
-  map.addEventListener('click', (ev) => {
-    console.log('Click to map', ev);
-  });
-};
+// const events = () => {
+//   map.addEventListener('click', (ev) => {
+//     console.log('Click to map', ev);
+//   });
+// };
 
 const createMap = (el) => {
   map = L.map(el);
@@ -83,7 +83,7 @@ const createMap = (el) => {
   initMap([53.88, 27.72], 2);
   printBorderCountries(map);
 
-  events();
+  // events();
 };
 
 

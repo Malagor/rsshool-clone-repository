@@ -12,11 +12,16 @@ import { processingDataForCountries } from './processingDataForCountries';
 import { processingDataForMap } from './processingDataForMap';
 // eslint-disable-next-line import/no-cycle
 import { setMarksToMap } from '../map/map';
-// import { changeChartData } from '../chart/chart';
-// import { processingDataForChart } from './processingDataForChart';
+import { localStorageCountryList } from './localStorageCountryList';
+import { updateStatusBar } from '../status/Status';
+// eslint-disable-next-line import/no-cycle
+import { updateCountryInPopupSetting } from '../settings/Settings';
 
 export const updateApp = () => {
   saveProperties();
+  updateStatusBar();
+  updateCountryInPopupSetting();
+
   let { period } = properties;
   if (typeof period === 'boolean') {
     period = period ? 2 : false;
@@ -86,8 +91,10 @@ export const updateApp = () => {
           return compileData.filter((el) => el !== null);
         })
         .then(fullArrayCountries => {
-          // console.log(fullArrayCountries);
-
+          localStorageCountryList(fullArrayCountries, 'save');
+          return fullArrayCountries;
+        })
+        .then(fullArrayCountries => {
           const configForMap = processingDataForMap(fullArrayCountries);
           setMarksToMap(configForMap);
 

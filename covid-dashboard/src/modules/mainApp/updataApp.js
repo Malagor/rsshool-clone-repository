@@ -1,8 +1,16 @@
 import { properties, saveProperties } from '../Properties/Properties';
+import { changeChartData } from '../chart/chart';
+import { processingDataForChart } from './processingDataForChart';
 import { allCountriesGeneralData, countriesPerPeriod } from '../queries/Queries';
+import { renderTable } from '../table/table';
+import { renderCountries } from '../countries/countries';
 import { countPer100k } from './countPer100k';
 import { getLastDayData } from './getLastDayData';
+import { processingDataForTable } from './processingDataForTable';
+import { processingDataForCountries } from './processingDataForCountries';
+
 import { processingDataForMap } from './processingDataForMap';
+// eslint-disable-next-line import/no-cycle
 import { setMarksToMap } from '../map/map';
 // import { changeChartData } from '../chart/chart';
 // import { processingDataForChart } from './processingDataForChart';
@@ -20,22 +28,28 @@ export const updateApp = () => {
     .then((response) => {
       return response.json();
     })
-    .then(data => {
+    .then((data) => {
       const generalData = data;
-      const codesCountries = data.map(el => el.countryInfo.iso3);
+      const codesCountries = data.map((el) => el.countryInfo.iso3);
 
       const urlCountriesData = countriesPerPeriod(codesCountries, period);
 
       fetch(urlCountriesData)
-        .then(response => {
+        .then((response) => {
           return response.json();
         })
-        .then(countriesData => {
+        .then((countriesData) => {
           const compileData = generalData.map((el, idx) => {
             if (countriesData[idx]) {
-              const casesTime = Object.entries(countriesData[idx].timeline.cases);
-              const deathsTime = Object.entries(countriesData[idx].timeline.deaths);
-              const recoveredTime = Object.entries(countriesData[idx].timeline.recovered);
+              const casesTime = Object.entries(
+                countriesData[idx].timeline.cases,
+              );
+              const deathsTime = Object.entries(
+                countriesData[idx].timeline.deaths,
+              );
+              const recoveredTime = Object.entries(
+                countriesData[idx].timeline.recovered,
+              );
               const cases = casesTime[casesTime.length - 1][1];
               const deaths = deathsTime[deathsTime.length - 1][1];
               const recovered = recoveredTime[recoveredTime.length - 1][1];
@@ -69,8 +83,7 @@ export const updateApp = () => {
             }
             return null;
           });
-
-          return compileData.filter(el => el !== null);
+          return compileData.filter((el) => el !== null);
         })
         .then(fullArrayCountries => {
           // console.log(fullArrayCountries);
@@ -78,21 +91,21 @@ export const updateApp = () => {
           const configForMap = processingDataForMap(fullArrayCountries);
           setMarksToMap(configForMap);
 
-          // Тут раздербанивайте входящий массив на составляющие и вызывайте свои функции
+          const dataForTable = processingDataForTable(fullArrayCountries);
+          renderTable(dataForTable);
 
-          // const { arrData, locCountry } = processingDataForChart(
-          //   data,
-          //   country,
-          //   population,
-          // );
-          // changeChartData(arrData, locCountry, type, period, population);
+          const dataForCountries = processingDataForCountries(fullArrayCountries);
+          renderCountries(dataForCountries);
+
+          const { resultArr, locCountry } = processingDataForChart(fullArrayCountries);
+          changeChartData(resultArr, locCountry);
 
         })
-        .catch(err => {
-          console.log('I can\'t convert country data', err);
+        .catch((err) => {
+          console.log("I can't convert country data", err);
         });
     })
     .catch((err) => {
-      console.log('Can\'t get general data about countries!', err);
+      console.log("Can't get general data about countries!", err);
     });
 };

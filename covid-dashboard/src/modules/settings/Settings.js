@@ -14,8 +14,10 @@ import { updateApp } from '../mainApp/updataApp';
 let popup;
 let form;
 let countryInput;
+let currElem;
 
 const showPopup = (el) => {
+  currElem = el;
   // getting the size and position of the calling element
   const params = el.getBoundingClientRect();
   // getting the Width of the popup window
@@ -55,19 +57,27 @@ const createSettings = () => {
   form.addEventListener('submit', (event) => {
     event.preventDefault();
     getFormData();
+    popup.classList.remove('open');
   });
 };
 
 const setSettingToggleElement = (el) => {
   el.addEventListener('click', () => {
-    showPopup(el);
+    if(currElem !== el && popup.classList.contains('open')) {
+      popup.classList.remove('open');
+      setTimeout(() => {
+        showPopup(el);
+      }, 100);
+    } else {
+      showPopup(el);
+    }
   });
 };
 
 const updateCountryInPopupSetting = () => {
   let { country } = properties;
 
-  country = country || 'All world';
+  country = country || 'All World';
   countryInput.value = country;
 };
 

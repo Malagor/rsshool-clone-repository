@@ -17,7 +17,6 @@ let countryInput;
 
 const showPopup = (el) => {
   // getting the size and position of the calling element
-  // const { offsetLeft, offsetTop, clientHeight } = el;
   const params = el.getBoundingClientRect();
   // getting the Width of the popup window
   const popupWidth = popup.clientWidth;
@@ -49,7 +48,6 @@ const getFormData = () => {
 const createSettings = () => {
   document.body.insertAdjacentHTML('beforeend', settingsHTML());
 
-  // Заносим в переменные нужные элементы верстки
   popup = document.querySelector('#popup');
   form = document.forms.settings;
   countryInput = form.country;
@@ -67,13 +65,15 @@ const setSettingToggleElement = (el) => {
 };
 
 const updateCountryInPopupSetting = () => {
-  countryInput.value = properties.country;
+  let { country } = properties;
+
+  country = country || 'All world';
+  countryInput.value = country;
 };
 
 
 export {
-  // showPopup,
   createSettings,
   setSettingToggleElement,
-  updateCountryInPopupSetting
+  updateCountryInPopupSetting,
 };

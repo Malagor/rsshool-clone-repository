@@ -6,9 +6,11 @@ import { checkChart } from './checkChart';
 import { addData } from './addDataToChart';
 import { callbacksToolTips } from './chartDataForConfig';
 import { properties } from '../Properties/Properties';
+import { getControlsBlockHTML } from '../controls/controlsBlock';
 
 let chart = null;
 let ctxt = null;
+let chartHeader;
 let checkboxes;
 let offsetY;
 let chartProps = {
@@ -106,6 +108,8 @@ function changeChartData(data, title) {
 const createChart = (el) => {
   el.insertAdjacentHTML('afterbegin', chartHTML);
   ctxt = document.getElementById('myChart').getContext('2d');
+  chartHeader = document.querySelector('.chart__header');
+  getControlsBlockHTML(chartHeader, el);
   checkboxes = document.querySelectorAll('.chart__label');
   chart = new Chart(ctxt, getChartConfig());
   document.getElementById('myChart').addEventListener('mousemove', (e) => {

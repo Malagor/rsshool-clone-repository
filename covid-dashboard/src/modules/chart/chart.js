@@ -6,11 +6,14 @@ import { checkChart } from './checkChart';
 import { addData } from './addDataToChart';
 import { callbacksToolTips } from './chartDataForConfig';
 import { properties } from '../Properties/Properties';
+import { getControlsBlockHTML } from '../controls/controlsBlock';
 
 let chart = null;
 let ctxt = null;
+let chartHeader;
 let checkboxes;
 let offsetY;
+let offsetX;
 let chartProps = {
   cases: false,
   deaths: false,
@@ -21,17 +24,22 @@ Chart.defaults.LineWithLine = Chart.defaults.line;
 Chart.controllers.LineWithLine = Chart.controllers.line.extend({
   draw(ease) {
     Chart.controllers.line.prototype.draw.call(this, ease);
-    if (this.chart.tooltip._active && this.chart.tooltip._active.length) {
+    if (
+      this.chart.tooltip._active &&
+      this.chart.tooltip._active.length &&
+      offsetY !== -1
+    ) {
       const activePoint = this.chart.tooltip._active[0];
       const { ctx } = this.chart;
       const { x } = activePoint.tooltipPosition();
       const topY = this.chart.scales['y-axis-0'].top;
       const bottomY = this.chart.scales['y-axis-0'].bottom;
+      const rightY = this.chart.scales['y-axis-0'].right;
 
       ctx.save();
       ctx.beginPath();
-      ctx.moveTo(topY, offsetY);
-      ctx.lineTo(this.chart.width, offsetY);
+      ctx.moveTo(rightY, offsetY);
+      ctx.lineTo(this.chart.width - 25, offsetY);
       ctx.moveTo(x, topY);
       ctx.lineTo(x, bottomY);
       ctx.lineWidth = 0.5;
@@ -106,14 +114,28 @@ function changeChartData(data, title) {
 const createChart = (el) => {
   el.insertAdjacentHTML('afterbegin', chartHTML);
   ctxt = document.getElementById('myChart').getContext('2d');
+  chartHeader = document.querySelector('.chart__header');
+  getControlsBlockHTML(chartHeader, el);
   checkboxes = document.querySelectorAll('.chart__label');
-  chart = new Chart(ctxt, getChartConfig());
+  chart = new Chart(ctxt, getChartConfig(chart));
   document.getElementById('myChart').addEventListener('mousemove', (e) => {
     const targetCoords = e.target.getBoundingClientRect();
     const yCoord = e.clientY - targetCoords.top;
+    const xCoord = e.clientX - targetCoords.left;
     offsetY = yCoord;
-    if (offsetY < chart.chartArea.top || offsetY > chart.chartArea.bottom) {
+    offsetX = xCoord;
+    if (
+      offsetY < chart.chartArea.top ||
+      offsetY > chart.chartArea.bottom ||
+      offsetX < chart.chartArea.left ||
+      offsetX > chart.chartArea.right
+    ) {
       offsetY = -1;
+      chart.options.tooltips.enabled = false;
+      chart.options.hover.intersect = true;
+    } else {
+      chart.options.tooltips.enabled = true;
+      chart.options.hover.intersect = false;
     }
     return offsetY;
   });

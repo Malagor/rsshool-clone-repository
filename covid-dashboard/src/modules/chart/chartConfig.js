@@ -26,10 +26,10 @@ export function getChartConfig() {
               maxTicksLimit: 8,
               beginAtZero: true,
               callback(value) {
-                if (value > 1000000) {
+                if (value >= 1000000) {
                   return `${value / 1000000} m`;
                 }
-                if (value > 1000 && value < 1000000) {
+                if (value >= 1000 && value < 1000000) {
                   return `${value / 1000} k`;
                 }
                 return value;
@@ -37,6 +37,11 @@ export function getChartConfig() {
             },
           },
         ],
+      },
+      layout: {
+        padding: {
+          right: 25,
+        },
       },
       tooltips: {
         mode: 'index',
@@ -58,6 +63,20 @@ export function getChartConfig() {
       hover: {
         mode: 'index',
         intersect: false,
+        onHover: (event, chartElement) => {
+          if (chartElement[0]) {
+            if (
+              event.offsetY > chartElement[0]._chart.chartArea.bottom ||
+              event.offsetY < chartElement[0]._chart.chartArea.top ||
+              event.offsetX < chartElement[0]._chart.chartArea.left ||
+              event.offsetX > chartElement[0]._chart.chartArea.right
+            ) {
+              event.target.style.cursor = 'default';
+            } else {
+              event.target.style.cursor = 'pointer';
+            }
+          }
+        },
       },
       legend: {
         display: false,

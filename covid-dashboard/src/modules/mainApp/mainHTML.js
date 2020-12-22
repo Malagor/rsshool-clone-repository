@@ -39,6 +39,7 @@ export const mainHTML = () => {
   const chart = document.querySelector('#chart');
   const status = document.querySelector('#status');
   const header = document.querySelector('header.header');
+  const footer = document.querySelector('footer.footer');
 
   return {
     app,
@@ -49,5 +50,6 @@ export const mainHTML = () => {
     chart,
     status,
     header,
+    footer,
   };
 };

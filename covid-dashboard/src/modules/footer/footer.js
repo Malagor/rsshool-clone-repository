@@ -11,19 +11,19 @@ export const createFooter = (el) => {
     </div>
     <div class="footer__authors">
       <div class="footer__author">
-        <a href="https://github.com/Malagor" class="footer__author__link">
+        <a href="https://github.com/Malagor" class="footer__author__link" target="_blank">
           <p>Malagor</p>
           <p class="footer__github">${githubLogo}</p>
         </a>
       </div>
       <div class="footer__author">
-        <a href="https://github.com/besovadevka" class="footer__author__link">
+        <a href="https://github.com/besovadevka" class="footer__author__link" target="_blank">
           <p>besovadevka</p>
           <p class="footer__github">${githubLogo}</p>
         </a>
       </div>
       <div class="footer__author">
-        <a href="https://github.com/gryzun33" class="footer__author__link">
+        <a href="https://github.com/gryzun33" class="footer__author__link" target="_blank">
           <p>gryzun33</p>
           <p class="footer__github">${githubLogo}</p>
         </a>

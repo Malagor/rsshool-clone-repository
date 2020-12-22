@@ -57,8 +57,8 @@ $red-800: rgba(255, 0, 0, 0.81);
   padding: 1em;
   //width: 16em;
   font-size: 1.4em;
-  background-color: #ffffff;
   color: #000000;
+  background-color: #ffffff;
   border-radius: 0.4em;
   box-shadow: 0 3px 5px rgba(black, 0.9);
   transform: scale(0);
@@ -86,7 +86,6 @@ $red-800: rgba(255, 0, 0, 0.81);
 .marker-tooltips__title {
   display: flex;
   align-items: center;
-
 }
 
 .marker-tooltips__flag {
@@ -108,8 +107,8 @@ $red-800: rgba(255, 0, 0, 0.81);
 }
 
 .marker-tooltips__label {
-  font-weight: bold;
   width: 6em;
+  font-weight: bold;
 }
 
 .marker-tooltips__list {
@@ -124,8 +123,8 @@ $red-800: rgba(255, 0, 0, 0.81);
     &.deaths,
     &.recovered {
       order: 0;
-      background: #ffffff;
       font-size: 1.2em;
+      background: #ffffff;
     }
 
     &.cases {
@@ -148,22 +147,22 @@ $red-800: rgba(255, 0, 0, 0.81);
   font: 14px/16px Arial, Helvetica, sans-serif;
   background: white;
   background: rgba(255,255,255,0.8);
-  box-shadow: 0 0 15px rgba(0,0,0,0.2);
   border-radius: 5px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
 }
 .info h4 {
   margin: 0 0 5px;
-  color: #777;
+  color: #777777;
 }
 
 .legend {
   line-height: 18px;
-  color: #555;
+  color: #555555;
 }
 .legend i {
+  float: left;
   width: 18px;
   height: 18px;
-  float: left;
   margin-right: 8px;
   opacity: 0.7;
 }

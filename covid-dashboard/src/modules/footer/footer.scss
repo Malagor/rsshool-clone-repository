@@ -1,3 +1,74 @@
+@import "../../scss/_misc/mixins";
+
 footer.footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 rem(16px);
+
   grid-area: footer;
+}
+
+.footer__title,
+.footer__content,
+.footer__school,
+.footer__author__link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer__title > p {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  height: rem(20px);
+}
+
+.footer__main-icon {
+  width: rem(20px);
+  height: rem(20px);
+}
+
+.footer__title,
+.footer__school {
+  gap: rem(8px);
+}
+
+.footer__content {
+  justify-content: space-between;
+  width: 100%;
+}
+
+.footer__authors {
+  display: flex;
+
+  gap: rem(64px);
+}
+
+.footer__author__link {
+  font-size: rem(14.4px);
+  color: rgba(255, 255, 255, 1);
+  text-decoration: none;
+  opacity: 0.7;
+
+  gap: 0.3rem;
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.footer__github > svg {
+  width: rem(15px);
+  height: rem(15px);
+
+  fill: rgba(255, 255, 255, 1);
+}
+
+.footer__course__link > svg {
+  width: rem(50px);
+  height: rem(30px);
+
+  fill: rgba(255, 255, 255, 1);
 }

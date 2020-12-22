@@ -32,7 +32,7 @@ const mainHTML = () => {
     </div>
     <div id="map" class="map"></div>
     <div id="chart" class="chart"></div>
-    <footer class="footer">Authors/School</footer>
+    <footer class="footer"></footer>
   </div>`,
   );
 
@@ -44,6 +44,7 @@ const mainHTML = () => {
   const chart = document.querySelector('#chart');
   const status = document.querySelector('#status');
   const header = document.querySelector('header.header');
+  const footer = document.querySelector('footer.footer');
 
   return {
     app,
@@ -54,6 +55,7 @@ const mainHTML = () => {
     chart,
     status,
     header,
+    footer,
   };
 };
 

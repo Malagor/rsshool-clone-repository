@@ -1,8 +1,8 @@
 /*
-*
-* Author: Alex Malagor
-*
-* */
+ *
+ * Author: Alex Malagor
+ *
+ * */
 
 import { mainHTML } from './mainHTML';
 import { createMap } from '../map/map';
@@ -15,6 +15,7 @@ import { updateApp } from './updataApp';
 import { createTable } from '../table/table';
 import { createTableCountries } from '../countries/countries';
 import { createCasesBlock } from '../cases/cases';
+import { createFooter } from '../footer/footer';
 
 const elementsDOM = mainHTML();
 loadProperties();
@@ -28,5 +29,6 @@ createCasesBlock(elementsDOM.cases);
 createMap(elementsDOM.map);
 createChart(elementsDOM.chart);
 createStatusBar(elementsDOM.status);
+createFooter(elementsDOM.footer);
 
 updateApp();

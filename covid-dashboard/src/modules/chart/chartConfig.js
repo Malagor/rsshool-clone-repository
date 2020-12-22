@@ -26,7 +26,7 @@ export function getChartConfig() {
               maxTicksLimit: 8,
               beginAtZero: true,
               callback(value) {
-                if (value > 1000000) {
+                if (value >= 1000000) {
                   return `${value / 1000000} m`;
                 }
                 if (value > 1000 && value < 1000000) {

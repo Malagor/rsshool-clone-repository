@@ -38,8 +38,11 @@
 
   .countries-wrapper {
     width: 100%;
+    max-width: rem(500px);
     height: 100%;
     margin-top: rem(10px);
+    margin-right: auto;
+    margin-left: auto;
 
     .countries-title {
       width: 100%;
@@ -56,7 +59,7 @@
 
     .countries-list {
       width: 100%;
-      height: rem(370px);
+      max-height: rem(400px);
       margin-top: rem(10px);
       overflow-y: scroll;
 

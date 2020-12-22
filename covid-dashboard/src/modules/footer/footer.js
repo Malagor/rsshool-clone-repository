@@ -1,11 +1,12 @@
 import rssLogo from '../../assets/icons/rs_school_js.svg';
 import githubLogo from '../../assets/icons/github.svg';
+import mainLogo from '../../assets/img/virus.png';
 
 export const createFooter = (el) => {
   el.innerHTML = `
   <div class="footer__content">
     <div class="footer__title">
-      <img src="../../assets/img/virus.png" alt="main icon" class="footer__main-icon">
+      <img src=${mainLogo} alt="main icon" class="footer__main-icon">
       <p><span>COVID-19 Dashboard</span></p>
     </div>
     <div class="footer__authors">

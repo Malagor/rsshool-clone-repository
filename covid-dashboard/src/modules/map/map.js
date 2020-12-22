@@ -1,16 +1,17 @@
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet/dist/leaflet';
-// import { onClickMap } from '../onEvents/onEvents';
+import { getPopupTextHTML } from '../mainApp/getPopupTextHTML';
+// eslint-disable-next-line import/no-cycle
+import { printBorderCountries } from './printBorderCountries';
 
+
+const TOKEN_API = 'pk.eyJ1IjoibWFsYWdvciIsImEiOiJja2loZnUwdDgwNmpyMnNwYnNwaDBnNjlmIn0.syPwz4D9ZNf8AIJ71a0aUQ';
 let map = null;
-let clickMap = null;
+let geoJsonLayers;
 
-const setClickMapHandler = (fn) => {
-  clickMap = fn;
-};
-
-const renderMap = (coordCenter, zoomRate) => {
+const initMap = (coordCenter, zoomRate) => {
   map.setView(coordCenter, zoomRate);
+
 
   L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
     maxZoom: 18,
@@ -19,46 +20,74 @@ const renderMap = (coordCenter, zoomRate) => {
     center: coordCenter,
     tileSize: 512,
     zoomOffset: -1,
-    accessToken: 'pk.eyJ1IjoibWFsYWdvciIsImEiOiJja2loZnUwdDgwNmpyMnNwYnNwaDBnNjlmIn0.syPwz4D9ZNf8AIJ71a0aUQ',
+    accessToken: TOKEN_API,
+    maxBounds: [
+      [84.89,-181.40],
+      [-85.06, 182.04]
+    ]
   }).addTo(map);
+
+  const bounds = L.latLngBounds([84.89,-200.00],[-85.06, 200.00]);
+  map.setMaxBounds(bounds);
+  map.on('drag', () => {
+    map.panInsideBounds(bounds, { animate: false });
+  });
 };
+
 
 const setMarksToMap = (arr) => {
-  console.log('Data to map', arr);
-  arr.forEach(data => {
-    const {active, country, population, lat, long, flag } = data;
 
-    const circle = L.circle([lat, long], {
-      color: 'red',
-      fillColor: '#f03',
-      fillOpacity: 0.5,
-      radius: active / 10,
-      weight: 1,
-      opacity: 1,
-    }).addTo(map);
+  const geoJson = {
+    type: 'FeatureCollection',
+    features: arr.map((country = {}) => {
+      const { lat, long: lng } = country;
+      return {
+        type: 'Feature',
+        properties: {
+          ...country,
+        },
+        geometry: {
+          type: 'Point',
+          coordinates: [lng, lat],
+        },
+      };
+    }),
+  };
 
-    circle.bindPopup(`<img class="flag" src="${flag}" alt="${country}-flag"><div><b>${country}</b></div><div>${population}`);
+  geoJsonLayers = new L.GeoJSON(geoJson, {
+    pointToLayer: (feature = {}, latlng) => {
+      const html = getPopupTextHTML(feature);
+      return L.marker(latlng, {
+        icon: L.divIcon({
+          className: 'icon',
+          html,
+        }),
+        riseOnHover: true,
+      });
+    },
   });
+  geoJsonLayers.remove(map);
+  geoJsonLayers.addTo(map);
 };
 
-const events = () => {
-  map.addEventListener('click', (ev) => {
-    console.log(ev);
-    clickMap();
-  });
-};
+// const events = () => {
+//   map.addEventListener('click', (ev) => {
+//     console.log('Click to map', ev);
+//   });
+// };
 
 const createMap = (el) => {
   map = L.map(el);
 
   // Init render map Center === Belarus
-  renderMap([53.88, 27.72], 2);
-  events();
+  initMap([53.88, 27.72], 2);
+  printBorderCountries(map);
+
+  // events();
 };
 
 
 export {
-  setClickMapHandler,
   createMap,
-  setMarksToMap
-}
+  setMarksToMap,
+};

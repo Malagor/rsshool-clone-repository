@@ -3,8 +3,8 @@ import { properties } from '../Properties/Properties';
 export default function settingsHTML() {
 
   let { country, period, population } = properties;
-
   const { type } = properties;
+
   period = period ? 'checked' : '';
   population = population ? 'checked' : '';
   country = country || 'All World';

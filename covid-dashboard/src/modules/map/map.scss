@@ -1,7 +1,167 @@
+@import "../../scss/_misc/variables";
+
 .map {
   grid-area: map;
 }
 
 .flag {
   width: 1rem;
+}
+
+
+$blue-grey-100: rgba(0, 0, 255, 0.1);
+$blue-grey-900: rgba(186, 179, 255, 0.9);
+$red-800: rgba(255, 0, 0, 0.81);
+
+.icon-marker {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 3.6em;
+  height: 3.6em;
+  font-size: 0.7em;
+  color: white;
+  //font-weight: bold;
+  //background-color: $red-800;
+  border-radius: 100%;
+  box-shadow: 0 2px 5px rgba(black, 0.9);
+
+  &.cases {
+    background-color: $color-cases;
+  }
+
+  &.deaths {
+    color: #000000;
+    background-color: #ebb2b2;
+  }
+
+  &.recovered {
+    color: #000000;
+    background-color: #8abd8a;
+  }
+
+  &:hover {
+    .icon-marker-tooltip {
+      display: block;
+      transform: scale(1);
+    }
+  }
+}
+
+.icon-marker-tooltip {
+  position: absolute;
+  bottom: 100%;
+  display: block;
+  margin-bottom: 1em;
+  padding: 1em;
+  //width: 16em;
+  font-size: 1.4em;
+  background-color: #ffffff;
+  color: #000000;
+  border-radius: 0.4em;
+  box-shadow: 0 3px 5px rgba(black, 0.9);
+  transform: scale(0);
+  transition: 0.2s;
+
+  .cases & {
+    //background-color: $color-cases;
+  }
+
+  .deaths & {
+    //background-color: #ebb2b2;
+  }
+
+  .recovered & {
+    //background-color: #8abd8a;
+  }
+
+  &:before {
+    content: "";
+    position: absolute;
+    bottom: -0.6em;
+    left: 50%;
+    display: block;
+    width: 1.4em;
+    height: 1.4em;
+    margin-left: -0.7em;
+    color: #000000;
+    background-color: #ffffff;
+    transform: rotate(45deg);
+
+    .cases & {
+      //background-color: $color-cases;
+    }
+
+    .deaths & {
+      //background-color: #ebb2b2;;
+    }
+
+    .recovered & {
+      //background-color: #8abd8a;
+    }
+  }
+
+  ul {
+    list-style: none;
+  }
+}
+
+.marker-tooltips__title {
+  display: flex;
+  align-items: center;
+
+}
+
+.marker-tooltips__flag {
+  width: 2rem;
+  height: 1.2rem;
+  margin-right: 1rem;
+
+  img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+  }
+}
+
+.marker-tooltips__country {
+  font-weight: bold;
+  font-size: 1.4em;
+}
+
+.marker-tooltips__label {
+  font-weight: bold;
+  width: 6em;
+}
+
+.marker-tooltips__list {
+  display: flex;
+  flex-direction: column;
+
+  & .marker-tooltips__item {
+    display: flex;
+    order: 1;
+
+    &.cases,
+    &.deaths,
+    &.recovered {
+      order: 0;
+      background: #ffffff;
+      font-size: 1.2em;
+    }
+
+    &.cases {
+      color: $color-cases;
+    }
+
+    &.deaths {
+      color: $color-deaths;
+    }
+
+    &.recovered {
+      color: green;
+    }
+  }
 }

@@ -22,6 +22,7 @@
     "@babel/preset-typescript": "^7.12.7",
     "autoprefixer": "^9.8.6",
     "babel-loader": "^8.0.6",
+    "babel-polyfill": "^6.26.0",
     "copy-webpack-plugin": "^5.0.5",
     "css-loader": "^3.2.0",
     "css-mqpacker": "^7.0.0",
@@ -53,6 +54,7 @@
   "dependencies": {
     "chart.js": "^2.9.4",
     "core-js": "^3.4.7",
+    "data.js": "^0.12.11",
     "leaflet": "^1.7.1",
     "normalize.css": "^8.0.1",
     "regenerator-runtime": "^0.13.3"

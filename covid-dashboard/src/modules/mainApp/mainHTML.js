@@ -22,7 +22,6 @@ const mainHTML = () => {
       </div>
     </header>
     <div id="status" class="status">Status</div>
-    <div id="cases" class="cases">cases</div>
     <div id="table" class="table"></div>
     <div id ="countries" class="countries">
       <div class="ccc">All World</div>

@@ -89,7 +89,10 @@ const optimization = () => {
 
 const config = {
   target: "web",
-  entry: {index: './src/index.js'},
+  // entry: {index: './src/index.js'},
+  entry: {
+    app: ['babel-polyfill', './src/index.js']
+  },
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: filename('js')

@@ -14,7 +14,7 @@ export function addData(el, data, chartProps, chart) {
     borderColor: colors[index],
     pointBackgroundColor: colors[index],
     pointRadius: 0.5,
-    pointHoverRadius: 5,
+    pointHoverRadius: 3,
     borderWidth: 0.5,
   };
   const elVal = [];

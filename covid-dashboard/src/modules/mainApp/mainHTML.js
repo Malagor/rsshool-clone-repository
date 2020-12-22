@@ -1,4 +1,4 @@
-const mainHTML = () => {
+export const mainHTML = () => {
   document.body.insertAdjacentHTML(
     'afterbegin',
     `
@@ -21,17 +21,13 @@ const mainHTML = () => {
         <div></div>
       </div>
     </header>
-    <div id="status" class="status">Status</div>
+    <div id="status" class="status"></div>
     <div id="table" class="table"></div>
-    <div id ="countries" class="countries">
-      <div class="ccc">All World</div>
-      <div class="ccc">Belarus</div>
-      <div class="ccc">Russia</div>
-      <div class="ccc">Ukraine</div>
+    <div id ="countries" class="countries">      
     </div>
     <div id="map" class="map"></div>
     <div id="chart" class="chart"></div>
-    <footer class="footer">Authors/School</footer>
+    <footer class="footer"></footer>
   </div>`,
   );
 
@@ -55,5 +51,3 @@ const mainHTML = () => {
     header,
   };
 };
-
-export { mainHTML };

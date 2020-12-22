@@ -1,4 +1,5 @@
 @import "../../scss/_misc/mixins";
+@import "../../scss/_misc/variables";
 
 * {
   box-sizing: border-box;
@@ -52,7 +53,7 @@ img {
 }
 
 header.header,
-.cases:not(#status__type),
+.cases-block,
 .table,
 .map,
 .chart,

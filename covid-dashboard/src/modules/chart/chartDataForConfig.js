@@ -26,13 +26,10 @@ export function callbacksToolTips(title) {
     label(toolTipItems, data) {
       const val = toolTipItems.value;
       const ind = toolTipItems.datasetIndex;
-      if (val > 1000000) {
-        return `${data.datasets[ind].label}: ${(val / 1000000).toFixed(1)} m`;
-      }
-      if (val > 1000 && val < 1000000) {
-        return `${data.datasets[ind].label}: ${val / 1000} k`;
-      }
-      return `${data.datasets[ind].label}: ${val}`;
+      return `${data.datasets[ind].label}: ${val.replace(
+        /\B(?=(\d{3})+(?!\d))/g,
+        ' ',
+      )}`;
     },
     footer() {
       const foot = title;

@@ -121,7 +121,7 @@ footer.footer {
   border-radius: rem(5px);
 
   &.fullScreen {
-    position: fixed;
+    position: fixed !important;
     top: 5vh;
     left: 2.5vw;
     z-index: 1002;

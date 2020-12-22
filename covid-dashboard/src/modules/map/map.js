@@ -4,6 +4,8 @@ import { getPopupTextHTML } from '../mainApp/getPopupTextHTML';
 // eslint-disable-next-line import/no-cycle
 import { printBorderCountries } from './printBorderCountries';
 import { getLegend } from './getLegend';
+import { setControlsToMap } from './setControlsToMap';
+import { getControlsBlockHTML } from '../controls/controlsBlock';
 
 
 const TOKEN_API = 'pk.eyJ1IjoibWFsYWdvciIsImEiOiJja2loZnUwdDgwNmpyMnNwYnNwaDBnNjlmIn0.syPwz4D9ZNf8AIJ71a0aUQ';
@@ -33,6 +35,9 @@ const initMap = (coordCenter, zoomRate) => {
   map.on('drag', () => {
     map.panInsideBounds(bounds, { animate: false });
   });
+
+  const mapControls = setControlsToMap();
+  mapControls.addTo(map);
 
   const legend = getLegend();
   legend.addTo(map);
@@ -85,6 +90,8 @@ const createMap = (el) => {
 
   // Init render map Center === Belarus
   initMap([53.88, 27.72], 2);
+  const mapControlsBlock = document.querySelector('.map__controls');
+  getControlsBlockHTML(mapControlsBlock, el);
   printBorderCountries(map);
 
   // events();

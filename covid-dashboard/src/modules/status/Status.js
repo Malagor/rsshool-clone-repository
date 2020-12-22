@@ -30,7 +30,13 @@ const setCountry = (country) => {
 };
 
 const setPeriod = (period) => {
-  elementsDOM.period.textContent = period === false ? 'For all period' : `30 days` ;
+  let periodLoc;
+  if ( typeof period === 'boolean') {
+    periodLoc = period ? 'One last day' : 'For all period';
+  } else {
+    periodLoc = `${period} day(s)`;
+  }
+  elementsDOM.period.textContent = periodLoc ;
 };
 
 const updateStatusBar = () => {

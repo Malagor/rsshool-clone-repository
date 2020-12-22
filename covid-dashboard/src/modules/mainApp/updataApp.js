@@ -10,12 +10,11 @@ import { processingDataForTable } from './processingDataForTable';
 import { processingDataForCountries } from './processingDataForCountries';
 
 import { processingDataForMap } from './processingDataForMap';
-// eslint-disable-next-line import/no-cycle
 import { setMarksToMap } from '../map/map';
 import { localStorageCountryList } from './localStorageCountryList';
 import { updateStatusBar } from '../status/Status';
-// eslint-disable-next-line import/no-cycle
 import { updateCountryInPopupSetting } from '../settings/Settings';
+import { loaderOn } from '../loader/loader';
 
 export const updateApp = () => {
   saveProperties();
@@ -28,6 +27,7 @@ export const updateApp = () => {
   }
 
   const urlGeneralData = allCountriesGeneralData();
+  loaderOn(true);
 
   fetch(urlGeneralData)
     .then((response) => {
@@ -106,6 +106,8 @@ export const updateApp = () => {
 
           const { resultArr, locCountry } = processingDataForChart(fullArrayCountries);
           changeChartData(resultArr, locCountry);
+
+          loaderOn(false);
 
         })
         .catch((err) => {

@@ -2,8 +2,6 @@ export function getChartConfig() {
   return {
     type: 'LineWithLine',
     options: {
-      datasetFill: false,
-      lineAtValue: 7.5,
       responsive: true,
       maintainAspectRatio: false,
       title: {

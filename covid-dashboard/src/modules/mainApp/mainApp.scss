@@ -16,6 +16,19 @@ body {
 
 html {
   font-size: 16px;
+
+  @media screen and (max-width: 1200px){
+    font-size: 15px;
+  }
+  @media screen and (max-width: 992px){
+    font-size: 15px;
+  }
+  @media screen and (max-width: 768px){
+    font-size: 14px;
+  }
+  @media screen and (max-width: 510px){
+    font-size: 13px;
+  }
 }
 
 body {
@@ -48,8 +61,49 @@ img {
   "countries map table"
   "countries chart chart"
   "footer footer footer";
-  grid-template-columns: minmax(20%, 10rem) 1fr minmax(20%, 15rem);
-  grid-template-rows: 4rem 3rem 10rem 1fr 20rem 4rem;
+  grid-template-columns: minmax(20%, 15rem) 1fr minmax(20%, 15rem);
+  grid-template-rows: 4rem 3rem 10rem 1fr 15rem 4rem;
+
+  @media screen and (max-width: 1200px){
+    grid-template-columns: minmax(20%, 15rem) 1fr minmax(20%, 10rem);
+    grid-template-rows: 4rem 3rem 10rem 1fr 15rem 4rem;
+  }
+
+  @media screen and (max-width: 992px){
+    grid-template-areas: "header header header"
+    "status status status"
+    "countries map map"
+    "countries map map"
+    "countries chart table"
+    "footer footer footer";
+    grid-template-columns: minmax(20%, 13rem) 1fr minmax(20%, 15rem);
+    grid-template-rows: 4rem 3rem 10rem 1fr 17rem 4rem;
+  }
+
+  @media screen and (max-width: 768px){
+    grid-gap: rem(7px);
+    grid-template-areas: "header header header"
+    "status status status"
+    "table map map"
+    "countries map map"
+    "countries chart chart"
+    "footer footer footer";
+    grid-template-columns: minmax(20%, 15rem) 1fr minmax(20%, 15rem);
+    grid-template-rows: 4rem 3rem 15rem 1fr 17rem 4rem;
+  }
+
+  @media screen and (max-width: 550px){
+    grid-gap: rem(5px);
+    grid-template-areas:
+            "header header"
+            "status status"
+            "table table"
+            "map map"
+            "chart countries"
+            "footer footer";
+    grid-template-columns: 1fr minmax(20%, 15rem);
+    grid-template-rows: 4rem 3rem 4rem 1fr 18rem 4rem;
+  }
 }
 
 header.header,

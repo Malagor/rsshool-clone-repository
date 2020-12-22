@@ -1,5 +1,6 @@
 const properties = {
   country: false,
+  iso3: null,
   period: false,
   population: false,
   type: 'cases'
@@ -16,6 +17,7 @@ const loadProperties = () => {
     properties.country = loadData.country;
     properties.population = loadData.population;
     properties.type = loadData.type;
+    properties.iso3 = loadData.iso3;
   }
 };
 
@@ -24,6 +26,7 @@ const setProperties = (obj) => {
   properties.period = obj.period;
   properties.population = obj.population;
   properties.type = obj.type;
+  properties.iso3 = obj.iso3;
 
   saveProperties();
 };

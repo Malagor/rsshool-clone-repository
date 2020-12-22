@@ -32,7 +32,7 @@ export const createFooter = (el) => {
     <div class="footer__school">
       <p>© 2020</p>
       <p>|</p>
-      <a href="https://rs.school/js/" class="footer__course__link">${rssLogo}</a>
+      <a href="https://rs.school/js/" class="footer__course__link" target="_blank">${rssLogo}</a>
     </div>  
   </div>  
   `;

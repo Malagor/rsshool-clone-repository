@@ -17,12 +17,13 @@ let countryInput;
 
 const showPopup = (el) => {
   // getting the size and position of the calling element
-  const { offsetLeft, offsetTop, clientHeight } = el;
+  // const { offsetLeft, offsetTop, clientHeight } = el;
+  const params = el.getBoundingClientRect();
   // getting the Width of the popup window
   const popupWidth = popup.clientWidth;
 
-  popup.style.top = `${offsetTop + clientHeight}px`;
-  popup.style.left = `${offsetLeft - popupWidth}px`;
+  popup.style.top = `${params.bottom}px`;
+  popup.style.left = `${params.left - popupWidth}px`;
   popup.classList.toggle('open');
 };
 
@@ -45,7 +46,6 @@ const getFormData = () => {
   updateApp();
 };
 
-
 const createSettings = () => {
   document.body.insertAdjacentHTML('beforeend', settingsHTML());
 
@@ -54,7 +54,7 @@ const createSettings = () => {
   form = document.forms.settings;
   countryInput = form.country;
 
-  form.addEventListener('submit', event => {
+  form.addEventListener('submit', (event) => {
     event.preventDefault();
     getFormData();
   });

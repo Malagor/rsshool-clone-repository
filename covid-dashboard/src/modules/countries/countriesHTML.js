@@ -1,7 +1,14 @@
+import keyboard from '../../assets/icons/keyboard.svg';
+
 export const createCountriesHTML = (el) => {
-  el.innerHTML = `<div class="countries-wrapper">
+  el.innerHTML = `
+  <div class="countries-header">
+    <div class="countries-keyboard">${keyboard}</div>
+    <div class="countries-control"></div>
+  </div> 
+  <div class="countries-wrapper">
   <div class="countries-title">Cases by country</div>
-  <input type="text" class="countries-input">
+  <input type="text" placeholder="Search..." class="countries-input">
   <div class="countries-list"></div>
   <div class="toggle-cases">
     <div class="btn-cases btn-all btn-enabled ">All Cases</div>
@@ -12,6 +19,8 @@ export const createCountriesHTML = (el) => {
 }
 
 export const getCountriesDOMElements = (el) => {
+  const btnKeyboard = el.querySelector('.countries-keyboard');
+  const countriesControl = el.querySelector('.countries-control');
   const wrapper = el.querySelector('.countries-wrapper');
   const title = el.querySelector('.countries-title');
   const input = el.querySelector('.countries-input');
@@ -21,6 +30,8 @@ export const getCountriesDOMElements = (el) => {
   const btnRecovered = el.querySelector('.btn-recovered');
 
   return {
+    btnKeyboard, 
+    countriesControl,
     wrapper,
     title,
     input,

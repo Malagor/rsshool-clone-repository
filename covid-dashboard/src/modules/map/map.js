@@ -3,6 +3,7 @@ import L from 'leaflet/dist/leaflet';
 import { getPopupTextHTML } from '../mainApp/getPopupTextHTML';
 // eslint-disable-next-line import/no-cycle
 import { printBorderCountries } from './printBorderCountries';
+import { getLegend } from './getLegend';
 
 
 const TOKEN_API = 'pk.eyJ1IjoibWFsYWdvciIsImEiOiJja2loZnUwdDgwNmpyMnNwYnNwaDBnNjlmIn0.syPwz4D9ZNf8AIJ71a0aUQ';
@@ -22,16 +23,19 @@ const initMap = (coordCenter, zoomRate) => {
     zoomOffset: -1,
     accessToken: TOKEN_API,
     maxBounds: [
-      [84.89,-181.40],
-      [-85.06, 182.04]
-    ]
+      [84.89, -181.40],
+      [-85.06, 182.04],
+    ],
   }).addTo(map);
 
-  const bounds = L.latLngBounds([84.89,-200.00],[-85.06, 200.00]);
+  const bounds = L.latLngBounds([84.89, -200.00], [-85.06, 200.00]);
   map.setMaxBounds(bounds);
   map.on('drag', () => {
     map.panInsideBounds(bounds, { animate: false });
   });
+
+  const legend = getLegend();
+  legend.addTo(map);
 };
 
 

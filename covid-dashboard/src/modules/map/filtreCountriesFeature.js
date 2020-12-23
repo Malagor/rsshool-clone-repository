@@ -15,9 +15,11 @@ export const filtreCountriesFeature = (geodata) => {
 
       return null;
     });
+
+    geodata.features = geodata.features.filter(item => {
+      return item !== null;
+    });
   }
-  geodata.features = geodata.features.filter(item => {
-    return item !== null;
-  });
+
   return geodata;
 };

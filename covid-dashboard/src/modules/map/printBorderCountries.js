@@ -1,6 +1,5 @@
 import L from 'leaflet/dist/leaflet';
 import { properties, saveProperties } from '../Properties/Properties';
-// eslint-disable-next-line import/no-cycle
 import { updateApp } from '../mainApp/updataApp';
 import { filtreCountriesFeature } from './filtreCountriesFeature';
 

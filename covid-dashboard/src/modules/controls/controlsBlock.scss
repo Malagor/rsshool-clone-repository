@@ -6,6 +6,12 @@
   align-items: center;
   width: rem(75px);
   height: 100%;
+  @media screen and (max-width: 992px) {
+    width: rem(60px);
+  }
+  @media screen and (max-width: 768px) {
+    width: rem(55px);
+  }
 }
 
 .controls-block_params,
@@ -22,6 +28,14 @@
   &:hover {
     transform: scale(1.05);
     opacity: 1;
+  }
+  @media screen and (max-width: 992px) {
+    width: rem(21px);
+    height: rem(21px);
+  }
+  @media screen and (max-width: 768px) {
+    width: rem(20px);
+    height: rem(20px);
   }
 }
 

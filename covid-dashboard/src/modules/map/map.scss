@@ -21,12 +21,10 @@ $red-800: rgba(255, 0, 0, 0.81);
   width: 3.6em;
   height: 3.6em;
   font-size: 0.7em;
-  color: white;
-  //font-weight: bold;
+  color: white;//font-weight: bold;
   //background-color: $red-800;
   border-radius: 100%;
   box-shadow: 0 2px 5px rgba(black, 0.9);
-
   &.cases {
     background-color: $color-cases;
   }
@@ -54,16 +52,14 @@ $red-800: rgba(255, 0, 0, 0.81);
   bottom: 100%;
   display: block;
   margin-bottom: 1em;
-  padding: 1em;
-  //width: 16em;
+  padding: 1em;//width: 16em;
   font-size: 1.4em;
-  background-color: #ffffff;
   color: #000000;
+  background-color: #ffffff;
   border-radius: 0.4em;
   box-shadow: 0 3px 5px rgba(black, 0.9);
   transform: scale(0);
   transition: 0.2s;
-
   .cases & {
     //background-color: $color-cases;
   }
@@ -110,7 +106,6 @@ $red-800: rgba(255, 0, 0, 0.81);
 .marker-tooltips__title {
   display: flex;
   align-items: center;
-
 }
 
 .marker-tooltips__flag {
@@ -132,8 +127,8 @@ $red-800: rgba(255, 0, 0, 0.81);
 }
 
 .marker-tooltips__label {
-  font-weight: bold;
   width: 6em;
+  font-weight: bold;
 }
 
 .marker-tooltips__list {
@@ -148,8 +143,8 @@ $red-800: rgba(255, 0, 0, 0.81);
     &.deaths,
     &.recovered {
       order: 0;
-      background: #ffffff;
       font-size: 1.2em;
+      background: #ffffff;
     }
 
     &.cases {

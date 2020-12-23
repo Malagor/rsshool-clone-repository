@@ -21,7 +21,6 @@ let listOfCountries;
 
 setTimeout(() => {
   listOfCountries = createListOfCountries();
-  console.log(listOfCountries);
 }, 0);
 
 const showPopup = (el) => {

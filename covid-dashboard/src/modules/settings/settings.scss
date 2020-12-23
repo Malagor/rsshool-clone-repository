@@ -1,10 +1,12 @@
 @import "../../scss/_misc/mixins";
+@import  "../../scss/_misc/variables";
 
 
 .popup {
   position: absolute;
   top: 0;
   right: 0;
+  z-index: 1003;
   width: 12rem;
   padding: 1rem;
   font-size: 0.8rem;
@@ -41,6 +43,31 @@
     flex-basis: 100%;
     width: 100%;
     padding: 0.5rem;
+  }
+
+  .setting__list {
+    position: absolute;
+    top: 65px;
+    width: 9.8rem;
+    max-height: rem(200px);
+    margin-left: 0.04rem;
+    overflow-y: scroll;
+    list-style-type: none;
+    color: $color-background-superdark;
+    background-color: $color-text;
+
+    .setting-list-item {
+      padding-left: 0.5rem;
+      cursor: pointer;
+    }
+
+    .setting-list-item:hover {
+      background-color: $color-background-ultralight;
+    }
+  }
+
+  .setting__list_hide {
+    display: none;
   }
 
   .setting__population,

@@ -1,4 +1,5 @@
 import { createTableHTML, getTableDOMEelements } from './tableHTML';
+import { getControlsBlockHTML } from '../controls/controlsBlock';
 
 let tableElements = null;
 
@@ -6,6 +7,7 @@ const createTable = (el) => {
 
   createTableHTML(el);
   tableElements = getTableDOMEelements(el);
+  getControlsBlockHTML(tableElements.tableControl, el);
 
 };
 

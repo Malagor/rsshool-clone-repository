@@ -12,7 +12,8 @@ export default function settingsHTML() {
   return '<div id="popup" class="popup">' +
     '<div class="settings">' +
     '<form name="settings" id="settings-form" class="settings__form">' +
-    `<label for="setting-country">Country<input id="setting-country" class="setting__country" type="text" name="country" value="${country}"></label>` +
+    `<label for="setting-country">Country<input id="setting-country" class="setting__country" type="text" name="country" value="${country}" autocomplete="off"></label>` +
+    `<label for="setting-list"><ul id="setting-list" class="setting__list setting__list_hide"></ul></label>` +
     `<label for="setting-population"><input id="setting-population" class="setting__population" type="checkbox" name="population" ${population}>Per 100k population</label>` +
     `<label for="setting-period"><input id="setting-period" class="setting__period" type="checkbox" name="period" ${period}>For last day</label>` +
     '<fieldset>' +

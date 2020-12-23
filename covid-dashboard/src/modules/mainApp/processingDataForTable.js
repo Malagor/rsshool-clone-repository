@@ -1,12 +1,19 @@
 import { properties } from '../Properties/Properties';
 
+// const { country, population, period } = properties;
+
 const getDataforAllWorld = (data, currCases, currRecovered, currDeaths) => {
   const dataForAllWorld = {
     country: 'All World',
-    cases: (data.map((elem) => elem[currCases]).reduce((s,elem) => s + elem, 0)).toFixed(1),
-    recovered: (data.map((elem) => elem[currRecovered]).reduce((s,elem) => s + elem, 0)).toFixed(1),
-    deaths: (data.map((elem) => elem[currDeaths]).reduce((s,elem) => s + elem, 0)).toFixed(1),
+    cases: data.map((elem) => elem[currCases]).reduce((s,elem) => s + elem, 0),
+    recovered: data.map((elem) => elem[currRecovered]).reduce((s,elem) => s + elem, 0),
+    deaths: data.map((elem) => elem[currDeaths]).reduce((s,elem) => s + elem, 0),
   } 
+  if (properties.population) {
+    dataForAllWorld.cases = (dataForAllWorld.cases).toFixed(1);
+    dataForAllWorld.recovered = (dataForAllWorld.recovered).toFixed(1);
+    dataForAllWorld.deaths = (dataForAllWorld.deaths).toFixed(1);
+  }
   return dataForAllWorld;
 }
 
@@ -15,7 +22,6 @@ export const processingDataForTable = (data) => {
   let dataForTable = {};
   dataForTable.country = country;
   const countryObj = data.find((elem) => elem.country === country);
-  
   if (country) {
     if (period) {
       if (population) {

@@ -17,16 +17,64 @@
   margin: 0 5px;
   padding: 8px 10px;
   box-shadow: inset 0 0 5px black;
+
+  @media screen and (max-width: 992px) {
+    margin: 0 4px;
+    width: 25%;
+    padding: 5px;
+    font-size: 0.9rem;
+    //height: 100%;
+  }
+  @media screen and (max-width: 550px) {
+    margin: 0;
+  }
 }
 
 #status__type {
   &.cases {
     color: $color-cases;
   }
+
   &.deaths {
     color: $color-deaths;
   }
+
   &.recovered {
     color: $color-recovered;
   }
 }
+
+@media screen and (max-width: 992px) {
+  .status__date {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 768px) {
+
+  .status__period {
+    width: 20%
+  }
+  .status__count {
+    width: 30%
+  }
+  #status__type {
+    width: 20%
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .status__period {
+    width: 20%
+  }
+  .status__count {
+    width: 30%
+  }
+  #status__type {
+    width: 20%
+  }
+}
+
+
+
+

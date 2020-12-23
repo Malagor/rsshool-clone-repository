@@ -22,13 +22,17 @@
   text-align: center;
 
   .table-country {
-    font-size: rem(30px);@include Roboto($style: medium);
+    font-size: rem(30px);
+
+@include Roboto($style: medium);
   }
 
   .table-cases,
   .table-recovered,
   .table-deaths {
-    font-size: rem(25px);@include Roboto($style: medium);
+    font-size: rem(25px);
+
+@include Roboto($style: medium);
 
     .cases-number {
       color: $color-cases;
@@ -40,6 +44,115 @@
 
     .deaths-number {
       color: $color-deaths;
+    }
+  }
+}
+
+.fullScreen {
+  .table-wrapper {
+    justify-content: space-between;
+    max-height: 25rem;
+    margin-top: 10%;
+
+    .table-country {
+      font-size: rem(40px);
+    }
+
+    .table-cases,
+    .table-recovered,
+    .table-deaths {
+      font-size: rem(35px);
+    }
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .table {
+    .table-wrapper {
+      .table-country {
+        font-size: rem(25px);
+      }
+
+      .table-cases,
+      .table-recovered,
+      .table-deaths {
+        font-size: rem(20px);
+      }
+    }
+  }
+
+  .fullScreen {
+    .table-wrapper {
+      justify-content: space-between;
+      max-height: 25rem;
+      margin-top: 15%;
+
+      .table-country {
+        font-size: rem(40px);
+      }
+
+      .table-cases,
+      .table-recovered,
+      .table-deaths {
+        font-size: rem(35px);
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .table {
+    display: flex;
+    flex-direction: row-reverse;
+
+    .table-control {
+      align-self: flex-start;
+    }
+
+    .table-wrapper {
+      flex-direction: row;
+      align-self: center;
+      padding-bottom: 0;
+
+      .table-country {
+        display: none;
+      }
+
+
+      .table-cases,
+      .table-recovered,
+      .table-deaths {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+    }
+  }
+
+  .fullScreen {
+    flex-direction: column;
+
+    .table-control {
+      align-self: flex-end;
+    }
+    .table-wrapper {
+      flex-direction: column;
+      justify-content: space-between;
+      height: 25rem;
+      margin-top: 20%;
+
+      .table-country {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        font-size: rem(35px);
+      }
+
+      .table-cases,
+      .table-recovered,
+      .table-deaths {
+        font-size: rem(30px);
+      }
     }
   }
 }

@@ -61,11 +61,11 @@ img {
   "countries map table"
   "countries chart chart"
   "footer footer footer";
-  grid-template-columns: minmax(20%, 15rem) 1fr minmax(20%, 15rem);
+  grid-template-columns: 17rem 1fr minmax(20%, 15rem);
   grid-template-rows: 4rem 3rem 10rem 1fr 15rem 4rem;
 
   @media screen and (max-width: 1200px) {
-    grid-template-columns: minmax(20%, 15rem) 1fr minmax(20%, 10rem);
+    grid-template-columns: 17rem 1fr minmax(20%, 10rem);
     grid-template-rows: 4rem 3rem 10rem 1fr 15rem 4rem;
   }
 
@@ -76,7 +76,7 @@ img {
     "countries map map"
     "countries chart table"
     "footer footer footer";
-    grid-template-columns: minmax(20%, 13rem) 1fr minmax(20%, 15rem);
+    grid-template-columns: 15rem 1fr minmax(20%, 15rem);
     grid-template-rows: 4rem 3rem 10rem 1fr 17rem 4rem;
   }
 

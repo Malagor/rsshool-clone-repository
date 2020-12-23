@@ -38,7 +38,6 @@
 
   .countries-wrapper {
     width: 100%;
-    max-width: rem(500px);
     height: 100%;
     margin-top: rem(10px);
     margin-right: auto;
@@ -59,7 +58,7 @@
 
     .countries-list {
       width: 100%;
-      max-height: rem(400px);
+      max-height: rem(420px);
       margin-top: rem(10px);
       overflow-y: scroll;
 
@@ -143,6 +142,56 @@
       .btn-enabled {
         background-color: $color-background-dark;
         border: none;
+      }
+    }
+  }
+}
+
+
+@media screen and (max-width: 992px) {
+  .countries {
+    .countries-title {
+      font-size: rem(18px);
+    }
+
+    .country-name {
+      font-size: rem(16px);
+    }
+
+    .country-number {
+      font-size: rem(16px);
+    }
+
+    .toggle-cases {
+      font-size: rem(14px);
+    }
+  }
+
+  .fullScreen {
+    .countries-title {
+      font-size: rem(20px);
+    }
+
+    .country-name {
+      font-size: rem(16px);
+    }
+
+    .country-number {
+      font-size: rem(18px);
+    }
+
+    .toggle-cases {
+      font-size: rem(16px);
+    }
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .countries {
+    .countries-wrapper {
+      margin-top: 0;
+      .countries-list {
+        max-height: rem(130px);
       }
     }
   }

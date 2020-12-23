@@ -31,10 +31,16 @@
   width: 94%;
   height: 100%;
   padding: 0 23% 0 33%;
+  @media screen and (max-width: 992px) {
+    padding: 0 2%;
+  }
 }
 
 .chart__label {
   font-size: rem(14px);
+  @media screen and (max-width: 992px) {
+    font-size: rem(12px);
+  }
 }
 
 .chart__checkbox:checked,

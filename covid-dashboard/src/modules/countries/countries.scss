@@ -45,9 +45,7 @@
       width: 100%;
       height: rem(30px);
       font-size: rem(20px);
-      text-align: center;
-
-      @include Roboto($style: bold);
+      text-align: center;@include Roboto($style: bold);
     }
 
     .countries-input {
@@ -80,16 +78,12 @@
         }
 
         .country-name {
-          width: 100%;
-
-          @include Roboto($style: regular);
+          width: 100%;@include Roboto($style: regular);
         }
 
         .country-number {
           margin-right: rem(10px);
-          font-size: rem(18px);
-
-          @include Roboto($style: mono-bold);
+          font-size: rem(18px);@include Roboto($style: mono-bold);
         }
 
         .number-cases {
@@ -124,9 +118,7 @@
 
     .toggle-cases {
       display: flex;
-      margin-top: 10px;
-
-      @include Roboto($style: light);
+      margin-top: 10px;@include Roboto($style: light);
 
       .btn-cases {
         width: 33.33%;

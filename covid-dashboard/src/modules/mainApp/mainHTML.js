@@ -5,8 +5,9 @@ export const mainHTML = () => {
   <div class="fullScreen-overlay"></div>
   <div class="loader">
     <div class="loader__lines">
-      <div class="loader__lines_one loader__line"></div>
-      <div class="loader__lines_two loader__line"></div>
+      <div class="loader__line"></div>
+      <div class="loader__line"></div>
+      <div class="loader__line"></div>
     </div>
     <p class="loader__title">COVID-19 Dashboard</p>
   </div>

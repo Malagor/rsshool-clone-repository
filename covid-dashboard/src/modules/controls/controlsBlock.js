@@ -25,9 +25,6 @@ const getControlsBlockHTML = (wrapperForControls, mainEl) => {
       }
       toggleFullScreen(element.innerHTML === fullScreen, element);
       mainEl.classList.toggle('fullScreen');
-      document.body
-        .querySelector('.fullScreen-overlay')
-        .classList.toggle('activeFullScreen');
     }
   });
 };

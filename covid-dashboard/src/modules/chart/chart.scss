@@ -31,10 +31,17 @@
   width: 94%;
   height: 100%;
   padding: 0 23% 0 33%;
+  @media screen and (max-width: 1200px) {
+    justify-content: space-evenly;
+    padding: 0 0 0 5.9%;
+  }
 }
 
 .chart__label {
   font-size: rem(14px);
+  @media screen and (max-width: 992px) {
+    font-size: rem(12px);
+  }
 }
 
 .chart__checkbox:checked,
@@ -50,6 +57,9 @@
   padding-left: rem(28px);
   line-height: rem(20px);
   cursor: pointer;
+  @media screen and (max-width: 768px) {
+    padding-left: rem(20px);
+  }
 }
 
 .chart__checkbox:checked + .chart__label:before,
@@ -62,6 +72,14 @@
   height: rem(14px);
   background-color: rgba(255, 255, 255, 0.2);
   border: rem(1px) solid rgb(189, 189, 189);
+  @media screen and (max-width: 992px) {
+    width: rem(11px);
+    height: rem(11px);
+  }
+  @media screen and (max-width: 768px) {
+    width: rem(10px);
+    height: rem(10px);
+  }
 }
 
 .chart__checkbox:checked + .chart__label:before,
@@ -84,6 +102,10 @@
   height: rem(5px);
   border-radius: rem(1px);
   transform: rotate(-45deg);
+  @media screen and (max-width: 992px) {
+    top: rem(0px);
+    left: rem(2px);
+  }
 }
 
 #diseased:checked + .chart__label:after,

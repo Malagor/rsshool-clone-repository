@@ -24,16 +24,30 @@ footer.footer {
   justify-content: center;
   align-items: flex-end;
   height: rem(20px);
+  @media screen and (max-width: 768px) {
+    align-items: center;
+    height: rem(18px);
+  }
 }
 
 .footer__main-icon {
   width: rem(20px);
   height: rem(20px);
+  @media screen and (max-width: 768px) {
+    width: rem(18px);
+    height: rem(18px);
+  }
 }
 
 .footer__title,
 .footer__school {
   gap: rem(8px);
+  @media screen and (max-width: 992px) {
+    font-size: 1rem;
+  }
+  @media screen and (max-width: 768px) {
+    font-size: 0.7rem;
+  }
 }
 
 .footer__content {
@@ -45,6 +59,15 @@ footer.footer {
   display: flex;
 
   gap: rem(64px);
+  @media screen and (max-width: 992px) {
+    gap: rem(45px);
+  }
+  @media screen and (max-width: 768px) {
+    gap: rem(28px);
+  }
+  @media screen and (max-width: 550px) {
+    gap: rem(20px);
+  }
 }
 
 .footer__author__link {
@@ -57,6 +80,10 @@ footer.footer {
   &:hover {
     opacity: 1;
   }
+
+  @media screen and (max-width: 768px) {
+    font-size: 0.7rem;
+  }
 }
 
 .footer__github > svg {
@@ -64,6 +91,10 @@ footer.footer {
   height: rem(15px);
 
   fill: rgba(255, 255, 255, 1);
+  @media screen and (max-width: 768px) {
+    width: rem(13px);
+    height: rem(13px);
+  }
 }
 
 .footer__course__link > svg {
@@ -71,4 +102,8 @@ footer.footer {
   height: rem(30px);
 
   fill: rgba(255, 255, 255, 1);
+  @media screen and (max-width: 768px) {
+    width: rem(40px);
+    height: rem(23px);
+  }
 }

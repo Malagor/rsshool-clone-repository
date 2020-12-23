@@ -27,10 +27,10 @@ export function getChartConfig() {
               beginAtZero: true,
               callback(value) {
                 if (value >= 1000000) {
-                  return `${value / 1000000} m`;
+                  return `${value / 1000000}m`;
                 }
                 if (value >= 1000 && value < 1000000) {
-                  return `${value / 1000} k`;
+                  return `${value / 1000}k`;
                 }
                 return value;
               },

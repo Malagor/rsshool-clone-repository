@@ -3,6 +3,7 @@ import './chart.scss';
 import { chartHTML } from './chartHTML';
 import { getChartConfig } from './chartConfig';
 import { checkChart } from './checkChart';
+import { checkSizeChart } from './adaptiveChart';
 import { addData } from './addDataToChart';
 import { callbacksToolTips } from './chartDataForConfig';
 import { properties } from '../Properties/Properties';
@@ -70,13 +71,9 @@ const checkboxesEvents = (dt) => {
 };
 
 function changeChartData(data, title) {
-  const { type, population } = properties;
-  let { period } = properties;
-  if (typeof period === 'boolean') {
-    period = period ? 2 : false;
-  }
-  console.log(population);
+  const { type } = properties;
   const val = Object.entries(chartProps);
+
   val.map((it) => {
     it[1] = false;
     if (it[0].toString() === type) it[1] = true;
@@ -95,18 +92,7 @@ function changeChartData(data, title) {
   chart.config.data.labels = Object.keys(data[0][1]);
   chart.config.options.tooltips.callbacks = callbacksToolTips(title);
 
-  if (period) {
-    const averageWeeksPerMonthCount = 4;
-    chart.config.options.scales.xAxes[0].time.unit = 'day';
-    chart.config.options.scales.xAxes[0].time.displayFormats.day = 'MMM DD';
-    chart.config.options.scales.xAxes[0].ticks.maxTicksLimit = averageWeeksPerMonthCount;
-  } else {
-    const monthsCount = 12;
-    chart.config.options.scales.xAxes[0].time.unit = 'month';
-    chart.config.options.scales.xAxes[0].time.displayFormats.month = 'MMM YYYY';
-    chart.config.options.scales.xAxes[0].ticks.maxTicksLimit = monthsCount;
-  }
-
+  checkSizeChart(chart);
   chart.update();
   checkboxesEvents(data);
 }
@@ -117,13 +103,12 @@ const createChart = (el) => {
   chartHeader = document.querySelector('.chart__header');
   getControlsBlockHTML(chartHeader, el);
   checkboxes = document.querySelectorAll('.chart__label');
-  chart = new Chart(ctxt, getChartConfig(chart));
+  chart = new Chart(ctxt, getChartConfig());
+  window.addEventListener('resize', () => checkSizeChart(chart));
   document.getElementById('myChart').addEventListener('mousemove', (e) => {
     const targetCoords = e.target.getBoundingClientRect();
-    const yCoord = e.clientY - targetCoords.top;
-    const xCoord = e.clientX - targetCoords.left;
-    offsetY = yCoord;
-    offsetX = xCoord;
+    offsetY = e.clientY - targetCoords.top;
+    offsetX = e.clientX - targetCoords.left;
     if (
       offsetY < chart.chartArea.top ||
       offsetY > chart.chartArea.bottom ||

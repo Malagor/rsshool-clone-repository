@@ -11,6 +11,7 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    min-width: rem(250px);
 
     .countries-keyboard {
       width: rem(35px);
@@ -38,6 +39,7 @@
 
   .countries-wrapper {
     width: 100%;
+    min-width: rem(250px);
     max-width: rem(500px);
     height: 100%;
     margin-top: rem(10px);

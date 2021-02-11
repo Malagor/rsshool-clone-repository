@@ -1,0 +1,17 @@
+.btn {
+  width: 5rem;
+  height: 2rem;
+  color: white;
+  background: #f04b01;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn__css {
+  position: absolute;
+  top: 3.5rem;
+  right: 1rem;
+  z-index: 1;
+}

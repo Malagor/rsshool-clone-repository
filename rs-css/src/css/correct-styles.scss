@@ -1,0 +1,15 @@
+.hljs {
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+}
+
+.CodeMirror {
+  height: 100%;
+  font: inherit;
+  background-color: #fbf0e5;
+
+  .night & {
+    background-color: #d9dfd6;
+  }
+}

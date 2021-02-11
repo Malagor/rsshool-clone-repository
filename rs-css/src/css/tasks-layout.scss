@@ -1,0 +1,199 @@
+.screen__inner > * {
+  max-width: 300px;
+  position: relative;
+  bottom: 0;
+  height: 40%;
+  left: 0;
+  padding-top: 0;
+}
+
+.tag-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 300px;
+  margin: 0 2px;
+
+  &:first-child {
+    margin-left: 0;
+  }
+}
+
+wagon,
+platform,
+locomotive {
+  position: relative;
+  display: block;
+  width: 100%;
+  max-width: 300px;
+  background: bottom no-repeat;
+  background-size: contain;
+  transform-origin: bottom center;
+  transition: 0.2s;
+}
+
+locomotive {
+  background-image: url("../img/textures/locomotive.png");
+}
+
+wagon {
+  background-image: url("../img/textures/wagon_yellow.png");
+
+  &.blue {
+    background-image: url("../img/textures/wagon_blue.png");
+  }
+
+  &.green {
+    background-image: url("../img/textures/wagon_green.png");
+  }
+
+  &.red {
+    background-image: url("../img/textures/wagon_red.png");
+  }
+}
+
+
+platform {
+  background-image: url("../img/textures/platform.png");
+
+  &.blue {
+    background-image: url("../img/textures/platform_blue.png");
+  }
+
+  &.green {
+    background-image: url("../img/textures/platform_green.png");
+  }
+
+  &.yellow {
+    background-image: url("../img/textures/platform_yellow.png");
+  }
+
+  &.red {
+    background-image: url("../img/textures/platform_red.png");
+  }
+}
+
+
+wood,
+rocks,
+tank,
+coal {
+  position: absolute;
+  bottom: 100%;
+  left: 7.5%;
+  z-index: -1;
+  width: 85%;
+  padding-top: 24%;
+  background: bottom no-repeat;
+  background-size: contain;
+}
+
+wood {
+  background-image: url("../img/textures/wood_big.png");
+  padding-top: 21%;
+
+  &.small {
+    padding-top: 21%;
+    background-image: url("../img/textures/wood_small.png");
+  }
+
+  &.extra-small {
+    padding-top: 14%;
+    background-image: url("../img/textures/wood_small.png");
+  }
+}
+
+rocks {
+  background-image: url("../img/textures/stones_small.png");
+  border-radius: 27% 19% 50% 50%/84% 88% 0 0;
+
+  platform & {
+    background-image: url("../img/textures/stones_small.png");
+  }
+}
+
+coal {
+  background-image: url("../img/textures/coal_small.png");
+  border-radius: 50% 50% 50% 50% / 100% 100% 0 0;
+
+  platform & {
+    background-image: url("../img/textures/coal_small.png");
+  }
+}
+
+tank {
+  background-image: url("../img/textures/tank_big.png");
+
+  &.small {
+    bottom: 100%;
+    padding-top: 21%;
+    background-image: url("../img/textures/tank_small.png");
+  }
+
+  &.extra-small {
+    bottom: 100%;
+    padding-top: 14%;
+    background-image: url("../img/textures/tank_small.png");
+  }
+}
+
+.small {
+  bottom: 100%;
+  width: 40%;
+  padding-top: 12%;
+
+  wood & {
+    bottom: 90%;
+  }
+
+  &:nth-child(1) {
+    left: 6%;
+  }
+
+  &:nth-child(2) {
+    right: 6%;
+    left: auto;
+  }
+}
+
+.extra-small {
+  bottom: 100%;
+  width: 27%;
+  padding-top: 12%;
+
+  &:nth-child(1) {
+    left: 6%;
+  }
+
+  &:nth-child(2) {
+    right: 36%;
+    left: auto;
+  }
+
+  &:nth-child(3) {
+    right: 6%;
+    left: auto;
+  }
+}
+
+wagon > * {
+  bottom: 70%;
+  z-index: -1;
+}
+
+wood > * {
+  bottom: 90%;
+}
+
+
+locomotive,
+wagon,
+platform,
+wood,
+rocks,
+tank,
+coal {
+  &.highlight {
+    box-shadow: 0 0 5px 5px #f07818;
+  }
+}
+// ./Style of task elements

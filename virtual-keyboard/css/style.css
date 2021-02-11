@@ -1,0 +1,363 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box; }
+
+html,
+body {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background: black;
+  background-image: url(../img/pip-boy3.png);
+  background-size: 100% 100%;
+  background-position: 0 0; }
+
+#app {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%; }
+
+.screen {
+  animation: colorPulse 5s infinite ease-in-out;
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  padding: 1rem;
+  background: transparent;
+  font-size: 1.2rem;
+  border: 1px solid rgba(0, 255, 0, 0.3);
+  border-radius: 5px;
+  outline: none;
+  resize: none;
+  transition: 0.4s; }
+  .screen--hidden {
+    transform: translateY(-100%); }
+
+.keyboard {
+  position: relative;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 5px 0;
+  user-select: none;
+  transition: 0.4s; }
+  .keyboard--hidden {
+    transform: translateY(100%); }
+
+.keyboard__keys {
+  text-align: center; }
+
+.keyboard__key {
+  animation: colorPulse 5s infinite ease-in-out;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: top;
+  height: 35px;
+  width: 6%;
+  max-width: 90px;
+  margin: 1px;
+  padding: 0;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 128, 0, 0.74);
+  background: rgba(255, 255, 255, 0);
+  font-size: 1.05rem;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+  cursor: pointer; }
+  .keyboard__key:active, .keyboard__key.click {
+    background: rgba(255, 255, 255, 0.12); }
+  .keyboard__key--wide {
+    width: 12%; }
+  .keyboard__key--extra-wide {
+    width: 36%;
+    max-width: 500px; }
+  .keyboard__key--activatable::after {
+    content: '';
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    height: 8px;
+    width: 8px;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 50%; }
+  .mic .keyboard__key--active {
+    background-image: url("../img/button2-active.png") !important;
+    background-position: center center !important;
+    background-size: 100% 100% !important; }
+  .done .keyboard__key--active {
+    background-image: url("../img/button1-active.png") !important;
+    background-position: center center !important;
+    background-size: 100% 100% !important; }
+  .keyboard__key--active::after {
+    background: #08ff00; }
+  .keyboard__key--active-red {
+    background-image: url("../img/button3-active.png") !important;
+    background-position: center center !important;
+    background-size: 100% 100% !important; }
+    .keyboard__key--active-red::after {
+      background: #ff1d2e; }
+  .keyboard__key--dark {
+    background: rgba(0, 0, 0, 0.25); }
+  .keyboard__key--light {
+    background: rgba(0, 255, 0, 0.2); }
+
+.shift {
+  position: absolute;
+  top: 0;
+  right: 6%;
+  font-size: 0.7em;
+  opacity: 0.5; }
+
+.offset-left {
+  margin-left: 6%; }
+
+.start-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  transform: scale(1);
+  transition: 0.3s;
+  opacity: 1; }
+  .start-screen--hidden {
+    opacity: 0;
+    transform: scale(0); }
+
+.pip-boy {
+  position: absolute;
+  top: 12.5vh;
+  left: 30vw;
+  right: 18vw;
+  bottom: 30vh;
+  box-shadow: 0 0 5vmin 1vmin #000 inset;
+  box-sizing: border-box;
+  font-size: 20px;
+  overflow: hidden;
+  z-index: 1; }
+
+.pip-boy:before {
+  animation: wave 10s infinite ease-in-out;
+  content: "";
+  height: 20vh;
+  left: 0;
+  opacity: .5;
+  position: absolute;
+  right: 0;
+  z-index: 10; }
+
+.pip-boy:after {
+  background-image: linear-gradient(transparent, transparent 3px, #222);
+  background-size: 4px 4px;
+  bottom: 0;
+  content: "";
+  left: 0;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 2; }
+
+p:last-child:after {
+  animation: blink 1s infinite;
+  content: "_"; }
+
+@keyframes colorPulse {
+  0%, 100% {
+    color: #0c0; }
+  48%, 52% {
+    color: #090; }
+  50% {
+    color: #060; } }
+@keyframes wave {
+  0% {
+    box-shadow: 0 -10vh 20vh #0c0;
+    top: -100vh; }
+  48%, 52% {
+    box-shadow: 0 -10vh 20vh #090; }
+  50% {
+    box-shadow: 0 -10vh 20vh #060; }
+  100% {
+    box-shadow: 0 -10vh 20vh #0c0;
+    top: 200vh; } }
+@keyframes blink {
+  50% {
+    opacity: 0; } }
+.spec_key {
+  position: absolute;
+  bottom: 12vh;
+  left: 45vw;
+  width: 7vw;
+  height: 12vh;
+  box-sizing: border-box;
+  border-radius: 20px; }
+  .spec_key .keyboard__key {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    max-width: 100%;
+    border-radius: 50%;
+    border: none;
+    background: none; }
+
+.done {
+  bottom: 12.5vh;
+  left: 44.8vw;
+  width: 7vw;
+  height: 11vh; }
+
+.sound {
+  bottom: 12vh;
+  left: 52vw;
+  width: 7.4vw;
+  height: 12vh; }
+
+.mic {
+  bottom: 12.6vh;
+  left: 59.7vw;
+  width: 7vw;
+  height: 11vh; }
+
+.vaultboy {
+  background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/184191/vaultboy2.gif") no-repeat;
+  background-size: 42%;
+  background-position: center;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0; }
+
+.bar1, .bar2, .bar3, .bar4, .bar5, .bar6 {
+  width: 5vw;
+  height: 1vh;
+  background: #64d515;
+  position: absolute; }
+
+.bar1 {
+  left: 23vw;
+  top: 5vh; }
+
+.bar2 {
+  left: 23vw;
+  bottom: 6vh;
+  background: none;
+  border: 1px solid #64d515; }
+  .bar2::after {
+    content: "";
+    display: block;
+    height: 100%;
+    width: 50%;
+    background: #64d515; }
+
+.bar3 {
+  left: 9vw;
+  top: 23vh; }
+
+.bar4 {
+  right: 9vw;
+  top: 23vh; }
+
+.bar5 {
+  left: 9vw;
+  top: 40vh; }
+
+.bar6 {
+  right: 9vw;
+  top: 40vh; }
+
+@media screen and (max-width: 768px) {
+  body {
+    background-size: 124% 114%;
+    background-repeat: no-repeat;
+    background-position: center 0; }
+
+  .pip-boy {
+    top: 14.5vh;
+    left: 25vw;
+    right: 9vw;
+    bottom: 20vh; }
+
+  .done {
+    bottom: 1vh;
+    left: 44vw;
+    width: 8.5vw;
+    height: 12vh; }
+
+  .mic {
+    bottom: 1vh;
+    left: 62vw;
+    width: 8.5vw;
+    height: 12vh; }
+
+  .sound {
+    bottom: 1vh;
+    left: 53vw;
+    width: 8.5vw;
+    height: 12vh; } }
+@media screen and (max-width: 500px) {
+  body {
+    background-size: 138% 127%;
+    background-repeat: no-repeat;
+    background-position: center -12px; }
+
+  .pip-boy {
+    top: 12.5vh;
+    left: 21vw;
+    right: 4vw;
+    bottom: 14vh; }
+
+  .done {
+    bottom: -6vh;
+    left: 43.3vw;
+    width: 8.5vw;
+    height: 12vh; }
+
+  .mic {
+    bottom: -6vh;
+    left: 63.5vw;
+    width: 8.5vw;
+    height: 12vh; }
+
+  .sound {
+    bottom: -6.3vh;
+    left: 53.5vw;
+    width: 8.5vw;
+    height: 12vh; }
+
+  .screen {
+    padding: 0.3rem;
+    font-size: 0.8rem; }
+
+  .keyboard__key {
+    height: 30px; }
+
+  .keyboard__key .shift {
+    display: none; }
+
+  .keyboard__key--activatable::after {
+    top: 0;
+    right: 0; } }
+.contact {
+  position: absolute;
+  bottom: 3vh;
+  left: 1vw;
+  color: green;
+  font-family: Arial, sans-serif; }
+  .contact:after {
+    content: '_';
+    opacity: 1;
+    animation: blink 0.4s ease-in-out infinite; }
+
+@keyframes blink {
+  50% {
+    opacity: 0.5; } }
+
+/*# sourceMappingURL=style.css.map */
